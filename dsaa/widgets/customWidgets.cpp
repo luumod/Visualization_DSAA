@@ -81,7 +81,7 @@ selectionItem::selectionItem(QString name, QString info, QWidget *parent) :
     QWidget(parent){
     /* set labels */
     QFont titleFont = QFont("Corbel", 13);
-    QFontMetrics fm(titleFont);
+    QFontMetrics fm(titleFont); 
     qreal height = fm.lineSpacing();
     title = new QLabel(this);
     title->setText(name);
@@ -132,11 +132,13 @@ selectionItem::selectionItem(QString name, QString info, QWidget *parent) :
 void selectionItem::enterEvent(QEnterEvent *event){
     bgWidget->setStyleSheet("border-radius:5px;background-color:#0a000000");
     QParallelAnimationGroup *enter = new QParallelAnimationGroup(this);
+    //Control the indication bar animation effect.
     QPropertyAnimation *longer = new QPropertyAnimation(indicator, "geometry", this);
     longer->setStartValue(indicator->geometry());
     longer->setEndValue(QRectF(4, 0.25 * this->height(), 6, this->height() * 0.5));
     longer->setDuration(150);
     longer->setEasingCurve(QEasingCurve::OutBack);
+    //Control the opacity of the other area.
     QPropertyAnimation *fadeIn = new QPropertyAnimation(opac, "opacity", this);
     fadeIn->setStartValue(opac->opacity());
     fadeIn->setEndValue(0.99);

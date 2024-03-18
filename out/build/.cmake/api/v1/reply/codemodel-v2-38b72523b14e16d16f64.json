@@ -84,7 +84,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Visual_DSAA::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Visual_DSAA-Debug-1edecbb20039f329349f.json",
+					"jsonFile" : "target-Visual_DSAA-Debug-ca7d3d8f9f62447a5561.json",
 					"name" : "Visual_DSAA",
 					"projectIndex" : 0
 				},
@@ -105,7 +105,7 @@
 				{
 					"directoryIndex" : 2,
 					"id" : "dsaa_widgets::@ebb896fff8b34f40fafc",
-					"jsonFile" : "target-dsaa_widgets-Debug-52f14eafd13b4d6094ba.json",
+					"jsonFile" : "target-dsaa_widgets-Debug-f5b326a5f96a1472d6ad.json",
 					"name" : "dsaa_widgets",
 					"projectIndex" : 0
 				},
