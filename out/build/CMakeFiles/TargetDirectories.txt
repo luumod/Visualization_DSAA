@@ -1,0 +1,12 @@
+F:/code/Visual_DSAA/out/build/CMakeFiles/Visual_DSAA.dir
+F:/code/Visual_DSAA/out/build/CMakeFiles/edit_cache.dir
+F:/code/Visual_DSAA/out/build/CMakeFiles/rebuild_cache.dir
+F:/code/Visual_DSAA/out/build/CMakeFiles/Visual_DSAA_autogen_timestamp_deps.dir
+F:/code/Visual_DSAA/out/build/CMakeFiles/Visual_DSAA_autogen.dir
+F:/code/Visual_DSAA/out/build/dsaa/CMakeFiles/edit_cache.dir
+F:/code/Visual_DSAA/out/build/dsaa/CMakeFiles/rebuild_cache.dir
+F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets.dir
+F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/edit_cache.dir
+F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/rebuild_cache.dir
+F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen_timestamp_deps.dir
+F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen.dir
