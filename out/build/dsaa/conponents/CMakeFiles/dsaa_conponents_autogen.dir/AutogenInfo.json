@@ -118,6 +118,12 @@
 			null
 		],
 		[
+			"F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h",
+			"Mu",
+			"EWIEGA46WW/moc_framelesswindow.cpp",
+			null
+		],
+		[
 			"F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.h",
 			"Mu",
 			"EWIEGA46WW/moc_horizontalValueAdjuster.cpp",
@@ -195,6 +201,7 @@
 	[
 		[ "F:/code/Visual_DSAA/dsaa/conponents/bigIconButton.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/conponents/customIcon.cpp", "Mu", null ],
+		[ "F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.cpp", "Mu", null ],
 		[
 			"F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.cpp",
 			"Mu",

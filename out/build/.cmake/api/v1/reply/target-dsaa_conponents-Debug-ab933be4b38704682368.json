@@ -43,7 +43,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 21,
+				"line" : 24,
 				"parent" : 0
 			},
 			{
@@ -192,18 +192,19 @@
 				5,
 				8,
 				9,
-				12
+				12,
+				14
 			]
 		}
 	],
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "dsaa_conponents_autogen::@f9dd876a07ef298f9b00"
+			"id" : "dsaa_conponents_autogen_timestamp_deps::@f9dd876a07ef298f9b00"
 		},
 		{
-			"id" : "dsaa_conponents_autogen_timestamp_deps::@f9dd876a07ef298f9b00"
+			"backtrace" : 0,
+			"id" : "dsaa_conponents_autogen::@f9dd876a07ef298f9b00"
 		}
 	],
 	"id" : "dsaa_conponents::@f9dd876a07ef298f9b00",
@@ -226,7 +227,8 @@
 				5,
 				8,
 				9,
-				12
+				12,
+				14
 			]
 		},
 		{
@@ -238,21 +240,22 @@
 				6,
 				7,
 				10,
-				11
+				11,
+				13
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				13
+				15
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				14
+				16
 			]
 		}
 	],
@@ -329,6 +332,17 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "dsaa/conponents/textButton.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "dsaa/conponents/framelesswindow.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "dsaa/conponents/framelesswindow.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

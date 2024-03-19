@@ -8,6 +8,8 @@ public:
 	~MainWindow();
 
 	void init();
+
+	void testFrameLessWindow();
 private:
 	customIcon* icon_settings{nullptr};
 	customIcon* icon_back{ nullptr };

@@ -138,6 +138,8 @@ dsaa/widgets/dsaa_widgets_autogen/timestamp: \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgConfigVersion.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgConfigVersionImpl.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgDependencies.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgTargets-debug.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgTargets-relwithdebinfo.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgTargets.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgVersionlessTargets.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsAdditionalTargetInfo.cmake \
@@ -155,6 +157,12 @@ dsaa/widgets/dsaa_widgets_autogen/timestamp: \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsDependencies.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
   F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateAdditionalTargetInfo.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfig.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfigVersion.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfigVersionImpl.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateTargets.cmake \
+  F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateVersionlessTargets.cmake \
   F:/code/Visual_DSAA/dsaa/widgets/CMakeLists.txt \
   F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp \
   F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h

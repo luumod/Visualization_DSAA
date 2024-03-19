@@ -16,7 +16,10 @@ add_library(dsaa_conponents STATIC
     "textInputItem.cpp"
     "textInputItem.h"
     "textButton.h"
-    "textButton.cpp")
+    "textButton.cpp"
+
+    "framelesswindow.h"
+    "framelesswindow.cpp")
 
 target_link_libraries(dsaa_conponents PRIVATE
     Qt6::Core

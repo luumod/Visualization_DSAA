@@ -425,6 +425,8 @@ dsaa/conponents/dsaa_conponents_autogen/timestamp: \
   F:/code/Visual_DSAA/dsaa/conponents/bigIconButton.h \
   F:/code/Visual_DSAA/dsaa/conponents/customIcon.cpp \
   F:/code/Visual_DSAA/dsaa/conponents/customIcon.h \
+  F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.cpp \
+  F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
   F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.cpp \
   F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.h \
   F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.cpp \
