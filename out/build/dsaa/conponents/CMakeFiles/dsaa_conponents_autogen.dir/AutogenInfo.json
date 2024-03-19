@@ -130,6 +130,24 @@
 			null
 		],
 		[
+			"F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h",
+			"Mu",
+			"EWIEGA46WW/moc_pagewidget.cpp",
+			null
+		],
+		[
+			"F:/code/Visual_DSAA/dsaa/conponents/pushbutton.h",
+			"Mu",
+			"EWIEGA46WW/moc_pushbutton.cpp",
+			null
+		],
+		[
+			"F:/code/Visual_DSAA/dsaa/conponents/sidebar.h",
+			"Mu",
+			"EWIEGA46WW/moc_sidebar.cpp",
+			null
+		],
+		[
 			"F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.h",
 			"Mu",
 			"EWIEGA46WW/moc_singleSelectGroup.cpp",
@@ -207,6 +225,9 @@
 			"Mu",
 			null
 		],
+		[ "F:/code/Visual_DSAA/dsaa/conponents/pagewidget.cpp", "Mu", null ],
+		[ "F:/code/Visual_DSAA/dsaa/conponents/pushbutton.cpp", "Mu", null ],
+		[ "F:/code/Visual_DSAA/dsaa/conponents/sidebar.cpp", "Mu", null ],
 		[
 			"F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.cpp",
 			"Mu",

@@ -429,6 +429,12 @@ dsaa/conponents/dsaa_conponents_autogen/timestamp: \
   F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
   F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.cpp \
   F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.h \
+  F:/code/Visual_DSAA/dsaa/conponents/pagewidget.cpp \
+  F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h \
+  F:/code/Visual_DSAA/dsaa/conponents/pushbutton.cpp \
+  F:/code/Visual_DSAA/dsaa/conponents/pushbutton.h \
+  F:/code/Visual_DSAA/dsaa/conponents/sidebar.cpp \
+  F:/code/Visual_DSAA/dsaa/conponents/sidebar.h \
   F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.cpp \
   F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.h \
   F:/code/Visual_DSAA/dsaa/conponents/textButton.cpp \

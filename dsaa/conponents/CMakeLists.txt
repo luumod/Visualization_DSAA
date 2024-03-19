@@ -19,7 +19,13 @@ add_library(dsaa_conponents STATIC
     "textButton.cpp"
 
     "framelesswindow.h"
-    "framelesswindow.cpp")
+    "framelesswindow.cpp" 
+    "sidebar.cpp" 
+    "sidebar.h"
+    "pushbutton.h"
+    "pushbutton.cpp"
+    "pagewidget.h"
+    "pagewidget.cpp")
 
 target_link_libraries(dsaa_conponents PRIVATE
     Qt6::Core
