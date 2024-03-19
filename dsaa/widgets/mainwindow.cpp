@@ -1,6 +1,7 @@
 #include "mainwindow.h"
-#include "customWidgets.h"
 #include "common.h"
+#include "customIcon.h"
+#include "singleSelectGroup.h"
 
 MainWindow::MainWindow(QWidget* parent)
 	:QMainWindow(parent){

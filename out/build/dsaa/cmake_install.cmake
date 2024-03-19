@@ -35,6 +35,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("F:/code/Visual_DSAA/out/build/dsaa/widgets/cmake_install.cmake")
+  include("F:/code/Visual_DSAA/out/build/dsaa/conponents/cmake_install.cmake")
 
 endif()
 

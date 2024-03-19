@@ -68,7 +68,35 @@
 		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgConfig.cmake",
 		"D:/software/VS2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgDependencies.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6ConfigExtras.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicCMakeVersionHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6Targets.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6VersionlessTargets.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtFeature.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtFeatureCommon.cmake",
+		"D:/software/VS2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CheckCXXCompilerFlag.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicFinalizerHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicTargetHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicWalkLibsHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicFindPackageHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/QtPublicCMakeHelpers.cmake",
+		"D:/software/VS2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfigVersion.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfigVersionImpl.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfig.cmake",
+		"D:/software/VS2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateTargets.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateAdditionalTargetInfo.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateVersionlessTargets.cmake",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgTargets.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgTargets-debug.cmake",
+		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgTargets-relwithdebinfo.cmake",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgAdditionalTargetInfo.cmake",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6Svg/Qt6SvgVersionlessTargets.cmake"
 	],
@@ -77,12 +105,6 @@
 	"DEP_FILE_RULE_NAME" : "dsaa_widgets_autogen/timestamp",
 	"HEADERS" : 
 	[
-		[
-			"F:/code/Visual_DSAA/dsaa/widgets/customWidgets.h",
-			"Mu",
-			"EWIEGA46WW/moc_customWidgets.cpp",
-			null
-		],
 		[
 			"F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h",
 			"Mu",
@@ -117,6 +139,7 @@
 	[
 		"F:/code/Visual_DSAA/dsaa",
 		"F:/code/Visual_DSAA/dsaa/common",
+		"F:/code/Visual_DSAA/dsaa/conponents",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/include",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/mkspecs/win32-msvc",
@@ -141,7 +164,6 @@
 	"SETTINGS_FILE" : "F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "F:/code/Visual_DSAA/dsaa/widgets/customWidgets.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp", "Mu", null ]
 	],
 	"VERBOSITY" : 0

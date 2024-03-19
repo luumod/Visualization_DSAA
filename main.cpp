@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <QWidget>
 #include <QString>
-#include "widgets/customWidgets.h"
 #include "widgets/mainwindow.h"
 
 int main(int argc, char* argv[]) {

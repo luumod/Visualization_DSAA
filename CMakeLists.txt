@@ -9,21 +9,16 @@ set(CMAKE_AUTORCC ON)
 
 include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/dsaa)
 
-# file(GLOB_RECURSE Widget_Header ${CMAKE_CURRENT_SOURCE_DIR}/dsaa/widget/ *.h)
-# file(GLOB_RECURSE Widget_Src ${CMAKE_CURRENT_SOURCE_DIR}/dsaa/widget/ *.cpp)
-# message("****************** ", ${CMAKE_CURRENT_SOURCE_DIR})
-# message("****************** ", ${Widget_Header})
-# message("****************** ", ${Widget_Src})
-add_executable(Visual_DSAA "main.cpp" "dsaa/common/common.h")
+add_executable(Visual_DSAA "main.cpp")
 
-find_package(Qt6 COMPONENTS Core Widgets Svg REQUIRED)
+find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
 
 add_subdirectory(dsaa)
 
 target_link_libraries(Visual_DSAA
     PRIVATE
     dsaa_widgets
+    dsaa_conponents
     Qt6::Core
     Qt6::Widgets
-    Qt6::Svg
 )
