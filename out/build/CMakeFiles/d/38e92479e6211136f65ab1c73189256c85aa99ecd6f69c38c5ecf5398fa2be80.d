@@ -429,6 +429,8 @@ dsaa/conponents/dsaa_conponents_autogen/timestamp: \
   F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
   F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.cpp \
   F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.h \
+  F:/code/Visual_DSAA/dsaa/conponents/lineeditwidget.cpp \
+  F:/code/Visual_DSAA/dsaa/conponents/lineeditwidget.h \
   F:/code/Visual_DSAA/dsaa/conponents/pagewidget.cpp \
   F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h \
   F:/code/Visual_DSAA/dsaa/conponents/pushbutton.cpp \

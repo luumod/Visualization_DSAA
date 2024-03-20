@@ -25,7 +25,9 @@ add_library(dsaa_conponents STATIC
     "pushbutton.h"
     "pushbutton.cpp"
     "pagewidget.h"
-    "pagewidget.cpp")
+    "pagewidget.cpp" 
+    "lineeditwidget.cpp" 
+    "lineeditwidget.h")
 
 target_link_libraries(dsaa_conponents PRIVATE
     Qt6::Core

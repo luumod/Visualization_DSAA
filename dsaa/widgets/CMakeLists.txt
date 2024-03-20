@@ -7,7 +7,7 @@ find_package(Qt6 COMPONENTS Core Widgets Svg REQUIRED)
 
 add_library(dsaa_widgets STATIC
     "mainwindow.cpp" 
-    "mainwindow.h" )
+    "mainwindow.h"  "aboutpage.cpp" "aboutpage.h")
 
 target_link_libraries(dsaa_widgets PRIVATE
     Qt6::Core

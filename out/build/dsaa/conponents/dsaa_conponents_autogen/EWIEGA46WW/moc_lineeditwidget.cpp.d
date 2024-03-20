@@ -1,5 +1,4 @@
-F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_mainwindow.cpp: F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/QList \
+F:/code/Visual_DSAA/out/build/dsaa/conponents/dsaa_conponents_autogen/EWIEGA46WW/moc_lineeditwidget.cpp: F:/code/Visual_DSAA/dsaa/conponents/lineeditwidget.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qalgorithms.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qanystringview.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qarraydata.h \
@@ -74,7 +73,6 @@ F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_m
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qfont.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qfontinfo.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qfontmetrics.h \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qicon.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qimage.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qkeysequence.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qpaintdevice.h \
@@ -90,15 +88,8 @@ F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_m
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qtransform.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs_win.h \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QMainWindow \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QWidget \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qmainwindow.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qsizepolicy.h \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtabwidget.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtwidgets-config.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qwidget.h \
-  F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
-  F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h \
-  F:/code/Visual_DSAA/dsaa/conponents/sidebar.h \
-  F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qwidget.h

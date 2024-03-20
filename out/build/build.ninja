@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: Visual_DSAA
-# Configurations: Debug
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Debug
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,18 +49,18 @@ cmake_ninja_workdir = F$:\code\Visual_DSAA\out\build\
 
 build cmake_object_order_depends_target_Visual_DSAA: phony || Visual_DSAA_autogen Visual_DSAA_autogen\mocs_compilation.cpp Visual_DSAA_autogen\timestamp Visual_DSAA_autogen_timestamp_deps cmake_object_order_depends_target_dsaa_conponents cmake_object_order_depends_target_dsaa_widgets
 
-build CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj: CXX_COMPILER__Visual_DSAA_unscanned_Debug F$:\code\Visual_DSAA\out\build\Visual_DSAA_autogen\mocs_compilation.cpp || cmake_object_order_depends_target_Visual_DSAA
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj: CXX_COMPILER__Visual_DSAA_unscanned_Release F$:\code\Visual_DSAA\out\build\Visual_DSAA_autogen\mocs_compilation.cpp || cmake_object_order_depends_target_Visual_DSAA
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\Visual_DSAA_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:W0
   OBJECT_DIR = CMakeFiles\Visual_DSAA.dir
   OBJECT_FILE_DIR = CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen
   TARGET_COMPILE_PDB = CMakeFiles\Visual_DSAA.dir\
   TARGET_PDB = Visual_DSAA.pdb
 
-build CMakeFiles\Visual_DSAA.dir\main.cpp.obj: CXX_COMPILER__Visual_DSAA_unscanned_Debug F$:\code\Visual_DSAA\main.cpp || cmake_object_order_depends_target_Visual_DSAA
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build CMakeFiles\Visual_DSAA.dir\main.cpp.obj: CXX_COMPILER__Visual_DSAA_unscanned_Release F$:\code\Visual_DSAA\main.cpp || cmake_object_order_depends_target_Visual_DSAA
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\Visual_DSAA_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:W0
   OBJECT_DIR = CMakeFiles\Visual_DSAA.dir
   OBJECT_FILE_DIR = CMakeFiles\Visual_DSAA.dir
@@ -75,10 +75,10 @@ build CMakeFiles\Visual_DSAA.dir\main.cpp.obj: CXX_COMPILER__Visual_DSAA_unscann
 #############################################
 # Link the executable Visual_DSAA.exe
 
-build Visual_DSAA.exe: CXX_EXECUTABLE_LINKER__Visual_DSAA_Debug CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj CMakeFiles\Visual_DSAA.dir\main.cpp.obj | dsaa\widgets\dsaa_widgets.lib dsaa\conponents\dsaa_conponents.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Guid.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib || Visual_DSAA_autogen Visual_DSAA_autogen_timestamp_deps dsaa\conponents\dsaa_conponents.lib dsaa\widgets\dsaa_widgets.lib
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = dsaa\widgets\dsaa_widgets.lib  dsaa\conponents\dsaa_conponents.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Guid.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib  mpr.lib  userenv.lib  d3d11.lib  dxgi.lib  dxguid.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+build Visual_DSAA.exe: CXX_EXECUTABLE_LINKER__Visual_DSAA_Release CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj CMakeFiles\Visual_DSAA.dir\main.cpp.obj | dsaa\widgets\dsaa_widgets.lib dsaa\conponents\dsaa_conponents.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Gui.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib || Visual_DSAA_autogen Visual_DSAA_autogen_timestamp_deps dsaa\conponents\dsaa_conponents.lib dsaa\widgets\dsaa_widgets.lib
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
+  LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
+  LINK_LIBRARIES = dsaa\widgets\dsaa_widgets.lib  dsaa\conponents\dsaa_conponents.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Gui.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib  mpr.lib  userenv.lib  d3d11.lib  dxgi.lib  dxguid.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\Visual_DSAA.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -127,7 +127,7 @@ build Visual_DSAA_autogen: phony CMakeFiles\Visual_DSAA_autogen Visual_DSAA_auto
 # Custom command for Visual_DSAA_autogen\timestamp
 
 build Visual_DSAA_autogen\timestamp Visual_DSAA_autogen\mocs_compilation.cpp | ${cmake_ninja_workdir}Visual_DSAA_autogen\timestamp ${cmake_ninja_workdir}Visual_DSAA_autogen\mocs_compilation.cpp: CUSTOM_COMMAND F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe || Visual_DSAA_autogen_timestamp_deps dsaa\conponents\dsaa_conponents.lib dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps dsaa\widgets\dsaa_widgets.lib dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D F:\code\Visual_DSAA\out\build && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_autogen F:/code/Visual_DSAA/out/build/CMakeFiles/Visual_DSAA_autogen.dir/AutogenInfo.json Debug && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E touch F:/code/Visual_DSAA/out/build/Visual_DSAA_autogen/timestamp && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile F:/code/Visual_DSAA F:/code/Visual_DSAA F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build/Visual_DSAA_autogen/deps F:/code/Visual_DSAA/out/build/CMakeFiles/d/01de13fc232c94095d6ce6611973b0906b8cf1a435263e30cc4dd15efb4c5aac.d"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D F:\code\Visual_DSAA\out\build && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_autogen F:/code/Visual_DSAA/out/build/CMakeFiles/Visual_DSAA_autogen.dir/AutogenInfo.json Release && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E touch F:/code/Visual_DSAA/out/build/Visual_DSAA_autogen/timestamp && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile F:/code/Visual_DSAA F:/code/Visual_DSAA F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build/Visual_DSAA_autogen/deps F:/code/Visual_DSAA/out/build/CMakeFiles/d/01de13fc232c94095d6ce6611973b0906b8cf1a435263e30cc4dd15efb4c5aac.d"
   DESC = Automatic MOC for target Visual_DSAA
   depfile = F:/code/Visual_DSAA/out/build/CMakeFiles/d/01de13fc232c94095d6ce6611973b0906b8cf1a435263e30cc4dd15efb4c5aac.d
   restat = 1
@@ -136,7 +136,7 @@ build Visual_DSAA_autogen\timestamp Visual_DSAA_autogen\mocs_compilation.cpp | $
 #############################################
 # Phony custom command for CMakeFiles\Visual_DSAA_autogen_timestamp_deps
 
-build CMakeFiles\Visual_DSAA_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\Visual_DSAA_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib dsaa\widgets\dsaa_widgets.lib dsaa\conponents\dsaa_conponents.lib || dsaa\conponents\dsaa_conponents.lib dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps dsaa\widgets\dsaa_widgets.lib dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
+build CMakeFiles\Visual_DSAA_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\Visual_DSAA_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib dsaa\widgets\dsaa_widgets.lib dsaa\conponents\dsaa_conponents.lib || dsaa\conponents\dsaa_conponents.lib dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps dsaa\widgets\dsaa_widgets.lib dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
 
 
 #############################################
@@ -186,18 +186,27 @@ build dsaa\rebuild_cache: phony dsaa\CMakeFiles\rebuild_cache.util
 
 build cmake_object_order_depends_target_dsaa_widgets: phony || dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen\mocs_compilation.cpp dsaa\widgets\dsaa_widgets_autogen\timestamp dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
 
-build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen\mocs_compilation.cpp.obj: CXX_COMPILER__dsaa_widgets_unscanned_Debug F$:\code\Visual_DSAA\out\build\dsaa\widgets\dsaa_widgets_autogen\mocs_compilation.cpp || cmake_object_order_depends_target_dsaa_widgets
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen\mocs_compilation.cpp.obj: CXX_COMPILER__dsaa_widgets_unscanned_Release F$:\code\Visual_DSAA\out\build\dsaa\widgets\dsaa_widgets_autogen\mocs_compilation.cpp || cmake_object_order_depends_target_dsaa_widgets
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\widgets\dsaa_widgets_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\widgets\..\common -external:IF:\code\Visual_DSAA\dsaa\widgets\..\conponents -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
   OBJECT_FILE_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen
   TARGET_COMPILE_PDB = dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets.pdb
   TARGET_PDB = dsaa\widgets\dsaa_widgets.pdb
 
-build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj: CXX_COMPILER__dsaa_widgets_unscanned_Debug F$:\code\Visual_DSAA\dsaa\widgets\mainwindow.cpp || cmake_object_order_depends_target_dsaa_widgets
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj: CXX_COMPILER__dsaa_widgets_unscanned_Release F$:\code\Visual_DSAA\dsaa\widgets\mainwindow.cpp || cmake_object_order_depends_target_dsaa_widgets
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+  INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\widgets\dsaa_widgets_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\widgets\..\common -external:IF:\code\Visual_DSAA\dsaa\widgets\..\conponents -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
+  OBJECT_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
+  OBJECT_FILE_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
+  TARGET_COMPILE_PDB = dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets.pdb
+  TARGET_PDB = dsaa\widgets\dsaa_widgets.pdb
+
+build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\aboutpage.cpp.obj: CXX_COMPILER__dsaa_widgets_unscanned_Release F$:\code\Visual_DSAA\dsaa\widgets\aboutpage.cpp || cmake_object_order_depends_target_dsaa_widgets
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\widgets\dsaa_widgets_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\widgets\..\common -external:IF:\code\Visual_DSAA\dsaa\widgets\..\conponents -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
   OBJECT_FILE_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
@@ -212,8 +221,8 @@ build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj: CXX_COMPILER_
 #############################################
 # Link the static library dsaa\widgets\dsaa_widgets.lib
 
-build dsaa\widgets\dsaa_widgets.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Debug dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen\mocs_compilation.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj || dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
-  LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1
+build dsaa\widgets\dsaa_widgets.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Release dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen\mocs_compilation.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\aboutpage.cpp.obj || dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
+  LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
   POST_BUILD = cd .
@@ -262,7 +271,7 @@ build dsaa\widgets\dsaa_widgets_autogen: phony dsaa\widgets\CMakeFiles\dsaa_widg
 # Custom command for dsaa\widgets\dsaa_widgets_autogen\timestamp
 
 build dsaa\widgets\dsaa_widgets_autogen\timestamp dsaa\widgets\dsaa_widgets_autogen\mocs_compilation.cpp | ${cmake_ninja_workdir}dsaa\widgets\dsaa_widgets_autogen\timestamp ${cmake_ninja_workdir}dsaa\widgets\dsaa_widgets_autogen\mocs_compilation.cpp: CUSTOM_COMMAND F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe || dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D F:\code\Visual_DSAA\out\build\dsaa\widgets && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_autogen F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen.dir/AutogenInfo.json Debug && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E touch F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/timestamp && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile F:/code/Visual_DSAA F:/code/Visual_DSAA/dsaa/widgets F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build/dsaa/widgets F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/deps F:/code/Visual_DSAA/out/build/CMakeFiles/d/95bf85d175909f7ec728c14f774399d5d5c962912e0d01a8ddadede85aba2b66.d"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D F:\code\Visual_DSAA\out\build\dsaa\widgets && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_autogen F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen.dir/AutogenInfo.json Release && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E touch F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/timestamp && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile F:/code/Visual_DSAA F:/code/Visual_DSAA/dsaa/widgets F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build/dsaa/widgets F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/deps F:/code/Visual_DSAA/out/build/CMakeFiles/d/95bf85d175909f7ec728c14f774399d5d5c962912e0d01a8ddadede85aba2b66.d"
   DESC = Automatic MOC for target dsaa_widgets
   depfile = F:/code/Visual_DSAA/out/build/CMakeFiles/d/95bf85d175909f7ec728c14f774399d5d5c962912e0d01a8ddadede85aba2b66.d
   restat = 1
@@ -271,7 +280,7 @@ build dsaa\widgets\dsaa_widgets_autogen\timestamp dsaa\widgets\dsaa_widgets_auto
 #############################################
 # Phony custom command for dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps
 
-build dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib
+build dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################
@@ -293,99 +302,108 @@ build dsaa\widgets\CMakeFiles\dsaa_widgets_autogen | ${cmake_ninja_workdir}dsaa\
 
 build cmake_object_order_depends_target_dsaa_conponents: phony || dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen\mocs_compilation.cpp dsaa\conponents\dsaa_conponents_autogen\timestamp dsaa\conponents\dsaa_conponents_autogen_timestamp_deps
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen\mocs_compilation.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\mocs_compilation.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen\mocs_compilation.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\mocs_compilation.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customIcon.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\customIcon.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customIcon.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\customIcon.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\singleSelectGroup.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\singleSelectGroup.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\singleSelectGroup.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\singleSelectGroup.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\bigIconButton.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\bigIconButton.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\bigIconButton.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\bigIconButton.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\horizontalValueAdjuster.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\horizontalValueAdjuster.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\horizontalValueAdjuster.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\horizontalValueAdjuster.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textInputItem.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\textInputItem.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textInputItem.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\textInputItem.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textButton.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\textButton.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textButton.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\textButton.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\framelesswindow.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\framelesswindow.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\framelesswindow.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\framelesswindow.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\sidebar.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\sidebar.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\sidebar.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\sidebar.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pushbutton.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\pushbutton.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pushbutton.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\pushbutton.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Debug F$:\code\Visual_DSAA\dsaa\conponents\pagewidget.cpp || cmake_object_order_depends_target_dsaa_conponents
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\pagewidget.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+  INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
+  OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
+  OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
+  TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
+  TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
+
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\lineeditwidget.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\lineeditwidget.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\common -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
@@ -400,8 +418,8 @@ build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj: CXX_COM
 #############################################
 # Link the static library dsaa\conponents\dsaa_conponents.lib
 
-build dsaa\conponents\dsaa_conponents.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_conponents_Debug dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen\mocs_compilation.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customIcon.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\singleSelectGroup.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\bigIconButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\horizontalValueAdjuster.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textInputItem.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\framelesswindow.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\sidebar.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pushbutton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj || dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps
-  LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1
+build dsaa\conponents\dsaa_conponents.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_conponents_Release dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen\mocs_compilation.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customIcon.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\singleSelectGroup.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\bigIconButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\horizontalValueAdjuster.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textInputItem.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\framelesswindow.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\sidebar.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pushbutton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\lineeditwidget.cpp.obj || dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps
+  LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
   POST_BUILD = cd .
@@ -450,7 +468,7 @@ build dsaa\conponents\dsaa_conponents_autogen: phony dsaa\conponents\CMakeFiles\
 # Custom command for dsaa\conponents\dsaa_conponents_autogen\timestamp
 
 build dsaa\conponents\dsaa_conponents_autogen\timestamp dsaa\conponents\dsaa_conponents_autogen\mocs_compilation.cpp | ${cmake_ninja_workdir}dsaa\conponents\dsaa_conponents_autogen\timestamp ${cmake_ninja_workdir}dsaa\conponents\dsaa_conponents_autogen\mocs_compilation.cpp: CUSTOM_COMMAND F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe || dsaa\conponents\dsaa_conponents_autogen_timestamp_deps
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D F:\code\Visual_DSAA\out\build\dsaa\conponents && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_autogen F:/code/Visual_DSAA/out/build/dsaa/conponents/CMakeFiles/dsaa_conponents_autogen.dir/AutogenInfo.json Debug && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E touch F:/code/Visual_DSAA/out/build/dsaa/conponents/dsaa_conponents_autogen/timestamp && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile F:/code/Visual_DSAA F:/code/Visual_DSAA/dsaa/conponents F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build/dsaa/conponents F:/code/Visual_DSAA/out/build/dsaa/conponents/dsaa_conponents_autogen/deps F:/code/Visual_DSAA/out/build/CMakeFiles/d/38e92479e6211136f65ab1c73189256c85aa99ecd6f69c38c5ecf5398fa2be80.d"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D F:\code\Visual_DSAA\out\build\dsaa\conponents && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_autogen F:/code/Visual_DSAA/out/build/dsaa/conponents/CMakeFiles/dsaa_conponents_autogen.dir/AutogenInfo.json Release && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E touch F:/code/Visual_DSAA/out/build/dsaa/conponents/dsaa_conponents_autogen/timestamp && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_transform_depfile Ninja gccdepfile F:/code/Visual_DSAA F:/code/Visual_DSAA/dsaa/conponents F:/code/Visual_DSAA/out/build F:/code/Visual_DSAA/out/build/dsaa/conponents F:/code/Visual_DSAA/out/build/dsaa/conponents/dsaa_conponents_autogen/deps F:/code/Visual_DSAA/out/build/CMakeFiles/d/38e92479e6211136f65ab1c73189256c85aa99ecd6f69c38c5ecf5398fa2be80.d"
   DESC = Automatic MOC for target dsaa_conponents
   depfile = F:/code/Visual_DSAA/out/build/CMakeFiles/d/38e92479e6211136f65ab1c73189256c85aa99ecd6f69c38c5ecf5398fa2be80.d
   restat = 1
@@ -459,7 +477,7 @@ build dsaa\conponents\dsaa_conponents_autogen\timestamp dsaa\conponents\dsaa_con
 #############################################
 # Phony custom command for dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib
+build dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################
@@ -540,7 +558,7 @@ build CMakeCache.txt CMakeFiles\3.28.0-msvc1\CMakeCCompiler.cmake CMakeFiles\3.2
 # Clean additional files.
 
 build CMakeFiles\clean.additional: CLEAN_ADDITIONAL
-  CONFIG = Debug
+  CONFIG = Release
 
 
 #############################################

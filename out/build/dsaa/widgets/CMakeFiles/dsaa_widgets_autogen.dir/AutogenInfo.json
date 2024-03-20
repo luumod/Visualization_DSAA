@@ -106,6 +106,12 @@
 	"HEADERS" : 
 	[
 		[
+			"F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h",
+			"Mu",
+			"EWIEGA46WW/moc_aboutpage.cpp",
+			null
+		],
+		[
 			"F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h",
 			"Mu",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -119,6 +125,7 @@
 	[
 		"QT_CORE_LIB",
 		"QT_GUI_LIB",
+		"QT_NO_DEBUG",
 		"QT_SVG_LIB",
 		"QT_WIDGETS_LIB",
 		"UNICODE",
@@ -164,6 +171,7 @@
 	"SETTINGS_FILE" : "F:/code/Visual_DSAA/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp", "Mu", null ]
 	],
 	"VERBOSITY" : 0
