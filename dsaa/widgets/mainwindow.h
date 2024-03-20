@@ -39,8 +39,10 @@ private:
 
     // Side bar and corresponding pages
     SideBar* _sideBar = nullptr;
-    //EditorPage* _editorPage = nullptr;
     AboutPage* _aboutPage = nullptr;
+
+    //If you want to add a new Page, firstly declaration in here.
+    //EditorPage* _editorPage = nullptr;
     //SettingPage* _settingPage = nullptr;
 
     // Place holder widget for resizing pages

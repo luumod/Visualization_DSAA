@@ -19,6 +19,7 @@ target_link_libraries(Visual_DSAA
     PRIVATE
     dsaa_widgets
     dsaa_conponents
+    dsaa_utils
     Qt6::Core
     Qt6::Widgets
 )

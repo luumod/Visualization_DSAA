@@ -125,7 +125,6 @@
 	[
 		"QT_CORE_LIB",
 		"QT_GUI_LIB",
-		"QT_NO_DEBUG",
 		"QT_SVG_LIB",
 		"QT_WIDGETS_LIB",
 		"UNICODE",
@@ -145,7 +144,7 @@
 	"MOC_INCLUDES" : 
 	[
 		"F:/code/Visual_DSAA/dsaa",
-		"F:/code/Visual_DSAA/dsaa/common",
+		"F:/code/Visual_DSAA/dsaa/utils",
 		"F:/code/Visual_DSAA/dsaa/conponents",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore",
 		"F:/Tools/Qt/6.2.4/msvc2019_64/include",

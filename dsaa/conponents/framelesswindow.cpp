@@ -1,4 +1,5 @@
 #include "framelesswindow.h"
+#include "logger.h"
 #include <QGraphicsDropShadowEffect>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -7,7 +8,8 @@
 #include <QGuiApplication>
 #include <QPointF>
 
-#define USE_LOGGER false
+
+#define USE_LOGGER true
 #define MAX_MOUSE_MOVEMENT 300
 
 FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWidget* parent)
