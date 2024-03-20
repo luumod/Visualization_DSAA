@@ -2,16 +2,11 @@
 #include "common.h"
 #include "customIcon.h"
 #include "singleSelectGroup.h"
-#include "framelesswindow.h"
 #include <QPointer>
 
 MainWindow::MainWindow(QWidget* parent)
-	:QMainWindow(parent){
+	:FramelessWindow(20,parent){
 	resize(640, 480);
-
-	testFrameLessWindow();
-
-	//init();
 }
 
 MainWindow::~MainWindow(){

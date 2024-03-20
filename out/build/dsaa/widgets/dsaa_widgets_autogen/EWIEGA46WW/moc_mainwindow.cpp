@@ -61,7 +61,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
 }
 
 const QMetaObject MainWindow::staticMetaObject = { {
-    QMetaObject::SuperData::link<QMainWindow::staticMetaObject>(),
+    QMetaObject::SuperData::link<FramelessWindow::staticMetaObject>(),
     qt_meta_stringdata_MainWindow.offsetsAndSize,
     qt_meta_data_MainWindow,
     qt_static_metacall,
@@ -86,12 +86,12 @@ void *MainWindow::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_MainWindow.stringdata0))
         return static_cast<void*>(this);
-    return QMainWindow::qt_metacast(_clname);
+    return FramelessWindow::qt_metacast(_clname);
 }
 
 int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QMainWindow::qt_metacall(_c, _id, _a);
+    _id = FramelessWindow::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

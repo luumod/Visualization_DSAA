@@ -271,7 +271,7 @@ build dsaa\widgets\dsaa_widgets_autogen\timestamp dsaa\widgets\dsaa_widgets_auto
 #############################################
 # Phony custom command for dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps
 
-build dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib
+build dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\widgets\CMakeFiles\dsaa_widgets_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib
 
 
 #############################################
@@ -459,7 +459,7 @@ build dsaa\conponents\dsaa_conponents_autogen\timestamp dsaa\conponents\dsaa_con
 #############################################
 # Phony custom command for dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib
+build dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svgd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgetsd.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Cored.lib
 
 
 #############################################

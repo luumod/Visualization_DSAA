@@ -90,9 +90,11 @@ F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_m
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs_win.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QMainWindow \
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QWidget \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qmainwindow.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qsizepolicy.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtabwidget.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtwidgets-config.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h \
-  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qwidget.h
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qwidget.h \
+  F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h

@@ -93,6 +93,7 @@ dsaa_widgets_autogen/timestamp: \
 	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs.h \
 	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs_win.h \
 	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QMainWindow \
+	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QWidget \
 	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qmainwindow.h \
 	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qsizepolicy.h \
 	F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtabwidget.h \
@@ -162,6 +163,7 @@ dsaa_widgets_autogen/timestamp: \
 	F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateConfigVersionImpl.cmake \
 	F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateTargets.cmake \
 	F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateVersionlessTargets.cmake \
+	F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
 	F:/code/Visual_DSAA/dsaa/widgets/CMakeLists.txt \
 	F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp \
 	F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h \
