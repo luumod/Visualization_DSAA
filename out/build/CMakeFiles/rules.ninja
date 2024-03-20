@@ -7,7 +7,7 @@
 
 # =============================================================================
 # Project: Visual_DSAA
-# Configurations: Debug
+# Configurations: Release
 # =============================================================================
 # =============================================================================
 
@@ -20,7 +20,7 @@ msvc_deps_prefix = 注意: 包含文件:
 #############################################
 # Rule for generating CXX dependencies.
 
-rule CXX_SCAN__Visual_DSAA_Debug
+rule CXX_SCAN__Visual_DSAA_Release
   deps = msvc
   command = D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe $DEFINES $INCLUDES $FLAGS $in -nologo -TP -showIncludes -scanDependencies $DYNDEP_INTERMEDIATE_FILE -Fo$OBJ_FILE
   description = Scanning $in for CXX dependencies
@@ -29,7 +29,7 @@ rule CXX_SCAN__Visual_DSAA_Debug
 #############################################
 # Rule to generate ninja dyndep files for CXX.
 
-rule CXX_DYNDEP__Visual_DSAA_Debug
+rule CXX_DYNDEP__Visual_DSAA_Release
   command = D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_ninja_dyndep --tdi=CMakeFiles\Visual_DSAA.dir\CXXDependInfo.json --lang=CXX --modmapfmt=msvc --dd=$out @$out.rsp
   description = Generating CXX dyndep file $out
   rspfile = $out.rsp
@@ -39,7 +39,7 @@ rule CXX_DYNDEP__Visual_DSAA_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Visual_DSAA_scanned_Debug
+rule CXX_COMPILER__Visual_DSAA_scanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes @$DYNDEP_MODULE_MAP_FILE /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -48,7 +48,7 @@ rule CXX_COMPILER__Visual_DSAA_scanned_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__Visual_DSAA_unscanned_Debug
+rule CXX_COMPILER__Visual_DSAA_unscanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -57,7 +57,7 @@ rule CXX_COMPILER__Visual_DSAA_unscanned_Debug
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__Visual_DSAA_Debug
+rule CXX_EXECUTABLE_LINKER__Visual_DSAA_Release
   command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E vs_link_exe --intdir=$OBJECT_DIR --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\mt.exe --manifests $MANIFESTS -- D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\link.exe /nologo $in  /out:$TARGET_FILE /implib:$TARGET_IMPLIB /pdb:$TARGET_PDB /version:0.0 $LINK_FLAGS $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
@@ -74,7 +74,7 @@ rule CUSTOM_COMMAND
 #############################################
 # Rule for generating CXX dependencies.
 
-rule CXX_SCAN__dsaa_utils_Debug
+rule CXX_SCAN__dsaa_utils_Release
   deps = msvc
   command = D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe $DEFINES $INCLUDES $FLAGS $in -nologo -TP -showIncludes -scanDependencies $DYNDEP_INTERMEDIATE_FILE -Fo$OBJ_FILE
   description = Scanning $in for CXX dependencies
@@ -83,7 +83,7 @@ rule CXX_SCAN__dsaa_utils_Debug
 #############################################
 # Rule to generate ninja dyndep files for CXX.
 
-rule CXX_DYNDEP__dsaa_utils_Debug
+rule CXX_DYNDEP__dsaa_utils_Release
   command = D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_ninja_dyndep --tdi=dsaa\utils\CMakeFiles\dsaa_utils.dir\CXXDependInfo.json --lang=CXX --modmapfmt=msvc --dd=$out @$out.rsp
   description = Generating CXX dyndep file $out
   rspfile = $out.rsp
@@ -93,7 +93,7 @@ rule CXX_DYNDEP__dsaa_utils_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__dsaa_utils_scanned_Debug
+rule CXX_COMPILER__dsaa_utils_scanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes @$DYNDEP_MODULE_MAP_FILE /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -102,7 +102,7 @@ rule CXX_COMPILER__dsaa_utils_scanned_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__dsaa_utils_unscanned_Debug
+rule CXX_COMPILER__dsaa_utils_unscanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -111,7 +111,7 @@ rule CXX_COMPILER__dsaa_utils_unscanned_Debug
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__dsaa_utils_Debug
+rule CXX_STATIC_LIBRARY_LINKER__dsaa_utils_Release
   command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -120,7 +120,7 @@ rule CXX_STATIC_LIBRARY_LINKER__dsaa_utils_Debug
 #############################################
 # Rule for generating CXX dependencies.
 
-rule CXX_SCAN__dsaa_widgets_Debug
+rule CXX_SCAN__dsaa_widgets_Release
   deps = msvc
   command = D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe $DEFINES $INCLUDES $FLAGS $in -nologo -TP -showIncludes -scanDependencies $DYNDEP_INTERMEDIATE_FILE -Fo$OBJ_FILE
   description = Scanning $in for CXX dependencies
@@ -129,7 +129,7 @@ rule CXX_SCAN__dsaa_widgets_Debug
 #############################################
 # Rule to generate ninja dyndep files for CXX.
 
-rule CXX_DYNDEP__dsaa_widgets_Debug
+rule CXX_DYNDEP__dsaa_widgets_Release
   command = D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_ninja_dyndep --tdi=dsaa\widgets\CMakeFiles\dsaa_widgets.dir\CXXDependInfo.json --lang=CXX --modmapfmt=msvc --dd=$out @$out.rsp
   description = Generating CXX dyndep file $out
   rspfile = $out.rsp
@@ -139,7 +139,7 @@ rule CXX_DYNDEP__dsaa_widgets_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__dsaa_widgets_scanned_Debug
+rule CXX_COMPILER__dsaa_widgets_scanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes @$DYNDEP_MODULE_MAP_FILE /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -148,7 +148,7 @@ rule CXX_COMPILER__dsaa_widgets_scanned_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__dsaa_widgets_unscanned_Debug
+rule CXX_COMPILER__dsaa_widgets_unscanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -157,7 +157,7 @@ rule CXX_COMPILER__dsaa_widgets_unscanned_Debug
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Debug
+rule CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Release
   command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
@@ -166,7 +166,7 @@ rule CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Debug
 #############################################
 # Rule for generating CXX dependencies.
 
-rule CXX_SCAN__dsaa_conponents_Debug
+rule CXX_SCAN__dsaa_conponents_Release
   deps = msvc
   command = D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe $DEFINES $INCLUDES $FLAGS $in -nologo -TP -showIncludes -scanDependencies $DYNDEP_INTERMEDIATE_FILE -Fo$OBJ_FILE
   description = Scanning $in for CXX dependencies
@@ -175,7 +175,7 @@ rule CXX_SCAN__dsaa_conponents_Debug
 #############################################
 # Rule to generate ninja dyndep files for CXX.
 
-rule CXX_DYNDEP__dsaa_conponents_Debug
+rule CXX_DYNDEP__dsaa_conponents_Release
   command = D:\software\VS2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E cmake_ninja_dyndep --tdi=dsaa\conponents\CMakeFiles\dsaa_conponents.dir\CXXDependInfo.json --lang=CXX --modmapfmt=msvc --dd=$out @$out.rsp
   description = Generating CXX dyndep file $out
   rspfile = $out.rsp
@@ -185,7 +185,7 @@ rule CXX_DYNDEP__dsaa_conponents_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__dsaa_conponents_scanned_Debug
+rule CXX_COMPILER__dsaa_conponents_scanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes @$DYNDEP_MODULE_MAP_FILE /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -194,7 +194,7 @@ rule CXX_COMPILER__dsaa_conponents_scanned_Debug
 #############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__dsaa_conponents_unscanned_Debug
+rule CXX_COMPILER__dsaa_conponents_unscanned_Release
   deps = msvc
   command = ${LAUNCHER}${CODE_CHECK}D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -203,7 +203,7 @@ rule CXX_COMPILER__dsaa_conponents_unscanned_Debug
 #############################################
 # Rule for linking CXX static library.
 
-rule CXX_STATIC_LIBRARY_LINKER__dsaa_conponents_Debug
+rule CXX_STATIC_LIBRARY_LINKER__dsaa_conponents_Release
   command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && D:\software\VS2022\VC\Tools\MSVC\14.39.33519\bin\Hostx64\x64\lib.exe /nologo $LINK_FLAGS /out:$TARGET_FILE $in  && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT

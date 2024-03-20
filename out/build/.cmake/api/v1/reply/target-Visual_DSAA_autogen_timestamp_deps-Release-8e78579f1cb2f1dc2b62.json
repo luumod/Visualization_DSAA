@@ -17,10 +17,10 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "dsaa_utils::@793aae1305171187ec8f"
+			"id" : "dsaa_widgets::@ebb896fff8b34f40fafc"
 		},
 		{
-			"id" : "dsaa_widgets::@ebb896fff8b34f40fafc"
+			"id" : "dsaa_utils::@793aae1305171187ec8f"
 		},
 		{
 			"id" : "dsaa_conponents::@f9dd876a07ef298f9b00"

@@ -42,6 +42,7 @@ void MainWindow::testFrameLessWindow(){
 #else 
 
 #include "mainwindow.h"
+#include "pushbutton.h"
 #include <QHBoxLayout>
 #include <QResizeEvent>
 
@@ -50,6 +51,13 @@ void MainWindow::testFrameLessWindow(){
 MainWindow::MainWindow(QWidget* parent)
     : FramelessWindow(20, parent)
 {
+    auto t = new PushButton(nullptr,nullptr);
+    t->show();
+
+    auto w = new FramelessWindow(20,nullptr);
+    w->resize(400, 400);
+    w->show();
+
     this->setMouseTracking(true);
     this->resize(1250, 750);
 

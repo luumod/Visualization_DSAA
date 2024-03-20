@@ -75,7 +75,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-DQT_QML_DEBUG /MDd /Zi /Ob0 /Od /RTC1 -std:c++20"
+					"fragment" : "-DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20"
 				},
 				{
 					"backtrace" : 2,
@@ -99,6 +99,10 @@
 				{
 					"backtrace" : 2,
 					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_NO_DEBUG"
 				},
 				{
 					"backtrace" : 2,
