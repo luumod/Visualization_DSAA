@@ -112,6 +112,12 @@
 			null
 		],
 		[
+			"F:/code/Visual_DSAA/dsaa/widgets/homepage.h",
+			"Mu",
+			"EWIEGA46WW/moc_homepage.cpp",
+			null
+		],
+		[
 			"F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h",
 			"Mu",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -172,6 +178,7 @@
 	"SOURCES" : 
 	[
 		[ "F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp", "Mu", null ],
+		[ "F:/code/Visual_DSAA/dsaa/widgets/homepage.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp", "Mu", null ]
 	],
 	"VERBOSITY" : 0

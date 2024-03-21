@@ -178,11 +178,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "dsaa_utils_autogen_timestamp_deps::@793aae1305171187ec8f"
-		},
-		{
 			"backtrace" : 0,
 			"id" : "dsaa_utils_autogen::@793aae1305171187ec8f"
+		},
+		{
+			"id" : "dsaa_utils_autogen_timestamp_deps::@793aae1305171187ec8f"
 		}
 	],
 	"id" : "dsaa_utils::@793aae1305171187ec8f",

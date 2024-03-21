@@ -17,13 +17,13 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "dsaa_widgets::@ebb896fff8b34f40fafc"
-		},
-		{
 			"id" : "dsaa_utils::@793aae1305171187ec8f"
 		},
 		{
 			"id" : "dsaa_conponents::@f9dd876a07ef298f9b00"
+		},
+		{
+			"id" : "dsaa_widgets::@ebb896fff8b34f40fafc"
 		}
 	],
 	"id" : "Visual_DSAA_autogen_timestamp_deps::@6890427a1f51a3e7e1df",

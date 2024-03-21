@@ -5,6 +5,7 @@
 #include "conponents/framelesswindow.h"
 #include "conponents/sidebar.h"
 #include "aboutpage.h"
+#include "homepage.h"
 
 #define DASS_VERSION false
 
@@ -39,6 +40,7 @@ private:
 
     // Side bar and corresponding pages
     SideBar* _sideBar = nullptr;
+    HomePage* _homePage = nullptr;
     AboutPage* _aboutPage = nullptr;
 
     //If you want to add a new Page, firstly declaration in here.

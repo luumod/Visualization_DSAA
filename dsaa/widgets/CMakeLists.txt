@@ -9,7 +9,7 @@ add_library(dsaa_widgets STATIC
     "mainwindow.cpp" 
     "mainwindow.h"  
     "aboutpage.cpp" 
-    "aboutpage.h")
+    "aboutpage.h" "homepage.h" "homepage.cpp")
 
 target_link_libraries(dsaa_widgets PRIVATE
     Qt6::Core

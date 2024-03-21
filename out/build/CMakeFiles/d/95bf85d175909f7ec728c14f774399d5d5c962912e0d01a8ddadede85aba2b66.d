@@ -171,5 +171,7 @@ dsaa/widgets/dsaa_widgets_autogen/timestamp: \
   F:/code/Visual_DSAA/dsaa/widgets/CMakeLists.txt \
   F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp \
   F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h \
+  F:/code/Visual_DSAA/dsaa/widgets/homepage.cpp \
+  F:/code/Visual_DSAA/dsaa/widgets/homepage.h \
   F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp \
   F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h

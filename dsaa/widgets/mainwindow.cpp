@@ -51,13 +51,6 @@ void MainWindow::testFrameLessWindow(){
 MainWindow::MainWindow(QWidget* parent)
     : FramelessWindow(20, parent)
 {
-    auto t = new PushButton(nullptr,nullptr);
-    t->show();
-
-    auto w = new FramelessWindow(20,nullptr);
-    w->resize(400, 400);
-    w->show();
-
     this->setMouseTracking(true);
     this->resize(1250, 750);
 
@@ -77,6 +70,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     // Create sidebar
     _sideBar = new SideBar(_windowWidget);
+
+    // When page changed, activate this lambda to achieve change.
     connect(_sideBar, &SideBar::onPageChanged, this, [=](PageWidget* previousPage, PageWidget* currentPage) {
         // Check for input validity
         if (previousPage == currentPage) {
@@ -105,6 +100,10 @@ MainWindow::MainWindow(QWidget* parent)
     _settingPage->setMouseTracking(true);
     _sideBar->addPage(_settingPage);*/
 
+    _homePage = new HomePage(_placeHolderWidget);
+    _homePage->setMouseTracking(true);
+    _sideBar->addPage(_homePage);
+
     // Create about page and connect to side bar
     _aboutPage = new AboutPage(_placeHolderWidget);
     _aboutPage->setMouseTracking(true);
@@ -128,6 +127,7 @@ void MainWindow::resizePages(QResizeEvent* event) {
     // Resize the editor page
     //_editorPage->resize(size);
     //_settingPage->resize(size);
+    _homePage->resize(size);
     _aboutPage->resize(size);
 }
 
@@ -138,6 +138,7 @@ void MainWindow::showEvent(QShowEvent* event) {
     // Resize all the pages based on the placeholder widget
     //_editorPage->resize(_placeHolderWidget->size());
     //_settingPage->resize(_placeHolderWidget->size());
+    _homePage->resize(_placeHolderWidget->size());
     _aboutPage->resize(_placeHolderWidget->size());
 }
 

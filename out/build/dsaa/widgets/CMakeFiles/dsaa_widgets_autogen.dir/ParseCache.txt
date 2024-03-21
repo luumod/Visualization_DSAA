@@ -97,6 +97,104 @@ F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h
  mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qwidget.h
  mdp:F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h
  mdp:F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h
+F:/code/Visual_DSAA/dsaa/widgets/homepage.h
+ mmc:Q_OBJECT
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qalgorithms.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qanystringview.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qarraydata.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qarraydataops.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qarraydatapointer.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qatomic.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qbasicatomic.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qbindingstorage.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qbytearray.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qbytearrayalgorithms.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qbytearraylist.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qbytearrayview.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qchar.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qcompare.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qcompilerdetection.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qconfig.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qcontainerfwd.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qcontainerinfo.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qcontainertools_impl.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qdatastream.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qflags.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qglobal.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qglobalstatic.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qhashfunctions.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qiodevicebase.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qiterable.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qiterator.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qline.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qlist.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qlogging.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qmargins.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qmath.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qmetacontainer.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qmetatype.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qnamespace.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qnumeric.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qobject.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qobject_impl.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qobjectdefs.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qobjectdefs_impl.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qpair.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qpoint.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qprocessordetection.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qrect.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qrefcount.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qscopedpointer.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qscopeguard.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qshareddata.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qsharedpointer.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qsharedpointer_impl.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qsize.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstring.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstringalgorithms.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstringlist.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstringliteral.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstringmatcher.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstringtokenizer.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qstringview.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qsysinfo.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qsystemdetection.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qtaggedpointer.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qtcore-config.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qtmetamacros.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qtypeinfo.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qutf8stringview.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qvarlengtharray.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/qversiontagging.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qbitmap.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qbrush.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qcolor.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qcursor.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qfont.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qfontinfo.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qfontmetrics.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qimage.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qkeysequence.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qpaintdevice.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qpalette.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qpixelformat.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qpixmap.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qpolygon.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qregion.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qrgb.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qrgba64.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qtgui-config.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qtguiglobal.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qtransform.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs_win.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QWidget
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qsizepolicy.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtwidgets-config.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtwidgetsglobal.h
+ mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qwidget.h
+ mdp:F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h
+ mdp:F:/code/Visual_DSAA/dsaa/widgets/homepage.h
 F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h
  mmc:Q_OBJECT
  mdp:F:/Tools/Qt/6.2.4/msvc2019_64/include/QtCore/QList
@@ -202,6 +300,8 @@ F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h
  mdp:F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h
  mdp:F:/code/Visual_DSAA/dsaa/conponents/sidebar.h
  mdp:F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h
+ mdp:F:/code/Visual_DSAA/dsaa/widgets/homepage.h
  mdp:F:/code/Visual_DSAA/dsaa/widgets/mainwindow.h
 F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp
+F:/code/Visual_DSAA/dsaa/widgets/homepage.cpp
 F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp

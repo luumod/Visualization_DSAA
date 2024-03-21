@@ -165,6 +165,8 @@ void SideBar::selectPage(PageWidget* page) {
     PushButton* newPageTextButton = _pageButtonList.at(index).second;
     newPageIconButton->select();
     newPageTextButton->select();
+
+    //update the current page.
     _currentPage = page;
 
     // Emit the page selected signal
