@@ -118,6 +118,12 @@
 			null
 		],
 		[
+			"F:/code/Visual_DSAA/dsaa/conponents/customScrollContainer.h",
+			"Mu",
+			"EWIEGA46WW/moc_customScrollContainer.cpp",
+			null
+		],
+		[
 			"F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h",
 			"Mu",
 			"EWIEGA46WW/moc_framelesswindow.cpp",
@@ -226,6 +232,11 @@
 	[
 		[ "F:/code/Visual_DSAA/dsaa/conponents/bigIconButton.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/conponents/customIcon.cpp", "Mu", null ],
+		[
+			"F:/code/Visual_DSAA/dsaa/conponents/customScrollContainer.cpp",
+			"Mu",
+			null
+		],
 		[ "F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.cpp", "Mu", null ],
 		[
 			"F:/code/Visual_DSAA/dsaa/conponents/horizontalValueAdjuster.cpp",

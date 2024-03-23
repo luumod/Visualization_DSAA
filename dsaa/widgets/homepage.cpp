@@ -37,21 +37,7 @@ HomePage::HomePage(QWidget* parent) :
     _titleLayout->addWidget(_mainWidget);
     _mainWidget->show();
 
-    btn1 = new bigIconButton(ICON_FILE QString("open.png"), "Sort Algotirhms", 10, _mainWidget);
-    _mainLayout->addWidget(btn1, 0, 0);
-    btn1->show();
-
-    btn2 = new bigIconButton(ICON_FILE QString("create.png"), "Sort Algotirhms", 10, _mainWidget);
-    _mainLayout->addWidget(btn2, 0, 1);
-    btn2->show();
-
-    btn3 = new bigIconButton(ICON_FILE QString("open.png"), "Sort Algotirhms", 10, _mainWidget);
-    _mainLayout->addWidget(btn3, 1, 0);
-    btn3->show();
-
-    btn4 = new bigIconButton(ICON_FILE QString("create.png"), "Sort Algotirhms", 10, _mainWidget);
-    _mainLayout->addWidget(btn4, 1, 1);
-    btn4->show();
+    
 }
 
 HomePage::~HomePage() {}

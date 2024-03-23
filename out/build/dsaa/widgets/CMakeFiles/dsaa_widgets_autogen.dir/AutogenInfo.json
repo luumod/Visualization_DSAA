@@ -122,6 +122,12 @@
 			"Mu",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
+		],
+		[
+			"F:/code/Visual_DSAA/dsaa/widgets/slidepage.h",
+			"Mu",
+			"EWIEGA46WW/moc_slidepage.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -179,7 +185,8 @@
 	[
 		[ "F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/widgets/homepage.cpp", "Mu", null ],
-		[ "F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp", "Mu", null ]
+		[ "F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp", "Mu", null ],
+		[ "F:/code/Visual_DSAA/dsaa/widgets/slidepage.cpp", "Mu", null ]
 	],
 	"VERBOSITY" : 0
 }

@@ -2,12 +2,12 @@
 #define HOME_PAGE
 
 #include "conponents/pagewidget.h"
+#include <QGridLayout>
 
 class QLabel;
 class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
-class QGridLayout;
 class HomePage : public PageWidget {
 
     Q_OBJECT
@@ -15,6 +15,15 @@ class HomePage : public PageWidget {
 public:
     HomePage(QWidget* parent = 0);
     ~HomePage();
+
+    // grid layout, so you should indicate the x and y.
+    template <typename T>
+    T* addConponent(T* widget, int x, int y) {
+        widget->setParent(_mainWidget);
+        _mainLayout->addWidget(widget, x, y);
+        widget->show();
+        return widget;
+    }
 
 private:
     // Push button icons

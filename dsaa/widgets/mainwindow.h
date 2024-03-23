@@ -6,6 +6,7 @@
 #include "conponents/sidebar.h"
 #include "aboutpage.h"
 #include "homepage.h"
+#include "slidepage.h"
 
 #define DASS_VERSION false
 
@@ -40,13 +41,19 @@ private:
 
     // Side bar and corresponding pages
     SideBar* _sideBar = nullptr;
+
+    //If you want to add a new Page, firstly declaration in here.
     HomePage* _homePage = nullptr;
     AboutPage* _aboutPage = nullptr;
 
-    //If you want to add a new Page, firstly declaration in here.
-    //EditorPage* _editorPage = nullptr;
-    //SettingPage* _settingPage = nullptr;
+    // Sub conponents in the home page.
+    bigIconButton* _homeSortButton = nullptr;
 
+    // the side page for the choice sort algorithms.
+    SlidePage* createNewPage = nullptr;
+    SlidePage* layersPage = nullptr;
+    int cornerRadius = 20;
+    
     // Place holder widget for resizing pages
     QWidget* _placeHolderWidget = nullptr;
 

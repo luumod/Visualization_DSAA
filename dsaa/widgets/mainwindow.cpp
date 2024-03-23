@@ -42,10 +42,15 @@ void MainWindow::testFrameLessWindow(){
 #else 
 
 #include "mainwindow.h"
+#include "common.h"
 #include "pushbutton.h"
+#include "singleSelectGroup.h"
+#include "textButton.h"
+#include "textInputItem.h"
+#include "bigIconButton.h"
 #include <QHBoxLayout>
 #include <QResizeEvent>
-
+#include <QLineEdit>
 #define MAX_MOUSE_MOVEMENT 300
 
 MainWindow::MainWindow(QWidget* parent)
@@ -90,16 +95,7 @@ MainWindow::MainWindow(QWidget* parent)
     _mainLayout->addWidget(_sideBar);
     _mainLayout->addWidget(_placeHolderWidget);
 
-    // Create editor page and connect to side bar
-    /*_editorPage = new EditorPage(_placeHolderWidget);
-    _editorPage->setMouseTracking(true);
-    _sideBar->addPage(_editorPage);*/
-
-    // Create setting page and connect to side bar
-    /*_settingPage = new SettingPage(_placeHolderWidget);
-    _settingPage->setMouseTracking(true);
-    _sideBar->addPage(_settingPage);*/
-
+    // Add home page and connect to side bar.
     _homePage = new HomePage(_placeHolderWidget);
     _homePage->setMouseTracking(true);
     _sideBar->addPage(_homePage);
@@ -110,6 +106,78 @@ MainWindow::MainWindow(QWidget* parent)
     _sideBar->addPage(_aboutPage);
 
     //connect(_settingPage, &SettingPage::onSettingsChanged, _editorPage, &EditorPage::updateSetting);
+
+    _homeSortButton = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 0, 0);
+    auto place_holder1 = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 0, 1);
+    auto place_holder2 = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 1, 0);
+    auto place_holder3 = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 1, 1);
+
+
+    //-------------------------------
+       
+    /* create layers page */
+    //for add new page
+    textInputItem* rename = new textInputItem("Name:", createNewPage);
+    rename->setValue("Layer_" + QString::asprintf("%d", 1));
+    textInputItem* redescribe = new textInputItem("Detail:", createNewPage);
+    redescribe->setValue("No description");
+
+    // when user choice the "sort algorithms", show an sider page to user. 
+    createNewPage = new SlidePage(cornerRadius, "CREATE CANVAS", this);
+    QLineEdit* canvasName = new QLineEdit(this);
+    canvasName->setMaximumHeight(20);
+    QLineEdit* canvasDesc = new QLineEdit(this);
+    canvasDesc->setMaximumHeight(20);
+
+    QWidget* whiteSpace = new QWidget(createNewPage);
+    whiteSpace->setFixedHeight(30);
+    singleSelectGroup* structureSel = new singleSelectGroup("Structure", createNewPage);
+    selectionItem* item_1 = new selectionItem("AL", "Use adjacent list for canvas", createNewPage);
+    selectionItem* item_2 = new selectionItem("AML", "Use multiple adjacent list for canvas", createNewPage);
+    structureSel->AddItem(item_1);
+    structureSel->AddItem(item_2);
+    singleSelectGroup* dirSel = new singleSelectGroup("Mode", createNewPage);
+    selectionItem* item_3 = new selectionItem("DG", "Directed graph", createNewPage);
+    selectionItem* item_4 = new selectionItem("UDG", "Undirected graph", createNewPage);
+    dirSel->AddItem(item_3);
+    dirSel->AddItem(item_4);
+    textButton* submit = new textButton("Create!", createNewPage);
+
+    // Key down action.
+    /*connect(submit, &textButton::clicked, this, [=]() {
+        MyCanvas* newCanvas = new MyCanvas(cornerRadius,
+        rename->value(),
+        redescribe->value(),
+        structureSel->value() == 0 ? MyCanvas::AL : MyCanvas::AML,
+        dirSel->value() == 0 ? MyCanvas::DG : MyCanvas::UDG, ui->mainWidget);
+        canvasList.push_back(newCanvas);
+        selectionItem* newLayer = new selectionItem(newCanvas->name(), newCanvas->description(), layersPage);
+        layerSel->AddItem(newLayer);
+        layerSel->SetSelection(newLayer);
+        pageList.push_back(newCanvas->settingPage());
+        connect(newLayer, &selectionItem::selected, this, [=]() {selectCanvas(newCanvas); });
+        selectCanvas(newCanvas);
+        connect(newCanvas, &MyCanvas::nameChanged, this, [=](QString text) {
+            canvasTitle->setText(text);
+            canvasTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, canvasTitle->text()).width() + 10);
+            newLayer->setTitle(text);
+            });
+        connect(newCanvas, &MyCanvas::descChanged, this, [=](QString text) {this->canvasDesc->setText(text); newLayer->setDescription(text); });
+        connect(newCanvas, &MyCanvas::setDel, this, [=](MyCanvas* c) {curSettingsPage->slideOut(); deleteCanvas(c); layerSel->RemoveItem(newLayer); });
+        createNewPage->slideOut();
+        });*/
+    createNewPage->AddContent(submit);
+    createNewPage->AddContent(dirSel);
+    createNewPage->AddContent(structureSel);
+    createNewPage->AddContent(whiteSpace);
+    createNewPage->AddContent(redescribe);
+    createNewPage->AddContent(rename);
+    connect(_homeSortButton, &bigIconButton::clicked, createNewPage, [=]() {
+        rename->setValue("Layer_" + QString::asprintf("%d", 1));
+        redescribe->setValue("No description");
+        createNewPage->slideIn(); }
+    );
+    createNewPage->show();
 }
 
 MainWindow::~MainWindow() {

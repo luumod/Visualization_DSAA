@@ -329,6 +329,15 @@ build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\homepage.cpp.obj: CXX_COMPILER__d
   TARGET_COMPILE_PDB = dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets.pdb
   TARGET_PDB = dsaa\widgets\dsaa_widgets.pdb
 
+build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\slidepage.cpp.obj: CXX_COMPILER__dsaa_widgets_unscanned_Release F$:\code\Visual_DSAA\dsaa\widgets\slidepage.cpp || cmake_object_order_depends_target_dsaa_widgets
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+  INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\widgets\dsaa_widgets_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\widgets\..\utils -external:IF:\code\Visual_DSAA\dsaa\widgets\..\conponents -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
+  OBJECT_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
+  OBJECT_FILE_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
+  TARGET_COMPILE_PDB = dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets.pdb
+  TARGET_PDB = dsaa\widgets\dsaa_widgets.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target dsaa_widgets
@@ -337,7 +346,7 @@ build dsaa\widgets\CMakeFiles\dsaa_widgets.dir\homepage.cpp.obj: CXX_COMPILER__d
 #############################################
 # Link the static library dsaa\widgets\dsaa_widgets.lib
 
-build dsaa\widgets\dsaa_widgets.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Release dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen\mocs_compilation.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\aboutpage.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\homepage.cpp.obj || dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
+build dsaa\widgets\dsaa_widgets.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_widgets_Release dsaa\widgets\CMakeFiles\dsaa_widgets.dir\dsaa_widgets_autogen\mocs_compilation.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\mainwindow.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\aboutpage.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\homepage.cpp.obj dsaa\widgets\CMakeFiles\dsaa_widgets.dir\slidepage.cpp.obj || dsaa\widgets\dsaa_widgets_autogen dsaa\widgets\dsaa_widgets_autogen_timestamp_deps
   LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = dsaa\widgets\CMakeFiles\dsaa_widgets.dir
@@ -526,6 +535,15 @@ build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\lineeditwidget.cpp.obj: CXX
   TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
   TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
 
+build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customScrollContainer.cpp.obj: CXX_COMPILER__dsaa_conponents_unscanned_Release F$:\code\Visual_DSAA\dsaa\conponents\customScrollContainer.cpp || cmake_object_order_depends_target_dsaa_conponents
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+  INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\conponents\dsaa_conponents_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\conponents\..\utils -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
+  OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
+  OBJECT_FILE_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
+  TARGET_COMPILE_PDB = dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents.pdb
+  TARGET_PDB = dsaa\conponents\dsaa_conponents.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target dsaa_conponents
@@ -534,7 +552,7 @@ build dsaa\conponents\CMakeFiles\dsaa_conponents.dir\lineeditwidget.cpp.obj: CXX
 #############################################
 # Link the static library dsaa\conponents\dsaa_conponents.lib
 
-build dsaa\conponents\dsaa_conponents.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_conponents_Release dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen\mocs_compilation.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customIcon.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\singleSelectGroup.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\bigIconButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\horizontalValueAdjuster.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textInputItem.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\framelesswindow.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\sidebar.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pushbutton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\lineeditwidget.cpp.obj || dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps
+build dsaa\conponents\dsaa_conponents.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_conponents_Release dsaa\conponents\CMakeFiles\dsaa_conponents.dir\dsaa_conponents_autogen\mocs_compilation.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customIcon.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\singleSelectGroup.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\bigIconButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\horizontalValueAdjuster.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textInputItem.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\textButton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\framelesswindow.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\sidebar.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pushbutton.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\pagewidget.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\lineeditwidget.cpp.obj dsaa\conponents\CMakeFiles\dsaa_conponents.dir\customScrollContainer.cpp.obj || dsaa\conponents\dsaa_conponents_autogen dsaa\conponents\dsaa_conponents_autogen_timestamp_deps
   LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = dsaa\conponents\CMakeFiles\dsaa_conponents.dir
@@ -593,7 +611,7 @@ build dsaa\conponents\dsaa_conponents_autogen\timestamp dsaa\conponents\dsaa_con
 #############################################
 # Phony custom command for dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps
 
-build dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib
+build dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\conponents\CMakeFiles\dsaa_conponents_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################

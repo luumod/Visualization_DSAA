@@ -90,8 +90,13 @@ F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_m
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qtransform.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtGui/qwindowdefs_win.h \
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QGridLayout \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QMainWindow \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/QWidget \
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qboxlayout.h \
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qgridlayout.h \
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qlayout.h \
+  F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qlayoutitem.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qmainwindow.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qsizepolicy.h \
   F:/Tools/Qt/6.2.4/msvc2019_64/include/QtWidgets/qtabwidget.h \
@@ -102,4 +107,5 @@ F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_m
   F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h \
   F:/code/Visual_DSAA/dsaa/conponents/sidebar.h \
   F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h \
-  F:/code/Visual_DSAA/dsaa/widgets/homepage.h
+  F:/code/Visual_DSAA/dsaa/widgets/homepage.h \
+  F:/code/Visual_DSAA/dsaa/widgets/slidepage.h
