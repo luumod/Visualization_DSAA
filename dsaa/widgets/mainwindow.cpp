@@ -48,9 +48,13 @@ void MainWindow::testFrameLessWindow(){
 #include "textButton.h"
 #include "textInputItem.h"
 #include "bigIconButton.h"
+#include "customIcon.h"
 #include <QHBoxLayout>
 #include <QResizeEvent>
 #include <QLineEdit>
+#include <QTimer>
+#include <QPainterPath>
+#include <QGraphicsDropShadowEffect>
 #define MAX_MOUSE_MOVEMENT 300
 
 MainWindow::MainWindow(QWidget* parent)
@@ -105,25 +109,142 @@ MainWindow::MainWindow(QWidget* parent)
     _aboutPage->setMouseTracking(true);
     _sideBar->addPage(_aboutPage);
 
-    //connect(_settingPage, &SettingPage::onSettingsChanged, _editorPage, &EditorPage::updateSetting);
+    
+    Init();
+}
 
-    _homeSortButton = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 0, 0);
-    auto place_holder1 = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 0, 1);
-    auto place_holder2 = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 1, 0);
-    auto place_holder3 = _homePage->addConponent<bigIconButton>(new bigIconButton(ICON_FILE QString("sort.png"), "Sort Algotirhms", 10), 1, 1);
+MainWindow::~MainWindow() {
+}
 
+#if 1
+void MainWindow::Init() {
+    /* Create about page */
+    defaultSettingsPage = new SlidePage(cornerRadius, "ABOUT", _homePage);
+    textInputItem* version = new textInputItem("version", defaultSettingsPage);
+    version->setValue("1.3-beta");
+    version->setEnabled(false);
+    textInputItem* updateDate = new textInputItem("last-upd", defaultSettingsPage);
+    updateDate->setValue("2021/12/6 10:14");
+    updateDate->setEnabled(false);
+    textInputItem* Author = new textInputItem("author", defaultSettingsPage);
+    Author->setValue("Linloir | Made with love");
+    Author->setEnabled(false);
+    textInputItem* lic = new textInputItem("lic", defaultSettingsPage);
+    lic->setValue("MIT License");
+    lic->setEnabled(false);
+    textInputItem* GitHub = new textInputItem("git", defaultSettingsPage);
+    GitHub->setValue("github.com/Linloir");
+    GitHub->setEnabled(false);
+    defaultSettingsPage->AddContent(GitHub);
+    defaultSettingsPage->AddContent(lic);
+    defaultSettingsPage->AddContent(Author);
+    defaultSettingsPage->AddContent(updateDate);
+    defaultSettingsPage->AddContent(version);
+    curSettingsPage = defaultSettingsPage;
+    defaultSettingsPage->show();
+    pageList.push_back(defaultSettingsPage);
 
-    //-------------------------------
-       
+    /************************/
+
+    /* Initialize display area */
+    QFont titleFont = QFont("Corbel Light", 24);
+    QFontMetrics titleFm(titleFont);
+    canvasTitle = new QLineEdit(this);
+    canvasTitle->setFont(titleFont);
+    canvasTitle->setText("START");
+    canvasTitle->setMaxLength(20);
+    canvasTitle->setReadOnly(true);
+    canvasTitle->setMinimumHeight(titleFm.height());
+    canvasTitle->setMaximumWidth(titleFm.size(Qt::TextSingleLine, "START").width() + 10);
+    canvasTitle->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;margin-left:1px;");
+    connect(canvasTitle, &QLineEdit::textEdited, canvasTitle, [=](QString text) {canvasTitle->setMaximumWidth(titleFm.size(Qt::TextSingleLine, text).width()); });
+
+    QFont descFont = QFont("Corbel Light", 12);
+    QFontMetrics descFm(descFont);
+    canvasDesc = new QLineEdit(this);
+    canvasDesc->setFont(descFont);
+    canvasDesc->setText("Add your first canvas to start");
+    canvasDesc->setMaxLength(128);
+    canvasDesc->setReadOnly(true);
+    canvasDesc->setMinimumHeight(descFm.lineSpacing());
+    canvasDesc->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;");
+
+    // ---------------------------------
+    settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, this);
+    settingsIcon->setMinimumHeight(canvasTitle->height() * 0.7);
+    settingsIcon->setMaximumWidth(canvasTitle->height() * 0.7);
+    connect(settingsIcon, &customIcon::clicked, this, [=]() {
+        QPropertyAnimation* rotate = new QPropertyAnimation(settingsIcon, "rotationAngle", this);
+        rotate->setDuration(750);
+        rotate->setStartValue(0);
+        rotate->setEndValue(90);
+        rotate->setEasingCurve(QEasingCurve::InOutExpo);
+        rotate->start();
+        curSettingsPage->slideIn();
+        });
+    layersIcon = new customIcon(ICON_FILE "layers.svg", "layers", 5, this);
+    layersIcon->setMinimumHeight(canvasTitle->height() * 0.7);
+    layersIcon->setMaximumWidth(canvasTitle->height() * 0.7);
+
+    /* create title */
+
+    QWidget* titleInnerWidget = new QWidget(this);
+    titleInnerWidget->setFixedHeight(canvasTitle->height());
+    QHBoxLayout* innerLayout = new QHBoxLayout(titleInnerWidget);
+    titleInnerWidget->setLayout(innerLayout);
+    innerLayout->setContentsMargins(0, 0, 0, 0);
+    innerLayout->setSpacing(10);
+    innerLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    innerLayout->addWidget(canvasTitle);
+    innerLayout->addWidget(settingsIcon);
+    innerLayout->addWidget(layersIcon);
+
+    QWidget* titleWidget = new QWidget(this);
+    titleWidget->setMaximumHeight(canvasTitle->height() + canvasDesc->height());
+    QVBoxLayout* outerLayout = new QVBoxLayout(titleWidget);
+    titleWidget->setLayout(outerLayout);
+    outerLayout->setContentsMargins(0, 0, 0, 0);
+    outerLayout->setSpacing(0);
+    outerLayout->addWidget(titleInnerWidget);
+    outerLayout->addWidget(canvasDesc);
+
+    /* create default page */
+
+    defaultPage = new QWidget(_windowWidget);
+    defaultPage->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    bigIconButton* createNew = new bigIconButton(ICON_FILE "create.png", "Create new", 10, this);
+    createNew->setScale(0.9);
+    bigIconButton* openFile = new bigIconButton(ICON_FILE "open.png", "Open from file", 10, this);
+    QHBoxLayout* defaultPageLayout = new QHBoxLayout(defaultPage);
+    defaultPage->setLayout(defaultPageLayout);
+    defaultPageLayout->setContentsMargins(50, 30, 50, 80);
+    defaultPageLayout->setSpacing(20);
+    defaultPageLayout->addWidget(createNew);
+    defaultPageLayout->addWidget(openFile);
+
+    //-------------------------------------------------------------------
     /* create layers page */
-    //for add new page
     textInputItem* rename = new textInputItem("Name:", createNewPage);
-    rename->setValue("Layer_" + QString::asprintf("%d", 1));
+    rename->setValue("Layer_" + QString::asprintf("%d", 11111));
     textInputItem* redescribe = new textInputItem("Detail:", createNewPage);
     redescribe->setValue("No description");
 
-    // when user choice the "sort algorithms", show an sider page to user. 
-    createNewPage = new SlidePage(cornerRadius, "CREATE CANVAS", this);
+    layersPage = new SlidePage(cornerRadius, "LAYERS", _windowWidget);
+    layersPage->stackUnder(createNewPage);
+    connect(layersIcon, &customIcon::clicked, layersPage, &SlidePage::slideIn);
+    layerSel = new singleSelectGroup("Layers", layersPage);
+    connect(layerSel, &singleSelectGroup::itemChange, layersPage, [=]() {layersPage->UpdateContents(); });
+    textButton* openFileBtn = new textButton("Open file", layersPage);
+    textButton* addNewBtn = new textButton("Create new", layersPage);
+    layersPage->AddContent(addNewBtn);
+    layersPage->AddContent(openFileBtn);
+    layersPage->AddContent(layerSel);
+    connect(addNewBtn, &textButton::clicked, this, [=]() {rename->setValue("Layer_" + QString::asprintf("%d", 100)); redescribe->setValue("No description"); createNewPage->slideIn(); });
+    layersPage->show();
+    pageList.push_back(layersPage);
+
+    /* create add new slide page */
+    createNewPage = new SlidePage(cornerRadius, "CREATE CANVAS", _windowWidget);
     QLineEdit* canvasName = new QLineEdit(this);
     canvasName->setMaximumHeight(20);
     QLineEdit* canvasDesc = new QLineEdit(this);
@@ -142,46 +263,29 @@ MainWindow::MainWindow(QWidget* parent)
     dirSel->AddItem(item_3);
     dirSel->AddItem(item_4);
     textButton* submit = new textButton("Create!", createNewPage);
-
-    // Key down action.
-    /*connect(submit, &textButton::clicked, this, [=]() {
-        MyCanvas* newCanvas = new MyCanvas(cornerRadius,
-        rename->value(),
-        redescribe->value(),
-        structureSel->value() == 0 ? MyCanvas::AL : MyCanvas::AML,
-        dirSel->value() == 0 ? MyCanvas::DG : MyCanvas::UDG, ui->mainWidget);
-        canvasList.push_back(newCanvas);
-        selectionItem* newLayer = new selectionItem(newCanvas->name(), newCanvas->description(), layersPage);
-        layerSel->AddItem(newLayer);
-        layerSel->SetSelection(newLayer);
-        pageList.push_back(newCanvas->settingPage());
-        connect(newLayer, &selectionItem::selected, this, [=]() {selectCanvas(newCanvas); });
-        selectCanvas(newCanvas);
-        connect(newCanvas, &MyCanvas::nameChanged, this, [=](QString text) {
-            canvasTitle->setText(text);
-            canvasTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, canvasTitle->text()).width() + 10);
-            newLayer->setTitle(text);
-            });
-        connect(newCanvas, &MyCanvas::descChanged, this, [=](QString text) {this->canvasDesc->setText(text); newLayer->setDescription(text); });
-        connect(newCanvas, &MyCanvas::setDel, this, [=](MyCanvas* c) {curSettingsPage->slideOut(); deleteCanvas(c); layerSel->RemoveItem(newLayer); });
-        createNewPage->slideOut();
-        });*/
+    selectionItem* newLayer = new selectionItem("ylhhdrgdg", "dwadadadjaida", layersPage);
+    layerSel->AddItem(newLayer);
+    layerSel->SetSelection(newLayer);
     createNewPage->AddContent(submit);
     createNewPage->AddContent(dirSel);
     createNewPage->AddContent(structureSel);
     createNewPage->AddContent(whiteSpace);
     createNewPage->AddContent(redescribe);
     createNewPage->AddContent(rename);
-    connect(_homeSortButton, &bigIconButton::clicked, createNewPage, [=]() {
-        rename->setValue("Layer_" + QString::asprintf("%d", 1));
+    connect(createNew, &bigIconButton::clicked, createNewPage, [=]() {
+        rename->setValue("Layer_" + QString::asprintf("%d", 100));
         redescribe->setValue("No description");
         createNewPage->slideIn(); }
     );
     createNewPage->show();
+    pageList.push_back(createNewPage);
+
+    _homePage->layout()->addWidget(titleWidget);
+    _homePage->layout()->addWidget(defaultPage);
+    _homePage->layout()->setAlignment(Qt::AlignTop);
 }
 
-MainWindow::~MainWindow() {
-}
+#endif
 
 void MainWindow::resizePages(QResizeEvent* event) {
     // Check for input validity

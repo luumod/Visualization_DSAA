@@ -106,6 +106,7 @@ F:/code/Visual_DSAA/out/build/dsaa/widgets/dsaa_widgets_autogen/EWIEGA46WW/moc_m
   F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
   F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h \
   F:/code/Visual_DSAA/dsaa/conponents/sidebar.h \
+  F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.h \
   F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h \
   F:/code/Visual_DSAA/dsaa/widgets/homepage.h \
   F:/code/Visual_DSAA/dsaa/widgets/slidepage.h

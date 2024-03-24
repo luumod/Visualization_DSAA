@@ -173,6 +173,7 @@ dsaa/widgets/dsaa_widgets_autogen/timestamp: \
   F:/code/Visual_DSAA/dsaa/conponents/framelesswindow.h \
   F:/code/Visual_DSAA/dsaa/conponents/pagewidget.h \
   F:/code/Visual_DSAA/dsaa/conponents/sidebar.h \
+  F:/code/Visual_DSAA/dsaa/conponents/singleSelectGroup.h \
   F:/code/Visual_DSAA/dsaa/widgets/CMakeLists.txt \
   F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp \
   F:/code/Visual_DSAA/dsaa/widgets/aboutpage.h \

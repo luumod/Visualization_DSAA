@@ -9,7 +9,7 @@
 #include <QPointF>
 
 
-#define USE_LOGGER true
+#define USE_LOGGER false
 #define MAX_MOUSE_MOVEMENT 300
 
 FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWidget* parent)
@@ -38,7 +38,7 @@ FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWid
     // Set shadow for window widget
     _windowShadow = new QGraphicsDropShadowEffect(_windowWidget);
     _windowShadow->setBlurRadius(30);
-    _windowShadow->setColor(QColor(0, 0, 0));
+    _windowShadow->setColor(QColor(255, 0, 0));
     _windowShadow->setOffset(0, 0);
     _windowWidget->setGraphicsEffect(_windowShadow);
 

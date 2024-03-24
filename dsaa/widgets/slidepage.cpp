@@ -3,9 +3,15 @@
 #include "customIcon.h"
 #include "customScrollContainer.h"
 #include <QLabel>
-#include <QGraphicsOpacityEffect>
-#include <QParallelAnimationGroup>
+#include <QPaintEvent>
+#include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QGraphicsDropShadowEffect>
+#include <QGraphicsOpacityEffect>
+#include <QGraphicsEffect>
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
+#include <QSequentialAnimationGroup>
 
 SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
     QWidget(parent),
@@ -122,8 +128,8 @@ void SlidePage::ScrollToTop() {
 }
 
 
-void SlidePage::slideIn(){
-    if(curAni){
+void SlidePage::slideIn() {
+    if (curAni) {
         curAni->stop();
         curAni->deleteLater();
         curAni = nullptr;
@@ -133,30 +139,34 @@ void SlidePage::slideIn(){
     sheildLayer->setEnabled(true);
     this->raise();
     sheildLayer->show();
-    QParallelAnimationGroup *inGroup = new QParallelAnimationGroup(this);
-    QPropertyAnimation *slideInAni = new QPropertyAnimation(this, "pos", this);
+    QParallelAnimationGroup* inGroup = new QParallelAnimationGroup(this);
+    QPropertyAnimation* slideInAni = new QPropertyAnimation(this, "pos", this);
     slideInAni->setStartValue(this->pos());
     slideInAni->setEndValue(QPoint(0, 0));
     slideInAni->setDuration(1000);
     slideInAni->setEasingCurve(QEasingCurve::InOutExpo);
-    QPropertyAnimation *fadeInAni = new QPropertyAnimation(opacity, "opacity", this);
+    QPropertyAnimation* fadeInAni = new QPropertyAnimation(opacity, "opacity", this);
     fadeInAni->setStartValue(opacity->opacity());
     //> note: DO NOT CHANGE 0.99 TO 1!!!!!
     //>       Will cause unexpected position shift (maybe qt's bug)
     fadeInAni->setEndValue(0.99);
     fadeInAni->setDuration(750);
-    QSequentialAnimationGroup *rotate = new QSequentialAnimationGroup(this);
-    QPropertyAnimation *rotateAni = new QPropertyAnimation(backIcon, "rotationAngle", this);
+    QSequentialAnimationGroup* rotate = new QSequentialAnimationGroup(this);
+    QPropertyAnimation* rotateAni = new QPropertyAnimation(backIcon, "rotationAngle", this);
     rotateAni->setStartValue(180);
     rotateAni->setEndValue(360);
     rotateAni->setDuration(750);
     rotateAni->setEasingCurve(QEasingCurve::InOutExpo);
     rotate->addPause(250);
+
+    // 弹出效果
     rotate->addAnimation(rotateAni);
     inGroup->addAnimation(slideInAni);
+
+    // 其他区域阴影
     inGroup->addAnimation(fadeInAni);
     inGroup->addAnimation(rotate);
-    connect(inGroup, &QParallelAnimationGroup::finished, this, [=](){this->curAni = nullptr;});
+    connect(inGroup, &QParallelAnimationGroup::finished, this, [=]() {this->curAni = nullptr; });
     inGroup->start();
     curAni = inGroup;
 }
