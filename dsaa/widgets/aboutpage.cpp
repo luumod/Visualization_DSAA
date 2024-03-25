@@ -10,16 +10,16 @@ AboutPage::AboutPage(QWidget* parent) :
     _contentWidget->setMouseTracking(true);
 
     // Construct title layout
-    _titleLayout = new QVBoxLayout(_contentWidget);
-    _titleLayout->setContentsMargins(28, 46, 28, 28);
-    _titleLayout->setSpacing(18);
-    _titleLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    _contentWidget->setLayout(_titleLayout);
+    _titleAreaLayout = new QVBoxLayout(_contentWidget);
+    _titleAreaLayout->setContentsMargins(28, 46, 28, 28);
+    _titleAreaLayout->setSpacing(18);
+    _titleAreaLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    _contentWidget->setLayout(_titleAreaLayout);
 
     // Construct title
     _titleLabel = new QLabel("ABOUT", _contentWidget);
     _titleLabel->setFont(_titleFont);
-    _titleLayout->addWidget(_titleLabel);
+    _titleAreaLayout->addWidget(_titleLabel);
     _titleLabel->show();
 
     // Construct main layout
@@ -32,7 +32,7 @@ AboutPage::AboutPage(QWidget* parent) :
     _mainLayout->setContentsMargins(0, 8, 0, 8);
     _mainLayout->setSpacing(8);
     _mainWidget->setLayout(_mainLayout);
-    _titleLayout->addWidget(_mainWidget);
+    _titleAreaLayout->addWidget(_mainWidget);
     _mainWidget->show();
     
     // Construct contents

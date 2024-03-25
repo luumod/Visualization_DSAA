@@ -8,6 +8,7 @@ class QLabel;
 class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
+class QLineEdit;
 class HomePage : public PageWidget {
 
     Q_OBJECT
@@ -34,9 +35,10 @@ private:
     QLabel* _textButtonLabel = nullptr;
 
     // UI elements
-    QVBoxLayout* _titleLayout = nullptr;
+    QVBoxLayout* _titleAreaLayout = nullptr;
     const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
     QLabel* _titleLabel = nullptr;
+    QLineEdit* _pageDesc = nullptr;
 
     QWidget* _mainWidget = nullptr;
 

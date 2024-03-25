@@ -23,7 +23,7 @@ private:
     QLabel* _textButtonLabel = nullptr;
 
     // UI elements
-    QVBoxLayout* _titleLayout = nullptr;
+    QVBoxLayout* _titleAreaLayout = nullptr;
     const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
     QLabel* _titleLabel = nullptr;
 

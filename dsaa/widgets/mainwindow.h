@@ -54,22 +54,8 @@ private:
     // Sub conponents in the home page.
     bigIconButton* _homeSortButton = nullptr;
 
-
-    QLineEdit* canvasTitle = nullptr;
-    QLineEdit* canvasDesc = nullptr;
-    customIcon* settingsIcon = nullptr;
-    customIcon* layersIcon = nullptr;
-    QWidget* canvasDisplay = nullptr;
-    QWidget* border = nullptr;
-    QColor mainBackGround = QColor(251, 251, 251);
-    QGraphicsDropShadowEffect* windowShadow;
     QWidget* defaultPage = nullptr;
-    // the side page for the choice sort algorithms.
     SlidePage* createNewPage = nullptr;
-    SlidePage* defaultSettingsPage = nullptr;
-    SlidePage* curSettingsPage = nullptr;
-    singleSelectGroup* layerSel = nullptr;
-    SlidePage* layersPage = nullptr;
     int cornerRadius = 20;
     QVector<SlidePage*> pageList;
     
