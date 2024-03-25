@@ -109,8 +109,11 @@ MainWindow::MainWindow(QWidget* parent)
     _aboutPage->setMouseTracking(true);
     _sideBar->addPage(_aboutPage);
 
-    
-    Init();
+    // ÑÓ³Ù¹¹Ôì£¿
+    QTimer* t = new QTimer(this);
+    connect(t, &QTimer::timeout, this, [=]() {Init(); });
+    t->setSingleShot(true);
+    t->start(10);
 }
 
 MainWindow::~MainWindow() {
@@ -120,6 +123,7 @@ MainWindow::~MainWindow() {
 void MainWindow::Init() {
     /* Create about page */
     defaultSettingsPage = new SlidePage(cornerRadius, "ABOUT", _homePage);
+    qInfo() << _homePage->size();
     textInputItem* version = new textInputItem("version", defaultSettingsPage);
     version->setValue("1.3-beta");
     version->setEnabled(false);
