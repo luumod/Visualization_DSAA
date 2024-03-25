@@ -128,6 +128,12 @@
 			"Mu",
 			"EWIEGA46WW/moc_slidepage.cpp",
 			null
+		],
+		[
+			"F:/code/Visual_DSAA/dsaa/widgets/sortpage.h",
+			"Mu",
+			"EWIEGA46WW/moc_sortpage.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -137,7 +143,6 @@
 	[
 		"QT_CORE_LIB",
 		"QT_GUI_LIB",
-		"QT_NO_DEBUG",
 		"QT_SVG_LIB",
 		"QT_WIDGETS_LIB",
 		"UNICODE",
@@ -186,7 +191,8 @@
 		[ "F:/code/Visual_DSAA/dsaa/widgets/aboutpage.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/widgets/homepage.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/widgets/mainwindow.cpp", "Mu", null ],
-		[ "F:/code/Visual_DSAA/dsaa/widgets/slidepage.cpp", "Mu", null ]
+		[ "F:/code/Visual_DSAA/dsaa/widgets/slidepage.cpp", "Mu", null ],
+		[ "F:/code/Visual_DSAA/dsaa/widgets/sortpage.cpp", "Mu", null ]
 	],
 	"VERBOSITY" : 0
 }

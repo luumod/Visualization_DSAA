@@ -13,7 +13,9 @@ add_library(dsaa_widgets STATIC
     "homepage.h" 
     "homepage.cpp" 
     "slidepage.cpp" 
-    "slidepage.h")
+    "slidepage.h" 
+    "sortpage.cpp" 
+    "sortpage.h")
 
 target_link_libraries(dsaa_widgets PRIVATE
     Qt6::Core

@@ -10,6 +10,7 @@
 #include "textInputItem.h"
 #include "bigIconButton.h"
 #include "customIcon.h"
+#include "sortpage.h"
 #include <QHBoxLayout>
 #include <QResizeEvent>
 #include <QLineEdit>
@@ -119,6 +120,22 @@ void MainWindow::Init() {
 	dirSel->AddItem(item_3);
 	dirSel->AddItem(item_4);
 	textButton* submit = new textButton("Create!", createNewPage);
+	connect(submit, &textButton::clicked, this, [=]() {
+		SortPage* sortPage = new SortPage(cornerRadius,
+			rename->value(),
+			redescribe->value(),
+			_windowWidget
+		);
+		selectCanvas(sortPage);
+		/*connect(sortPage, &MyCanvas::nameChanged, this, [=](QString text) {
+			canvasTitle->setText(text);
+			canvasTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, canvasTitle->text()).width() + 10);
+			newLayer->setTitle(text);
+			});
+		connect(sortPage, &MyCanvas::descChanged, this, [=](QString text) {this->canvasDesc->setText(text); newLayer->setDescription(text); });
+		connect(sortPage, &MyCanvas::setDel, this, [=](MyCanvas* c) {curSettingsPage->slideOut(); deleteCanvas(c); layerSel->RemoveItem(newLayer); });*/
+		createNewPage->slideOut();
+	});
 	createNewPage->AddContent(submit);
 	createNewPage->AddContent(dirSel);
 	createNewPage->AddContent(structureSel);
@@ -136,6 +153,51 @@ void MainWindow::Init() {
 	_homePage->layout()->addWidget(defaultPage);
 	_homePage->layout()->setAlignment(Qt::AlignTop);
 }
+
+void MainWindow::selectCanvas(SortPage* canvas) {
+	if (!_sortPage) {
+		_mainLayout->removeWidget(defaultPage);
+		defaultPage->hide();
+		_mainLayout->addWidget(canvas);
+		canvas->show();
+	}
+	else {
+		_mainLayout->removeWidget(_sortPage);
+		_sortPage->hide();
+		_mainLayout->addWidget(canvas);
+		canvas->show();
+	}
+	_sortPage = canvas;
+	//canvas->settingPage()->setParent();
+	//curSettingsPage = canvas->settingPage();
+	//_sortPageTitle->setText(_sortPage->name());
+	//_sortPageTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, _sortPageTitle->text()).width() + 10);
+	//_sortPageDesc->setText(_sortPage->description());
+}
+
+//void MainWindow::deleteCanvas(SortPage* canvas) {
+//	int index = canvasList.indexOf(canvas);
+//	if (index < 0)
+//		return;
+//	canvasList.erase(canvasList.begin() + index);
+//	ui->displayLayout->removeWidget(curCanvas);
+//	curCanvas->hide();
+//	if (canvasList.size() > 0) {
+//		selectCanvas(canvasList[0]);
+//	}
+//	else {
+//		ui->displayLayout->addWidget(defaultPage);
+//		defaultPage->show();
+//		curCanvas = nullptr;
+//		canvasTitle->setText("START");
+//		canvasTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, "START").width() + 10);
+//		canvasDesc->setText("Add your first canvas to start");
+//		curSettingsPage = defaultSettingsPage;
+//	}
+//	pageList.erase(pageList.begin() + pageList.indexOf(canvas->settingPage()));
+//	delete canvas;
+//	ui->mainWidget->update();
+//}
 
 void MainWindow::resizePages(QResizeEvent* event) {
 	// Check for input validity

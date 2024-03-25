@@ -3,3 +3,4 @@
 #include "EWIEGA46WW/moc_homepage.cpp"
 #include "EWIEGA46WW/moc_mainwindow.cpp"
 #include "EWIEGA46WW/moc_slidepage.cpp"
+#include "EWIEGA46WW/moc_sortpage.cpp"
