@@ -2,6 +2,7 @@
 #include "bigIconButton.h"
 #include "pushbutton.h"
 #include "common.h"
+#include "MainCanvas.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -10,6 +11,8 @@
 #include <QSpacerItem>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QListView>
+#include "SortFactory.h"
 
 HomePage::HomePage(QWidget* parent) :
 	PageWidget(parent)
@@ -60,39 +63,64 @@ HomePage::HomePage(QWidget* parent) :
 
 	QWidget* canvasWrap = new QWidget(_contentWidget);
 	QVBoxLayout* canvasWrap_layout = new QVBoxLayout(canvasWrap);
-	QWidget* canvas = new QWidget(canvasWrap);
+	MainCanvas* canvas = new MainCanvas(canvasWrap);
 	canvasWrap_layout->addWidget(canvas);
 	canvas->setFixedSize(400, 400);
 
 	QWidget* panel = new QWidget(_contentWidget);
 	QVBoxLayout* panel_layout = new QVBoxLayout(panel);
 	
+	auto h2 = new QHBoxLayout;
+	auto combo = new QComboBox(panel);
+	combo->setView(new QListView(panel));
+	combo->addItems(SortFactory::getInstance()->getSortList());
+	auto lab = new QLabel("Sort type", panel);
+	h2->addWidget(lab);
+	h2->addWidget(combo);
+
+	auto h3 = new QHBoxLayout;
+	auto spinCount = new QSpinBox(panel);
+	spinCount->setRange(1, 100);
+	spinCount->setValue(10);
+	auto lab2 = new QLabel("Number of data:", panel); 
+	h3->addWidget(lab2);
+	h3->addWidget(spinCount);
+
+	auto h4 = new QHBoxLayout;
+	auto spinInterval = new QSpinBox(panel);
+	spinInterval->setValue(10);
+	auto lab3 = new QLabel("Operate interval", panel);
+	h4->addWidget(lab3);
+	h4->addWidget(spinInterval);
+
 	auto h1 = new QHBoxLayout;
 	QPushButton* btnSort = new QPushButton("begin",panel);
 	QPushButton* btnStop = new QPushButton("stop", panel);
 	QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	connect(btnSort, &QPushButton::clicked, this, [=] {
+		const int type = combo->currentIndex();
+		if (type != canvas->getSortType()) {
+			SortObject* obj = SortFactory::getInstance()->createSortObject(type, canvas);
+			canvas->setSortObject(type, obj);
+		}
+		canvas->sort(spinCount->value(), spinInterval->value());
+		});
+	//点击结束排序
+	connect(btnStop, &QPushButton::clicked, this, [=] {
+		canvas->stop();
+		});
+
+	//排序状态，排序时不能修改参数
+	connect(canvas, &MainCanvas::runFlagChanged,
+		this, [=](bool running) {
+			combo->setEnabled(!running);
+			spinCount->setEnabled(!running);
+			spinInterval->setEnabled(!running);
+			btnSort->setEnabled(!running);
+		});
 	h1->addWidget(btnSort);
 	h1->addSpacerItem(horizontalSpacer);
 	h1->addWidget(btnStop);
-
-
-	auto h2 = new QHBoxLayout;
-	auto cbx = new QComboBox(panel);
-	auto lab = new QLabel("Sort type",panel);
-	h2->addWidget(lab);
-	h2->addWidget(cbx);
-
-	auto h3 = new QHBoxLayout;
-	auto spin = new QSpinBox(panel);
-	auto lab2 = new QLabel("Number of data:", panel);
-	h3->addWidget(lab2);
-	h3->addWidget(spin);
-
-	auto h4 = new QHBoxLayout;
-	auto spin2 = new QSpinBox(panel);
-	auto lab3 = new QLabel("Operate interval",panel);
-	h4->addWidget(lab3);
-	h4->addWidget(spin2);
 
 	QSpacerItem* verticalSpacer = new QSpacerItem(20, 232, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	

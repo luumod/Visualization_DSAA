@@ -20,6 +20,7 @@ target_link_libraries(Visual_DSAA
     dsaa_widgets
     dsaa_conponents
     dsaa_utils
+    dsaa_sort
     Qt6::Core
     Qt6::Widgets
 )
