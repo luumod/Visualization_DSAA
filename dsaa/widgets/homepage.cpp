@@ -3,9 +3,13 @@
 #include "pushbutton.h"
 #include "common.h"
 #include <QVBoxLayout>
-#include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLabel>
+#include <QPushButton>
 #include <QLineEdit>
+#include <QSpacerItem>
+#include <QComboBox>
+#include <QSpinBox>
 
 HomePage::HomePage(QWidget* parent) :
 	PageWidget(parent)
@@ -20,7 +24,7 @@ HomePage::HomePage(QWidget* parent) :
 	_contentWidget->setLayout(_titleAreaLayout);
 
 	// Construct title
-	_titleLabel = new QLabel("Home", _contentWidget);
+	_titleLabel = new QLabel("Sort", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 	
 	// Construct page description.
@@ -28,7 +32,7 @@ HomePage::HomePage(QWidget* parent) :
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Select an operation.");
+	_pageDesc->setText("Visualization of sorting algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
@@ -43,14 +47,67 @@ HomePage::HomePage(QWidget* parent) :
 	_mainWidget = new QWidget(_contentWidget);
 	_mainWidget->setObjectName("homePageMainWidget");
 	_mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_mainWidget->setStyleSheet("QWidget#mainWidget { background-color: #efefef; border-radius: 8px; }");
-	_mainLayout = new QGridLayout(_mainWidget);
+	_mainWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
+	_mainLayout = new QHBoxLayout(_mainWidget);
 	_mainLayout->setAlignment(Qt::AlignTop);
 	_mainLayout->setContentsMargins(8, 8, 8, 8);
 	_mainLayout->setSpacing(20);
 	_mainWidget->setLayout(_mainLayout);
 	_titleAreaLayout->addWidget(_mainWidget);
 	_mainWidget->show();
+
+	QHBoxLayout* hBoxLayout = new QHBoxLayout;
+
+	QWidget* canvasWrap = new QWidget(_contentWidget);
+	QVBoxLayout* canvasWrap_layout = new QVBoxLayout(canvasWrap);
+	QWidget* canvas = new QWidget(canvasWrap);
+	canvasWrap_layout->addWidget(canvas);
+	canvas->setFixedSize(400, 400);
+
+	QWidget* panel = new QWidget(_contentWidget);
+	QVBoxLayout* panel_layout = new QVBoxLayout(panel);
+	
+	auto h1 = new QHBoxLayout;
+	QPushButton* btnSort = new QPushButton("begin",panel);
+	QPushButton* btnStop = new QPushButton("stop", panel);
+	QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	h1->addWidget(btnSort);
+	h1->addSpacerItem(horizontalSpacer);
+	h1->addWidget(btnStop);
+
+
+	auto h2 = new QHBoxLayout;
+	auto cbx = new QComboBox(panel);
+	auto lab = new QLabel("Sort type",panel);
+	h2->addWidget(lab);
+	h2->addWidget(cbx);
+
+	auto h3 = new QHBoxLayout;
+	auto spin = new QSpinBox(panel);
+	auto lab2 = new QLabel("Number of data:", panel);
+	h3->addWidget(lab2);
+	h3->addWidget(spin);
+
+	auto h4 = new QHBoxLayout;
+	auto spin2 = new QSpinBox(panel);
+	auto lab3 = new QLabel("Operate interval",panel);
+	h4->addWidget(lab3);
+	h4->addWidget(spin2);
+
+	QSpacerItem* verticalSpacer = new QSpacerItem(20, 232, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	
+	panel_layout->addLayout(h4);
+	panel_layout->addLayout(h3);
+	panel_layout->addLayout(h2);
+	panel_layout->addSpacerItem(verticalSpacer);
+	panel_layout->addLayout(h1);
+
+	//------------over
+	hBoxLayout->addWidget(canvasWrap);
+	hBoxLayout->addWidget(panel);
+	_titleAreaLayout->addLayout(hBoxLayout);
+	canvasWrap->show();
+	panel->show();
 }
 
 HomePage::~HomePage() {}

@@ -17,15 +17,6 @@ public:
     HomePage(QWidget* parent = 0);
     ~HomePage();
 
-    // grid layout, so you should indicate the x and y.
-    template <typename T>
-    T* addConponent(T* widget, int x, int y) {
-        widget->setParent(_mainWidget);
-        _mainLayout->addWidget(widget, x, y);
-        widget->show();
-        return widget;
-    }
-
 private:
     // Push button icons
     QLabel* _iconButtonLabel = nullptr;
@@ -43,14 +34,7 @@ private:
     QWidget* _mainWidget = nullptr;
 
     // grid layout
-    QGridLayout* _mainLayout = nullptr;
-
-
-    // widgets
-    bigIconButton* btn1 = nullptr;
-    bigIconButton* btn2 = nullptr;
-    bigIconButton* btn3 = nullptr;
-    bigIconButton* btn4 = nullptr;
+    QHBoxLayout* _mainLayout = nullptr;
 
 public:
     virtual PushButton* getPageIconButton(QWidget* context) override;

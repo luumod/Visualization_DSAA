@@ -1,7 +1,6 @@
 #ifndef DASS_VERSION
 #define DASS_VERSION
 
-
 #include "mainwindow.h"
 #include "common.h"
 #include "pushbutton.h"
@@ -73,7 +72,9 @@ MainWindow::MainWindow(QWidget* parent)
 
 	// ÑÓ³Ù¹¹Ôì£¿
 	QTimer* t = new QTimer(this);
-	connect(t, &QTimer::timeout, this, [=]() {Init(); });
+	connect(t, &QTimer::timeout, this, [=]() {
+		//Init();
+	});
 	t->setSingleShot(true);
 	t->start(10);
 }
@@ -81,6 +82,8 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow() {
 }
 
+
+#if 0
 void MainWindow::Init() {
 	/* create default page */
 	defaultPage = new QWidget(_windowWidget);
@@ -121,19 +124,13 @@ void MainWindow::Init() {
 	dirSel->AddItem(item_4);
 	textButton* submit = new textButton("Create!", createNewPage);
 	connect(submit, &textButton::clicked, this, [=]() {
-		SortPage* sortPage = new SortPage(cornerRadius,
-			rename->value(),
-			redescribe->value(),
-			_windowWidget
-		);
+		SortPage* sortPage = new SortPage(_windowWidget);
 		selectCanvas(sortPage);
-		/*connect(sortPage, &MyCanvas::nameChanged, this, [=](QString text) {
-			canvasTitle->setText(text);
-			canvasTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, canvasTitle->text()).width() + 10);
-			newLayer->setTitle(text);
+		connect(sortPage, &SortPage::nameChanged, this, [=](QString text) {
+			_sortPageTitle->setText(text);
+			_sortPageTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, _sortPageTitle->text()).width() + 10);
 			});
-		connect(sortPage, &MyCanvas::descChanged, this, [=](QString text) {this->canvasDesc->setText(text); newLayer->setDescription(text); });
-		connect(sortPage, &MyCanvas::setDel, this, [=](MyCanvas* c) {curSettingsPage->slideOut(); deleteCanvas(c); layerSel->RemoveItem(newLayer); });*/
+		connect(sortPage, &SortPage::descChanged, this, [=](QString text) {_sortPageDesc->setText(text); });
 		createNewPage->slideOut();
 	});
 	createNewPage->AddContent(submit);
@@ -153,6 +150,8 @@ void MainWindow::Init() {
 	_homePage->layout()->addWidget(defaultPage);
 	_homePage->layout()->setAlignment(Qt::AlignTop);
 }
+
+#endif
 
 void MainWindow::selectCanvas(SortPage* canvas) {
 	if (!_sortPage) {

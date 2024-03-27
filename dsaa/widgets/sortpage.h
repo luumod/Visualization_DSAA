@@ -1,37 +1,47 @@
 ﻿#ifndef SORT_PAGE_H
 #define SORT_PAGE_H
 
-#include <QWidget>
-#include <QGridLayout>
-#include "slidepage.h"
-#include <QFileDialog>
+#include "conponents/pagewidget.h"
 
-class SortPage : public QWidget
+class QLabel;
+class QHBoxLayout;
+class QLineEdit;
+class QGridLayout;
+class SortPage : public PageWidget
 {
     Q_OBJECT
-private:
-    QString canvasName;
-    QString canvasDescription;
 
-    SlidePage *settings;
-
-    //For display
-    //MyGraphicsView *view;
-    QHBoxLayout *mainLayout;
-    QWidget *infoWidget;
-    QLabel *pageName;
-
-    //AbstractGraph *g;
-    int structure_type;
-    int type;
-    bool generateForest = false;
 public:
-    enum { AL = 128, AML = 256 };
+    SortPage(QWidget* parent = 0);
+    ~SortPage();
 
-    explicit SortPage(int radius, QString name = "", QString desc = "", QWidget *parent = nullptr);
-    SortPage(QTextStream &ts, int radius, QWidget *parent = nullptr);
-    QString name(){return canvasName;}
-    QString description(){return canvasDescription;}
+private:
+
+    // Push button icons
+    QLabel* _iconButtonLabel = nullptr;
+    QWidget* _textButtonWidget = nullptr;
+    QHBoxLayout* _textButtonLayout = nullptr;
+    QLabel* _textButtonIcon = nullptr;
+    QLabel* _textButtonLabel = nullptr;
+
+    // UI elements
+    QVBoxLayout* _titleAreaLayout = nullptr;
+    const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
+    QLabel* _titleLabel = nullptr;
+    QLineEdit* _pageDesc = nullptr;
+
+    QWidget* _mainWidget = nullptr;
+
+    // grid layout
+    QGridLayout* _mainLayout = nullptr;
+
+public:
+    virtual PushButton* getPageIconButton(QWidget* context) override;  // provide a push button with only an icon
+    virtual PushButton* getPageTextButton(QWidget* context) override;  // provide a push button with an icon and a description text
+
+signals:
+    void nameChanged(QString name);
+    void descChanged(QString desc);
 };
 
 #endif // MYCANVAS_H
