@@ -4,25 +4,50 @@
 #include <QWidget>
 
 class SortObject;
+/**
+ * @brief The main canvas for every sort operation.
+ */
 class MainCanvas : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructor of the MainCanvas's widget.
+     */
     explicit MainCanvas(QWidget* parent = nullptr);
 
-    //不同的SortObejct对应不同排序规则
+    /**
+     * @brief Get sort type of user choice. Each type has different implement method.
+     */
     int getSortType() const;
+
+    /**
+     * @brief Set or update sort object.
+     * @param type: Sort type.
+     * @param obj: Concrete sort object.
+     */
     void setSortObject(int type, SortObject* obj);
-    //开始排序
+
+    /**
+     * @brief Control to begin sort.
+     * @param count: data size
+     * @param interval: interval of sorting.
+     */
     void sort(int count, int interval);
-    //结束排序
+
+    /**
+     * @brief Control to stop sort.
+     */
     void stop();
 
 protected:
+    /**
+     * @brief Use update to redraw canvas.
+     */
     void paintEvent(QPaintEvent* event) override;
 
 signals:
-    //排序执行状态
+    // When sort status changed, send this signal.
     void runFlagChanged(bool running);
 
 private:
