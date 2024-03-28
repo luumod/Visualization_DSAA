@@ -400,3 +400,17 @@ FodyWeavers.xsd
 .vs
 testQt.cpp
 out
+/dsaa/Sort/BubbleSort.cpp
+/dsaa/Sort/BubbleSort.h
+/dsaa/Sort/InsertionSort.cpp
+/dsaa/Sort/MainCanvas.cpp
+/dsaa/Sort/MainCanvas.h
+/dsaa/Sort/QuickSort.cpp
+/dsaa/Sort/SelectionSort.cpp
+/dsaa/Sort/ShellSort.cpp
+/out/build/dsaa/widgets/CMakeFiles/dsaa_widgets_autogen.dir/ParseCache.txt
+/out/build/.ninja_deps
+/out/build/.ninja_log
+/out/build/dsaa/widgets/dsaa_widgets.lib
+/out/build/Visual_DSAA.exe
+/dsaa/widgets/homepage.cpp
