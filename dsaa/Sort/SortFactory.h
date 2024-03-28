@@ -1,21 +1,39 @@
-#pragma once
-#include <QObject>
-#include "SortObject.h"
+#ifndef SORT_FACTORY
+#define SORT_FACTORY
 
-//生成SortObject
-//龚建波 2022-2-3
+#include <QObject>
+
+class SortObject;
+
+/**
+ * @brief Factory of all sort object.
+ */
 class SortFactory : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 private:
-    explicit SortFactory(QObject *parent = nullptr);
+	/**
+	 * @brief Constructor of SortFactory.
+	 */
+	explicit SortFactory(QObject* parent = nullptr);
 public:
-    static SortFactory *getInstance();
+	/**
+	 * @brief Because of it is a singleton object, return the only static member.
+	 */
+	static SortFactory* getInstance();
 
-    //创建一个排序对象
-    //row对应sortlist列表的排序方式
-    SortObject *createSortObject(int row, QObject *parent);
+	/**
+	 * @brief According to the idx to create particular sort object.
+	 * @param idx The sort type. case Bubble, Quick, Shell .etc
+	 * @param parent Their parent object of the sort object.
+	 */
+	SortObject* createSortObject(int idx, QObject* parent);
 
-    //返回排序方式列表，作为combobox选项
-    QStringList getSortList() const;
+	/**
+	 * @brief Storage all of supported sort algorithms and return a QStringList to convenient programmer use.
+	 */
+	QStringList getSortList() const;
 };
+
+#endif // !SORT_FACTORY
+

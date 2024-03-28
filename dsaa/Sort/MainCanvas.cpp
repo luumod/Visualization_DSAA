@@ -1,4 +1,5 @@
 ﻿#include "MainCanvas.h"
+#include "SortObject.h"
 #include <QPaintEvent>
 #include <QPainter>
 

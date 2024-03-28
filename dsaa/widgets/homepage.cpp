@@ -97,6 +97,7 @@ HomePage::HomePage(QWidget* parent) :
 	QPushButton* btnSort = new QPushButton("begin",panel);
 	QPushButton* btnStop = new QPushButton("stop", panel);
 	QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	// Clicked to start sort.
 	connect(btnSort, &QPushButton::clicked, this, [=] {
 		const int type = combo->currentIndex();
 		if (type != canvas->getSortType()) {
@@ -105,7 +106,7 @@ HomePage::HomePage(QWidget* parent) :
 		}
 		canvas->sort(spinCount->value(), spinInterval->value());
 		});
-	//µã»÷½áÊøÅÅÐò
+	// Clicked to stop sort.
 	connect(btnStop, &QPushButton::clicked, this, [=] {
 		canvas->stop();
 		});
