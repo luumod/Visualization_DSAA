@@ -1,36 +1,55 @@
-#pragma once
+#ifndef BUBBLE_SORT
+#define BUBBLE_SORT
+
 #include "SortObject.h"
 #include <QVector>
 #include <QEventLoop>
 #include <QVariantAnimation>
 
-//冒泡排序
-//龚建波 2022-2-3
+/**
+ * @brief Visualization of bubble sort.
+ */
 class BubbleSort : public SortObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit BubbleSort(QObject *parent = nullptr);
 
-    //开始排序
-    //count元素个数，interval动画持续时间参考值
-    void sort(int count, int interval) override;
-    //结束排序
-    void stop() override;
-    //绘制
-    void draw(QPainter *painter, int width, int height) override;
+	explicit BubbleSort(QObject* parent = nullptr);
+	/**
+	 * @brief Implement of bubble sort. This is an override function.
+	 * @param count: The number of data element for Bubble sort.
+	 * @param interval: The interval of data element for Bubble sort.
+	 */
+	void sort(int count, int interval) override;
+	
+	/**
+	 * @brief Stopped when bubble sort is running. This is an override function.
+	 */
+	void stop() override;
+	
+	/**
+	 * @brief Draw method of the bubble sort. This is an override function.
+	 * @param painter: Qt painter object
+	 * @param canvas_width: Canvas widget's width.
+	 * @param canvas_height: Canvas widget's height.
+	 */
+	void draw(QPainter* painter, int canvas_width, int canvas_height) override;
 
 private:
-    void initArr(int count);
+	/**
+	 * @brief Generate random data element for the initial unsorted arr.
+	 * @param count: The data size.
+	 */
+	void initArr(int count);
 
 private:
-    QEventLoop loop;
-    QVariantAnimation animation;
-
-    QVector<int> arr;
-    //for循环下标
-    int arrI{0};
-    int arrJ{0};
-    //标记当前交换状态
-    bool swapFlag{false};
+	QEventLoop loop;
+	QVariantAnimation animation;
+	QVector<int> arr;
+	int arrI{ 0 };
+	int arrJ{ 0 };
+	bool swapFlag{ false };
 };
+
+
+#endif // !BUBBLE_SORT
