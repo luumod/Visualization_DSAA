@@ -1,32 +1,57 @@
-#pragma once
+#ifndef SORT_OBJECT
+#define SORT_OBJECT
+
 #include <QObject>
 #include <QPainter>
 
-//排序对象父类，提供公共接口给canvas
-//龚建波 2022-2-3
+/**
+ * @brief The parent class of all sort object.
+ */
 class SortObject : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructor of SortObject.
+     */
     explicit SortObject(QObject *parent = nullptr);
 
-    //开始排序
-    //count元素个数，interval动画持续时间参考值
+    /**
+     * @brief Virtual function of bubble sort.
+     * @param count: The number of data element for Bubble sort.
+     * @param interval: The interval of data element for Bubble sort.
+     */
     virtual void sort(int count, int interval) = 0;
-    //结束排序
+    
+    /**
+     * @brief Virtual function for Stopped sort when bubble sort is running.
+     */
     virtual void stop() = 0;
-    //绘制
+    
+    /**
+     * @brief Virtual draw method of the bubble sort.
+     * @param painter: Qt painter object
+     * @param canvas_width: Canvas widget's width.
+     * @param canvas_height: Canvas widget's height.
+     */
     virtual void draw(QPainter *painter, int width, int height) = 0;
 
-    //running排序状态
+    /**
+     * @brief Is running? true or false.
+     */
     bool getRunFlag() const;
+    
+    /**
+     * @brief Set or update sort type.
+     */
     void setRunFlag(bool flag);
 
 signals:
     void runFlagChanged(bool running);
-    void updateRequest();
+    void updateToDraw();
 
 private:
-    //排序执行状态，=true则正在排序
     bool runFlag{false};
 };
+
+#endif
