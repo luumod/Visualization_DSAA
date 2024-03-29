@@ -5,8 +5,6 @@ include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../utils)
 find_package(Qt6 COMPONENTS Core Widgets Svg REQUIRED)
 
 add_library(dsaa_sort STATIC
-    "BubbleSimple.h" 
-    "BubbleSimple.cpp" 
     "BubbleSort.h" 
     "BubbleSort.cpp"
     "InsertionSort.cpp"
@@ -23,9 +21,8 @@ add_library(dsaa_sort STATIC
     "SortFactory.cpp" 
     "SortFactory.h"
     "SortObject.h" 
-    "SortObject.cpp" 
-    "SortTask.h" 
-    "SortTask.cpp" )
+    "SortObject.cpp"
+     )
 
 target_link_libraries(dsaa_sort PRIVATE
     Qt6::Core

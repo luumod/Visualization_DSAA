@@ -140,11 +140,6 @@ void BubbleSort::draw(QPainter *painter, int width, int height)
     }
 }
 
-void BubbleSort::run(){
-    sort(50, 5);
-    emit finished();
-}
-
 void BubbleSort::initArr(int count)
 {
     if (count < 2) {

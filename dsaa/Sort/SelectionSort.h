@@ -4,23 +4,43 @@
 #include <QEventLoop>
 #include <QVariantAnimation>
 
-//选择排序
-//龚建波 2022-2-4
+/**
+ * @brief Visualization of selection sort.
+ */
 class SelectionSort : public SortObject
 {
     Q_OBJECT
 public:
+    /**
+    * @brief Constructor of selection sort.
+    */
     explicit SelectionSort(QObject *parent = nullptr);
 
-    //开始排序
-    //count元素个数，interval动画持续时间参考值
+    /**
+    * @brief Implement of selection sort. This is an override function.
+    * @param count: The number of data element for Bubble sort.
+    * @param interval: The interval of data element for Bubble sort.
+    */
     void sort(int count, int interval) override;
-    //结束排序
+    
+    /**
+    * @brief Stopped when selection sort is running. This is an override function.
+    */
     void stop() override;
-    //绘制
+    
+    /**
+     * @brief Draw method of the selection sort. This is an override function.
+     * @param painter: Qt painter object
+     * @param canvas_width: Canvas widget's width.
+     * @param canvas_height: Canvas widget's height.
+     */
     void draw(QPainter *painter, int width, int height) override;
 
 private:
+    /**
+     * @brief Generate random data element for the initial unsorted arr.
+     * @param count: The data size.
+     */
     void initArr(int count);
 
 private:
@@ -28,12 +48,9 @@ private:
     QVariantAnimation animation;
 
     QVector<int> arr;
-    //for循环下标
-    int arrI{0};
-    int arrJ{0};
-    //标记最小元素的下标
-    int arrMin{0};
-    //标记当前交换状态
+    int arrI{ 0 };
+    int arrJ{ 0 };
+    int arrMin{ 0 };
     bool swapFlag{false};
 };
 

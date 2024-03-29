@@ -35,9 +35,6 @@ public:
 	 * @param canvas_height: Canvas widget's height.
 	 */
 	void draw(QPainter* painter, int canvas_width, int canvas_height) override;
-
-	void run();
-
 signals:
 	void finished();
 

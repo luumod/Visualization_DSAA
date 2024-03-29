@@ -4,8 +4,6 @@
 #include "common.h"
 #include "MainCanvas.h"
 #include "SortFactory.h"
-#include "BubbleSort.h"
-#include "SortTask.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
