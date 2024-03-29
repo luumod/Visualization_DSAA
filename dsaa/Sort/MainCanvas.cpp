@@ -54,12 +54,6 @@ void MainCanvas::stop()
     }
 }
 
-//void MainCanvas::intoThread() {
-//    if (sortObj) {
-//        sortObj->moveToThread(thread);
-//    }
-//}
-
 void MainCanvas::paintEvent(QPaintEvent *event)
 {
     event->accept();

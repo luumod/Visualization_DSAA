@@ -9,6 +9,7 @@ class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
+class _sortThread;
 class HomePage : public PageWidget {
 
     Q_OBJECT
@@ -35,6 +36,9 @@ private:
 
     // grid layout
     QHBoxLayout* _mainLayout = nullptr;
+
+    // Thread for sorting.
+    QThread* _sortThread = nullptr;
 
 public:
     virtual PushButton* getPageIconButton(QWidget* context) override;
