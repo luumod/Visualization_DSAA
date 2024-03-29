@@ -1,12 +1,22 @@
 #include "sortpage.h"
+#include "bigIconButton.h"
 #include "pushbutton.h"
-#include <QPushButton>
+#include "common.h"
+#include "MainCanvas.h"
+#include "SortFactory.h"
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
+#include <QPushButton>
 #include <QLineEdit>
+#include <QSpacerItem>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QListView>
+#include <QThread>
 
-SortPage::SortPage(QWidget* parent)
-	:PageWidget(parent)
+SortPage::SortPage(QWidget* parent) :
+	PageWidget(parent)
 {
 	_contentWidget->setMouseTracking(true);
 
@@ -18,22 +28,22 @@ SortPage::SortPage(QWidget* parent)
 	_contentWidget->setLayout(_titleAreaLayout);
 
 	// Construct title
-	_titleLabel = new QLabel("Sort Algorithms", _contentWidget);
+	_titleLabel = new QLabel("Sort", _contentWidget);
 	_titleLabel->setFont(_titleFont);
-
+	
 	// Construct page description.
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("No descriptions.");
+	_pageDesc->setText("Visualization of sorting algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
 	_pageDesc->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;");
 
 	_titleAreaLayout->addWidget(_titleLabel);
-	_titleAreaLayout->addWidget(_pageDesc);
+	_titleAreaLayout->addWidget(_pageDesc); 
 	_titleLabel->show();
 	_pageDesc->show();
 
@@ -41,8 +51,8 @@ SortPage::SortPage(QWidget* parent)
 	_mainWidget = new QWidget(_contentWidget);
 	_mainWidget->setObjectName("homePageMainWidget");
 	_mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_mainWidget->setStyleSheet("QWidget#mainWidget { background-color: #efefef; border-radius: 8px; }");
-	_mainLayout = new QGridLayout(_mainWidget);
+	_mainWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
+	_mainLayout = new QHBoxLayout(_mainWidget);
 	_mainLayout->setAlignment(Qt::AlignTop);
 	_mainLayout->setContentsMargins(8, 8, 8, 8);
 	_mainLayout->setSpacing(20);
@@ -51,10 +61,7 @@ SortPage::SortPage(QWidget* parent)
 	_mainWidget->show();
 }
 
-SortPage::~SortPage()
-{
-}
-
+SortPage::~SortPage() {}
 
 PushButton* SortPage::getPageIconButton(QWidget* context) {
 	// Check for existed button

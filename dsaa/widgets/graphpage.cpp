@@ -1,4 +1,4 @@
-#include "homepage.h"
+#include "graphpage.h"
 #include "bigIconButton.h"
 #include "pushbutton.h"
 #include "common.h"
@@ -15,7 +15,7 @@
 #include <QListView>
 #include <QThread>
 
-HomePage::HomePage(QWidget* parent) :
+GraphPage::GraphPage(QWidget* parent) :
 	PageWidget(parent)
 {
 	_contentWidget->setMouseTracking(true);
@@ -30,7 +30,7 @@ HomePage::HomePage(QWidget* parent) :
 	// Construct title
 	_titleLabel = new QLabel("Sort", _contentWidget);
 	_titleLabel->setFont(_titleFont);
-	
+
 	// Construct page description.
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);
@@ -43,7 +43,7 @@ HomePage::HomePage(QWidget* parent) :
 	_pageDesc->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;");
 
 	_titleAreaLayout->addWidget(_titleLabel);
-	_titleAreaLayout->addWidget(_pageDesc); 
+	_titleAreaLayout->addWidget(_pageDesc);
 	_titleLabel->show();
 	_pageDesc->show();
 
@@ -71,7 +71,7 @@ HomePage::HomePage(QWidget* parent) :
 
 	QWidget* panel = new QWidget(_contentWidget);
 	QVBoxLayout* panel_layout = new QVBoxLayout(panel);
-	
+
 	auto h2 = new QHBoxLayout;
 	auto combo = new QComboBox(panel);
 	combo->setView(new QListView(panel));
@@ -84,7 +84,7 @@ HomePage::HomePage(QWidget* parent) :
 	auto spinCount = new QSpinBox(panel);
 	spinCount->setRange(1, 100);
 	spinCount->setValue(10);
-	auto lab2 = new QLabel("Number of data:", panel); 
+	auto lab2 = new QLabel("Number of data:", panel);
 	h3->addWidget(lab2);
 	h3->addWidget(spinCount);
 
@@ -96,7 +96,7 @@ HomePage::HomePage(QWidget* parent) :
 	h4->addWidget(spinInterval);
 
 	auto h1 = new QHBoxLayout;
-	QPushButton* btnSort = new QPushButton("begin",panel);
+	QPushButton* btnSort = new QPushButton("begin", panel);
 	QPushButton* btnStop = new QPushButton("stop", panel);
 	QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	// Clicked to start sort.
@@ -126,7 +126,7 @@ HomePage::HomePage(QWidget* parent) :
 	h1->addWidget(btnStop);
 
 	QSpacerItem* verticalSpacer = new QSpacerItem(20, 232, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	
+
 	panel_layout->addLayout(h4);
 	panel_layout->addLayout(h3);
 	panel_layout->addLayout(h2);
@@ -141,9 +141,9 @@ HomePage::HomePage(QWidget* parent) :
 	panel->show();
 }
 
-HomePage::~HomePage() {}
+GraphPage::~GraphPage() {}
 
-PushButton* HomePage::getPageIconButton(QWidget* context) {
+PushButton* GraphPage::getPageIconButton(QWidget* context) {
 	// Check for existed button
 	if (_iconButton != nullptr) {
 		return _iconButton;
@@ -165,7 +165,7 @@ PushButton* HomePage::getPageIconButton(QWidget* context) {
 	return _iconButton;
 }
 
-PushButton* HomePage::getPageTextButton(QWidget* context) {
+PushButton* GraphPage::getPageTextButton(QWidget* context) {
 	// Check for existed button
 	if (_textButton != nullptr) {
 		return _textButton;

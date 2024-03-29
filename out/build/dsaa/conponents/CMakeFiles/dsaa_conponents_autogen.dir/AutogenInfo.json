@@ -166,6 +166,12 @@
 			null
 		],
 		[
+			"F:/code/Visual_DSAA/dsaa/conponents/slidepage.h",
+			"Mu",
+			"EWIEGA46WW/moc_slidepage.cpp",
+			null
+		],
+		[
 			"F:/code/Visual_DSAA/dsaa/conponents/textButton.h",
 			"Mu",
 			"EWIEGA46WW/moc_textButton.cpp",
@@ -252,6 +258,7 @@
 			"Mu",
 			null
 		],
+		[ "F:/code/Visual_DSAA/dsaa/conponents/slidepage.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/conponents/textButton.cpp", "Mu", null ],
 		[ "F:/code/Visual_DSAA/dsaa/conponents/textInputItem.cpp", "Mu", null ]
 	],

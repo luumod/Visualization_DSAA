@@ -9,5 +9,6 @@
 #include "EWIEGA46WW/moc_pushbutton.cpp"
 #include "EWIEGA46WW/moc_sidebar.cpp"
 #include "EWIEGA46WW/moc_singleSelectGroup.cpp"
+#include "EWIEGA46WW/moc_slidepage.cpp"
 #include "EWIEGA46WW/moc_textButton.cpp"
 #include "EWIEGA46WW/moc_textInputItem.cpp"

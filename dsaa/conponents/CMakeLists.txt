@@ -29,7 +29,10 @@ add_library(dsaa_conponents STATIC
     "lineeditwidget.cpp" 
     "lineeditwidget.h" 
     "customScrollContainer.cpp" 
-    "customScrollContainer.h")
+    "customScrollContainer.h"
+
+    "slidepage.h"
+    "slidepage.cpp")
 
 target_link_libraries(dsaa_conponents PRIVATE
     Qt6::Core

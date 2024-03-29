@@ -10,6 +10,9 @@
 #include "bigIconButton.h"
 #include "customIcon.h"
 #include "sortpage.h"
+#include "graphpage.h"
+#include "aboutpage.h"
+#include "slidepage.h"
 #include <QHBoxLayout>
 #include <QResizeEvent>
 #include <QLineEdit>
@@ -60,10 +63,15 @@ MainWindow::MainWindow(QWidget* parent)
 	_mainLayout->addWidget(_sideBar);
 	_mainLayout->addWidget(_placeHolderWidget);
 
-	// Add home page and connect to side bar.
-	_homePage = new HomePage(_placeHolderWidget);
-	_homePage->setMouseTracking(true);
-	_sideBar->addPage(_homePage);
+	// Add sort page and connect to side bar.
+	_sortPage = new SortPage(_placeHolderWidget);
+	_sortPage->setMouseTracking(true);
+	_sideBar->addPage(_sortPage);
+
+	// Add graph page and connect to side bar.
+	_graphPage = new GraphPage(_placeHolderWidget);
+	_graphPage->setMouseTracking(true);
+	_sideBar->addPage(_graphPage);
 
 	// Create about page and connect to side bar
 	_aboutPage = new AboutPage(_placeHolderWidget);
@@ -153,51 +161,6 @@ void MainWindow::Init() {
 
 #endif
 
-void MainWindow::selectCanvas(SortPage* canvas) {
-	if (!_sortPage) {
-		_mainLayout->removeWidget(defaultPage);
-		defaultPage->hide();
-		_mainLayout->addWidget(canvas);
-		canvas->show();
-	}
-	else {
-		_mainLayout->removeWidget(_sortPage);
-		_sortPage->hide();
-		_mainLayout->addWidget(canvas);
-		canvas->show();
-	}
-	_sortPage = canvas;
-	//canvas->settingPage()->setParent();
-	//curSettingsPage = canvas->settingPage();
-	//_sortPageTitle->setText(_sortPage->name());
-	//_sortPageTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, _sortPageTitle->text()).width() + 10);
-	//_sortPageDesc->setText(_sortPage->description());
-}
-
-//void MainWindow::deleteCanvas(SortPage* canvas) {
-//	int index = canvasList.indexOf(canvas);
-//	if (index < 0)
-//		return;
-//	canvasList.erase(canvasList.begin() + index);
-//	ui->displayLayout->removeWidget(curCanvas);
-//	curCanvas->hide();
-//	if (canvasList.size() > 0) {
-//		selectCanvas(canvasList[0]);
-//	}
-//	else {
-//		ui->displayLayout->addWidget(defaultPage);
-//		defaultPage->show();
-//		curCanvas = nullptr;
-//		canvasTitle->setText("START");
-//		canvasTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, "START").width() + 10);
-//		canvasDesc->setText("Add your first canvas to start");
-//		curSettingsPage = defaultSettingsPage;
-//	}
-//	pageList.erase(pageList.begin() + pageList.indexOf(canvas->settingPage()));
-//	delete canvas;
-//	ui->mainWidget->update();
-//}
-
 void MainWindow::resizePages(QResizeEvent* event) {
 	// Check for input validity
 	if (event == nullptr) {
@@ -210,7 +173,7 @@ void MainWindow::resizePages(QResizeEvent* event) {
 	// Resize the editor page
 	//_editorPage->resize(size);
 	//_settingPage->resize(size);
-	_homePage->resize(size);
+	_sortPage->resize(size);
 	_aboutPage->resize(size);
 }
 
@@ -221,7 +184,7 @@ void MainWindow::showEvent(QShowEvent* event) {
 	// Resize all the pages based on the placeholder widget
 	//_editorPage->resize(_placeHolderWidget->size());
 	//_settingPage->resize(_placeHolderWidget->size());
-	_homePage->resize(_placeHolderWidget->size());
+	_sortPage->resize(_placeHolderWidget->size());
 	_aboutPage->resize(_placeHolderWidget->size());
 }
 

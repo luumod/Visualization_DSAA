@@ -5,13 +5,14 @@
 #include "conponents/framelesswindow.h"
 #include "conponents/sidebar.h"
 #include "conponents/singleSelectGroup.h"
-#include "aboutpage.h"
-#include "homepage.h"
-#include "slidepage.h"
 
 class QLineEdit;
 class QGraphicsDropShadowEffect;
+class SlidePage;
 class SortPage;
+class GraphPage;
+class AboutPage;
+class bigIconButton;
 #define DASS_VERSION false
 class MainWindow : public FramelessWindow
 {
@@ -32,8 +33,9 @@ private:
     SideBar* _sideBar = nullptr;
 
     //If you want to add a new Page, firstly declaration in here.
-    HomePage* _homePage = nullptr;
+    SortPage* _sortPage = nullptr;
     AboutPage* _aboutPage = nullptr;
+    GraphPage* _graphPage = nullptr;
 
     // Sub conponents in the home page.
     bigIconButton* _homeSortButton = nullptr;
@@ -45,11 +47,6 @@ private:
     
     // Place holder widget for resizing pages
     QWidget* _placeHolderWidget = nullptr;
-
-    // Sort page conponents.
-    SortPage* _sortPage = nullptr;
-    QLineEdit* _sortPageTitle = nullptr;
-    QLineEdit* _sortPageDesc = nullptr;
 
 private:
     void resizePages(QResizeEvent* event);

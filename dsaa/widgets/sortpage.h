@@ -1,14 +1,17 @@
-﻿#ifndef SORT_PAGE_H
-#define SORT_PAGE_H
+#ifndef HOME_PAGE
+#define HOME_PAGE
 
 #include "conponents/pagewidget.h"
+#include <QGridLayout>
 
 class QLabel;
 class QHBoxLayout;
+class LineEditWidget;
+class bigIconButton;
 class QLineEdit;
-class QGridLayout;
-class SortPage : public PageWidget
-{
+class _sortThread;
+class SortPage : public PageWidget {
+
     Q_OBJECT
 
 public:
@@ -16,7 +19,6 @@ public:
     ~SortPage();
 
 private:
-
     // Push button icons
     QLabel* _iconButtonLabel = nullptr;
     QWidget* _textButtonWidget = nullptr;
@@ -33,15 +35,15 @@ private:
     QWidget* _mainWidget = nullptr;
 
     // grid layout
-    QGridLayout* _mainLayout = nullptr;
+    QHBoxLayout* _mainLayout = nullptr;
+
+    // Thread for sorting.
+    QThread* _sortThread = nullptr;
 
 public:
-    virtual PushButton* getPageIconButton(QWidget* context) override;  // provide a push button with only an icon
-    virtual PushButton* getPageTextButton(QWidget* context) override;  // provide a push button with an icon and a description text
-
-signals:
-    void nameChanged(QString name);
-    void descChanged(QString desc);
+    virtual PushButton* getPageIconButton(QWidget* context) override;
+    virtual PushButton* getPageTextButton(QWidget* context) override;
 };
 
-#endif // MYCANVAS_H
+
+#endif // !HOME_PAGE
