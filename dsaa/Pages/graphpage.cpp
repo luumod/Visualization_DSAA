@@ -28,22 +28,22 @@ GraphPage::GraphPage(QWidget* parent) :
 	_contentWidget->setLayout(_titleAreaLayout);
 
 	// Construct title
-	_titleLabel = new QLabel("Sort", _contentWidget);
+	_titleLabel = new QLabel("Graph", _contentWidget);
 	_titleLabel->setFont(_titleFont);
-
+	
 	// Construct page description.
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Visualization of sorting algorithm");
+	_pageDesc->setText("Visualization of graph algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
 	_pageDesc->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;");
 
 	_titleAreaLayout->addWidget(_titleLabel);
-	_titleAreaLayout->addWidget(_pageDesc);
+	_titleAreaLayout->addWidget(_pageDesc); 
 	_titleLabel->show();
 	_pageDesc->show();
 
@@ -59,86 +59,6 @@ GraphPage::GraphPage(QWidget* parent) :
 	_mainWidget->setLayout(_mainLayout);
 	_titleAreaLayout->addWidget(_mainWidget);
 	_mainWidget->show();
-
-	QHBoxLayout* hBoxLayout = new QHBoxLayout;
-
-	QWidget* canvasWrap = new QWidget(_contentWidget);
-	QVBoxLayout* canvasWrap_layout = new QVBoxLayout(canvasWrap);
-	MainCanvas* canvas = new MainCanvas(canvasWrap);
-	canvas->setParent(nullptr);
-	canvasWrap_layout->addWidget(canvas);
-	canvas->setFixedSize(400, 400);
-
-	QWidget* panel = new QWidget(_contentWidget);
-	QVBoxLayout* panel_layout = new QVBoxLayout(panel);
-
-	auto h2 = new QHBoxLayout;
-	auto combo = new QComboBox(panel);
-	combo->setView(new QListView(panel));
-	combo->addItems(SortFactory::getInstance()->getSortList());
-	auto lab = new QLabel("Sort type", panel);
-	h2->addWidget(lab);
-	h2->addWidget(combo);
-
-	auto h3 = new QHBoxLayout;
-	auto spinCount = new QSpinBox(panel);
-	spinCount->setRange(1, 100);
-	spinCount->setValue(10);
-	auto lab2 = new QLabel("Number of data:", panel);
-	h3->addWidget(lab2);
-	h3->addWidget(spinCount);
-
-	auto h4 = new QHBoxLayout;
-	auto spinInterval = new QSpinBox(panel);
-	spinInterval->setValue(10);
-	auto lab3 = new QLabel("Operate interval", panel);
-	h4->addWidget(lab3);
-	h4->addWidget(spinInterval);
-
-	auto h1 = new QHBoxLayout;
-	QPushButton* btnSort = new QPushButton("begin", panel);
-	QPushButton* btnStop = new QPushButton("stop", panel);
-	QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	// Clicked to start sort.
-	connect(btnSort, &QPushButton::clicked, this, [=] {
-		const int type = combo->currentIndex();
-		if (type != canvas->getSortType()) {
-			SortObject* obj = SortFactory::getInstance()->createSortObject(type, parent);
-			canvas->setSortObject(type, obj);
-		}
-		canvas->sort(spinCount->value(), spinInterval->value());
-		});
-	// Clicked to stop sort.
-	connect(btnStop, &QPushButton::clicked, this, [=] {
-		canvas->stop();
-		});
-
-	// When sorting, user can't modified these thing.
-	connect(canvas, &MainCanvas::runFlagChanged,
-		this, [=](bool running) {
-			combo->setEnabled(!running);
-			spinCount->setEnabled(!running);
-			spinInterval->setEnabled(!running);
-			btnSort->setEnabled(!running);
-		});
-	h1->addWidget(btnSort);
-	h1->addSpacerItem(horizontalSpacer);
-	h1->addWidget(btnStop);
-
-	QSpacerItem* verticalSpacer = new QSpacerItem(20, 232, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-	panel_layout->addLayout(h4);
-	panel_layout->addLayout(h3);
-	panel_layout->addLayout(h2);
-	panel_layout->addSpacerItem(verticalSpacer);
-	panel_layout->addLayout(h1);
-
-	//------------over
-	hBoxLayout->addWidget(canvasWrap);
-	hBoxLayout->addWidget(panel);
-	_titleAreaLayout->addLayout(hBoxLayout);
-	canvasWrap->show();
-	panel->show();
 }
 
 GraphPage::~GraphPage() {}

@@ -1,5 +1,5 @@
-#ifndef GRAPH_PAGE
-#define GRAPH_PAGE
+#ifndef HOME_PAGE
+#define HOME_PAGE
 
 #include "Components/pagewidget.h"
 #include <QGridLayout>
