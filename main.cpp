@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QWidget>
 #include <QString>
-#include "widgets/mainwindow.h"
+#include "Windows/mainwindow.h"
 
 int main(int argc, char* argv[]) {
 	QApplication app(argc, argv);

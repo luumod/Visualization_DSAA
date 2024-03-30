@@ -2,9 +2,10 @@
 #define DASS_VERSION
 
 #include "mainwindow.h"
+#include "sidebar.h"
+#include "singleSelectGroup.h"
 #include "common.h"
 #include "pushbutton.h"
-#include "singleSelectGroup.h"
 #include "textButton.h"
 #include "textInputItem.h"
 #include "bigIconButton.h"

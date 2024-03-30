@@ -2,7 +2,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QEventLoop>
-#include "conponents/framelesswindow.h"
+#include "Components/framelesswindow.h"
 
 int main(int argc, char* argv[])
 {

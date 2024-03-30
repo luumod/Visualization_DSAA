@@ -1,7 +1,7 @@
 #ifndef ABOUT_PAGE
 #define ABOUT_PAGE
 
-#include "conponents/pagewidget.h"
+#include "Components/pagewidget.h"
 
 class QLabel;
 class QHBoxLayout;

@@ -1,9 +1,9 @@
 ﻿#include "mycanvas.h"
-#include "conponents/horizontalValueAdjuster.h"
-#include "conponents/textButton.h"
-#include "conponents/singleSelectGroup.h"
-#include "conponents/textInputItem.h"
-#include "conponents/customScrollContainer.h"
+#include "Components/horizontalValueAdjuster.h"
+#include "Components/textButton.h"
+#include "Components/singleSelectGroup.h"
+#include "Components/textInputItem.h"
+#include "Components/customScrollContainer.h"
 #include <QTimer>
 #include <QRegularExpressionValidator>
 

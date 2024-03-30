@@ -1,7 +1,7 @@
-#ifndef GRAPH_PAGE
-#define GRAPH_PAGE
+#ifndef HOME_PAGE
+#define HOME_PAGE
 
-#include "conponents/pagewidget.h"
+#include "Components/pagewidget.h"
 #include <QGridLayout>
 
 class QLabel;
@@ -10,13 +10,13 @@ class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
 class _sortThread;
-class GraphPage : public PageWidget {
+class SortPage : public PageWidget {
 
     Q_OBJECT
 
 public:
-    GraphPage(QWidget* parent = 0);
-    ~GraphPage();
+    SortPage(QWidget* parent = 0);
+    ~SortPage();
 
 private:
     // Push button icons

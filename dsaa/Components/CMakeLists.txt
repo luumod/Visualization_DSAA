@@ -1,10 +1,10 @@
 set(CMAKE_AUTOMOC ON)
 
-include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../utils)
+include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../Utils)
 
 find_package(Qt6 COMPONENTS Core Widgets Svg REQUIRED)
 
-add_library(dsaa_conponents STATIC
+add_library(dsaa_components STATIC
     "customIcon.h" 
     "customIcon.cpp" 
     "singleSelectGroup.h" 
@@ -17,7 +17,6 @@ add_library(dsaa_conponents STATIC
     "textInputItem.h"
     "textButton.h"
     "textButton.cpp"
-
     "framelesswindow.h"
     "framelesswindow.cpp" 
     "sidebar.cpp" 
@@ -30,11 +29,10 @@ add_library(dsaa_conponents STATIC
     "lineeditwidget.h" 
     "customScrollContainer.cpp" 
     "customScrollContainer.h"
-
     "slidepage.h"
     "slidepage.cpp")
 
-target_link_libraries(dsaa_conponents PRIVATE
+target_link_libraries(dsaa_components PRIVATE
     Qt6::Core
     Qt6::Widgets
     Qt6::Svg

@@ -6,7 +6,7 @@
 #include "graph_view.h"
 #include "graph_implement.h"
 #include <QFileDialog>
-#include "conponents/slidepage.h"
+#include "Components/slidepage.h"
 
 class MyCanvas : public QWidget
 {

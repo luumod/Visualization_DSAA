@@ -1,10 +1,7 @@
 #ifndef MAIN_WINDOW
 #define MAIN_WINDOW
 
-#include <QMainWindow>
-#include "conponents/framelesswindow.h"
-#include "conponents/sidebar.h"
-#include "conponents/singleSelectGroup.h"
+#include "Components/framelesswindow.h"
 
 class QLineEdit;
 class QGraphicsDropShadowEffect;
@@ -13,7 +10,9 @@ class SortPage;
 class GraphPage;
 class AboutPage;
 class bigIconButton;
+class SideBar;
 #define DASS_VERSION false
+
 class MainWindow : public FramelessWindow
 {
     Q_OBJECT
@@ -37,7 +36,7 @@ private:
     AboutPage* _aboutPage = nullptr;
     GraphPage* _graphPage = nullptr;
 
-    // Sub conponents in the home page.
+    // Sub Components in the home page.
     bigIconButton* _homeSortButton = nullptr;
 
     QWidget* defaultPage = nullptr;

@@ -1,7 +1,7 @@
 set(CMAKE_AUTOMOC ON)
 
-include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../utils)
-include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../conponents)
+include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../../Utils)
+include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../../Components)
 
 find_package(Qt6 COMPONENTS Core Widgets Svg REQUIRED)
 

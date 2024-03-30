@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 
 include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/dsaa)
 
-add_executable(Visual_DSAA "main.cpp" "dsaa/graph/mycanvas.cpp" "dsaa/graph/mycanvas.h" "dsaa/graph/graph_implement.cpp" "dsaa/graph/graph_implement.h" "dsaa/graph/graph_view.cpp" "dsaa/graph/graph_view.h")
+add_executable(Visual_DSAA "main.cpp")
 
 find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
 
@@ -17,8 +17,9 @@ add_subdirectory(dsaa)
 
 target_link_libraries(Visual_DSAA
     PRIVATE
-    dsaa_widgets
-    dsaa_conponents
+    dsaa_window
+    dsaa_pages
+    dsaa_components
     dsaa_utils
     dsaa_sort
     dsaa_graph
