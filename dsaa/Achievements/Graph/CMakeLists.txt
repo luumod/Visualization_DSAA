@@ -10,8 +10,8 @@ add_library(dsaa_graph STATIC
     "graph_implement.cpp"
     "graph_view.h"
     "graph_view.cpp"
-    "mycanvas.h"
-    "mycanvas.cpp"
+    "graphcanvas.h"
+    "graphcanvas.cpp"
 )
 
 target_link_libraries(dsaa_graph PRIVATE

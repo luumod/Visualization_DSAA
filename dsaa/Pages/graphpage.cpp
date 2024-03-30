@@ -4,6 +4,7 @@
 #include "common.h"
 #include "MainCanvas.h"
 #include "SortFactory.h"
+#include "graphcanvas.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -28,22 +29,22 @@ GraphPage::GraphPage(QWidget* parent) :
 	_contentWidget->setLayout(_titleAreaLayout);
 
 	// Construct title
-	_titleLabel = new QLabel("Graph", _contentWidget);
+	_titleLabel = new QLabel("Sort", _contentWidget);
 	_titleLabel->setFont(_titleFont);
-	
+
 	// Construct page description.
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Visualization of graph algorithm");
+	_pageDesc->setText("Visualization of sort algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
 	_pageDesc->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;");
 
 	_titleAreaLayout->addWidget(_titleLabel);
-	_titleAreaLayout->addWidget(_pageDesc); 
+	_titleAreaLayout->addWidget(_pageDesc);
 	_titleLabel->show();
 	_pageDesc->show();
 
@@ -59,6 +60,17 @@ GraphPage::GraphPage(QWidget* parent) :
 	_mainWidget->setLayout(_mainLayout);
 	_titleAreaLayout->addWidget(_mainWidget);
 	_mainWidget->show();
+
+	MyCanvas* graphCanvas = new MyCanvas(20,
+		"rename->value()",
+		"redescribe->value()",
+		true ? MyCanvas::AL : MyCanvas::AML,
+		true ? MyCanvas::DG : MyCanvas::UDG, _contentWidget);
+
+	_titleAreaLayout->addWidget(graphCanvas);
+	graphCanvas->show();
+
+	update();
 }
 
 GraphPage::~GraphPage() {}

@@ -1,4 +1,4 @@
-﻿#include "mycanvas.h"
+﻿#include "graphcanvas.h"
 #include "Components/horizontalValueAdjuster.h"
 #include "Components/textButton.h"
 #include "Components/singleSelectGroup.h"
@@ -21,7 +21,7 @@ MyCanvas::MyCanvas(int radius, QString name, QString desc, int structure, int _t
     view = new MyGraphicsView(type == UDG ? MyGraphicsView::UDG : MyGraphicsView::DG);
     view->setSceneRect(view->rect());
     view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
-    //mainLayout->addWidget(view);
+    mainLayout->addWidget(view);
     g = structure == AL ? (AbstractGraph*)(new ALGraph(type)) : (AbstractGraph*)(new AMLGraph(type));
     connect(view, SIGNAL(vexAdded(MyGraphicsVexItem*)), this, SLOT(addVex(MyGraphicsVexItem*)));
     connect(view, SIGNAL(arcAdded(MyGraphicsLineItem*)), this, SLOT(addArc(MyGraphicsLineItem*)));
@@ -45,7 +45,7 @@ MyCanvas::MyCanvas(QTextStream &ts, int radius, QWidget *parent) :
     view = new MyGraphicsView(type == UDG ? MyGraphicsView::UDG : MyGraphicsView::DG);
     view->setSceneRect(view->rect());
     view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
-    mainLayout->addWidget(view);
+    //mainLayout->addWidget(view);
     g = structure_type == AL ? (AbstractGraph*)(new ALGraph(type)) : (AbstractGraph*)(new AMLGraph(type));
     connect(view, SIGNAL(vexAdded(MyGraphicsVexItem*)), this, SLOT(addVex(MyGraphicsVexItem*)));
     connect(view, SIGNAL(arcAdded(MyGraphicsLineItem*)), this, SLOT(addArc(MyGraphicsLineItem*)));
