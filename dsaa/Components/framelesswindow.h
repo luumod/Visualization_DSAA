@@ -40,14 +40,14 @@ protected:
     virtual void showEvent(QShowEvent* event) override;
 
     // Widget list
-    QVBoxLayout* _stretchLayout = nullptr;
+    QVBoxLayout* _FstretchLayout = nullptr;
 
-    QWidget* _windowWidget = nullptr;
-    QWidget* _windowBorder = nullptr;
-    QGraphicsDropShadowEffect* _windowShadow = nullptr;
+    QWidget* _FwindowWidget = nullptr;
+    QWidget* _FwindowBorder = nullptr;
+    QGraphicsDropShadowEffect* _FwindowShadow = nullptr;
 
-    QWidget* _windowBtnWidget = nullptr;
-    QHBoxLayout* _windowBtnLayout = nullptr;
+    QWidget* _FwindowBtnWidget = nullptr;
+    QHBoxLayout* _FwindowBtnLayout = nullptr;
     QPushButton* _minimizeBtn = nullptr;
     QPushButton* _maximizeBtn = nullptr;
     QPushButton* _closeBtn = nullptr;
@@ -77,7 +77,7 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent* event) override;
     
 public:
-    QWidget* windowWidget() const { return _windowWidget; }
+    QWidget* windowWidget() const { return _FwindowWidget; }
     LUI_WINDOW_ATTRIBUTES getWindowAttributes();
     void setWindowAttributes(unsigned int attributes);
 };

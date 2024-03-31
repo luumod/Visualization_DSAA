@@ -29,13 +29,13 @@ MainWindow::MainWindow(QWidget* parent)
 	this->resize(1250, 750);
 
 	// Create main layout for page and sidebar
-	_mainLayout = new QHBoxLayout(_windowWidget);
+	_mainLayout = new QHBoxLayout(_FwindowWidget);
 	_mainLayout->setContentsMargins(0, 0, 0, 0);
 	_mainLayout->setSpacing(0);
-	_windowWidget->setLayout(_mainLayout);
+	_FwindowWidget->setLayout(_mainLayout);
 
 	// Create placeholder widget for pages
-	_placeHolderWidget = new QWidget(_windowWidget);
+	_placeHolderWidget = new QWidget(_FwindowWidget);
 	_placeHolderWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	_placeHolderWidget->setMouseTracking(true);
 
@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget* parent)
 	_placeHolderWidget->installEventFilter(this);
 	
 	// Create sidebar
-	_sideBar = new SideBar(_windowWidget);
+	_sideBar = new SideBar(_FwindowWidget);
 
 	// When page changed, activate this lambda to achieve change.
 	connect(_sideBar, &SideBar::onPageChanged, this, [=](PageWidget* previousPage, PageWidget* currentPage) {
