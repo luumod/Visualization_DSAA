@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget* parent)
 
 	// Connect the resize event of the placeholder widget to the resizePages function using event filter
 	_placeHolderWidget->installEventFilter(this);
-
+	
 	// Create sidebar
 	_sideBar = new SideBar(_windowWidget);
 
@@ -78,14 +78,6 @@ MainWindow::MainWindow(QWidget* parent)
 	_aboutPage = new AboutPage(_placeHolderWidget);
 	_aboutPage->setMouseTracking(true);
 	_sideBar->addPage(_aboutPage);
-
-	// ÑÓ³Ù¹¹Ôì£¿
-	QTimer* t = new QTimer(this);
-	connect(t, &QTimer::timeout, this, [=]() {
-		//Init();
-	});
-	t->setSingleShot(true);
-	t->start(10);
 }
 
 MainWindow::~MainWindow() {
@@ -171,9 +163,7 @@ void MainWindow::resizePages(QResizeEvent* event) {
 	// Get the size of the placeholder widget
 	QSize size = event->size();
 
-	// Resize the editor page
-	//_editorPage->resize(size);
-	//_settingPage->resize(size);
+	// Resize pages.
 	_sortPage->resize(size);
 	_aboutPage->resize(size);
 }
@@ -183,8 +173,6 @@ void MainWindow::showEvent(QShowEvent* event) {
 	FramelessWindow::showEvent(event);
 
 	// Resize all the pages based on the placeholder widget
-	//_editorPage->resize(_placeHolderWidget->size());
-	//_settingPage->resize(_placeHolderWidget->size());
 	_sortPage->resize(_placeHolderWidget->size());
 	_aboutPage->resize(_placeHolderWidget->size());
 }
