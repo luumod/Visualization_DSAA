@@ -52,16 +52,10 @@ void PageWidget::onStage() {
 void PageWidget::offStage() {
     // Move down and fade out
     QParallelAnimationGroup* offStageAnimation = new QParallelAnimationGroup(this);
-    //QPropertyAnimation* moveAnimation = new QPropertyAnimation(_contentWidget, "pos");
     QPropertyAnimation* fadeOutAnimation = new QPropertyAnimation(_pageOpacityEffect, "opacity");
-    //moveAnimation->setDuration(300);
-    //moveAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    //moveAnimation->setStartValue(_contentWidget->pos());
-    //moveAnimation->setEndValue(_originPagePosition - QPoint(0, 100));
     fadeOutAnimation->setDuration(200);
     fadeOutAnimation->setStartValue(_pageOpacityEffect->opacity());
     fadeOutAnimation->setEndValue(0);
-    //offStageAnimation->addAnimation(moveAnimation);
     offStageAnimation->addAnimation(fadeOutAnimation);
     offStageAnimation->start(QAbstractAnimation::DeleteWhenStopped);
     

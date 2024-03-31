@@ -27,18 +27,16 @@ private:
     QLabel* _textButtonLabel = nullptr;
 
     // UI elements
+    QVBoxLayout* _windowAreaLayout = nullptr;
     QVBoxLayout* _titleAreaLayout = nullptr;
     const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
     QLabel* _titleLabel = nullptr;
     QLineEdit* _pageDesc = nullptr;
 
-    QWidget* _mainWidget = nullptr;
+    QWidget* _mainOperateWidget = nullptr;
 
-    // grid layout
-    QHBoxLayout* _mainLayout = nullptr;
-
-    // Thread for sorting.
-    QThread* _sortThread = nullptr;
+    QHBoxLayout* _mainOperateLayout = nullptr;
+    QWidget* _titleAreaWidget = nullptr;
 
 public:
     virtual PushButton* getPageIconButton(QWidget* context) override;

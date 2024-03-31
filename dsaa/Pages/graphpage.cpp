@@ -21,12 +21,20 @@ GraphPage::GraphPage(QWidget* parent) :
 {
 	_contentWidget->setMouseTracking(true);
 
+	// Create the main layout for this window.
+	_windowAreaLayout = new QVBoxLayout(_contentWidget);
+	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
+
 	// Construct title layout
-	_titleAreaLayout = new QVBoxLayout(_contentWidget);
+	_titleAreaWidget = new QWidget(_contentWidget);
+	_titleAreaLayout = new QVBoxLayout(_titleAreaWidget);
 	_titleAreaLayout->setContentsMargins(28, 46, 22, 22);
 	_titleAreaLayout->setSpacing(1);
 	_titleAreaLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-	_contentWidget->setLayout(_titleAreaLayout);
+	_titleAreaWidget->setLayout(_titleAreaLayout);
+	_titleAreaWidget->show();
+	// Add to main window.
+	_windowAreaLayout->addWidget(_titleAreaWidget);
 
 	// Construct title
 	_titleLabel = new QLabel("Sort", _contentWidget);
@@ -49,25 +57,26 @@ GraphPage::GraphPage(QWidget* parent) :
 	_pageDesc->show();
 
 	// Construct main layout
-	_mainWidget = new QWidget(_contentWidget);
-	_mainWidget->setObjectName("homePageMainWidget");
-	_mainWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_mainWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
-	_mainLayout = new QHBoxLayout(_mainWidget);
-	_mainLayout->setAlignment(Qt::AlignTop);
-	_mainLayout->setContentsMargins(8, 8, 8, 8);
-	_mainLayout->setSpacing(20);
-	_mainWidget->setLayout(_mainLayout);
-	_titleAreaLayout->addWidget(_mainWidget);
-	_mainWidget->show();
+	_mainOperateWidget = new QWidget(_contentWidget);
+	_mainOperateWidget->setObjectName("homePageMainWidget");
+	_mainOperateWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+	_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
+	_mainOperateLayout = new QHBoxLayout(_mainOperateWidget);
+	_mainOperateLayout->setAlignment(Qt::AlignTop);
+	_mainOperateLayout->setContentsMargins(8, 8, 8, 8);
+	_mainOperateLayout->setSpacing(20);
+	_mainOperateWidget->setLayout(_mainOperateLayout);
+	_mainOperateWidget->show();
+	// Add to main window.
+	_windowAreaLayout->addWidget(_mainOperateWidget);
 
 	MyCanvas* graphCanvas = new MyCanvas(20,
 		"rename->value()",
-		"redescribe->value()",
+		"re-describe->value()",
 		true ? MyCanvas::AL : MyCanvas::AML,
 		true ? MyCanvas::DG : MyCanvas::UDG, _contentWidget);
 
-	_titleAreaLayout->addWidget(graphCanvas);
+	_mainOperateLayout->addWidget(graphCanvas);
 	graphCanvas->show();
 
 	update();

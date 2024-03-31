@@ -22,8 +22,8 @@ private:
 
     // UI control variables
     QColor _backgroundColor = QColor(230, 230, 230);
-    int _collapsedWidth = 86;
-    int _expandedWidth = 200;
+    int _shrinkWidth = 86;
+    int _expandWidth = 200;
 
     // UI widgets
     PushButton* _expandButton;
@@ -35,7 +35,11 @@ private:
     QVBoxLayout* _pageTextButtonLayout = nullptr;   // Layout page text buttons
     
     // Interaction controls
-    bool _expanded = false;
+    bool _expand = false;
+
+    /**
+     * @brief control the page, every page's object is PageWidget.
+     */
     PageWidget* _currentPage = nullptr;
 
     // State storage

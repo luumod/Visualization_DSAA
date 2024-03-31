@@ -12,9 +12,9 @@ SideBar::SideBar(QWidget* parent)
     : QWidget(parent)
 {
     setAttribute(Qt::WA_StyledBackground, true);
-    setMaximumWidth(_collapsedWidth);
+    setMaximumWidth(_shrinkWidth);
 
-    // Create stylesheet
+    // Create styleSheet
     setObjectName("sideBar");
     QString sideBarStyleSheet = "QWidget#sideBar{background-color:" + _backgroundColor.name(QColor::HexArgb) + "; }";
     setStyleSheet(sideBarStyleSheet);
@@ -32,8 +32,8 @@ SideBar::SideBar(QWidget* parent)
     _expandButton->setIndicatorColor(QColor(255, 255, 255, 0)); // Set indicator to transparent
     _expandButton->setHoverColor(QColor(0, 0, 0, 10));
     _expandButton->setPressedColor(QColor(0, 0, 0, 20));
-    int buttonSize = _collapsedWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
-    int buttonSizeMax = _expandedWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
+    int buttonSize = _shrinkWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
+    int buttonSizeMax = _expandWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
     _expandButton->setMinimumSize(buttonSize, buttonSize);
     _expandButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
     _expandButtonIcon = new QLabel(_expandButton);
@@ -43,10 +43,12 @@ SideBar::SideBar(QWidget* parent)
     
     // Connect the expand button event to expand / collapse event
     connect(_expandButton, &PushButton::onClick, this, [=]() {
-        if (_expanded) {
+        if (_expand) {
+            // if expand, so shrink.
             collapse();
         }
         else {
+            // if shrink, so expand.
             expand();
         }
     });
@@ -79,7 +81,7 @@ SideBar::SideBar(QWidget* parent)
 
     // Display the icon buttons
     _pageIconButtonWidget->show();
-    _pageTextButtonWidget->hide();
+    _pageTextButtonWidget->hide(); // Hide the text Actually.
 }
 
 SideBar::~SideBar() {}
@@ -90,7 +92,7 @@ void SideBar::expand() {
     expandAnimation->setDuration(650);
     expandAnimation->setEasingCurve(QEasingCurve::OutExpo);
     expandAnimation->setStartValue(width());
-    expandAnimation->setEndValue(_expandedWidth);
+    expandAnimation->setEndValue(_expandWidth);
     expandAnimation->start(QAbstractAnimation::DeleteWhenStopped);
     
     // Show the page text buttons
@@ -98,7 +100,7 @@ void SideBar::expand() {
     _pageTextButtonWidget->show();
 
     // Set the expand state
-    _expanded = true;
+    _expand = true;
 }
 
 void SideBar::collapse() {
@@ -107,7 +109,7 @@ void SideBar::collapse() {
     collapseAnimation->setDuration(650);
     collapseAnimation->setEasingCurve(QEasingCurve::OutExpo);
     collapseAnimation->setStartValue(width());
-    collapseAnimation->setEndValue(_collapsedWidth);
+    collapseAnimation->setEndValue(_shrinkWidth);
     collapseAnimation->start(QAbstractAnimation::DeleteWhenStopped);
 
     // Show the page icon buttons
@@ -115,7 +117,7 @@ void SideBar::collapse() {
     _pageTextButtonWidget->hide();
 
     // Set the expand state
-    _expanded = false;
+    _expand = false;
 }
 
 void SideBar::setBackgroundColor(QColor color) {
@@ -128,14 +130,14 @@ void SideBar::setExpandedWidth(int width) {
     if (width <= 0) {
         return;
     }
-    _expandedWidth = width;
+    _expandWidth = width;
 }
 
 void SideBar::setCollapsedWidth(int width) {
     if (width <= 0) {
         return;
     }
-    _collapsedWidth = width;
+    _shrinkWidth = width;
 }
 
 void SideBar::selectPage(PageWidget* page) {
@@ -144,14 +146,14 @@ void SideBar::selectPage(PageWidget* page) {
         return;
     }
     
-    // Deselect current page if there is one
+    // De-select current page if there is one
     if (_currentPage != nullptr) {
         // Find the buttons of the current page
         int index = _pageList.indexOf(_currentPage);
         PushButton* currentPageIconButton = _pageButtonList.at(index).first;
         PushButton* currentPageTextButton = _pageButtonList.at(index).second;
         
-        // Deselect both the buttons
+        // De-select both the buttons
         currentPageIconButton->deselect();
         currentPageTextButton->deselect();
     }
@@ -193,8 +195,8 @@ void SideBar::addPage(PageWidget* page) {
     textButton->show();
 
     // Resize the buttons and set size policy to fixed
-    int buttonSize = _collapsedWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
-    int buttonSizeMax = _expandedWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
+    int buttonSize = _shrinkWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
+    int buttonSizeMax = _expandWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
     iconButton->setMinimumSize(buttonSize, buttonSize);
     textButton->setMinimumSize(buttonSize, buttonSize);
     iconButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -234,8 +236,8 @@ void SideBar::insertPage(PageWidget* page, int index) {
     textButton->show();
 
     // Resize the buttons and set size policy to fixed
-    int buttonSize = _collapsedWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
-    int buttonSizeMax = _expandedWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
+    int buttonSize = _shrinkWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
+    int buttonSizeMax = _expandWidth - _mainLayout->contentsMargins().left() - _mainLayout->contentsMargins().right();
     iconButton->setMinimumSize(buttonSize, buttonSize);
     textButton->setMinimumSize(buttonSize, buttonSize);
     iconButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);

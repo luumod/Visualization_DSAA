@@ -6,6 +6,9 @@
 class PushButton;
 class QVBoxLayout;
 class QGraphicsOpacityEffect;
+/**
+ * @brief Basic widget of every page.
+ */
 class PageWidget : public QWidget
 {
 
@@ -31,12 +34,26 @@ protected:
     QPoint _originPagePosition = QPoint(0, 0);
 
 public:
-    virtual PushButton* getPageIconButton(QWidget* context) = 0;  // provide a push button with only an icon
-    virtual PushButton* getPageTextButton(QWidget* context) = 0;  // provide a push button with an icon and a description text
+    /**
+     * @brief provide a push button with only an icon.
+     */
+    virtual PushButton* getPageIconButton(QWidget* context) = 0;
+
+    /**
+     * @brief provide a push button with an icon and a description text.
+     */
+    virtual PushButton* getPageTextButton(QWidget* context) = 0; 
 
 public:
-    void onStage();     // provide an on stage animation when the page is selected
-    void offStage();    // provide an off stage animation when the page is deselected
+    /**
+     * @brief When the current page is selected, provide an on stage animation and open.
+     */
+    void onStage();  
+
+    /**
+     * @brief When the current page is De-selected, provide an off stage animation and close.
+     */
+    void offStage(); 
 };
 
 #endif // !PAGE_WIDGET
