@@ -1,10 +1,16 @@
 #include "pagewidget.h"
+#include "logger.h"
+#include "common.h"
 #include <QPropertyAnimation>
 #include <qparallelanimationgroup.h>
 #include <QVBoxLayout>
 #include <QGraphicsOpacityEffect>
 
 PageWidget::PageWidget(QWidget* parent) : QWidget(parent) {
+#if DEBUG
+    Logger::debug("------- Begin initialized PageWidget -------");
+#endif // DEBUG
+
     // Construct and set main layout
     _stretchLayout = new QVBoxLayout(this);
     _stretchLayout->setContentsMargins(0, 0, 0, 0);
@@ -24,6 +30,10 @@ PageWidget::PageWidget(QWidget* parent) : QWidget(parent) {
     // Move offstage
     move(_originPagePosition + QPoint(0, 150));
     hide();
+
+#if DEBUG
+    Logger::debug("------- End initialized PageWidget -------");
+#endif  
 }
 
 PageWidget::~PageWidget() {}

@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "sidebar.h"
 #include "singleSelectGroup.h"
+#include "logger.h"
 #include "common.h"
 #include "pushbutton.h"
 #include "textButton.h"
@@ -25,6 +26,9 @@
 MainWindow::MainWindow(QWidget* parent)
 	: FramelessWindow(20, parent)
 {
+#if DEBUG
+	Logger::debug("------- Begin initialized MainWindow -------");
+#endif // DEBUG
 	this->setMouseTracking(true);
 	this->resize(1250, 750);
 
@@ -78,6 +82,10 @@ MainWindow::MainWindow(QWidget* parent)
 	_aboutPage = new AboutPage(_placeHolderWidget);
 	_aboutPage->setMouseTracking(true);
 	_sideBar->addPage(_aboutPage);
+
+#if DEBUG
+	Logger::debug("------- End initialized MainWindow -------");
+#endif // DEBUG
 }
 
 MainWindow::~MainWindow() {

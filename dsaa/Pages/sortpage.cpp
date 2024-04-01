@@ -1,6 +1,7 @@
 #include "sortpage.h"
 #include "bigIconButton.h"
 #include "pushbutton.h"
+#include "logger.h"
 #include "common.h"
 #include "MainCanvas.h"
 #include "SortFactory.h"
@@ -18,6 +19,9 @@
 SortPage::SortPage(QWidget* parent) :
 	PageWidget(parent)
 {
+#if DEBUG
+	Logger::debug("------- Begin initialized SortPage -------");
+#endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 
 	// Create the main layout for this window.
@@ -147,6 +151,10 @@ SortPage::SortPage(QWidget* parent) :
 	_mainOperateLayout->addWidget(panel);
 	canvasWrap->show();
 	panel->show();
+
+#if DEBUG
+	Logger::debug("------- End initialized SortPage -------");
+#endif // DEBUG
 }
 
 SortPage::~SortPage() {}

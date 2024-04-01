@@ -1,6 +1,7 @@
 #include "graphpage.h"
 #include "bigIconButton.h"
 #include "pushbutton.h"
+#include "logger.h"
 #include "common.h"
 #include "MainCanvas.h"
 #include "SortFactory.h"
@@ -19,6 +20,9 @@
 GraphPage::GraphPage(QWidget* parent) :
 	PageWidget(parent)
 {
+#if DEBUG
+	Logger::debug("------- Begin initialized GraphPage -------");
+#endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 
 	// Create the main layout for this window.
@@ -80,6 +84,10 @@ GraphPage::GraphPage(QWidget* parent) :
 	graphCanvas->show();
 
 	update();
+
+#if DEBUG
+	Logger::debug("------- End initialized GraphPage -------");
+#endif // DEBUG
 }
 
 GraphPage::~GraphPage() {}

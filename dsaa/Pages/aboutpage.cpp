@@ -1,12 +1,17 @@
 #include "aboutpage.h"
+#include "logger.h"
+#include "common.h"
 #include "lineeditwidget.h"
 #include "pushbutton.h"
 #include <QVBoxLayout>
 #include <QLabel>
 
-AboutPage::AboutPage(QWidget* parent) : 
-    PageWidget(parent)
+AboutPage::AboutPage(QWidget* parent) :
+    PageWidget(parent) 
 {
+#if DEBUG
+        Logger::debug("------- Begin initialized AboutPage -------");
+#endif // DEBUG
     _contentWidget->setMouseTracking(true);
 
     // Construct title layout
@@ -172,6 +177,10 @@ AboutPage::AboutPage(QWidget* parent) :
     _githubLink->setEnabled(false);
     _mainLayout->addWidget(_githubLink);
     _githubLink->show();
+
+#if DEBUG
+    Logger::debug("------- End initialized AboutPage -------");
+#endif // DEBUG
 }
 
 AboutPage::~AboutPage() {}

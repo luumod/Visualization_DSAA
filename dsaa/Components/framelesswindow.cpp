@@ -1,5 +1,6 @@
 #include "framelesswindow.h"
 #include "logger.h"
+#include "common.h"
 #include <QGraphicsDropShadowEffect>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -15,6 +16,9 @@
 FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWidget* parent)
 	: _cornerRadius(cornerRadius), _attributes((LUI_WINDOW_ATTRIBUTES)attributes), QWidget(parent)
 {
+#if DEBUG
+	Logger::debug("------- Begin initialized FramelessWindow -------");
+#endif // DEBUG
 	setAttribute(Qt::WA_TranslucentBackground);
 	setWindowFlags(Qt::FramelessWindowHint);
 	setFocusPolicy(Qt::StrongFocus);
@@ -86,6 +90,11 @@ FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWid
 	connect(_minimizeBtn, &QPushButton::clicked, this, &QWidget::showMinimized);
 	connect(_maximizeBtn, &QPushButton::clicked, this, &FramelessWindow::controlWindowScale);
 	connect(_closeBtn, &QPushButton::clicked, this, &QWidget::close);
+
+
+#if DEBUG
+	Logger::debug("------- End initialized FramelessWindow -------");
+#endif // DEBUG
 }
 
 FramelessWindow::FramelessWindow(QWidget* parent)

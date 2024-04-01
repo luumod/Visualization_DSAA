@@ -1,14 +1,12 @@
 #ifndef LOGGER
 #define LOGGER
 
-#include <iostream>
-
 #define LOCALLOGLEVEL INFO
 
 class QString;
 class Logger {
 public:
-    enum LogLevel { NONE, DEBUG, INFO, WARNING, ERR };
+    enum LogLevel { NONE, DEBUG, INFO, WARNING, ERR, };
     
 private:
     static LogLevel _level;

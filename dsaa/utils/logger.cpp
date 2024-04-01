@@ -3,7 +3,7 @@
 #include <QString>
 
 //Set the logger minimum show level.
-Logger::LogLevel Logger::_level = Logger::LogLevel::WARNING;
+Logger::LogLevel Logger::_level = Logger::LogLevel::DEBUG;
 QString Logger::_previous = "";
 
 void Logger::setLogLevel(LogLevel level) {
