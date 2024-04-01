@@ -1,6 +1,7 @@
 #include "aboutpage.h"
 #include "logger.h"
 #include "common.h"
+#include "fontawesomeicons.h"
 #include "lineeditwidget.h"
 #include "pushbutton.h"
 #include <QVBoxLayout>
@@ -226,8 +227,11 @@ PushButton* AboutPage::getPageTextButton(QWidget* context) {
 	_textButtonIcon = new QLabel(_textButtonWidget);
 	QFont textButtonFont("Font Awesome 6 Free Regular", 12);
 	textButtonFont.setStyleStrategy(QFont::PreferQuality);
-	_textButtonIcon->setFont(textButtonFont);
-	_textButtonIcon->setText("\uf059");    // set icon to "pen" icon
+	//_textButtonIcon->setFont(textButtonFont);
+	QFont font = FontAwesomeIcons::Instance()->getFont();
+	_textButtonIcon->setFont(font);
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_tags));    // set icon to "pen" icon
+	//qInfo() << FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_tags);
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);
