@@ -3,6 +3,7 @@
 #include "pushbutton.h"
 #include "logger.h"
 #include "common.h"
+#include "fontawesomeicons.h"
 #include "MainCanvas.h"
 #include "SortFactory.h"
 #include "graphcanvas.h"
@@ -103,10 +104,9 @@ PushButton* GraphPage::getPageIconButton(QWidget* context) {
 	_iconButton->setMargin(20, 18, 16, 18);
 	_iconButtonLabel = new QLabel(_iconButton);
 	_iconButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	QFont iconButtonFont("Font Awesome 6 Free Regular", 12);
-	iconButtonFont.setStyleStrategy(QFont::PreferAntialias);
-	_iconButtonLabel->setFont(iconButtonFont);
-	_iconButtonLabel->setText("\uf059");
+	QFont font = FontAwesomeIcons::Instance()->getFont();
+	_iconButtonLabel->setFont(font);
+	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_map_marker));
 	_iconButtonLabel->setAlignment(Qt::AlignLeft);
 	_iconButton->setChildWidget(_iconButtonLabel);
 
@@ -131,15 +131,14 @@ PushButton* GraphPage::getPageTextButton(QWidget* context) {
 
 	// Generate text button contents
 	_textButtonIcon = new QLabel(_textButtonWidget);
-	QFont textButtonFont("Font Awesome 6 Free Regular", 12);
-	textButtonFont.setStyleStrategy(QFont::PreferQuality);
-	_textButtonIcon->setFont(textButtonFont);
-	_textButtonIcon->setText("\uf059");    // set icon to "pen" icon
+	QFont font = FontAwesomeIcons::Instance()->getFont();
+	_textButtonIcon->setFont(font);
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_map_marker));
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);
 	_textButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_textButtonLabel->setText("Home");
+	_textButtonLabel->setText("Graph");
 	_textButtonLabel->setAlignment(Qt::AlignLeft);
 
 	// Add text button contents to layout
