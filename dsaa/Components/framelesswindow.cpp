@@ -9,8 +9,6 @@
 #include <QGuiApplication>
 #include <QPointF>
 
-
-#define USE_LOGGER false
 #define MAX_MOUSE_MOVEMENT 300
 
 FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWidget* parent)
@@ -175,15 +173,11 @@ void FramelessWindow::controlWindowScale() {
 		// Maximized the window from current size.
 		_lastWindowGeometry = frameGeometry(); // store the rect data.
 
-#if USE_LOGGER
-		Logger::debug("Maximizing window:");
-		Logger::debug("[+] current window position: " + std::to_string(x()) + ", " + std::to_string(y()));
-		Logger::debug("[+] current window size: " + std::to_string(width()) + ", " + std::to_string(height()));
-		Logger::debug("[+] current geometry: " + std::to_string(_lastWindowGeometry.x()) + ", " + std::to_string(_lastWindowGeometry.y()) + ", " + std::to_string(_lastWindowGeometry.width()) + ", " + std::to_string(_lastWindowGeometry.height()));
-		Logger::debug("[+] current window widget position: " + std::to_string(_FwindowWidget->x()) + ", " + std::to_string(_FwindowWidget->y()));
-		Logger::debug("[+] current window widget size: " + std::to_string(_FwindowWidget->width()) + ", " + std::to_string(_FwindowWidget->height()));
-		Logger::debug("[+] current window border position: " + std::to_string(_FwindowBorder->x()) + ", " + std::to_string(_FwindowBorder->y()));
-		Logger::debug("[+] current window border size: " + std::to_string(_FwindowBorder->width()) + ", " + std::to_string(_FwindowBorder->height()));
+#if DEBUG
+		Logger::debug("**************** Maximizing window ****************");
+		Logger::debug(QString::fromStdString("[+] current window size: " + std::to_string(width()) + ", " + std::to_string(height())));
+		Logger::debug(QString::fromStdString("[+] current geometry: " + std::to_string(_lastWindowGeometry.x()) + ", " + std::to_string(_lastWindowGeometry.y()) + ", " + std::to_string(_lastWindowGeometry.width()) + ", " + std::to_string(_lastWindowGeometry.height())));
+		Logger::debug(QString::fromStdString("[+] current window widget size: " + std::to_string(_FwindowWidget->width()) + ", " + std::to_string(_FwindowWidget->height())));
 #endif // USE_LOGGER
 		_FwindowShadow->setEnabled(false);
 		_FwindowBorder->hide();
@@ -221,13 +215,11 @@ void FramelessWindow::controlWindowScale() {
 		QRegion mask(path.toFillPolygon().toPolygon());
 		_FwindowWidget->setMask(mask);
 
-#if USE_LOGGER 
-		Logger::debug("Restoring window:");
-		Logger::debug("[+] current window position: " + std::to_string(x()) + ", " + std::to_string(y()));
-		Logger::debug("[+] current window size: " + std::to_string(width()) + ", " + std::to_string(height()));
-		Logger::debug("[+] current geometry: " + std::to_string(frameGeometry().x()) + ", " + std::to_string(frameGeometry().y()) + ", " + std::to_string(frameGeometry().width()) + ", " + std::to_string(frameGeometry().height()));
-		Logger::debug("[+] current window widget position: " + std::to_string(_FwindowWidget->x()) + ", " + std::to_string(_FwindowWidget->y()));
-		Logger::debug("[+] current window widget size: " + std::to_string(_FwindowWidget->width()) + ", " + std::to_string(_FwindowWidget->height()));
+#if DEBUG
+		Logger::debug("**************** Restoring window ****************");
+		Logger::debug(QString::fromStdString("[+] current window size: " + std::to_string(width()) + ", " + std::to_string(height())));
+		Logger::debug(QString::fromStdString("[+] current geometry: " + std::to_string(frameGeometry().x()) + ", " + std::to_string(frameGeometry().y()) + ", " + std::to_string(frameGeometry().width()) + ", " + std::to_string(frameGeometry().height())));
+		Logger::debug(QString::fromStdString("[+] current window widget size: " + std::to_string(_FwindowWidget->width()) + ", " + std::to_string(_FwindowWidget->height())));
 #endif // USE_LOGGER
 		_maximized = false;
 	}
@@ -290,12 +282,6 @@ void FramelessWindow::mouseReleaseEvent(QMouseEvent* event) {
 	_mousePressed = false;
 	QScreen* screen = QGuiApplication::screenAt(event->globalPos());
 
-#if USE_LOGGER
-	Logger::debug("Current screen geometry:");
-	Logger::debug("[+] screen position: " + std::to_string(screen->geometry().x()) + ", " + std::to_string(screen->geometry().y()));
-	Logger::debug("[+] screen size: " + std::to_string(screen->geometry().width()) + ", " + std::to_string(screen->geometry().height()));
-#endif
-
 	if (abs(event->globalPos().y() - screen->geometry().top()) < 5) {
 		controlWindowScale();
 	}
@@ -303,12 +289,9 @@ void FramelessWindow::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void FramelessWindow::mouseMoveEvent(QMouseEvent* event) {
-#if USE_LOGGER
-	Logger::debug("Detected mouse move");
-	Logger::debug("[+] mouse global position : " + std::to_string(event->globalPos().x()) + ", " + std::to_string(event->globalPos().y()));
-	Logger::debug("[+] window geometry: " + std::to_string(frameGeometry().x()) + ", " + std::to_string(frameGeometry().y()) + ", " + std::to_string(frameGeometry().width()) + ", " + std::to_string(frameGeometry().height()));
-	Logger::debug("[+] widget frame geometry: " + std::to_string(_FwindowWidget->frameGeometry().x()) + ", " + std::to_string(_FwindowWidget->frameGeometry().y()));
-	Logger::debug("[+] widget frame size: " + std::to_string(_FwindowWidget->frameGeometry().width()) + ", " + std::to_string(_FwindowWidget->frameGeometry().height()));
+#if DEBUG
+	Logger::debug("*********** Detected mouse move ***********");
+	Logger::debug(QString::fromStdString("[+] mouse global position : " + std::to_string(event->globalPos().x()) + ", " + std::to_string(event->globalPos().y())));
 #endif
 	if (event->buttons() == Qt::NoButton) {
 		_mousePressed = false;
