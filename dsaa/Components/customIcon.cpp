@@ -2,6 +2,12 @@
 #include <QString>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
+#include <QSlider>
+#include <QtSvg>
+#include <QPixmap>
+#include <QPainter>
 
 customIcon::customIcon(QString iconPath, QString hint, int r, QWidget* parent) :
     QPushButton(parent),

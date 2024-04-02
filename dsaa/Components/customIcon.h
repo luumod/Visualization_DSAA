@@ -3,19 +3,6 @@
 
 #include <QPushButton>
 
-#include <QRegularExpression>
-#include <QRegularExpressionValidator>
-#include <QSlider>
-#include <QtSvg>
-#include <QPixmap>
-#include <QPainter>
-//#include <QPaintEvent>
-//#include <QMouseEvent>
-//#include <QResizeEvent>
-//#include <QFocusEvent>
-//#include <QGraphicsOpacityEffect>
-
-
 class customIcon : public QPushButton {
     Q_OBJECT
 

@@ -6,6 +6,7 @@
 #include "Components/customScrollContainer.h"
 #include <QTimer>
 #include <QRegularExpressionValidator>
+#include <QPropertyAnimation>
 
 MyCanvas::MyCanvas(int radius, QString name, QString desc, int structure, int _type, QWidget *parent) :
     QWidget(parent),

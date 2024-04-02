@@ -7,6 +7,8 @@
 #include "MainCanvas.h"
 #include "SortFactory.h"
 #include "graphcanvas.h"
+#include "common.h"
+#include "Components/customIcon.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -17,6 +19,7 @@
 #include <QSpinBox>
 #include <QListView>
 #include <QThread>
+#include <QPropertyAnimation>
 
 GraphPage::GraphPage(QWidget* parent) :
 	PageWidget(parent)
@@ -26,26 +29,56 @@ GraphPage::GraphPage(QWidget* parent) :
 #endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 
+	//-------------------------------------
+	MyCanvas* graphCanvas = new MyCanvas(20,
+		"rename->value()",
+		"re-describe->value()",
+		true ? MyCanvas::AL : MyCanvas::AML,
+		true ? MyCanvas::DG : MyCanvas::UDG, _contentWidget);
+	
+	//-------------------------------------
+
+
 	// Create the main layout for this window.
 	_windowAreaLayout = new QVBoxLayout(_contentWidget);
 	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
 
-	// Construct title layout
+	// Main title area layout.
 	_titleAreaWidget = new QWidget(_contentWidget);
 	_titleAreaLayout = new QVBoxLayout(_titleAreaWidget);
-	_titleAreaLayout->setContentsMargins(28, 46, 22, 22);
+	_titleAreaLayout->setContentsMargins(18, 36, 22, 22);
 	_titleAreaLayout->setSpacing(1);
 	_titleAreaLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	_titleAreaWidget->setLayout(_titleAreaLayout);
 	_titleAreaWidget->show();
-	// Add to main window.
-	_windowAreaLayout->addWidget(_titleAreaWidget);
 
-	// Construct title
+	// Construct title layout
+	_titleOneWidget = new QWidget(_contentWidget);
+	_titleOneLayout = new QHBoxLayout(_titleOneWidget);
+	_titleOneLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+	_titleOneWidget->setLayout(_titleOneLayout);
+	_titleOneWidget->show();
+
+	// Construct the first row of title area.
 	_titleLabel = new QLabel("Graph", _contentWidget);
 	_titleLabel->setFont(_titleFont);
+	SlidePage* page = graphCanvas->settingPage();
+	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, this);
+	settingsIcon->setMinimumHeight(_titleLabel->height() * 0.7);
+	settingsIcon->setMaximumWidth(_titleLabel->width() * 0.7);
+	connect(settingsIcon, &customIcon::clicked, this, [=]() {
+		QPropertyAnimation* rotate = new QPropertyAnimation(settingsIcon, "rotationAngle", this);
+		rotate->setDuration(750);
+		rotate->setStartValue(0);
+		rotate->setEndValue(90);
+		rotate->setEasingCurve(QEasingCurve::InOutExpo);
+		rotate->start();
+		page->slideIn();
+		});
+	_titleOneLayout->addWidget(_titleLabel);
+	_titleOneLayout->addWidget(settingsIcon);
 
-	// Construct page description.
+	// Construct the second row of the title area.
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
@@ -56,10 +89,15 @@ GraphPage::GraphPage(QWidget* parent) :
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
 	_pageDesc->setStyleSheet("background-color:#00000000;border-style:none;border-width:0px;");
 
-	_titleAreaLayout->addWidget(_titleLabel);
+	_titleAreaLayout->addWidget(_titleOneWidget);
 	_titleAreaLayout->addWidget(_pageDesc);
-	_titleLabel->show();
+	_titleOneWidget->show();
 	_pageDesc->show();
+
+	// Add to main window.
+	_windowAreaLayout->addWidget(_titleAreaWidget);
+
+	
 
 	// Construct main layout
 	_mainOperateWidget = new QWidget(_contentWidget);
@@ -75,11 +113,7 @@ GraphPage::GraphPage(QWidget* parent) :
 	// Add to main window.
 	_windowAreaLayout->addWidget(_mainOperateWidget);
 
-	MyCanvas* graphCanvas = new MyCanvas(20,
-		"rename->value()",
-		"re-describe->value()",
-		true ? MyCanvas::AL : MyCanvas::AML,
-		true ? MyCanvas::DG : MyCanvas::UDG, _contentWidget);
+	
 
 	_mainOperateLayout->addWidget(graphCanvas);
 	graphCanvas->show();

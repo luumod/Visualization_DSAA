@@ -28,7 +28,7 @@ private:
 
     // UI elements
     QVBoxLayout* _windowAreaLayout = nullptr;
-    QVBoxLayout* _titleAreaLayout = nullptr;
+    QHBoxLayout* _titleLayout = nullptr;
     const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
     QLabel* _titleLabel = nullptr;
     QLineEdit* _pageDesc = nullptr;
@@ -36,7 +36,14 @@ private:
     QWidget* _mainOperateWidget = nullptr;
 
     QHBoxLayout* _mainOperateLayout = nullptr;
+    QWidget* _titleOneWidget = nullptr;
+    QWidget* _titleTwoWidget = nullptr;
+
     QWidget* _titleAreaWidget = nullptr;
+    QVBoxLayout* _titleAreaLayout = nullptr;
+    QHBoxLayout* _titleOneLayout = nullptr;
+
+
 
 public:
     virtual PushButton* getPageIconButton(QWidget* context) override;
