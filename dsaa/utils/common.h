@@ -1,7 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define DEBUG true
+#define DEBUG false
 #define INFO true
 #define WARNING true
 #define ERR true

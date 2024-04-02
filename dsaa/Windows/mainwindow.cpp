@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget* parent)
 
 	// Create placeholder widget for pages
 	_placeHolderWidget = new QWidget(_FwindowWidget);
+	_placeHolderWidget->setObjectName("placeHolderWidget");
 	_placeHolderWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	_placeHolderWidget->setMouseTracking(true);
 
@@ -82,6 +83,14 @@ MainWindow::MainWindow(QWidget* parent)
 	_aboutPage = new AboutPage(_placeHolderWidget);
 	_aboutPage->setMouseTracking(true);
 	_sideBar->addPage(_aboutPage);
+
+	QTimer* t = new QTimer(this);
+	connect(t, &QTimer::timeout, this, [=]() {
+		qInfo() << _placeHolderWidget->size(); 
+		
+		});
+	t->setSingleShot(true);
+	t->start(10);
 
 #if DEBUG
 	Logger::debug("------- End initialized MainWindow -------");

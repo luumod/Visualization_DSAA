@@ -9,7 +9,7 @@
 #include <QPropertyAnimation>
 
 MyCanvas::MyCanvas(int radius, QString name, QString desc, int structure, int _type, QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), // GraphPage:  this->parent = GraphPage
     canvasName(name),
     canvasDescription(desc),
     structure_type(structure),
@@ -65,6 +65,7 @@ MyCanvas::MyCanvas(QTextStream &ts, int radius, QWidget *parent) :
 
 void MyCanvas::CreateSettings(int radius){
     /* create settings page */
+    qInfo() << this->parentWidget()->objectName();
     settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
     singleSelectGroup *structureSetting = new singleSelectGroup("Structure", this);
     selectionItem *setAL = new selectionItem("AL", "Adjacent list structure", this);
@@ -148,6 +149,8 @@ void MyCanvas::CreateSettings(int radius){
     connect(delay, &QTimer::timeout, this, [=](){Init();});
     delay->setSingleShot(true);
     delay->start(10);
+
+    qInfo() << "Settings Page is ready";
 }
 
 void MyCanvas::Init(){

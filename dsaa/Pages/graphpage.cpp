@@ -30,12 +30,12 @@ GraphPage::GraphPage(QWidget* parent) :
 	_contentWidget->setMouseTracking(true);
 
 	//-------------------------------------
+	this->setObjectName("ylh_1");
 	MyCanvas* graphCanvas = new MyCanvas(20,
 		"rename->value()",
 		"re-describe->value()",
 		true ? MyCanvas::AL : MyCanvas::AML,
-		true ? MyCanvas::DG : MyCanvas::UDG, _contentWidget);
-	
+		true ? MyCanvas::DG : MyCanvas::UDG, this->parentWidget());
 	//-------------------------------------
 
 
@@ -63,7 +63,7 @@ GraphPage::GraphPage(QWidget* parent) :
 	_titleLabel = new QLabel("Graph", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 	SlidePage* page = graphCanvas->settingPage();
-	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, this);
+	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, _contentWidget);
 	settingsIcon->setMinimumHeight(_titleLabel->height() * 0.7);
 	settingsIcon->setMaximumWidth(_titleLabel->width() * 0.7);
 	connect(settingsIcon, &customIcon::clicked, this, [=]() {
@@ -97,8 +97,6 @@ GraphPage::GraphPage(QWidget* parent) :
 	// Add to main window.
 	_windowAreaLayout->addWidget(_titleAreaWidget);
 
-	
-
 	// Construct main layout
 	_mainOperateWidget = new QWidget(_contentWidget);
 	_mainOperateWidget->setObjectName("homePageMainWidget");
@@ -110,13 +108,12 @@ GraphPage::GraphPage(QWidget* parent) :
 	_mainOperateLayout->setSpacing(20);
 	_mainOperateWidget->setLayout(_mainOperateLayout);
 	_mainOperateWidget->show();
+	_mainOperateLayout->addWidget(graphCanvas);
+	graphCanvas->show();
+
 	// Add to main window.
 	_windowAreaLayout->addWidget(_mainOperateWidget);
 
-	
-
-	_mainOperateLayout->addWidget(graphCanvas);
-	graphCanvas->show();
 
 	update();
 

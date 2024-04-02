@@ -18,9 +18,9 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
     cornerRadius(radius),
     pageName(name)
 {
-    //if(parent)
-    //    resize(parent->width() * 0.8 <= preferWidth ? parent->width() * 0.8 : preferWidth, parent->height());
-    resize(parent->width() * 0.4 <= preferWidth ? preferWidth : parent->width() * 0.4, parent->height());
+    auto x = parent->width() * 0.4 <= preferWidth ? preferWidth : parent->width() * 0.4;
+    qInfo() << "size: " << x <<", "<< parent->height();
+    resize(parent->width() * 0.4 <= preferWidth ? preferWidth : parent->width() * 0.4, 690);
     this->move(QPoint(-this->width() - 30, 0));
 
     pageContentContainer = new ScrollAreaCustom(this);
@@ -46,7 +46,7 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
     bgWidget->setStyleSheet(style);
     bgWidget->show();
 
-    /* Intialize layout */
+    /* Initialize layout */
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(20, 40, 20, 20);
     QWidget *titleBar = new QWidget(this);
@@ -60,6 +60,7 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
     mainLayout->setAlignment(Qt::AlignTop);
     this->setLayout(mainLayout);
 
+    qInfo()<<this->parentWidget()->objectName();
     sheildLayer = new SheildLayer(this->parentWidget());
     sheildLayer->resize(this->parentWidget()->size());
     sheildLayer->setGraphicsEffect(opacity);
@@ -135,10 +136,11 @@ void SlidePage::slideIn() {
         curAni = nullptr;
     }
     onShown = true;
+    // 提升到GraphPage的前面
     sheildLayer->raise();
     sheildLayer->setEnabled(true);
-    this->raise();
     sheildLayer->show();
+    this->raise();
     QParallelAnimationGroup* inGroup = new QParallelAnimationGroup(this);
     QPropertyAnimation* slideInAni = new QPropertyAnimation(this, "pos", this);
     slideInAni->setStartValue(this->pos());

@@ -26,22 +26,29 @@ private:
     QLabel* _textButtonIcon = nullptr;
     QLabel* _textButtonLabel = nullptr;
 
-    // UI elements
+    // Entire area.
     QVBoxLayout* _windowAreaLayout = nullptr;
-    QHBoxLayout* _titleLayout = nullptr;
     const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
     QLabel* _titleLabel = nullptr;
     QLineEdit* _pageDesc = nullptr;
 
-    QWidget* _mainOperateWidget = nullptr;
-
-    QHBoxLayout* _mainOperateLayout = nullptr;
+    
+    // first row
     QWidget* _titleOneWidget = nullptr;
+    QHBoxLayout* _titleOneLayout = nullptr;
+
+    // second row
     QWidget* _titleTwoWidget = nullptr;
 
+    // main title area
     QWidget* _titleAreaWidget = nullptr;
     QVBoxLayout* _titleAreaLayout = nullptr;
-    QHBoxLayout* _titleOneLayout = nullptr;
+
+    // operate area.
+    QWidget* _mainOperateWidget = nullptr;
+    QHBoxLayout* _mainOperateLayout = nullptr;
+
+
 
 
 
