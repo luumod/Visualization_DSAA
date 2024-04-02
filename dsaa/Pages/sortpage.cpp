@@ -32,7 +32,7 @@ SortPage::SortPage(QWidget* parent) :
 	// Construct title layout
 	_titleAreaWidget = new QWidget(_contentWidget);
 	_titleAreaLayout = new QVBoxLayout(_titleAreaWidget);
-	_titleAreaLayout->setContentsMargins(28, 46, 22, 22);
+	_titleAreaLayout->setContentsMargins(28, 46, 22, 10);
 	_titleAreaLayout->setSpacing(1);
 	_titleAreaLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	_titleAreaWidget->setLayout(_titleAreaLayout);
@@ -64,10 +64,10 @@ SortPage::SortPage(QWidget* parent) :
 	_mainOperateWidget = new QWidget(_contentWidget);
 	_mainOperateWidget->setObjectName("homePageMainWidget");
 	_mainOperateWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
+	//_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
 	_mainOperateLayout = new QHBoxLayout(_mainOperateWidget);
 	_mainOperateLayout->setAlignment(Qt::AlignTop);
-	_mainOperateLayout->setContentsMargins(8, 8, 8, 8);
+	_mainOperateLayout->setContentsMargins(8, 1, 8, 8);
 	_mainOperateLayout->setSpacing(20);
 	_mainOperateWidget->setLayout(_mainOperateLayout);
 	_mainOperateWidget->show();
@@ -78,10 +78,11 @@ SortPage::SortPage(QWidget* parent) :
 
 	QWidget* canvasWrap = new QWidget(_contentWidget);
 	QVBoxLayout* canvasWrap_layout = new QVBoxLayout(canvasWrap);
+	// Construct the visual window.
 	MainCanvas* canvas = new MainCanvas(canvasWrap);
 	canvas->setParent(nullptr);
+	
 	canvasWrap_layout->addWidget(canvas);
-	canvas->setFixedSize(400, 400);
 
 	QWidget* panel = new QWidget(_contentWidget);
 	QVBoxLayout* panel_layout = new QVBoxLayout(panel);
@@ -148,8 +149,8 @@ SortPage::SortPage(QWidget* parent) :
 	panel_layout->addLayout(h1);
 
 	//------------over--------------
-	_mainOperateLayout->addWidget(canvasWrap);
-	_mainOperateLayout->addWidget(panel);
+	_mainOperateLayout->addWidget(canvasWrap,4);
+	_mainOperateLayout->addWidget(panel,1);
 	canvasWrap->show();
 	panel->show();
 

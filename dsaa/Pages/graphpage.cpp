@@ -42,7 +42,7 @@ GraphPage::GraphPage(QWidget* parent) :
 	_windowAreaLayout->addWidget(_titleAreaWidget);
 
 	// Construct title
-	_titleLabel = new QLabel("Sort", _contentWidget);
+	_titleLabel = new QLabel("Graph", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 
 	// Construct page description.
@@ -50,7 +50,7 @@ GraphPage::GraphPage(QWidget* parent) :
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Visualization of sort algorithm");
+	_pageDesc->setText("Visualization of graph algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());

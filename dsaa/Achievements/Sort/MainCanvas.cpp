@@ -2,13 +2,16 @@
 #include "SortObject.h"
 #include <QPaintEvent>
 #include <QPainter>
-#include <QThread>
 
 MainCanvas::MainCanvas(QWidget *parent)
     : QWidget(parent)
 {
     setAttribute(Qt::WA_StyledBackground, true);
-    thread = new QThread(this);
+
+    this->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
+    this->setAutoFillBackground(true);
+    palette.setColor(QPalette::Window, Qt::white);
+    setPalette(palette);
 }
 
 int MainCanvas::getSortType() const
@@ -21,7 +24,6 @@ void MainCanvas::setSortObject(int type, SortObject *obj)
     if (sortType == type) {
         return;
     }
-    //删除旧的排序
     if (sortObj) {
         sortObj->deleteLater();
         sortObj = nullptr;
@@ -59,7 +61,7 @@ void MainCanvas::paintEvent(QPaintEvent *event)
     event->accept();
 
     QPainter painter(this);
-    painter.fillRect(rect(),QColor(20,20,20));
+    setPalette(palette);
 
     if (sortObj) {
         sortObj->draw(&painter, width(), height());

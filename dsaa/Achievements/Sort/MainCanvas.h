@@ -2,9 +2,11 @@
 #define MAIN_CANVAS
 
 #include <QWidget>
+#include <QPalette>
 
 class SortObject;
 class QThread;
+class QPalette;
 /**
  * @brief The main canvas for every sort operation.
  */
@@ -55,7 +57,7 @@ signals:
 private:
     int sortType{ -1 };
     SortObject* sortObj{ nullptr };
-    QThread* thread{ nullptr };
+    QPalette palette{ nullptr };
 };
 
 #endif // !MAIN_CANVAS
