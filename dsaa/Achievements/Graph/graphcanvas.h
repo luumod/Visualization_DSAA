@@ -8,7 +8,7 @@
 #include <QFileDialog>
 #include "Components/slidepage.h"
 
-class MyCanvas : public QWidget
+class GraphCanvas : public QWidget
 {
     Q_OBJECT
 private:
@@ -36,8 +36,8 @@ public:
     enum { UDG = AbstractGraph::UDG, DG = AbstractGraph::DG };
     enum { AL = 128, AML = 256 };
 
-    explicit MyCanvas(int radius, QString name = "", QString desc = "", int structure = AL, int _type = UDG, QWidget *parent = nullptr);
-    MyCanvas(QTextStream &ts, int radius, QWidget *parent = nullptr);
+    explicit GraphCanvas(int radius, QString name = "", QString desc = "", int structure = AL, int _type = UDG, QWidget *parent = nullptr);
+    GraphCanvas(QTextStream &ts, int radius, QWidget *parent = nullptr);
     QString name(){return canvasName;}
     QString description(){return canvasDescription;}
     SlidePage *settingPage(){return settings;}
@@ -45,7 +45,7 @@ public:
 signals:
     void nameChanged(QString name);
     void descChanged(QString desc);
-    void setDel(MyCanvas* target);
+    void setDel(GraphCanvas* target);
 
 private slots:
     void addVex(MyGraphicsVexItem*);

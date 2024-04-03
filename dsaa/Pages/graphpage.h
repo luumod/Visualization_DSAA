@@ -9,7 +9,7 @@ class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
-class MyCanvas;
+class GraphCanvas;
 class GraphPage : public PageWidget {
 
     Q_OBJECT
@@ -27,7 +27,7 @@ private:
     QLabel* _textButtonLabel = nullptr;
 
     // Canvas
-    MyCanvas* graphCanvas = nullptr;
+    GraphCanvas* graphCanvas = nullptr;
 
     // Entire area.
     QVBoxLayout* _windowAreaLayout = nullptr;

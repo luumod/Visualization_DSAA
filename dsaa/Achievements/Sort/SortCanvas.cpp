@@ -1,9 +1,9 @@
-﻿#include "MainCanvas.h"
+﻿#include "SortCanvas.h"
 #include "SortObject.h"
 #include <QPaintEvent>
 #include <QPainter>
 
-MainCanvas::MainCanvas(QWidget *parent)
+SortCanvas::SortCanvas(QWidget *parent)
     : QWidget(parent)
 {
     setAttribute(Qt::WA_StyledBackground, true);
@@ -14,12 +14,12 @@ MainCanvas::MainCanvas(QWidget *parent)
     setPalette(palette);
 }
 
-int MainCanvas::getSortType() const
+int SortCanvas::getSortType() const
 {
     return sortType;
 }
 
-void MainCanvas::setSortObject(int type, SortObject *obj)
+void SortCanvas::setSortObject(int type, SortObject *obj)
 {
     if (sortType == type) {
         return;
@@ -36,12 +36,12 @@ void MainCanvas::setSortObject(int type, SortObject *obj)
         connect(sortObj, &SortObject::updateToDraw, this, [this]{
             update();
         });
-        connect(sortObj, &SortObject::runFlagChanged, this, &MainCanvas::runFlagChanged);
+        connect(sortObj, &SortObject::runFlagChanged, this, &SortCanvas::runFlagChanged);
     }
     update();
 }
 
-void MainCanvas::sort(int count, int interval)
+void SortCanvas::sort(int count, int interval)
 {
     if (sortObj) {
         
@@ -49,14 +49,14 @@ void MainCanvas::sort(int count, int interval)
     }
 }
 
-void MainCanvas::stop()
+void SortCanvas::stop()
 {
     if (sortObj) {
         sortObj->stop();
     }
 }
 
-void MainCanvas::paintEvent(QPaintEvent *event)
+void SortCanvas::paintEvent(QPaintEvent *event)
 {
     event->accept();
 

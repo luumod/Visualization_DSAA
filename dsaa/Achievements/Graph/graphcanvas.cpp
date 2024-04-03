@@ -8,7 +8,7 @@
 #include <QRegularExpressionValidator>
 #include <QPropertyAnimation>
 
-MyCanvas::MyCanvas(int radius, QString name, QString desc, int structure, int _type, QWidget *parent) :
+GraphCanvas::GraphCanvas(int radius, QString name, QString desc, int structure, int _type, QWidget *parent) :
     QWidget(parent), // GraphPage:  this->parent = GraphPage
     canvasName(name),
     canvasDescription(desc),
@@ -32,7 +32,7 @@ MyCanvas::MyCanvas(int radius, QString name, QString desc, int structure, int _t
     CreateSettings(radius);
 }
 
-MyCanvas::MyCanvas(QTextStream &ts, int radius, QWidget *parent) :
+GraphCanvas::GraphCanvas(QTextStream &ts, int radius, QWidget *parent) :
     QWidget(parent)
 {
     canvasName = ts.readLine();
@@ -63,7 +63,7 @@ MyCanvas::MyCanvas(QTextStream &ts, int radius, QWidget *parent) :
     CreateSettings(radius);
 }
 
-void MyCanvas::CreateSettings(int radius){
+void GraphCanvas::CreateSettings(int radius){
     /* create settings page */
     settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
     singleSelectGroup *structureSetting = new singleSelectGroup("Structure", this);
@@ -151,7 +151,7 @@ void MyCanvas::CreateSettings(int radius){
 
 }
 
-void MyCanvas::Init(){
+void GraphCanvas::Init(){
     /* Create info widget */
     infoWidget = new QWidget(this);
     mainLayout->addWidget(infoWidget);
@@ -220,12 +220,12 @@ void MyCanvas::Init(){
     defTextLayout->setContentsMargins(0, 5, 0, 5);
     textInputItem *textName = new textInputItem("Name", defInfoPage);
     textName->setValue(canvasName);
-    connect(this, &MyCanvas::nameChanged, this, [=](){textName->setValue(canvasName);});
+    connect(this, &GraphCanvas::nameChanged, this, [=](){textName->setValue(canvasName);});
     textName->setEnabled(false);
     defTextLayout->addWidget(textName);
     textInputItem *textDesc = new textInputItem("Detail", defInfoPage);
     textDesc->setValue(canvasDescription);
-    connect(this, &MyCanvas::descChanged, this, [=](){textDesc->setValue(canvasDescription);});
+    connect(this, &GraphCanvas::descChanged, this, [=](){textDesc->setValue(canvasDescription);});
     textDesc->setEnabled(false);
     defTextLayout->addWidget(textDesc);
     textInputItem *vexNumText = new textInputItem("Vex", defInfoPage);
@@ -440,7 +440,7 @@ void MyCanvas::Init(){
 
 }
 
-void MyCanvas::SaveToFile(const QString &path){
+void GraphCanvas::SaveToFile(const QString &path){
     QFile output(path);
     output.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream ts(&output);
@@ -452,10 +452,10 @@ void MyCanvas::SaveToFile(const QString &path){
     output.close();
 }
 
-void MyCanvas::addVex(MyGraphicsVexItem *vex){
+void GraphCanvas::addVex(MyGraphicsVexItem *vex){
     g->AddVex(vex);
 }
 
-void MyCanvas::addArc(MyGraphicsLineItem *arc){
+void GraphCanvas::addArc(MyGraphicsLineItem *arc){
     g->AddArc(arc);
 }

@@ -4,7 +4,7 @@
 #include "logger.h"
 #include "common.h"
 #include "fontawesomeicons.h"
-#include "MainCanvas.h"
+#include "SortCanvas.h"
 #include "SortFactory.h"
 #include "graphcanvas.h"
 #include "common.h"
@@ -30,12 +30,11 @@ GraphPage::GraphPage(QWidget* parent) :
 	_contentWidget->setMouseTracking(true);
 
 	//-------------------------------------
-	this->setObjectName("ylh_1");
-	graphCanvas = new MyCanvas(20,
+	graphCanvas = new GraphCanvas(20,
 		"rename->value()",
 		"re-describe->value()",
-		true ? MyCanvas::AL : MyCanvas::AML,
-		true ? MyCanvas::DG : MyCanvas::UDG, this->parentWidget());
+		true ? GraphCanvas::AL : GraphCanvas::AML,
+		true ? GraphCanvas::DG : GraphCanvas::UDG, this->parentWidget());
 	//-------------------------------------
 
 	// Create the main layout for this window.

@@ -10,14 +10,14 @@ class QPalette;
 /**
  * @brief The main canvas for every sort operation.
  */
-class MainCanvas : public QWidget
+class SortCanvas : public QWidget
 {
     Q_OBJECT
 public:
     /**
-     * @brief Constructor of the MainCanvas's widget.
+     * @brief Constructor of the SortCanvas's widget.
      */
-    explicit MainCanvas(QWidget* parent = nullptr);
+    explicit SortCanvas(QWidget* parent = nullptr);
 
     /**
      * @brief Get sort type of user choice. Each type has different implement method.

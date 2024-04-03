@@ -4,7 +4,7 @@
 #include "logger.h"
 #include "common.h"
 #include "fontawesomeicons.h"
-#include "MainCanvas.h"
+#include "SortCanvas.h"
 #include "SortFactory.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -79,7 +79,7 @@ SortPage::SortPage(QWidget* parent) :
 	QWidget* canvasWrap = new QWidget(_contentWidget);
 	QVBoxLayout* canvasWrap_layout = new QVBoxLayout(canvasWrap);
 	// Construct the visual window.
-	MainCanvas* canvas = new MainCanvas(canvasWrap);
+	SortCanvas* canvas = new SortCanvas(canvasWrap);
 	canvas->setParent(nullptr);
 	
 	canvasWrap_layout->addWidget(canvas);
@@ -129,7 +129,7 @@ SortPage::SortPage(QWidget* parent) :
 		});
 
 	// When sorting, user can't modified these thing.
-	connect(canvas, &MainCanvas::runFlagChanged,
+	connect(canvas, &SortCanvas::runFlagChanged,
 		this, [=](bool running) {
 			combo->setEnabled(!running);
 			spinCount->setEnabled(!running);
