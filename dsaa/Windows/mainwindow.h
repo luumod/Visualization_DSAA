@@ -47,6 +47,9 @@ private:
     // Place holder widget for resizing pages
     QWidget* _placeHolderWidget = nullptr;
 
+protected:
+    void resizeEvent(QResizeEvent* event);
+
 private:
     void resizePages(QResizeEvent* event);
 

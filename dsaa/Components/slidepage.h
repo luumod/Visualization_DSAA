@@ -53,6 +53,8 @@ private:
 
 public:
     const int preferWidth = 350;
+    int parentWidgetWidth{};
+    int parentWidgetHeight{};
     explicit SlidePage(int radius, QString name, QWidget *parent = nullptr);
     void SetRadius(int radius);
     void SetName(QString name);
@@ -68,6 +70,7 @@ signals:
 public slots:
     void slideIn();
     void slideOut();
+    void autoResize();
 
 };
 

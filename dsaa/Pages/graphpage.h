@@ -9,7 +9,7 @@ class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
-class _sortThread;
+class MyCanvas;
 class GraphPage : public PageWidget {
 
     Q_OBJECT
@@ -25,6 +25,9 @@ private:
     QHBoxLayout* _textButtonLayout = nullptr;
     QLabel* _textButtonIcon = nullptr;
     QLabel* _textButtonLabel = nullptr;
+
+    // Canvas
+    MyCanvas* graphCanvas = nullptr;
 
     // Entire area.
     QVBoxLayout* _windowAreaLayout = nullptr;
@@ -49,8 +52,8 @@ private:
     QHBoxLayout* _mainOperateLayout = nullptr;
 
 
-
-
+public:
+    void autoResizeSettingsPage();
 
 public:
     virtual PushButton* getPageIconButton(QWidget* context) override;

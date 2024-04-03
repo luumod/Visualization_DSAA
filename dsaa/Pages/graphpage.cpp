@@ -31,13 +31,12 @@ GraphPage::GraphPage(QWidget* parent) :
 
 	//-------------------------------------
 	this->setObjectName("ylh_1");
-	MyCanvas* graphCanvas = new MyCanvas(20,
+	graphCanvas = new MyCanvas(20,
 		"rename->value()",
 		"re-describe->value()",
 		true ? MyCanvas::AL : MyCanvas::AML,
 		true ? MyCanvas::DG : MyCanvas::UDG, this->parentWidget());
 	//-------------------------------------
-
 
 	// Create the main layout for this window.
 	_windowAreaLayout = new QVBoxLayout(_contentWidget);
@@ -123,6 +122,10 @@ GraphPage::GraphPage(QWidget* parent) :
 }
 
 GraphPage::~GraphPage() {}
+
+void GraphPage::autoResizeSettingsPage() {
+	graphCanvas->settingPage()->autoResize();
+}
 
 PushButton* GraphPage::getPageIconButton(QWidget* context) {
 	// Check for existed button

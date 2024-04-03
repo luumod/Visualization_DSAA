@@ -44,7 +44,10 @@ MainWindow::MainWindow(QWidget* parent)
 	_placeHolderWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	_placeHolderWidget->setMouseTracking(true);
 
-	// Connect the resize event of the placeholder widget to the resizePages function using event filter
+	/*
+	Connect the resize event of the placeholder widget to the resizePages function using event filter
+	The event filter function in the MainWindow class is called when placeHolderWidget receives events to handle them.
+	*/
 	_placeHolderWidget->installEventFilter(this);
 	
 	// Create sidebar
@@ -86,11 +89,13 @@ MainWindow::MainWindow(QWidget* parent)
 
 	QTimer* t = new QTimer(this);
 	connect(t, &QTimer::timeout, this, [=]() {
-		qInfo() << _placeHolderWidget->size(); 
+		//qInfo() << _placeHolderWidget->size(); 
 		
 		});
 	t->setSingleShot(true);
 	t->start(10);
+
+	qInfo() << "MainWindow::MainWindow: " << _placeHolderWidget->size();
 
 #if DEBUG
 	Logger::debug("------- End initialized MainWindow -------");
@@ -171,6 +176,20 @@ void MainWindow::Init() {
 
 #endif
 
+void MainWindow::resizeEvent(QResizeEvent* event) {
+	// 调用父类的resizeEvent函数，确保其他默认的resizeEvent操作得以执行
+	FramelessWindow::resizeEvent(event);
+
+	QSize newSize = event->size();
+
+	qInfo() << "MainWindow::resizeEvent_begin: " << _placeHolderWidget->size();
+	_placeHolderWidget->resize(newSize);
+	resizePages(event);
+	_graphPage->autoResizeSettingsPage();
+	qInfo() << "MainWindow::resizeEvent_after: " << _placeHolderWidget->size();
+}
+
+
 void MainWindow::resizePages(QResizeEvent* event) {
 	// Check for input validity
 	if (event == nullptr) {
@@ -179,7 +198,6 @@ void MainWindow::resizePages(QResizeEvent* event) {
 
 	// Get the size of the placeholder widget
 	QSize size = event->size();
-
 	// Resize pages.
 	_sortPage->resize(size);
 	_aboutPage->resize(size);
