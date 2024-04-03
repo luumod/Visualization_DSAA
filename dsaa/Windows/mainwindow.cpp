@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget* parent)
 	: FramelessWindow(20, parent)
 {
 #if DEBUG
-	Logger::debug("------- Begin initialized MainWindow -------");
+	Logger::debug("Begin initialized MainWindow");
 #endif // DEBUG
 	this->setMouseTracking(true);
 	this->resize(1250, 750);
@@ -87,16 +87,6 @@ MainWindow::MainWindow(QWidget* parent)
 	_aboutPage->setMouseTracking(true);
 	_sideBar->addPage(_aboutPage);
 
-	QTimer* t = new QTimer(this);
-	connect(t, &QTimer::timeout, this, [=]() {
-		//qInfo() << _placeHolderWidget->size(); 
-		
-		});
-	t->setSingleShot(true);
-	t->start(10);
-
-	qInfo() << "MainWindow::MainWindow: " << _placeHolderWidget->size();
-
 #if DEBUG
 	Logger::debug("------- End initialized MainWindow -------");
 #endif // DEBUG
@@ -105,88 +95,18 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow() {
 }
 
-
-#if 0
-void MainWindow::Init() {
-	/* create default page */
-	defaultPage = new QWidget(_windowWidget);
-	defaultPage->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	bigIconButton* sortAlgorithmBtn = new bigIconButton(ICON_FILE "sort.png", "Sort Algorithm", 10, this);
-	sortAlgorithmBtn->setScale(0.9);
-	bigIconButton* openFile = new bigIconButton(ICON_FILE "open.png", "Open from file", 10, this);
-	QHBoxLayout* defaultPageLayout = new QHBoxLayout(defaultPage);
-	defaultPage->setLayout(defaultPageLayout);
-	defaultPageLayout->setContentsMargins(50, 30, 50, 80);
-	defaultPageLayout->setSpacing(20);
-	defaultPageLayout->addWidget(sortAlgorithmBtn);
-	defaultPageLayout->addWidget(openFile);
-
-	//-------------------------------------------------------------------
-	textInputItem* rename = new textInputItem("Name:", createNewPage);
-	rename->setValue("Layer_" + QString::asprintf("%d", 11111));
-	textInputItem* redescribe = new textInputItem("Detail:", createNewPage);
-	redescribe->setValue("No description");
-
-	createNewPage = new SlidePage(cornerRadius, "CREATE CANVAS", _windowWidget);
-	QLineEdit* canvasName = new QLineEdit(this);
-	canvasName->setMaximumHeight(20);
-	QLineEdit* canvasDesc = new QLineEdit(this);
-	canvasDesc->setMaximumHeight(20);
-
-	QWidget* whiteSpace = new QWidget(createNewPage);
-	whiteSpace->setFixedHeight(30);
-	singleSelectGroup* structureSel = new singleSelectGroup("Structure", createNewPage);
-	selectionItem* item_1 = new selectionItem("AL", "Use adjacent list for canvas", createNewPage);
-	selectionItem* item_2 = new selectionItem("AML", "Use multiple adjacent list for canvas", createNewPage);
-	structureSel->AddItem(item_1);
-	structureSel->AddItem(item_2);
-	singleSelectGroup* dirSel = new singleSelectGroup("Mode", createNewPage);
-	selectionItem* item_3 = new selectionItem("DG", "Directed graph", createNewPage);
-	selectionItem* item_4 = new selectionItem("UDG", "Undirected graph", createNewPage);
-	dirSel->AddItem(item_3);
-	dirSel->AddItem(item_4);
-	textButton* submit = new textButton("Create!", createNewPage);
-	connect(submit, &textButton::clicked, this, [=]() {
-		SortPage* sortPage = new SortPage(_windowWidget);
-		selectCanvas(sortPage);
-		connect(sortPage, &SortPage::nameChanged, this, [=](QString text) {
-			_sortPageTitle->setText(text);
-			_sortPageTitle->setMaximumWidth(QFontMetrics(QFont("Corbel Light", 24)).size(Qt::TextSingleLine, _sortPageTitle->text()).width() + 10);
-			});
-		connect(sortPage, &SortPage::descChanged, this, [=](QString text) {_sortPageDesc->setText(text); });
-		createNewPage->slideOut();
-	});
-	createNewPage->AddContent(submit);
-	createNewPage->AddContent(dirSel);
-	createNewPage->AddContent(structureSel);
-	createNewPage->AddContent(whiteSpace);
-	createNewPage->AddContent(redescribe);
-	createNewPage->AddContent(rename);
-	connect(sortAlgorithmBtn, &bigIconButton::clicked, createNewPage, [=]() {
-		rename->setValue("Layer_" + QString::asprintf("%d", 100));
-		redescribe->setValue("No description");
-		createNewPage->slideIn(); 
-	});
-	createNewPage->show();
-	pageList.push_back(createNewPage);
-
-	_homePage->layout()->addWidget(defaultPage);
-	_homePage->layout()->setAlignment(Qt::AlignTop);
-}
-
-#endif
-
 void MainWindow::resizeEvent(QResizeEvent* event) {
-	// 调用父类的resizeEvent函数，确保其他默认的resizeEvent操作得以执行
 	FramelessWindow::resizeEvent(event);
 
 	QSize newSize = event->size();
 
-	qInfo() << "MainWindow::resizeEvent_begin: " << _placeHolderWidget->size();
 	_placeHolderWidget->resize(newSize);
 	resizePages(event);
 	_graphPage->autoResizeSettingsPage();
-	qInfo() << "MainWindow::resizeEvent_after: " << _placeHolderWidget->size();
+
+#if DEBUG
+	Logger::debug(QString("MainWindow::resizeEvent: (%1,%2)").arg(newSize.width()).arg(newSize.height()));
+#endif
 }
 
 

@@ -8,7 +8,7 @@
 
 PageWidget::PageWidget(QWidget* parent) : QWidget(parent) {
 #if DEBUG
-    Logger::debug("------- Begin initialized PageWidget -------");
+    Logger::debug("Begin initialized PageWidget");
 #endif // DEBUG
 
     // Construct and set main layout

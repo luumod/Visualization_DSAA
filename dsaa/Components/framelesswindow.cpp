@@ -15,7 +15,7 @@ FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWid
 	: _cornerRadius(cornerRadius), _attributes((LUI_WINDOW_ATTRIBUTES)attributes), QWidget(parent)
 {
 #if DEBUG
-	Logger::debug("------- Begin initialized FramelessWindow -------");
+	Logger::debug("Begin initialized FramelessWindow");
 #endif // DEBUG
 	setAttribute(Qt::WA_TranslucentBackground);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -289,10 +289,6 @@ void FramelessWindow::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void FramelessWindow::mouseMoveEvent(QMouseEvent* event) {
-#if DEBUG
-	Logger::debug("*********** Detected mouse move ***********");
-	Logger::debug(QString::fromStdString("[+] mouse global position : " + std::to_string(event->globalPos().x()) + ", " + std::to_string(event->globalPos().y())));
-#endif
 	if (event->buttons() == Qt::NoButton) {
 		_mousePressed = false;
 	}

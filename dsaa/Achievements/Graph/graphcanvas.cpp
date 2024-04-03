@@ -65,7 +65,6 @@ MyCanvas::MyCanvas(QTextStream &ts, int radius, QWidget *parent) :
 
 void MyCanvas::CreateSettings(int radius){
     /* create settings page */
-    qInfo() << this->parentWidget()->objectName();
     settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
     singleSelectGroup *structureSetting = new singleSelectGroup("Structure", this);
     selectionItem *setAL = new selectionItem("AL", "Adjacent list structure", this);
@@ -150,7 +149,6 @@ void MyCanvas::CreateSettings(int radius){
     delay->setSingleShot(true);
     delay->start(10);
 
-    qInfo() << "Settings Page is ready";
 }
 
 void MyCanvas::Init(){

@@ -11,7 +11,7 @@ AboutPage::AboutPage(QWidget* parent) :
 	PageWidget(parent) 
 {
 #if DEBUG
-		Logger::debug("------- Begin initialized AboutPage -------");
+		Logger::debug("Begin initialized AboutPage");
 #endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 

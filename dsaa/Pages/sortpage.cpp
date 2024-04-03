@@ -21,7 +21,7 @@ SortPage::SortPage(QWidget* parent) :
 	PageWidget(parent)
 {
 #if DEBUG
-	Logger::debug("------- Begin initialized SortPage -------");
+	Logger::debug("Begin initialized SortPage");
 #endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 

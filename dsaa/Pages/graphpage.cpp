@@ -25,7 +25,7 @@ GraphPage::GraphPage(QWidget* parent) :
 	PageWidget(parent)
 {
 #if DEBUG
-	Logger::debug("------- Begin initialized GraphPage -------");
+	Logger::debug("Begin initialized GraphPage");
 #endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 

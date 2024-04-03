@@ -60,7 +60,6 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
 	mainLayout->setAlignment(Qt::AlignTop);
 	this->setLayout(mainLayout);
 
-	qInfo()<<this->parentWidget()->objectName();
 	sheildLayer = new SheildLayer(this->parentWidget());
 	sheildLayer->resize(this->parentWidget()->size());
 	sheildLayer->setGraphicsEffect(opacity);
@@ -209,7 +208,6 @@ void SlidePage::autoResize(){
 	if (this == nullptr || this->parentWidget() == nullptr) {
 		return;
 	}
-	qInfo() << "SlidePage::autoResize";
 	parentWidgetWidth = this->parentWidget()->width();
 	parentWidgetHeight = this->parentWidget()->height();
 	resize(parentWidgetWidth * 0.4 <= preferWidth ? preferWidth : parentWidgetWidth * 0.4, parentWidgetHeight);
