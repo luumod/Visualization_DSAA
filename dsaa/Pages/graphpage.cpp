@@ -29,35 +29,40 @@ GraphPage::GraphPage(QWidget* parent) :
 #endif // DEBUG
 	_contentWidget->setMouseTracking(true);
 
-	//-------------------------------------
+	// Create the main layout for this window.
+	_windowAreaLayout = new QVBoxLayout(_contentWidget);
+	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
+
+	// Construct operate widget.
 	graphCanvas = new GraphCanvas(20,
 		"rename->value()",
 		"re-describe->value()",
 		true ? GraphCanvas::AL : GraphCanvas::AML,
 		true ? GraphCanvas::DG : GraphCanvas::UDG, this->parentWidget());
-	//-------------------------------------
+	_mainOperateWidget = new QWidget(_contentWidget);
+	_mainOperateWidget->setObjectName("homePageMainWidget");
+	_mainOperateWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+	_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
+	_mainOperateLayout = new QHBoxLayout(_mainOperateWidget);
+	_mainOperateLayout->setAlignment(Qt::AlignTop);
+	_mainOperateLayout->setContentsMargins(8, 8, 8, 8);
+	_mainOperateLayout->setSpacing(20);
+	_mainOperateWidget->setLayout(_mainOperateLayout);
+	_mainOperateLayout->addWidget(graphCanvas);
 
-	// Create the main layout for this window.
-	_windowAreaLayout = new QVBoxLayout(_contentWidget);
-	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
-
-	// Main title area layout.
+	// Construct title widget.
 	_titleAreaWidget = new QWidget(_contentWidget);
 	_titleAreaLayout = new QVBoxLayout(_titleAreaWidget);
 	_titleAreaLayout->setContentsMargins(18, 36, 22, 22);
 	_titleAreaLayout->setSpacing(1);
 	_titleAreaLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	_titleAreaWidget->setLayout(_titleAreaLayout);
-	_titleAreaWidget->show();
 
-	// Construct title layout
 	_titleOneWidget = new QWidget(_contentWidget);
 	_titleOneLayout = new QHBoxLayout(_titleOneWidget);
 	_titleOneLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	_titleOneWidget->setLayout(_titleOneLayout);
-	_titleOneWidget->show();
-
-	// Construct the first row of title area.
+	
 	_titleLabel = new QLabel("Graph", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 	SlidePage* page = graphCanvas->settingPage();
@@ -76,7 +81,6 @@ GraphPage::GraphPage(QWidget* parent) :
 	_titleOneLayout->addWidget(_titleLabel);
 	_titleOneLayout->addWidget(settingsIcon);
 
-	// Construct the second row of the title area.
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
@@ -89,29 +93,20 @@ GraphPage::GraphPage(QWidget* parent) :
 
 	_titleAreaLayout->addWidget(_titleOneWidget);
 	_titleAreaLayout->addWidget(_pageDesc);
-	_titleOneWidget->show();
-	_pageDesc->show();
 
-	// Add to main window.
+	//-----------------------------Separate------------------------------------
+	
+	// Add title area to main window.
 	_windowAreaLayout->addWidget(_titleAreaWidget);
 
-	// Construct main layout
-	_mainOperateWidget = new QWidget(_contentWidget);
-	_mainOperateWidget->setObjectName("homePageMainWidget");
-	_mainOperateWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
-	_mainOperateLayout = new QHBoxLayout(_mainOperateWidget);
-	_mainOperateLayout->setAlignment(Qt::AlignTop);
-	_mainOperateLayout->setContentsMargins(8, 8, 8, 8);
-	_mainOperateLayout->setSpacing(20);
-	_mainOperateWidget->setLayout(_mainOperateLayout);
-	_mainOperateWidget->show();
-	_mainOperateLayout->addWidget(graphCanvas);
-	graphCanvas->show();
-
-	// Add to main window.
+	// Add operate area to main window.
 	_windowAreaLayout->addWidget(_mainOperateWidget);
 
+	graphCanvas->show();
+	_mainOperateWidget->show();
+	_titleOneWidget->show();
+	_titleAreaWidget->show();
+	_pageDesc->show();
 
 	update();
 

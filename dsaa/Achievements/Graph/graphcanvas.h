@@ -50,7 +50,6 @@ signals:
 private slots:
     void addVex(MyGraphicsVexItem*);
     void addArc(MyGraphicsLineItem*);
-
 };
 
 #endif // MYCANVAS_H

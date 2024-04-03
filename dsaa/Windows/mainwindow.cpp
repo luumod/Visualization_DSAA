@@ -102,6 +102,7 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 
 	_placeHolderWidget->resize(newSize);
 	resizePages(event);
+	_sortPage->autoResizeSettingsPage();
 	_graphPage->autoResizeSettingsPage();
 
 #if DEBUG

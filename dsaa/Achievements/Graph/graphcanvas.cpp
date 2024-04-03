@@ -19,10 +19,13 @@ GraphCanvas::GraphCanvas(int radius, QString name, QString desc, int structure, 
     mainLayout = new QHBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     this->setLayout(mainLayout);
+
+    // Add view.
     view = new MyGraphicsView(type == UDG ? MyGraphicsView::UDG : MyGraphicsView::DG);
     view->setSceneRect(view->rect());
     view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
     mainLayout->addWidget(view);
+
     g = structure == AL ? (AbstractGraph*)(new ALGraph(type)) : (AbstractGraph*)(new AMLGraph(type));
     connect(view, SIGNAL(vexAdded(MyGraphicsVexItem*)), this, SLOT(addVex(MyGraphicsVexItem*)));
     connect(view, SIGNAL(arcAdded(MyGraphicsLineItem*)), this, SLOT(addArc(MyGraphicsLineItem*)));
@@ -46,7 +49,7 @@ GraphCanvas::GraphCanvas(QTextStream &ts, int radius, QWidget *parent) :
     view = new MyGraphicsView(type == UDG ? MyGraphicsView::UDG : MyGraphicsView::DG);
     view->setSceneRect(view->rect());
     view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
-    //mainLayout->addWidget(view);
+    mainLayout->addWidget(view);
     g = structure_type == AL ? (AbstractGraph*)(new ALGraph(type)) : (AbstractGraph*)(new AMLGraph(type));
     connect(view, SIGNAL(vexAdded(MyGraphicsVexItem*)), this, SLOT(addVex(MyGraphicsVexItem*)));
     connect(view, SIGNAL(arcAdded(MyGraphicsLineItem*)), this, SLOT(addArc(MyGraphicsLineItem*)));

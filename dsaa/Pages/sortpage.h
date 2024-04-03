@@ -9,7 +9,7 @@ class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
-class _sortThread;
+class SortCanvas;
 class SortPage : public PageWidget {
 
     Q_OBJECT
@@ -26,18 +26,33 @@ private:
     QLabel* _textButtonIcon = nullptr;
     QLabel* _textButtonLabel = nullptr;
 
-    // UI elements
+    // Canvas
+    SortCanvas* sortCanvas = nullptr;
+
+    // Entire area.
     QVBoxLayout* _windowAreaLayout = nullptr;
-    QVBoxLayout* _titleAreaLayout = nullptr;
     const QFont _titleFont = QFont("DengXian", 26, QFont::ExtraLight);
     QLabel* _titleLabel = nullptr;
     QLineEdit* _pageDesc = nullptr;
 
-    QWidget* _mainOperateWidget = nullptr;
 
-    // grid layout
-    QHBoxLayout* _mainOperateLayout = nullptr;
+    // first row
+    QWidget* _titleOneWidget = nullptr;
+    QHBoxLayout* _titleOneLayout = nullptr;
+
+    // second row
+    QWidget* _titleTwoWidget = nullptr;
+
+    // main title area
     QWidget* _titleAreaWidget = nullptr;
+    QVBoxLayout* _titleAreaLayout = nullptr;
+
+    // operate area.
+    QWidget* _mainOperateWidget = nullptr;
+    QHBoxLayout* _mainOperateLayout = nullptr;
+
+public:
+    void autoResizeSettingsPage();
 
 public:
     virtual PushButton* getPageIconButton(QWidget* context) override;

@@ -7,6 +7,8 @@
 class SortObject;
 class QThread;
 class QPalette;
+class SlidePage;
+class QHBoxLayout;
 /**
  * @brief The main canvas for every sort operation.
  */
@@ -17,7 +19,7 @@ public:
     /**
      * @brief Constructor of the SortCanvas's widget.
      */
-    explicit SortCanvas(QWidget* parent = nullptr);
+    explicit SortCanvas(int radius, QWidget* parent = nullptr);
 
     /**
      * @brief Get sort type of user choice. Each type has different implement method.
@@ -43,7 +45,23 @@ public:
      */
     void stop();
 
-    //void intoThread();
+    QString canvasName;
+    QString canvasDescription;
+
+    SlidePage* settings;
+
+    //For display
+    QHBoxLayout* mainLayout;
+    QWidget* view{ nullptr };
+    QWidget* infoWidget;
+
+    int structure_type;
+    int type;
+    bool generateForest = false;
+
+    void CreateSettings(int r);
+    void Init();
+    SlidePage* settingPage() { return settings; }
 
 protected:
     /**
