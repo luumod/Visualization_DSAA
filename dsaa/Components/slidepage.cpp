@@ -64,7 +64,13 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
 	sheildLayer->resize(this->parentWidget()->size());
 	sheildLayer->setGraphicsEffect(opacity);
 	sheildLayer->setMouseTracking(true);
-	connect(sheildLayer, &SheildLayer::clicked, this, [=](){slideOut();setFocus();});
+	sheildLayer->setEnabled(false);
+	pageContentContainer->scrollToTop();
+	sheildLayer->hide();
+	connect(sheildLayer, &SheildLayer::clicked, this, [=](){
+		slideOut();
+		setFocus();}
+	);
 
 	/* Set shadow */
 	QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
@@ -170,6 +176,7 @@ void SlidePage::slideIn() {
 	connect(inGroup, &QParallelAnimationGroup::finished, this, [=]() {this->curAni = nullptr; });
 	inGroup->start();
 	curAni = inGroup;
+
 }
 
 void SlidePage::slideOut(){
@@ -198,8 +205,14 @@ void SlidePage::slideOut(){
 	outGroup->addAnimation(slideOutAni);
 	outGroup->addAnimation(fadeOutAni);
 	outGroup->addAnimation(rotateAni);
-	connect(outGroup, &QPropertyAnimation::finished, this, [=](){this->curAni = nullptr;pageContentContainer->scrollToTop();sheildLayer->hide();});
-	connect(this, &SlidePage::sizeChange, slideOutAni, [=](){slideOutAni->setEndValue(QPoint(-this->width() - 30, 0));});
+	connect(outGroup, &QPropertyAnimation::finished, this, [=](){
+		this->curAni = nullptr;
+		pageContentContainer->scrollToTop();
+		sheildLayer->hide();
+		});
+	connect(this, &SlidePage::sizeChange, slideOutAni, [=](){
+		slideOutAni->setEndValue(QPoint(-this->width() - 30, 0));
+	});
 	outGroup->start();
 	curAni = outGroup;
 }

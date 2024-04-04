@@ -123,7 +123,6 @@ void SortCanvas::setSortObject(int type, SortObject *obj)
 void SortCanvas::sort(int count, int interval)
 {
     if (sortObj) {
-        
         sortObj->sort(count, interval);
     }
 }
