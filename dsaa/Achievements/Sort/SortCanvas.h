@@ -9,6 +9,7 @@ class QThread;
 class QPalette;
 class SlidePage;
 class QHBoxLayout;
+class QLabel;
 /**
  * @brief The main canvas for every sort operation.
  */
@@ -54,6 +55,7 @@ public:
     QHBoxLayout* mainLayout;
     QWidget* view{ nullptr };
     QWidget* infoWidget;
+    QLabel* pageName{ nullptr };
 
     int structure_type;
     int type;

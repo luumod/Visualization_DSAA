@@ -32,6 +32,8 @@ SortPage::SortPage(QWidget* parent) :
 	_windowAreaLayout = new QVBoxLayout(_contentWidget);
 	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
 
+	// Construct the visual window.
+	sortCanvas = new SortCanvas(20, this->parentWidget());
 	// Construct operate widget.
 	_mainOperateWidget = new QWidget(_contentWidget);
 	_mainOperateWidget->setObjectName("homePageMainWidget");
@@ -41,79 +43,7 @@ SortPage::SortPage(QWidget* parent) :
 	_mainOperateLayout->setContentsMargins(8, 1, 8, 8);
 	_mainOperateLayout->setSpacing(20);
 	_mainOperateWidget->setLayout(_mainOperateLayout);
-
-	QWidget* canvasWrap = new QWidget(_contentWidget);
-	QVBoxLayout* canvasWrap_layout = new QVBoxLayout(canvasWrap);
-	// Construct the visual window.
-	sortCanvas = new SortCanvas(20, this->parentWidget());
-	canvasWrap_layout->addWidget(sortCanvas);
-
-	QWidget* panel = new QWidget(_contentWidget);
-	QVBoxLayout* panel_layout = new QVBoxLayout(panel);
-
-	auto h2 = new QHBoxLayout;
-	auto combo = new QComboBox(panel);
-	combo->setView(new QListView(panel));
-	combo->addItems(SortFactory::getInstance()->getSortList());
-	auto lab = new QLabel("Sort type", panel);
-	h2->addWidget(lab);
-	h2->addWidget(combo);
-
-	auto h3 = new QHBoxLayout;
-	auto spinCount = new QSpinBox(panel);
-	spinCount->setRange(1, 100);
-	spinCount->setValue(10);
-	auto lab2 = new QLabel("Number of data:", panel);
-	h3->addWidget(lab2);
-	h3->addWidget(spinCount);
-
-	auto h4 = new QHBoxLayout;
-	auto spinInterval = new QSpinBox(panel);
-	spinInterval->setValue(10);
-	auto lab3 = new QLabel("Operate interval", panel);
-	h4->addWidget(lab3);
-	h4->addWidget(spinInterval);
-
-	auto h1 = new QHBoxLayout;
-	QPushButton* btnSort = new QPushButton("begin", panel);
-	QPushButton* btnStop = new QPushButton("stop", panel);
-	QSpacerItem* horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	// Clicked to start sort.
-	connect(btnSort, &QPushButton::clicked, this, [=] {
-		const int type = combo->currentIndex();
-		if (type != sortCanvas->getSortType()) {
-			SortObject* obj = SortFactory::getInstance()->createSortObject(type, parent);
-			sortCanvas->setSortObject(type, obj);
-		}
-		sortCanvas->sort(spinCount->value(), spinInterval->value());
-		});
-	// Clicked to stop sort.
-	connect(btnStop, &QPushButton::clicked, this, [=] {
-		sortCanvas->stop();
-		});
-
-	// When sorting, user can't modified these thing.
-	connect(sortCanvas, &SortCanvas::runFlagChanged,
-		this, [=](bool running) {
-			combo->setEnabled(!running);
-			spinCount->setEnabled(!running);
-			spinInterval->setEnabled(!running);
-			btnSort->setEnabled(!running);
-		});
-	h1->addWidget(btnSort);
-	h1->addSpacerItem(horizontalSpacer);
-	h1->addWidget(btnStop);
-
-	QSpacerItem* verticalSpacer = new QSpacerItem(20, 232, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-	panel_layout->addLayout(h4);
-	panel_layout->addLayout(h3);
-	panel_layout->addLayout(h2);
-	panel_layout->addSpacerItem(verticalSpacer);
-	panel_layout->addLayout(h1);
-
-	_mainOperateLayout->addWidget(canvasWrap, 4);
-	_mainOperateLayout->addWidget(panel, 1);
+	_mainOperateLayout->addWidget(sortCanvas); //, 4
 
 	// -------------------------------------------------------
 
@@ -177,8 +107,6 @@ SortPage::SortPage(QWidget* parent) :
 	_titleOneWidget->show();
 	_titleAreaWidget->show();
 	_mainOperateWidget->show();
-	canvasWrap->show();
-	panel->show();
 
 #if DEBUG
 	Logger::debug("------- End initialized SortPage -------");

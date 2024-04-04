@@ -158,7 +158,6 @@ void GraphCanvas::Init(){
     /* Create info widget */
     infoWidget = new QWidget(this);
     mainLayout->addWidget(infoWidget);
-    mainLayout->setStretch(0, 7);
     mainLayout->setStretch(1, 3);
     infoWidget->setMinimumWidth(250);
     infoWidget->setMaximumWidth(500);
@@ -181,11 +180,11 @@ void GraphCanvas::Init(){
     pageName->setFont(titleFont);
     pageName->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     pageName->setStyleSheet("color:#2c2c2c");
-    QWidget *upperSplitter = new QWidget(upper);
-    upperSplitter->setFixedSize(30, 6);
-    upperSplitter->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
+    QWidget *upperSeparate = new QWidget(upper);
+    upperSeparate->setFixedSize(30, 6);
+    upperSeparate->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
     upperLayout->addWidget(pageName);
-    upperLayout->addWidget(upperSplitter);
+    upperLayout->addWidget(upperSeparate);
 
     QWidget *lower = new QWidget(infoWidget);
     QVBoxLayout *lowerLayout = new QVBoxLayout(lower);
