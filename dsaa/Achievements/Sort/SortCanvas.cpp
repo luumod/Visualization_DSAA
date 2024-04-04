@@ -164,7 +164,8 @@ void SortCanvas::Init(){
 	/* Create info widget */
 	infoWidget = new QWidget(this);
 	mainLayout->addWidget(infoWidget);
-	mainLayout->setStretch(3,1);
+	mainLayout->setStretch(0, 7);
+	mainLayout->setStretch(1, 3);
 	infoWidget->setMinimumWidth(250);
 	infoWidget->setMaximumWidth(500);
 

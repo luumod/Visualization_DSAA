@@ -9,12 +9,14 @@
 #include <QPropertyAnimation>
 
 GraphCanvas::GraphCanvas(int radius, QString name, QString desc, int structure, int _type, QWidget *parent) :
-	QWidget(parent), // GraphPage:  this->parent = GraphPage
+	QWidget(parent),
 	canvasName(name),
 	canvasDescription(desc),
 	structure_type(structure),
 	type(_type)
 {
+	setAttribute(Qt::WA_StyledBackground, true);
+
 	/* create canvas */
 	mainLayout = new QHBoxLayout(this);
 	mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -69,9 +71,9 @@ GraphCanvas::GraphCanvas(QTextStream &ts, int radius, QWidget *parent) :
 void GraphCanvas::CreateSettings(int radius){
 	/* create settings page */
 	settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
-	singleSelectGroup *structureSetting = new singleSelectGroup("Structure", this);
-	selectionItem *setAL = new selectionItem("AL", "Adjacent list structure", this);
-	selectionItem *setAML = new selectionItem("AML", "Adjacent multiple list", this);
+	singleSelectGroup *structureSetting = new singleSelectGroup("Structure", settings);
+	selectionItem *setAL = new selectionItem("AL", "Adjacent list structure", settings);
+	selectionItem *setAML = new selectionItem("AML", "Adjacent multiple list", settings);
 	structureSetting->AddItem(setAL);
 	structureSetting->AddItem(setAML);
 	structureSetting->SetSelection(structure_type == AL ? setAL : setAML);
@@ -89,9 +91,9 @@ void GraphCanvas::CreateSettings(int radius){
 			structure_type = AL;
 		}
 	});
-	singleSelectGroup *dirSetting = new singleSelectGroup("Mode", this);
-	selectionItem *setDG = new selectionItem("DG", "Directed graph", this);
-	selectionItem *setUDG = new selectionItem("UDG", "Undirected graph", this);
+	singleSelectGroup *dirSetting = new singleSelectGroup("Mode", settings);
+	selectionItem *setDG = new selectionItem("DG", "Directed graph", settings);
+	selectionItem *setUDG = new selectionItem("UDG", "Undirected graph", settings);
 	dirSetting->AddItem(setDG);
 	dirSetting->AddItem(setUDG);
 	dirSetting->SetSelection(type == DG ? setDG : setUDG);
@@ -100,38 +102,38 @@ void GraphCanvas::CreateSettings(int radius){
 		view->setType(id == 0 ? MyGraphicsView::DG : MyGraphicsView::UDG);
 		type = id == 0 ? DG : UDG;
 	});
-	singleSelectGroup *dfsSetting = new singleSelectGroup("Traverse Mode", this);
-	selectionItem *setGenerateTree = new selectionItem("Tree", "Generate tree", this);
-	selectionItem *setGenerateForest = new selectionItem("Forest", "Generate forest", this);
+	singleSelectGroup *dfsSetting = new singleSelectGroup("Traverse Mode", settings);
+	selectionItem *setGenerateTree = new selectionItem("Tree", "Generate tree", settings);
+	selectionItem *setGenerateForest = new selectionItem("Forest", "Generate forest", settings);
 	dfsSetting->AddItem(setGenerateTree);
 	dfsSetting->AddItem(setGenerateForest);
 	connect(dfsSetting, &singleSelectGroup::selectedItemChange, this, [=](int id){
-		generateForest = id == 1;
+		generateForest = id == 1; 
 	});
-	QWidget *whiteSpace = new QWidget(this);
+	QWidget *whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
 	horizontalValueAdjuster *aniSpeed = new horizontalValueAdjuster("Animation speed", 0.1, 20, 0.1, this);
 	aniSpeed->setValue(1.0);
 	connect(aniSpeed, &horizontalValueAdjuster::valueChanged, view, [=](qreal value){view->setAniRate(value);});
-	textInputItem *rename = new textInputItem("Name", this);
+	textInputItem *rename = new textInputItem("Name", settings);
 	rename->setValue(canvasName);
 	connect(rename, &textInputItem::textEdited, this, [=](QString text){canvasName = text; emit nameChanged(text);});
-	textInputItem *redesc = new textInputItem("Detail", this);
+	textInputItem *redesc = new textInputItem("Detail", settings);
 	redesc->setValue(canvasDescription);
 	connect(redesc, &textInputItem::textEdited, this, [=](QString text){canvasDescription = text; emit descChanged(text);});
-	textButton *hideBtn = new textButton("Hide Unvisited Items", this);
+	textButton *hideBtn = new textButton("Hide Unvisited Items", settings);
 	connect(hideBtn, &textButton::clicked, this, [=](){view->HideUnvisited();});
-	textButton *showBtn = new textButton("Show Unvisited Items", this);
+	textButton *showBtn = new textButton("Show Unvisited Items", settings);
 	connect(showBtn, &textButton::clicked, this, [=](){view->ShowUnvisited();});
-	QWidget *whiteSpace2 = new QWidget(this);
+	QWidget *whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
-	textButton *saveBtn = new textButton("Save to file", this);
+	textButton *saveBtn = new textButton("Save to file", settings);
 	connect(saveBtn, &textButton::clicked, this, [=](){
 		QString savePath = QFileDialog::getSaveFileName(this, tr("Save map"), " ", tr("Map file(*.map)"));
 		if(!savePath.isEmpty())
 			SaveToFile(savePath);
 	});
-	textButton *delBtn = new textButton("Delete", "#0acb1b45","#1acb1b45","#2acb1b45",this);
+	textButton *delBtn = new textButton("Delete", "#0acb1b45","#1acb1b45","#2acb1b45", settings);
 	connect(delBtn, &textButton::clicked, this, [=](){emit setDel(this);});
 	settings->AddContent(delBtn);
 	settings->AddContent(saveBtn);
@@ -157,10 +159,11 @@ void GraphCanvas::CreateSettings(int radius){
 void GraphCanvas::Init(){
 	/* Create info widget */
 	infoWidget = new QWidget(this);
-	mainLayout->addWidget(infoWidget);
-	mainLayout->setStretch(1, 3);
-	infoWidget->setMinimumWidth(250);
-	infoWidget->setMaximumWidth(500);
+    mainLayout->addWidget(infoWidget);
+    mainLayout->setStretch(0, 7);
+    mainLayout->setStretch(1, 3);
+    infoWidget->setMinimumWidth(250);
+    infoWidget->setMaximumWidth(500);
 
 	//Set basic layout
 	QVBoxLayout *infoLayout = new QVBoxLayout(infoWidget);

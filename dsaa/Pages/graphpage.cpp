@@ -34,18 +34,20 @@ GraphPage::GraphPage(QWidget* parent) :
 	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
 
 	// Construct operate widget.
-	graphCanvas = new GraphCanvas(20,
+	graphCanvas = new GraphCanvas(
+		20,
 		"rename->value()",
 		"re-describe->value()",
 		true ? GraphCanvas::AL : GraphCanvas::AML,
-		true ? GraphCanvas::DG : GraphCanvas::UDG, this->parentWidget());
+		true ? GraphCanvas::DG : GraphCanvas::UDG, parent);
+
 	_mainOperateWidget = new QWidget(_contentWidget);
 	_mainOperateWidget->setObjectName("homePageMainWidget");
 	_mainOperateWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
+	//_mainOperateWidget->setStyleSheet("QWidget#mainWidget { background-color: #ff0000; border-radius: 8px; }");
 	_mainOperateLayout = new QHBoxLayout(_mainOperateWidget);
 	_mainOperateLayout->setAlignment(Qt::AlignTop);
-	_mainOperateLayout->setContentsMargins(8, 8, 8, 8);
+	_mainOperateLayout->setContentsMargins(8, 1, 8, 8);
 	_mainOperateLayout->setSpacing(20);
 	_mainOperateWidget->setLayout(_mainOperateLayout);
 	_mainOperateLayout->addWidget(graphCanvas);

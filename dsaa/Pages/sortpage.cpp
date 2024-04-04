@@ -36,7 +36,7 @@ SortPage::SortPage(QWidget* parent) :
 		20, 
 		"Bubble Sort",
 		"bubble sort is the most simple sort.",
-		this->parentWidget());
+		parent);
 	// Construct operate widget.
 	_mainOperateWidget = new QWidget(_contentWidget);
 	_mainOperateWidget->setObjectName("homePageMainWidget");

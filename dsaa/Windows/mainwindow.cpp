@@ -96,17 +96,26 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
+	if (event == nullptr) {
+		return;
+	}
 	FramelessWindow::resizeEvent(event);
 
-	QSize newSize = event->size();
+	QSize newSize = QSize(event->size().width() - _sideBar->size().width(),event->size().height());
 
 	_placeHolderWidget->resize(newSize);
-	resizePages(event);
+	_sortPage->resize(newSize);
+	_graphPage->resize(newSize);
+	_aboutPage->resize(newSize);
+
 	_sortPage->autoResizeSettingsPage();
 	_graphPage->autoResizeSettingsPage();
 
 #if DEBUG
-	Logger::debug(QString("MainWindow::resizeEvent: (%1,%2)").arg(newSize.width()).arg(newSize.height()));
+	Logger::debug(QString("MainWindow::resizeEvent: (%1,%2)").arg(event->size().width()).arg(event->size().height()));
+	Logger::debug(QString("MainWindow->placeHolderWidget::resize: (%1,%2)").arg(_placeHolderWidget->width()).arg(_placeHolderWidget->height()));
+	Logger::debug(QString("MainWindow->sideBar::resize: (%1,%2)").arg(_sideBar->width()).arg(_sideBar->height()));
+	Logger::debug(QString("-------------------------------------"));
 #endif
 }
 
@@ -121,6 +130,7 @@ void MainWindow::resizePages(QResizeEvent* event) {
 	QSize size = event->size();
 	// Resize pages.
 	_sortPage->resize(size);
+	_graphPage->resize(size);
 	_aboutPage->resize(size);
 }
 
@@ -130,6 +140,7 @@ void MainWindow::showEvent(QShowEvent* event) {
 
 	// Resize all the pages based on the placeholder widget
 	_sortPage->resize(_placeHolderWidget->size());
+	_graphPage->resize(_placeHolderWidget->size());
 	_aboutPage->resize(_placeHolderWidget->size());
 }
 

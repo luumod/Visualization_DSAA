@@ -10,6 +10,7 @@ class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
 class GraphCanvas;
+class SortCanvas;
 class GraphPage : public PageWidget {
 
     Q_OBJECT
