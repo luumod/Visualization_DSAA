@@ -32,7 +32,11 @@ SortPage::SortPage(QWidget* parent) :
 	_contentWidget->setLayout(_windowAreaLayout); // Set for the main layout.
 
 	// Construct the visual window.
-	sortCanvas = new SortCanvas(20, this->parentWidget());
+	sortCanvas = new SortCanvas(
+		20, 
+		"Bubble Sort",
+		"bubble sort is the most simple sort.",
+		this->parentWidget());
 	// Construct operate widget.
 	_mainOperateWidget = new QWidget(_contentWidget);
 	_mainOperateWidget->setObjectName("homePageMainWidget");
@@ -75,7 +79,9 @@ SortPage::SortPage(QWidget* parent) :
 		rotate->setEasingCurve(QEasingCurve::InOutExpo);
 		rotate->start();
 		page->slideIn();
-		});
+
+		sortCanvas->stop();
+	});
 	_titleOneLayout->addWidget(_titleLabel);
 	_titleOneLayout->addWidget(settingsIcon);
 

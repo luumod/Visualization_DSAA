@@ -20,7 +20,7 @@ public:
     /**
      * @brief Constructor of the SortCanvas's widget.
      */
-    explicit SortCanvas(int radius, QWidget* parent = nullptr);
+    explicit SortCanvas(int radius, QString name, QString desc, QWidget* parent = nullptr);
 
     /**
      * @brief Get sort type of user choice. Each type has different implement method.
@@ -36,18 +36,30 @@ public:
 
     /**
      * @brief Control to begin sort.
-     * @param count: data size
-     * @param interval: interval of sorting.
      */
-    void sort(int count, int interval);
+    void sort();
 
     /**
      * @brief Control to stop sort.
      */
     void stop();
 
+
+    /**
+     * @brief Set interval.
+     */
+    void setInterval(int interval);
+
+    /**
+     * @brief Set volume.
+     */
+    void setDataVolume(int dataVolume);
+
     QString canvasName;
     QString canvasDescription;
+    QString canvasSortType = "Bubble Sort";
+    QString canvasSortInterval = QString::number(20);
+    QString canvasSortVolume = QString::number(10);
 
     SlidePage* settings;
 
@@ -73,11 +85,17 @@ protected:
 
 signals:
     void runFlagChanged(bool running);
-
+    void nameChanged(QString name);
+    void descChanged(QString desc);
+    void typeChanged(QString type);
+    void intervalChanged(QString interval);
+    void volumeChanged(QString volume);
 private:
     int sortType{ -1 };
     SortObject* sortObj{ nullptr };
     QPalette palette{ nullptr };
+    int interval{ 0 };
+    int volume{ 0 };
 };
 
 #endif // !MAIN_CANVAS

@@ -1,4 +1,6 @@
 ﻿#include "SortCanvas.h"
+#include "logger.h"
+#include "common.h"
 #include "SortObject.h"
 #include "SortFactory.h"
 #include "Components/horizontalValueAdjuster.h"
@@ -16,8 +18,10 @@
 #include <QListView>
 #include <QSpinBox>
 
-SortCanvas::SortCanvas(int radius, QWidget *parent)
-	: QWidget(parent)
+SortCanvas::SortCanvas(int radius, QString name, QString desc, QWidget *parent)
+	:QWidget(parent),
+	canvasName(name),
+	canvasDescription(desc)
 {
 	setAttribute(Qt::WA_StyledBackground, true);
 
@@ -51,23 +55,71 @@ void SortCanvas::CreateSettings(int radius){
 	structureSetting->AddItem(setInsertion);
 	structureSetting->AddItem(setQuick);
 	structureSetting->AddItem(setShell);
+	connect(structureSetting, &singleSelectGroup::selectedItemChange, this, [=](int index) {
+		switch (index)
+		{
+		case 0:
+			emit typeChanged("Bubble Sort");
+			break;
+		case 1:
+			emit typeChanged("Selection Sort");
+			break;
+		case 2:
+			emit typeChanged("Insertion Sort");
+			break;
+		case 3:
+			emit typeChanged("Quick Sort");
+			break;
+		case 4:
+			emit typeChanged("Shell Sort");
+			break;
+		}
+	});
 	
 	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
 
 	// Sort speed rate.
-	horizontalValueAdjuster* sortRate = new horizontalValueAdjuster("Sort rate", 1, 99, 1, settings);
-	sortRate->setValue(20);
-
+	horizontalValueAdjuster* sortInterval = new horizontalValueAdjuster("Sort interval", 1, 99, 1, settings);
+	sortInterval->setValue(20);
+	connect(sortInterval, &horizontalValueAdjuster::valueChanged, view, [=](qreal value) {
+		setInterval(value);
+		emit intervalChanged(QString::number(value));
+#if DEBUG
+		Logger::debug(QString("Sort Interval Changed: %1").arg(value));
+#endif
+	});
+	
 	// Sort data volume.
 	horizontalValueAdjuster* sortDataVolume = new horizontalValueAdjuster("Sort data volume", 5, 30, 1, settings);
 	sortDataVolume->setValue(10);
+	connect(sortDataVolume, &horizontalValueAdjuster::valueChanged, view, [=](qreal value) {
+		setDataVolume(value);
+		emit volumeChanged(QString::number(value));
+#if DEBUG
+		Logger::debug(QString("Sort Volume Changed: %1").arg(value));
+#endif
+	});
 
 	textInputItem* rename = new textInputItem("Name", settings);
 	rename->setValue(canvasName);
+	connect(rename, &textInputItem::textEdited, this, [=](QString text) {
+		canvasName = text; 
+		emit nameChanged(text); 
+#if DEBUG
+		Logger::debug(QString("Sort page rename: %1").arg(text));
+#endif
+		});
 
 	textInputItem* redesc = new textInputItem("Detail", settings);
 	redesc->setValue(canvasDescription);
+	connect(redesc, &textInputItem::textEdited, this, [=](QString text) {
+		canvasDescription = text; 
+		emit descChanged(text);
+#if DEBUG
+		Logger::debug(QString("Sort page redesc: %1").arg(text));
+#endif
+	});
 
 	QWidget* whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
@@ -80,22 +132,23 @@ void SortCanvas::CreateSettings(int radius){
 			SortObject* obj = SortFactory::getInstance()->createSortObject(type, this);
 			setSortObject(type, obj);
 		}
-		//!!!!!!!
+		setInterval(sortInterval->value());
+		setDataVolume(sortDataVolume->value());
 		settings->slideOut();
-		sort(sortDataVolume->value(), sortRate->value());
+		sort();
 		});
 	// Clicked to stop sort.
 	connect(btnStop, &textButton::clicked, this, [=] {
 		settings->slideOut();
 		stop();
-		});
+	});
 
 	settings->AddContent(btnStop);
 	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(structureSetting);
 	settings->AddContent(sortDataVolume);
-	settings->AddContent(sortRate);
+	settings->AddContent(sortInterval);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);
@@ -139,61 +192,55 @@ void SortCanvas::Init(){
 	upperLayout->addWidget(pageName);
 	upperLayout->addWidget(upperSeparate);
 
-	auto h2 = new QHBoxLayout;
-	auto combo = new QComboBox(infoWidget);
-	combo->setView(new QListView(infoWidget));
-	combo->addItems(SortFactory::getInstance()->getSortList());
-	auto lab = new QLabel("Sort type", infoWidget);
-	h2->addWidget(lab);
-	h2->addWidget(combo);
+	QWidget* defInfoPage = new QWidget(infoWidget);
+	QVBoxLayout* defInfoLayout = new QVBoxLayout(defInfoPage);
+	defInfoPage->setLayout(defInfoLayout);
+	defInfoLayout->setContentsMargins(0, 0, 0, 0);
+	defInfoLayout->setAlignment(Qt::AlignTop);
 
-	auto h3 = new QHBoxLayout;
-	auto spinCount = new QSpinBox(infoWidget);
-	spinCount->setRange(1, 100);
-	spinCount->setValue(10);
-	auto lab2 = new QLabel("Number of data:", infoWidget);
-	h3->addWidget(lab2);
-	h3->addWidget(spinCount);
+	QWidget* defTextItems = new QWidget(defInfoPage);
+	defTextItems->setObjectName("DefTextItems");
+	defTextItems->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QVBoxLayout* defTextLayout = new QVBoxLayout(defTextItems);
+	defTextItems->setLayout(defTextLayout);
+	defTextLayout->setContentsMargins(0, 5, 0, 5);
+	
+	// Canvas name.
+	textInputItem* textName = new textInputItem("Name", defInfoPage);
+	textName->setValue(canvasName);
+	connect(this, &SortCanvas::nameChanged, this, [=]() {textName->setValue(canvasName); });
+	textName->setEnabled(false);
+	// Canvas description.
+	textInputItem* textDesc = new textInputItem("Detail", defInfoPage);
+	textDesc->setValue(canvasDescription);
+	connect(this, &SortCanvas::descChanged, this, [=]() {textDesc->setValue(canvasDescription); });
+	textDesc->setEnabled(false);
+	// Sort type.
+	textInputItem* sortType = new textInputItem("Type", defInfoPage);
+	sortType->setValue(canvasSortType);
+	connect(this, &SortCanvas::typeChanged, this, [=](QString value) {sortType->setValue(value); });
+	textName->setEnabled(false);
+	// Sort interval.
+	textInputItem* interval = new textInputItem("Interval", defInfoPage);
+	interval->setValue(canvasSortInterval);
+	connect(this, &SortCanvas::intervalChanged, this, [=](QString value) {interval->setValue(value); });
+	interval->setEnabled(false);
+	// Sort volume.
+	textInputItem* volume = new textInputItem("Volume", defInfoPage);
+	volume->setValue(canvasSortVolume);
+	connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
+	volume->setEnabled(false);
 
-	auto h4 = new QHBoxLayout;
-	auto spinInterval = new QSpinBox(infoWidget);
-	spinInterval->setValue(10);
-	auto lab3 = new QLabel("Operate interval", infoWidget);
-	h4->addWidget(lab3);
-	h4->addWidget(spinInterval);
 
-	upperLayout->addLayout(h2);
-	upperLayout->addLayout(h3);
-	upperLayout->addLayout(h4);
+	defTextLayout->addWidget(textName);
+	defTextLayout->addWidget(textDesc);
+	defTextLayout->addWidget(sortType);
+	defTextLayout->addWidget(interval);
+	defTextLayout->addWidget(volume);
 
-	QHBoxLayout* twoBtnHLayout = new QHBoxLayout;
-	textButton* btnStart = new textButton("Start", infoWidget);
-	textButton* btnStop = new textButton("Stop", infoWidget);
-	twoBtnHLayout->addWidget(btnStart);
-	twoBtnHLayout->addWidget(btnStop);
-	upperLayout->addLayout(twoBtnHLayout);
-
-	//connect(btnStart, &textButton::clicked, this, [=] {
-	//	const int type = combo->currentIndex();
-	//	if (type != getSortType()) {
-	//		SortObject* obj = SortFactory::getInstance()->createSortObject(type, parent());
-	//		setSortObject(type, obj);
-	//	}
-	//	sort(spinCount->value(), spinInterval->value());
-	//});
-	//// Clicked to stop sort.
-	//connect(btnStop, &textButton::clicked, this, [=] {
-	//	stop();
-	// });
-
-	// When sorting, user can't modified these thing.
-	connect(this, &SortCanvas::runFlagChanged,
-		this, [=](bool running) {
-			combo->setEnabled(!running);
-			spinCount->setEnabled(!running);
-			spinInterval->setEnabled(!running);
-			btnStart->setEnabled(!running);
-		});
+	defInfoLayout->addWidget(defTextItems);
+	upperLayout->addWidget(defInfoPage);
+	defInfoPage->show();
 
 	//--------------------------------
 
@@ -217,21 +264,6 @@ void SortCanvas::Init(){
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);
-
-	/*
-	--------------------------------------------------------------
-	--------------------------------------------------------------
-	--------------------------------------------------------------
-	----------------------------Settings--------------------------
-	--------------------------------------------------------------
-	--------------------------------------------------------------
-	--------------------------------------------------------------
-	*/
-	//1. Choice different sort type.
-
-	//2. Adjust different interval.
-
-	//3. Adjust different the number of elements for array.
 
 }
 
@@ -262,10 +294,10 @@ void SortCanvas::setSortObject(int type, SortObject *obj)
 	update();
 }
 
-void SortCanvas::sort(int count, int interval)
+void SortCanvas::sort()
 {
 	if (sortObj) {
-		sortObj->sort(count, interval);
+		sortObj->sort(volume, interval);
 	}
 }
 
@@ -274,6 +306,14 @@ void SortCanvas::stop()
 	if (sortObj) {
 		sortObj->stop();
 	}
+}
+
+void SortCanvas::setInterval(int interval){
+	this->interval = interval;
+}
+
+void SortCanvas::setDataVolume(int dataVolume){
+	this->volume = dataVolume;
 }
 
 void SortCanvas::paintEvent(QPaintEvent *event)
