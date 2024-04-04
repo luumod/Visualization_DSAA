@@ -245,5 +245,6 @@ void singleSelectGroup::changeSelection(selectionItem* item) {
         selections[i]->Deselect();
     }
     selectedID = id;
+    qInfo() << "selectedID = " << selectedID;
     emit selectedItemChange(id);
 }

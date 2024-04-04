@@ -40,53 +40,62 @@ SortCanvas::SortCanvas(int radius, QWidget *parent)
 void SortCanvas::CreateSettings(int radius){
 	/* create settings page */
 	settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
-	singleSelectGroup* structureSetting = new singleSelectGroup("Structure", this);
-	selectionItem* setAL = new selectionItem("AL", "Adjacent list structure", this);
-	selectionItem* setAML = new selectionItem("AML", "Adjacent multiple list", this);
-	structureSetting->AddItem(setAL);
-	structureSetting->AddItem(setAML);
-
-	singleSelectGroup* dirSetting = new singleSelectGroup("Mode", this);
-	selectionItem* setDG = new selectionItem("DG", "Directed graph", this);
-	selectionItem* setUDG = new selectionItem("UDG", "Undirected graph", this);
-	dirSetting->AddItem(setDG);
-	dirSetting->AddItem(setUDG);
+	singleSelectGroup* structureSetting = new singleSelectGroup("Sort Algorithms", settings);
+	selectionItem* setBubble = new selectionItem("Bubble", "Adjacent list structure", settings);
+	selectionItem* setSelection = new selectionItem("Selection", "Adjacent multiple list", settings);
+	selectionItem* setInsertion = new selectionItem("Insertion", "Adjacent multiple list", settings);
+	selectionItem* setQuick = new selectionItem("Quick", "Adjacent multiple list", settings);
+	selectionItem* setShell = new selectionItem("Shell", "Adjacent multiple list", settings);
+	structureSetting->AddItem(setBubble);
+	structureSetting->AddItem(setSelection);
+	structureSetting->AddItem(setInsertion);
+	structureSetting->AddItem(setQuick);
+	structureSetting->AddItem(setShell);
 	
-	singleSelectGroup* dfsSetting = new singleSelectGroup("Traverse Mode", this);
-	selectionItem* setGenerateTree = new selectionItem("Tree", "Generate tree", this);
-	selectionItem* setGenerateForest = new selectionItem("Forest", "Generate forest", this);
-	dfsSetting->AddItem(setGenerateTree);
-	dfsSetting->AddItem(setGenerateForest);
-	
-	QWidget* whiteSpace = new QWidget(this);
+	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
 
-	horizontalValueAdjuster* aniSpeed = new horizontalValueAdjuster("Animation speed", 0.1, 20, 0.1, this);
-	aniSpeed->setValue(1.0);
+	// Sort speed rate.
+	horizontalValueAdjuster* sortRate = new horizontalValueAdjuster("Sort rate", 1, 99, 1, settings);
+	sortRate->setValue(20);
 
-	textInputItem* rename = new textInputItem("Name", this);
+	// Sort data volume.
+	horizontalValueAdjuster* sortDataVolume = new horizontalValueAdjuster("Sort data volume", 5, 30, 1, settings);
+	sortDataVolume->setValue(10);
+
+	textInputItem* rename = new textInputItem("Name", settings);
 	rename->setValue(canvasName);
 
-	textInputItem* redesc = new textInputItem("Detail", this);
+	textInputItem* redesc = new textInputItem("Detail", settings);
 	redesc->setValue(canvasDescription);
-	textButton* hideBtn = new textButton("Hide Unvisited Items", this);
 
-	textButton* showBtn = new textButton("Show Unvisited Items", this);
-	QWidget* whiteSpace2 = new QWidget(this);
+	QWidget* whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
-	textButton* saveBtn = new textButton("Save to file", this);
 
-	textButton* delBtn = new textButton("Delete", "#0acb1b45", "#1acb1b45", "#2acb1b45", this);
+	textButton* btnStart = new textButton("Start", settings);
+	textButton* btnStop = new textButton("Stop", settings);
+	connect(btnStart, &textButton::clicked, settings, [=] {
+		const int type = structureSetting->value();
+		if (type != getSortType()) {
+			SortObject* obj = SortFactory::getInstance()->createSortObject(type, this);
+			setSortObject(type, obj);
+		}
+		//!!!!!!!
+		settings->slideOut();
+		sort(sortDataVolume->value(), sortRate->value());
+		});
+	// Clicked to stop sort.
+	connect(btnStop, &textButton::clicked, this, [=] {
+		settings->slideOut();
+		stop();
+		});
 
-	settings->AddContent(delBtn);
-	settings->AddContent(saveBtn);
+	settings->AddContent(btnStop);
+	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
-	settings->AddContent(showBtn);
-	settings->AddContent(hideBtn);
-	settings->AddContent(dfsSetting);
-	settings->AddContent(dirSetting);
 	settings->AddContent(structureSetting);
-	settings->AddContent(aniSpeed);
+	settings->AddContent(sortDataVolume);
+	settings->AddContent(sortRate);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);
@@ -164,18 +173,18 @@ void SortCanvas::Init(){
 	twoBtnHLayout->addWidget(btnStop);
 	upperLayout->addLayout(twoBtnHLayout);
 
-	connect(btnStart, &textButton::clicked, this, [=] {
-		const int type = combo->currentIndex();
-		if (type != getSortType()) {
-			SortObject* obj = SortFactory::getInstance()->createSortObject(type, parent());
-			setSortObject(type, obj);
-		}
-		sort(spinCount->value(), spinInterval->value());
-	});
-	// Clicked to stop sort.
-	connect(btnStop, &textButton::clicked, this, [=] {
-		stop();
-	 });
+	//connect(btnStart, &textButton::clicked, this, [=] {
+	//	const int type = combo->currentIndex();
+	//	if (type != getSortType()) {
+	//		SortObject* obj = SortFactory::getInstance()->createSortObject(type, parent());
+	//		setSortObject(type, obj);
+	//	}
+	//	sort(spinCount->value(), spinInterval->value());
+	//});
+	//// Clicked to stop sort.
+	//connect(btnStop, &textButton::clicked, this, [=] {
+	//	stop();
+	// });
 
 	// When sorting, user can't modified these thing.
 	connect(this, &SortCanvas::runFlagChanged,
@@ -208,6 +217,22 @@ void SortCanvas::Init(){
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);
+
+	/*
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	----------------------------Settings--------------------------
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	*/
+	//1. Choice different sort type.
+
+	//2. Adjust different interval.
+
+	//3. Adjust different the number of elements for array.
+
 }
 
 int SortCanvas::getSortType() const

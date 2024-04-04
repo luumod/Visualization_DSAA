@@ -5,7 +5,6 @@
 #include "common.h"
 #include "fontawesomeicons.h"
 #include "SortCanvas.h"
-#include "SortFactory.h"
 #include "slidepage.h"
 #include "customIcon.h"
 #include <QVBoxLayout>
