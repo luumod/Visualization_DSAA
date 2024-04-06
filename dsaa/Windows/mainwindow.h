@@ -25,6 +25,8 @@ public:
     void selectCanvas(SortPage* canvas);
     void deleteCanvas(SortPage* canvas);
 private:
+    int cornerRadius = 20;
+
     // Main ui layout
     QHBoxLayout* _mainLayout = nullptr;
 
@@ -36,13 +38,6 @@ private:
     AboutPage* _aboutPage = nullptr;
     GraphPage* _graphPage = nullptr;
 
-    // Sub Components in the home page.
-    bigIconButton* _homeSortButton = nullptr;
-
-    QWidget* defaultPage = nullptr;
-    SlidePage* createNewPage = nullptr;
-    int cornerRadius = 20;
-    QVector<SlidePage*> pageList;
     
     // Place holder widget for resizing pages
     QWidget* _placeHolderWidget = nullptr;
