@@ -97,9 +97,9 @@ void BubbleSort::draw(QPainter *painter, int width, int height)
 	const int top_space = 20;
 	const int bottom_space = 50;
 
-	const int item_space = 10; //Column horizon space.
+	const int item_space = 10; //pillar horizon space.
 	const int text_height = painter->fontMetrics().height();
-	const int text_space = 15; // Text and column's space
+	const int text_space = 15; // Text and pillar's space
 	const double item_width = (width + item_space - left_space - right_space) / (double)len - item_space;
 	const double item_bottom = height - bottom_space;
 	const double height_factor = (height - top_space - bottom_space) / (double)len;

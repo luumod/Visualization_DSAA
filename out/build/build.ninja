@@ -58,7 +58,7 @@ build CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj: C
   TARGET_COMPILE_PDB = CMakeFiles\Visual_DSAA.dir\
   TARGET_PDB = Visual_DSAA.pdb
 
-build CMakeFiles\Visual_DSAA.dir\main.cpp.obj: CXX_COMPILER__Visual_DSAA_unscanned_Release F$:\code\Visual_DSAA\main.cpp || cmake_object_order_depends_target_Visual_DSAA
+build CMakeFiles\Visual_DSAA.dir\test.cpp.obj: CXX_COMPILER__Visual_DSAA_unscanned_Release F$:\code\Visual_DSAA\test.cpp || cmake_object_order_depends_target_Visual_DSAA
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
   INCLUDES = -IF:\code\Visual_DSAA\out\build\Visual_DSAA_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:W0
@@ -75,7 +75,7 @@ build CMakeFiles\Visual_DSAA.dir\main.cpp.obj: CXX_COMPILER__Visual_DSAA_unscann
 #############################################
 # Link the executable Visual_DSAA.exe
 
-build Visual_DSAA.exe: CXX_EXECUTABLE_LINKER__Visual_DSAA_Release CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj CMakeFiles\Visual_DSAA.dir\main.cpp.obj | dsaa\Windows\dsaa_window.lib dsaa\Pages\dsaa_pages.lib dsaa\Components\dsaa_components.lib dsaa\Utils\dsaa_utils.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Graph\dsaa_graph.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Gui.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib || Visual_DSAA_autogen Visual_DSAA_autogen_timestamp_deps dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Components\dsaa_components.lib dsaa\Pages\dsaa_pages.lib dsaa\Utils\dsaa_utils.lib dsaa\Windows\dsaa_window.lib
+build Visual_DSAA.exe: CXX_EXECUTABLE_LINKER__Visual_DSAA_Release CMakeFiles\Visual_DSAA.dir\Visual_DSAA_autogen\mocs_compilation.cpp.obj CMakeFiles\Visual_DSAA.dir\test.cpp.obj | dsaa\Windows\dsaa_window.lib dsaa\Pages\dsaa_pages.lib dsaa\Components\dsaa_components.lib dsaa\Utils\dsaa_utils.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Graph\dsaa_graph.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Gui.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib || Visual_DSAA_autogen Visual_DSAA_autogen_timestamp_deps dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Components\dsaa_components.lib dsaa\Pages\dsaa_pages.lib dsaa\Utils\dsaa_utils.lib dsaa\Windows\dsaa_window.lib
   FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64 /INCREMENTAL:NO /subsystem:console
   LINK_LIBRARIES = dsaa\Windows\dsaa_window.lib  dsaa\Pages\dsaa_pages.lib  dsaa\Components\dsaa_components.lib  dsaa\Utils\dsaa_utils.lib  dsaa\Achievements\Sort\dsaa_sort.lib  dsaa\Achievements\Graph\dsaa_graph.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Gui.lib  F:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib  mpr.lib  userenv.lib  d3d11.lib  dxgi.lib  dxguid.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
@@ -136,7 +136,7 @@ build Visual_DSAA_autogen\timestamp Visual_DSAA_autogen\mocs_compilation.cpp | $
 #############################################
 # Phony custom command for CMakeFiles\Visual_DSAA_autogen_timestamp_deps
 
-build CMakeFiles\Visual_DSAA_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\Visual_DSAA_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib dsaa\Pages\dsaa_pages.lib dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Windows\dsaa_window.lib dsaa\Components\dsaa_components.lib dsaa\Utils\dsaa_utils.lib || dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Graph\dsaa_graph_autogen dsaa\Achievements\Graph\dsaa_graph_autogen_timestamp_deps dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Sort\dsaa_sort_autogen dsaa\Achievements\Sort\dsaa_sort_autogen_timestamp_deps dsaa\Components\dsaa_components.lib dsaa\Components\dsaa_components_autogen dsaa\Components\dsaa_components_autogen_timestamp_deps dsaa\Pages\dsaa_pages.lib dsaa\Pages\dsaa_pages_autogen dsaa\Pages\dsaa_pages_autogen_timestamp_deps dsaa\Utils\dsaa_utils.lib dsaa\Utils\dsaa_utils_autogen dsaa\Utils\dsaa_utils_autogen_timestamp_deps dsaa\Windows\dsaa_window.lib dsaa\Windows\dsaa_window_autogen dsaa\Windows\dsaa_window_autogen_timestamp_deps
+build CMakeFiles\Visual_DSAA_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\Visual_DSAA_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Pages\dsaa_pages.lib dsaa\Windows\dsaa_window.lib dsaa\Components\dsaa_components.lib dsaa\Utils\dsaa_utils.lib || dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Graph\dsaa_graph_autogen dsaa\Achievements\Graph\dsaa_graph_autogen_timestamp_deps dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Sort\dsaa_sort_autogen dsaa\Achievements\Sort\dsaa_sort_autogen_timestamp_deps dsaa\Components\dsaa_components.lib dsaa\Components\dsaa_components_autogen dsaa\Components\dsaa_components_autogen_timestamp_deps dsaa\Pages\dsaa_pages.lib dsaa\Pages\dsaa_pages_autogen dsaa\Pages\dsaa_pages_autogen_timestamp_deps dsaa\Utils\dsaa_utils.lib dsaa\Utils\dsaa_utils_autogen dsaa\Utils\dsaa_utils_autogen_timestamp_deps dsaa\Windows\dsaa_window.lib dsaa\Windows\dsaa_window_autogen dsaa\Windows\dsaa_window_autogen_timestamp_deps
 
 
 #############################################
@@ -876,6 +876,15 @@ build dsaa\Pages\CMakeFiles\dsaa_pages.dir\graphpage.cpp.obj: CXX_COMPILER__dsaa
   TARGET_COMPILE_PDB = dsaa\Pages\CMakeFiles\dsaa_pages.dir\dsaa_pages.pdb
   TARGET_PDB = dsaa\Pages\dsaa_pages.pdb
 
+build dsaa\Pages\CMakeFiles\dsaa_pages.dir\linklistpage.cpp.obj: CXX_COMPILER__dsaa_pages_unscanned_Release F$:\code\Visual_DSAA\dsaa\Pages\linklistpage.cpp || cmake_object_order_depends_target_dsaa_pages
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+  INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\Pages\dsaa_pages_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\Pages\..\Utils -external:IF:\code\Visual_DSAA\dsaa\Pages\..\Components -external:IF:\code\Visual_DSAA\dsaa\Pages\..\Achievements\Sort -external:IF:\code\Visual_DSAA\dsaa\Pages\..\Achievements\Graph -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
+  OBJECT_DIR = dsaa\Pages\CMakeFiles\dsaa_pages.dir
+  OBJECT_FILE_DIR = dsaa\Pages\CMakeFiles\dsaa_pages.dir
+  TARGET_COMPILE_PDB = dsaa\Pages\CMakeFiles\dsaa_pages.dir\dsaa_pages.pdb
+  TARGET_PDB = dsaa\Pages\dsaa_pages.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target dsaa_pages
@@ -884,7 +893,7 @@ build dsaa\Pages\CMakeFiles\dsaa_pages.dir\graphpage.cpp.obj: CXX_COMPILER__dsaa
 #############################################
 # Link the static library dsaa\Pages\dsaa_pages.lib
 
-build dsaa\Pages\dsaa_pages.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_pages_Release dsaa\Pages\CMakeFiles\dsaa_pages.dir\dsaa_pages_autogen\mocs_compilation.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\aboutpage.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\sortpage.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\graphpage.cpp.obj || dsaa\Pages\dsaa_pages_autogen dsaa\Pages\dsaa_pages_autogen_timestamp_deps
+build dsaa\Pages\dsaa_pages.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_pages_Release dsaa\Pages\CMakeFiles\dsaa_pages.dir\dsaa_pages_autogen\mocs_compilation.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\aboutpage.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\sortpage.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\graphpage.cpp.obj dsaa\Pages\CMakeFiles\dsaa_pages.dir\linklistpage.cpp.obj || dsaa\Pages\dsaa_pages_autogen dsaa\Pages\dsaa_pages_autogen_timestamp_deps
   LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = dsaa\Pages\CMakeFiles\dsaa_pages.dir
