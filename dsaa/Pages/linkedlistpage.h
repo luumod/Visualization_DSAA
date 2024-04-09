@@ -1,5 +1,5 @@
-#ifndef SORT_PAGE
-#define SORT_PAGE
+#ifndef LINKED_LIST_PAGE
+#define LINKED_LIST_PAGE
 
 #include "Components/pagewidget.h"
 #include <QGridLayout>
@@ -9,14 +9,15 @@ class QHBoxLayout;
 class LineEditWidget;
 class bigIconButton;
 class QLineEdit;
+class LinkedListCanvas;
 class SortCanvas;
-class SortPage : public PageWidget {
+class LinkedListPage : public PageWidget {
 
     Q_OBJECT
 
 public:
-    SortPage(QWidget* parent = 0);
-    ~SortPage();
+    LinkedListPage(QWidget* parent = 0);
+    ~LinkedListPage();
 
 private:
     // Push button icons
@@ -27,7 +28,7 @@ private:
     QLabel* _textButtonLabel = nullptr;
 
     // Canvas
-    SortCanvas* sortCanvas = nullptr;
+    LinkedListCanvas* listCanvas = nullptr;
 
     // Entire area.
     QVBoxLayout* _windowAreaLayout = nullptr;
@@ -50,6 +51,7 @@ private:
     // operate area.
     QWidget* _mainOperateWidget = nullptr;
     QHBoxLayout* _mainOperateLayout = nullptr;
+
 
 public:
     void autoResizeSettingsPage();

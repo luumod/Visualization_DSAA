@@ -8,6 +8,7 @@ class QGraphicsDropShadowEffect;
 class SlidePage;
 class SortPage;
 class GraphPage;
+class LinkedListPage;
 class AboutPage;
 class bigIconButton;
 class SideBar;
@@ -37,6 +38,7 @@ private:
     SortPage* _sortPage = nullptr;
     AboutPage* _aboutPage = nullptr;
     GraphPage* _graphPage = nullptr;
+    LinkedListPage* _listPage = nullptr;
 
     
     // Place holder widget for resizing pages

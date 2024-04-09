@@ -9,5 +9,6 @@ inline LinearDataFactory* LinearDataFactory::getInstance()
 
 BaseList* LinearDataFactory::createLinearObject(int row, QObject* parent)
 {
-	return new DoublyLinkedList(parent);
+	//new DoublyLinkedList(parent);
+	return nullptr;
 }

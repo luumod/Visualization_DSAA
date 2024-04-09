@@ -14,6 +14,7 @@
 #include "sortpage.h"
 #include "graphpage.h"
 #include "aboutpage.h"
+#include "linkedlistpage.h"
 #include "slidepage.h"
 #include <QHBoxLayout>
 #include <QResizeEvent>
@@ -82,6 +83,10 @@ MainWindow::MainWindow(QWidget* parent)
 	_graphPage->setMouseTracking(true);
 	_sideBar->addPage(_graphPage);
 
+	_listPage = new LinkedListPage(_placeHolderWidget);
+	_listPage->setMouseTracking(true);
+	_sideBar->addPage(_listPage);
+
 	// Create about page and connect to side bar
 	_aboutPage = new AboutPage(_placeHolderWidget);
 	_aboutPage->setMouseTracking(true);
@@ -106,6 +111,7 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 	_placeHolderWidget->resize(newSize);
 	_sortPage->resize(newSize);
 	_graphPage->resize(newSize);
+	_listPage->resize(newSize);
 	_aboutPage->resize(newSize);
 
 	_sortPage->autoResizeSettingsPage();
@@ -131,6 +137,7 @@ void MainWindow::resizePages(QResizeEvent* event) {
 	// Resize pages.
 	_sortPage->resize(size);
 	_graphPage->resize(size);
+	_listPage->resize(size);
 	_aboutPage->resize(size);
 }
 
@@ -141,6 +148,7 @@ void MainWindow::showEvent(QShowEvent* event) {
 	// Resize all the pages based on the placeholder widget
 	_sortPage->resize(_placeHolderWidget->size());
 	_graphPage->resize(_placeHolderWidget->size());
+	_listPage->resize(_placeHolderWidget->size());
 	_aboutPage->resize(_placeHolderWidget->size());
 }
 

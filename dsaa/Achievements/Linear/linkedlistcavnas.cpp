@@ -2,7 +2,8 @@
 #include <QPainter>
 #include <QList>
 
-LinkedListCanvas::LinkedListCanvas()
+LinkedListCanvas::LinkedListCanvas(QWidget* parent)
+	:QWidget(parent)
 {
 }
 
@@ -109,4 +110,8 @@ void LinkedListCanvas::drawLinkedList(QPainter* painter, const QList<int>& value
 			 y = height / 2 - nodeHeight / 2 + cur_row * (nodeHeight + row_spacing);
 		 }
 	 }
+}
+
+void LinkedListCanvas::CreateSettings(int r)
+{
 }
