@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 
 include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/dsaa)
 
-add_executable(Visual_DSAA "test.cpp" )
+add_executable(Visual_DSAA "main.cpp" )
 
 find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
 
@@ -23,6 +23,7 @@ target_link_libraries(Visual_DSAA
     dsaa_utils
     dsaa_sort
     dsaa_graph
+    dsaa_linear
     Qt6::Core
     Qt6::Widgets
 )
