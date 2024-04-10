@@ -60,7 +60,7 @@ LinkedListPage::LinkedListPage(QWidget* parent) :
 	_titleLabel = new QLabel("List", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 
-	SlidePage* page = listCanvas->settingPage();
+	/*SlidePage* page = listCanvas->settingPage();
 	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, _contentWidget);
 	settingsIcon->setMinimumHeight(_titleLabel->height() * 0.7);
 	settingsIcon->setMaximumWidth(_titleLabel->width() * 0.7);
@@ -72,10 +72,10 @@ LinkedListPage::LinkedListPage(QWidget* parent) :
 		rotate->setEasingCurve(QEasingCurve::InOutExpo);
 		rotate->start();
 		page->slideIn();
-		});
+		});*/
 	
 	_titleOneLayout->addWidget(_titleLabel);
-	_titleOneLayout->addWidget(settingsIcon);
+	//_titleOneLayout->addWidget(settingsIcon);
 
 	QFont descFont = QFont("Corbel Light", 12);
 	QFontMetrics descFm(descFont);

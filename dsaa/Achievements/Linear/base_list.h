@@ -1,11 +1,11 @@
-#ifndef CORE_BASE_LIST_HPP_
-#define CORE_BASE_LIST_HPP_
+#ifndef CORE_BASE_LIST_H_
+#define CORE_BASE_LIST_H_
 
 #include <QObject>
 
 class BaseList : public QObject {
-
     Q_OBJECT
+
 public:
     explicit BaseList(QObject* parent = nullptr);
 
@@ -16,14 +16,12 @@ public:
     std::size_t size() const;
 
 protected:
-    struct Node;
-    using Node_ptr = Node*;
-
     struct Node {
         int data{};
-        Node_ptr prev{};
-        Node_ptr next{};
+        Node* prev{};
+        Node* next{};
     };
+    using Node_ptr = Node*;
 
     Node_ptr m_head{ nullptr };
     Node_ptr m_tail{ nullptr };
@@ -48,4 +46,4 @@ protected:
     void pop_back();
 };
 
-#endif  // CORE_BASE_LIST_HPP_
+#endif  // CORE_BASE_LIST_H_

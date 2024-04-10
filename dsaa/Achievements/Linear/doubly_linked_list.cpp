@@ -1,11 +1,11 @@
 #include "doubly_linked_list.h"
 
-inline DoublyLinkedList::DoublyLinkedList(QObject* parent)
+DoublyLinkedList::DoublyLinkedList(QObject* parent)
 	:BaseList(parent) {
 }
 
 
-inline DoublyLinkedList::~DoublyLinkedList() {}
+DoublyLinkedList::~DoublyLinkedList() {}
 
 
  DoublyLinkedList::Node_ptr DoublyLinkedList::search(
@@ -22,12 +22,12 @@ inline DoublyLinkedList::~DoublyLinkedList() {}
  DoublyLinkedList::Node_ptr DoublyLinkedList::insert(
 	std::size_t index, const int& elem) {
 	if (index == 0) {
-		Base::push_front(elem);
+		push_front(elem);
 		return m_head;
 	}
 
 	if (index >= m_size) {
-		Base::push_back(elem);
+		push_back(elem);
 		return m_tail;
 	}
 
@@ -49,12 +49,12 @@ inline DoublyLinkedList::~DoublyLinkedList() {}
 	}
 
 	if (index == 0) {
-		Base::pop_front();
+		pop_front();
 		return m_head;
 	}
 
 	if (index + 1 == m_size) {
-		Base::pop_back();
+		pop_back();
 		return nullptr;
 	}
 
@@ -77,7 +77,7 @@ int& DoublyLinkedList::at(std::size_t index) {
 
 void DoublyLinkedList::clear() {
 	while (!empty()) {
-		Base::pop_front();
+		pop_front();
 	}
 }
 

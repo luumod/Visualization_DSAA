@@ -1,6 +1,6 @@
 #include "base_list.h"
 
-inline BaseList::BaseList(QObject* parent)
+BaseList::BaseList(QObject* parent)
     :QObject(parent) {}
 
 BaseList::~BaseList() {

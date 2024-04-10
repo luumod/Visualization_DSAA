@@ -1,5 +1,5 @@
-#ifndef CORE_DOUBLY_LINKED_LIST_HPP_
-#define CORE_DOUBLY_LINKED_LIST_HPP_
+#ifndef CORE_DOUBLY_LINKED_LIST_H_
+#define CORE_DOUBLY_LINKED_LIST_H_
 
 #include "base_list.h"
 
@@ -8,14 +8,14 @@ class DoublyLinkedList : public BaseList {
     Q_OBJECT
 
 protected:
-    using Base = BaseList;
+   /* using Base = BaseList;
     using Node = typename Base::Node;
     using Node_ptr = Node*;
-    using cNode_ptr = const Node*;
+    using cNode_ptr = const Node*;*/
 
 public:
-    using Base::empty;
-    using Base::size;
+    /*using Base::empty;
+    using Base::size;*/
 
     explicit DoublyLinkedList(QObject* parent = nullptr);
 
@@ -34,9 +34,9 @@ public:
     void clear();
 
 protected:
-    using Base::m_head;
+    /*using Base::m_head;
     using Base::m_size;
-    using Base::m_tail;
+    using Base::m_tail;*/
     Node_ptr internal_search(const int& elem);
     Node_ptr internal_find(std::size_t index);
 };
