@@ -1,14 +1,121 @@
 #include "linkedlistcavnas.h"
+#include "slidepage.h"
+#include "singleSelectGroup.h"
+#include "horizontalValueAdjuster.h"
+#include "textInputItem.h"
+#include "textButton.h"
 #include <QPainter>
 #include <QList>
+#include <QHBoxLayout>
+#include <QTimer>
 
-LinkedListCanvas::LinkedListCanvas(QWidget* parent)
-	:QWidget(parent)
+LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
+	:QWidget(parent),
+	canvasName(name),
+	canvasDescription(desc)
 {
+	setAttribute(Qt::WA_StyledBackground, true);
+
+	mainLayout = new QHBoxLayout(this);
+	mainLayout->setContentsMargins(0, 0, 0, 0);
+	this->setLayout(mainLayout);
+
+	view = new QWidget(this);
+	view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
+	view->setAutoFillBackground(true);
+	palette.setColor(QPalette::Window, Qt::white);
+	view->setPalette(palette);
+	mainLayout->addWidget(view);
+	
+	this->setFocusPolicy(Qt::ClickFocus);
+
+	CreateSettings(radius);
 }
 
 LinkedListCanvas::~LinkedListCanvas()
 {
+}
+void LinkedListCanvas::CreateSettings(int radius)
+{
+	/* create settings page */
+	settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
+	singleSelectGroup* structureSetting = new singleSelectGroup("Sort Algorithms", settings);
+	selectionItem* setBubble = new selectionItem("Bubble", "Adjacent list structure", settings);
+	selectionItem* setSelection = new selectionItem("Selection", "Adjacent multiple list", settings);
+	selectionItem* setInsertion = new selectionItem("Insertion", "Adjacent multiple list", settings);
+	selectionItem* setQuick = new selectionItem("Quick", "Adjacent multiple list", settings);
+	selectionItem* setShell = new selectionItem("Shell", "Adjacent multiple list", settings);
+	structureSetting->AddItem(setBubble);
+	structureSetting->AddItem(setSelection);
+	structureSetting->AddItem(setInsertion);
+	structureSetting->AddItem(setQuick);
+	structureSetting->AddItem(setShell);
+	connect(structureSetting, &singleSelectGroup::selectedItemChange, this, [=](int index) {
+		
+		});
+
+	QWidget* whiteSpace = new QWidget(settings);
+	whiteSpace->setFixedHeight(30);
+
+	// Sort speed rate.
+	horizontalValueAdjuster* sortInterval = new horizontalValueAdjuster("Sort interval", 1, 99, 1, settings);
+	sortInterval->setValue(20);
+	connect(sortInterval, &horizontalValueAdjuster::valueChanged, view, [=](qreal value) {
+		
+		});
+
+	// Sort data volume.
+	horizontalValueAdjuster* sortDataVolume = new horizontalValueAdjuster("Sort data volume", 5, 30, 1, settings);
+	sortDataVolume->setValue(10);
+	connect(sortDataVolume, &horizontalValueAdjuster::valueChanged, view, [=](qreal value) {
+		
+		});
+
+	textInputItem* rename = new textInputItem("Name", settings);
+	rename->setValue(canvasName);
+	connect(rename, &textInputItem::textEdited, this, [=](QString text) {
+		
+		});
+
+	textInputItem* redesc = new textInputItem("Detail", settings);
+	redesc->setValue(canvasDescription);
+	connect(redesc, &textInputItem::textEdited, this, [=](QString text) {
+		
+		});
+
+	QWidget* whiteSpace2 = new QWidget(settings);
+	whiteSpace2->setFixedHeight(30);
+
+	textButton* btnStart = new textButton("Start", settings);
+	textButton* btnStop = new textButton("Stop", settings);
+	connect(btnStart, &textButton::clicked, settings, [=] {
+		
+		});
+	// Clicked to stop sort.
+	connect(btnStop, &textButton::clicked, this, [=] {
+		
+		});
+
+	settings->AddContent(btnStop);
+	settings->AddContent(btnStart);
+	settings->AddContent(whiteSpace2);
+	settings->AddContent(structureSetting);
+	settings->AddContent(sortDataVolume);
+	settings->AddContent(sortInterval);
+	settings->AddContent(whiteSpace);
+	settings->AddContent(redesc);
+	settings->AddContent(rename);
+	settings->show();
+
+	QTimer* delay = new QTimer(this);
+	connect(delay, &QTimer::timeout, this, [=]() {Init(); });
+	delay->setSingleShot(true);
+	delay->start(10);
+}
+
+void LinkedListCanvas::Init()
+{
+	
 }
 
 void LinkedListCanvas::drawLinkedList(QPainter* painter, const QList<int>& values, int width, int height){
@@ -110,8 +217,4 @@ void LinkedListCanvas::drawLinkedList(QPainter* painter, const QList<int>& value
 			 y = height / 2 - nodeHeight / 2 + cur_row * (nodeHeight + row_spacing);
 		 }
 	 }
-}
-
-void LinkedListCanvas::CreateSettings(int r)
-{
 }
