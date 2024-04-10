@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class QPainter;
 class BaseList : public QObject {
     Q_OBJECT
 
@@ -15,7 +16,10 @@ public:
 
     std::size_t size() const;
 
-protected:
+public:
+    virtual void draw(QPainter* painter, int width, int height) = 0;
+
+public:
     struct Node {
         int data{};
         Node* prev{};

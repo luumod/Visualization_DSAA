@@ -7,6 +7,7 @@
 class SlidePage;
 class QLabel;
 class QHBoxLayout;
+class DoublyLinkedList;
 class LinkedListCanvas: public QWidget {
 	Q_OBJECT
 
@@ -15,13 +16,20 @@ public:
 
 	~LinkedListCanvas();
 
-	void drawLinkedList(QPainter* painter, const QList<int>& values, int width, int height);
-
 	void CreateSettings(int r);
     void Init();
 
 	SlidePage* settingPage() { return settings; }
+
+protected:
+    /**
+     * @brief Use update to redraw canvas.
+     */
+    void paintEvent(QPaintEvent* event) override;
+
 private:
+    DoublyLinkedList* base_list_obj{ nullptr };
+
     QString canvasName;
     QString canvasDescription;
     QString canvasSortType = "Linked List";

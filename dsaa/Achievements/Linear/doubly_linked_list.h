@@ -3,15 +3,10 @@
 
 #include "base_list.h"
 
+class QPainter;
 class DoublyLinkedList : public BaseList {
 
     Q_OBJECT
-
-protected:
-   /* using Base = BaseList;
-    using Node = typename Base::Node;
-    using Node_ptr = Node*;
-    using cNode_ptr = const Node*;*/
 
 public:
     /*using Base::empty;
@@ -32,6 +27,10 @@ public:
     int& at(std::size_t index);
 
     void clear();
+
+public:
+
+    void draw(QPainter* painter, int width, int height)override;
 
 protected:
     /*using Base::m_head;
