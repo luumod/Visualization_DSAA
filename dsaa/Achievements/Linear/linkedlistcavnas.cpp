@@ -193,6 +193,22 @@ void LinkedListCanvas::Init()
 	volume->setEnabled(false);
 
 	textButton* btn = new textButton("Add Node", defInfoPage);
+	textInputItem* input_add = new textInputItem("input", defInfoPage);
+	
+	QWidget* input_btn = new QWidget(defInfoPage);
+	input_btn->setObjectName("DefTextItems");
+	input_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_add = new QHBoxLayout(input_btn);
+	input_btn->setLayout(layout_add);
+	layout_add->addWidget(input_add);
+	layout_add->addWidget(btn);
+	layout_add->setStretch(0, 7);
+	layout_add->setStretch(1, 3);
+
+	connect(input_add, &textInputItem::textEdited, this, [=](QString text) {
+		view->listObj()->push_back(text.toInt());
+		view->update();
+	});
 	connect(btn, &textButton::clicked, this, [=]() {
 		view->listObj()->push_back(1111);
 		view->update();
@@ -203,7 +219,7 @@ void LinkedListCanvas::Init()
 	defTextLayout->addWidget(sortType);
 	defTextLayout->addWidget(interval);
 	defTextLayout->addWidget(volume);
-	defTextLayout->addWidget(btn);
+	defTextLayout->addWidget(input_btn);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
