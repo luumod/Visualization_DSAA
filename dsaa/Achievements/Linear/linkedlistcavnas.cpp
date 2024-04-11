@@ -6,12 +6,14 @@
 #include "textButton.h"
 #include "customScrollContainer.h"
 #include "doubly_linked_list.h"
+#include "linkedlistview.h"
 #include <QPainter>
 #include <QList>
 #include <QHBoxLayout>
 #include <QTimer>
 #include <QLabel>
 #include <QPaintEvent>
+
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -24,7 +26,7 @@ LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidg
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
-	view = new QWidget(this);
+	view = new LinkedListView(this);
 	view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
 	view->setAutoFillBackground(true);
 	palette.setColor(QPalette::Window, Qt::white);
@@ -190,13 +192,10 @@ void LinkedListCanvas::Init()
 	//connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
 	volume->setEnabled(false);
 
-
 	textButton* btn = new textButton("Add Node", defInfoPage);
-	base_list_obj = new DoublyLinkedList(this);
 	connect(btn, &textButton::clicked, this, [=]() {
-		base_list_obj->push_back(1111);
-
-		update();
+		view->listObj()->push_back(1111);
+		view->update();
 		});
 
 	defTextLayout->addWidget(textName);
@@ -232,20 +231,5 @@ void LinkedListCanvas::Init()
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);
-}
-
-void LinkedListCanvas::paintEvent(QPaintEvent* event) {
-	if (view == nullptr) {
-		return;
-	}
-
-	event->accept();
-
-	QPainter painter(this);
-	setPalette(palette);
-
-	if (base_list_obj) {
-		base_list_obj->draw(&painter, view->width(), view->height());
-	}
 }
 

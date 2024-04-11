@@ -25,7 +25,7 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 
 	// 绘制节点和箭头
 	int x = nodeSpacing;
-	int y = height / 2 - nodeHeight / 2;
+	int y = 10; //height / 2 - nodeHeight / 2;
 	int nodesInRow = 0; // 当前行已绘制的节点数量
 	int now_count = 0;
 	int cur_row = 0;
@@ -98,7 +98,8 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 				// 从左往右
 				x -= nodeWidth + nodeSpacing;
 			}
-			y = height / 2 - nodeHeight / 2 + cur_row * (nodeHeight + row_spacing);
+			// height / 2 - nodeHeight / 2
+			y = 10 + cur_row * (nodeHeight + row_spacing);
 		}
 
 		cur = cur->next;

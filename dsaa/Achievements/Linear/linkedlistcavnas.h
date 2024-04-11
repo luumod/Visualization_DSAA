@@ -7,7 +7,8 @@
 class SlidePage;
 class QLabel;
 class QHBoxLayout;
-class DoublyLinkedList;
+class BaseList;
+class LinkedListView;
 class LinkedListCanvas: public QWidget {
 	Q_OBJECT
 
@@ -21,14 +22,7 @@ public:
 
 	SlidePage* settingPage() { return settings; }
 
-protected:
-    /**
-     * @brief Use update to redraw canvas.
-     */
-    void paintEvent(QPaintEvent* event) override;
-
-private:
-    DoublyLinkedList* base_list_obj{ nullptr };
+private: 
 
     QString canvasName;
     QString canvasDescription;
@@ -40,7 +34,7 @@ private:
 
     //For display
     QHBoxLayout* mainLayout;
-    QWidget* view{ nullptr };
+    LinkedListView* view{ nullptr };
     QWidget* infoWidget;
     QLabel* pageName{ nullptr };
 
