@@ -192,25 +192,80 @@ void LinkedListCanvas::Init()
 	//connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
 	volume->setEnabled(false);
 
-	textButton* btn = new textButton("Add Node", defInfoPage);
-	textInputItem* input_add = new textInputItem("input", defInfoPage);
-	
-	QWidget* input_btn = new QWidget(defInfoPage);
-	input_btn->setObjectName("DefTextItems");
-	input_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_add = new QHBoxLayout(input_btn);
-	input_btn->setLayout(layout_add);
-	layout_add->addWidget(input_add);
-	layout_add->addWidget(btn);
-	layout_add->setStretch(0, 7);
-	layout_add->setStretch(1, 3);
 
-	connect(input_add, &textInputItem::textEdited, this, [=](QString text) {
-		view->listObj()->push_back(text.toInt());
+	// Implement two push methods and its input editor.
+	textInputItem* input_push_back = new textInputItem("input", defInfoPage);
+	textButton* btn_push_back = new textButton("Push back", defInfoPage);
+	QWidget* widget_push_back = new QWidget(defInfoPage);
+	widget_push_back->setObjectName("DefTextItems");
+	widget_push_back->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_push_back = new QHBoxLayout(widget_push_back);
+	widget_push_back->setLayout(layout_push_back);
+	layout_push_back->addWidget(input_push_back);
+	layout_push_back->addWidget(btn_push_back);
+	layout_push_back->setStretch(0, 7);
+	layout_push_back->setStretch(1, 3);
+	textInputItem* input_push_front = new textInputItem("input", defInfoPage);
+	textButton* btn_push_front = new textButton("Push front", defInfoPage);
+	QWidget* widget_push_front = new QWidget(defInfoPage);
+	widget_push_front->setObjectName("DefTextItems");
+	widget_push_front->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_push_front = new QHBoxLayout(widget_push_front);
+	widget_push_front->setLayout(layout_push_front);
+	layout_push_front->addWidget(input_push_front);
+	layout_push_front->addWidget(btn_push_front);
+	layout_push_front->setStretch(0, 7);
+	layout_push_front->setStretch(1, 3);
+	connect(btn_push_back, &textButton::clicked, this, [=]() {
+		if (!input_push_back->value().isEmpty()) {
+			view->listObj()->push_back(input_push_back->value().toInt());
+			view->update();
+		}
+		});
+	connect(btn_push_front, &textButton::clicked, this, [=]() {
+		if (!input_push_front->value().isEmpty()) {
+			view->listObj()->push_front(input_push_front->value().toInt());
+			view->update();
+		}
+		});
+	
+	// Implement two pop methods.
+	QWidget* pop_btn = new QWidget(defInfoPage);
+	pop_btn->setObjectName("DefTextItems");
+	pop_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_del = new QHBoxLayout(pop_btn);
+	textButton* btn_pop_front = new textButton("Pop front", defInfoPage);
+	textButton* btn_pop_back = new textButton("Pop back", defInfoPage);
+	layout_del->addWidget(btn_pop_front);
+	layout_del->addWidget(btn_pop_back);
+	layout_del->setStretch(0, 5);
+	layout_del->setStretch(1, 5);
+	connect(btn_pop_front, &textButton::clicked, this, [=]() {
+		view->listObj()->pop_front();
 		view->update();
-	});
-	connect(btn, &textButton::clicked, this, [=]() {
-		view->listObj()->push_back(1111);
+		});
+	connect(btn_pop_back, &textButton::clicked, this, [=]() {
+		view->listObj()->pop_back();
+		view->update();
+		});
+
+	// Implement custom user input.
+	QWidget* pop_btn = new QWidget(defInfoPage);
+	pop_btn->setObjectName("DefTextItems");
+	pop_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_del = new QHBoxLayout(pop_btn);
+	textButton* btn_pop_front = new textButton("Pop front", defInfoPage);
+	textButton* btn_pop_back = new textButton("Pop back", defInfoPage);
+	layout_del->addWidget(btn_pop_front);
+	layout_del->addWidget(btn_pop_back);
+	layout_del->setStretch(0, 5);
+	layout_del->setStretch(1, 5);
+	connect(btn_pop_front, &textButton::clicked, this, [=]() {
+		view->listObj()->pop_front();
+		view->update();
+		});
+	connect(btn_pop_back, &textButton::clicked, this, [=]() {
+		view->listObj()->pop_back();
 		view->update();
 		});
 
@@ -219,7 +274,9 @@ void LinkedListCanvas::Init()
 	defTextLayout->addWidget(sortType);
 	defTextLayout->addWidget(interval);
 	defTextLayout->addWidget(volume);
-	defTextLayout->addWidget(input_btn);
+	defTextLayout->addWidget(widget_push_back);
+	defTextLayout->addWidget(widget_push_front);
+	defTextLayout->addWidget(pop_btn);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
