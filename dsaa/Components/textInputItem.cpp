@@ -10,7 +10,7 @@
 textInputItem::textInputItem(const QString& name, QWidget* parent) :
     QWidget(parent)
 {
-    QFont nameFont = QFont("Corbel", 12);
+    QFont nameFont = QFont("Corbel",12);
     QFontMetrics fm(nameFont);
     qreal height = fm.lineSpacing();
     itemName = new QLabel(this);
@@ -25,7 +25,6 @@ textInputItem::textInputItem(const QString& name, QWidget* parent) :
     editor->setText("");
     editor->setFixedHeight(fm.lineSpacing());
     editor->setStyleSheet("color:#5c5c5c;background-color:#00000000;border-style:none;");
-    editor->setReadOnly(true);
     editor->setFont(textFont);
 
     bgWidget = new QWidget(this);

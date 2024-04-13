@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-class BaseList;
+class DoublyLinkedList;
 class QPaintEvent;
 class LinkedListView : public QWidget {
 	Q_OBJECT
@@ -11,7 +11,7 @@ class LinkedListView : public QWidget {
 public:
 	LinkedListView(QWidget* parent = nullptr);
 	~LinkedListView();
-	BaseList* listObj() { return base_list_obj; }
+	DoublyLinkedList* listObj() { return base_list_obj; }
 
 protected:
 	void paintEvent(QPaintEvent* event)override;
@@ -19,7 +19,7 @@ protected:
 private:
 	bool isFinished{ false };
 
-	BaseList* base_list_obj{ nullptr };
+	DoublyLinkedList* base_list_obj{ nullptr };
 	QPainter* painter{ nullptr };
 };
 

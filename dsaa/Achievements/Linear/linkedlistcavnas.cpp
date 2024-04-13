@@ -13,7 +13,8 @@
 #include <QTimer>
 #include <QLabel>
 #include <QPaintEvent>
-
+#include <QLineEdit>
+#include <QRegularExpressionValidator>
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -176,55 +177,32 @@ void LinkedListCanvas::Init()
 	textDesc->setValue(canvasDescription);
 	//connect(this, &SortCanvas::descChanged, this, [=]() {textDesc->setValue(canvasDescription); });
 	textDesc->setEnabled(false);
-	// Sort type.
-	textInputItem* sortType = new textInputItem("Type", defInfoPage);
-	sortType->setValue(canvasSortType);
-	//connect(this, &SortCanvas::typeChanged, this, [=](QString value) {sortType->setValue(value); });
-	textName->setEnabled(false);
-	// Sort interval.
-	textInputItem* interval = new textInputItem("Interval", defInfoPage);
-	interval->setValue(canvasSortInterval);
-	//connect(this, &SortCanvas::intervalChanged, this, [=](QString value) {interval->setValue(value); });
-	interval->setEnabled(false);
-	// Sort volume.
-	textInputItem* volume = new textInputItem("Volume", defInfoPage);
-	volume->setValue(canvasSortVolume);
-	//connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
-	volume->setEnabled(false);
 
 
 	// Implement two push methods and its input editor.
-	textInputItem* input_push_back = new textInputItem("input", defInfoPage);
+	textInputItem* input_push = new textInputItem("input", defInfoPage);
 	textButton* btn_push_back = new textButton("Push back", defInfoPage);
-	QWidget* widget_push_back = new QWidget(defInfoPage);
-	widget_push_back->setObjectName("DefTextItems");
-	widget_push_back->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_push_back = new QHBoxLayout(widget_push_back);
-	widget_push_back->setLayout(layout_push_back);
-	layout_push_back->addWidget(input_push_back);
-	layout_push_back->addWidget(btn_push_back);
-	layout_push_back->setStretch(0, 7);
-	layout_push_back->setStretch(1, 3);
-	textInputItem* input_push_front = new textInputItem("input", defInfoPage);
 	textButton* btn_push_front = new textButton("Push front", defInfoPage);
-	QWidget* widget_push_front = new QWidget(defInfoPage);
-	widget_push_front->setObjectName("DefTextItems");
-	widget_push_front->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_push_front = new QHBoxLayout(widget_push_front);
-	widget_push_front->setLayout(layout_push_front);
-	layout_push_front->addWidget(input_push_front);
-	layout_push_front->addWidget(btn_push_front);
-	layout_push_front->setStretch(0, 7);
-	layout_push_front->setStretch(1, 3);
+	QWidget* widget_push = new QWidget(defInfoPage);
+	widget_push->setObjectName("DefTextItems");
+	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_push = new QHBoxLayout(widget_push);
+	widget_push->setLayout(layout_push);
+	layout_push->addWidget(input_push);
+	layout_push->addWidget(btn_push_back);
+	layout_push->addWidget(btn_push_front);
+	layout_push->setStretch(0, 6);
+	layout_push->setStretch(1, 2);
+	layout_push->setStretch(2, 2);
 	connect(btn_push_back, &textButton::clicked, this, [=]() {
-		if (!input_push_back->value().isEmpty()) {
-			view->listObj()->push_back(input_push_back->value().toInt());
+		if (!input_push->value().isEmpty()) {
+			view->listObj()->push_back(input_push->value().toInt());
 			view->update();
 		}
 		});
 	connect(btn_push_front, &textButton::clicked, this, [=]() {
-		if (!input_push_front->value().isEmpty()) {
-			view->listObj()->push_front(input_push_front->value().toInt());
+		if (!input_push->value().isEmpty()) {
+			view->listObj()->push_front(input_push->value().toInt());
 			view->update();
 		}
 		});
@@ -236,47 +214,74 @@ void LinkedListCanvas::Init()
 	QHBoxLayout* layout_del = new QHBoxLayout(pop_btn);
 	textButton* btn_pop_front = new textButton("Pop front", defInfoPage);
 	textButton* btn_pop_back = new textButton("Pop back", defInfoPage);
+	textButton* btn_clear = new textButton("Clear", defInfoPage);
 	layout_del->addWidget(btn_pop_front);
 	layout_del->addWidget(btn_pop_back);
-	layout_del->setStretch(0, 5);
-	layout_del->setStretch(1, 5);
+	layout_del->addWidget(btn_clear);
+	layout_del->setStretch(0, 3);
+	layout_del->setStretch(1, 3);
+	layout_del->setStretch(2, 3);
 	connect(btn_pop_front, &textButton::clicked, this, [=]() {
 		view->listObj()->pop_front();
 		view->update();
 		});
 	connect(btn_pop_back, &textButton::clicked, this, [=]() {
 		view->listObj()->pop_back();
+		view->update();
+		});
+	connect(btn_clear, &textButton::clicked, this, [=]() {
+		view->listObj()->clear();
 		view->update();
 		});
 
-	// Implement custom user input.
-	QWidget* pop_btn = new QWidget(defInfoPage);
-	pop_btn->setObjectName("DefTextItems");
-	pop_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_del = new QHBoxLayout(pop_btn);
-	textButton* btn_pop_front = new textButton("Pop front", defInfoPage);
-	textButton* btn_pop_back = new textButton("Pop back", defInfoPage);
-	layout_del->addWidget(btn_pop_front);
-	layout_del->addWidget(btn_pop_back);
-	layout_del->setStretch(0, 5);
-	layout_del->setStretch(1, 5);
-	connect(btn_pop_front, &textButton::clicked, this, [=]() {
-		view->listObj()->pop_front();
-		view->update();
-		});
-	connect(btn_pop_back, &textButton::clicked, this, [=]() {
-		view->listObj()->pop_back();
-		view->update();
+	// Insert node
+	textInputItem* input_insert = new textInputItem("pos", defInfoPage);
+	input_insert->lineEditor()->setPlaceholderText("e.g. 0 10");
+	QRegularExpressionValidator* validator_insert = new QRegularExpressionValidator(QRegularExpression("\\d+ \\d+"), input_insert);
+	input_insert->lineEditor()->setValidator(validator_insert);
+	textButton* btn_insert = new textButton("Insert", defInfoPage);
+	QWidget* widget_insert = new QWidget(defInfoPage);
+	widget_insert->setObjectName("DefTextItems");
+	widget_insert->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_insert = new QHBoxLayout(widget_insert);
+	layout_insert->addWidget(input_insert);
+	layout_insert->addWidget(btn_insert);
+	layout_insert->setStretch(0, 7);
+	layout_insert->setStretch(1, 3);
+	connect(btn_insert, &textButton::clicked, this, [=]() {
+		QString s_input =input_insert->value();
+		auto s_list = s_input.split(" ");
+		if (s_list.size() == 2) {
+			view->listObj()->insert(s_list[0].toInt(),s_list[1].toInt());
+			view->update();
+		}
+	});
+
+	// Delete node
+	textInputItem* input_delete = new textInputItem("pos", defInfoPage);
+	input_delete->lineEditor()->setPlaceholderText("e.g. 0");
+	textButton* btn_delete = new textButton("delete", defInfoPage);
+	QWidget* widget_delete = new QWidget(defInfoPage);
+	widget_delete->setObjectName("DefTextItems");
+	widget_delete->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_delete = new QHBoxLayout(widget_delete);
+	layout_delete->addWidget(input_delete);
+	layout_delete->addWidget(btn_delete);
+	layout_delete->setStretch(0, 7);
+	layout_delete->setStretch(1, 3);
+	connect(btn_delete, &textButton::clicked, this, [=]() {
+		if (!input_delete->value().isEmpty()) {
+			view->listObj()->remove(input_delete->value().toInt());
+			view->update();
+		}
 		});
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
-	defTextLayout->addWidget(sortType);
-	defTextLayout->addWidget(interval);
-	defTextLayout->addWidget(volume);
-	defTextLayout->addWidget(widget_push_back);
-	defTextLayout->addWidget(widget_push_front);
+	defTextLayout->addWidget(widget_push);
 	defTextLayout->addWidget(pop_btn);
+	defTextLayout->addWidget(widget_insert);
+	defTextLayout->addWidget(widget_delete);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
