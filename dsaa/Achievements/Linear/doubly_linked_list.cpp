@@ -2,17 +2,6 @@
 #include <QPainter>
 
 void DoublyLinkedList::draw(QPainter* painter, int width, int height){
-	painter->setPen(QColor(200, 200, 200));
-
-	const int nodeWidth = 60; // 节点矩形的宽度
-	const int nodeHeight = 30; // 节点矩形的高度
-	const int arrowSize = 10; // 箭头大小
-	const int textSpace = 5; // 文本与矩形边缘的距离
-	const int maxNodesPerRow = 5; // 每行最多显示的节点数量
-	const int row_spacing = 20; //行间距
-
-	// 600 - 5 * 60 = 300 / 6 = 50
-	// 计算节点间距
 	int nodeSpacing{};
 	if (m_size <= 5) {
 		nodeSpacing = (width - m_size * nodeWidth) / (m_size + 1);
@@ -37,12 +26,15 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 		// 绘制箭头（除了最后一个节点）
 		if (dir == 1) {
 			// 绘制节点
+			painter->setPen(color_node);
 			painter->drawRect(x, y, nodeWidth, nodeHeight);
 
 			// 绘制节点值
 			QString text = QString::number(cur->data);
+			painter->setPen(color_text);
 			painter->drawText(x + textSpace, y + nodeHeight / 2 + painter->fontMetrics().height() / 2, text);
 
+			painter->setPen(color_arrow);
 			if (now_count == m_size) {
 				break;
 			}
@@ -62,11 +54,14 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 		}
 		else {
 			//从右往左
+			painter->setPen(color_node);
 			painter->drawRect(x, y, nodeWidth, nodeHeight);
 
 			QString text = QString::number(cur->data);
+			painter->setPen(color_text);
 			painter->drawText(x + textSpace, y + nodeHeight / 2 + painter->fontMetrics().height() / 2, text);
 
+			painter->setPen(color_arrow);
 			if (now_count == m_size) {
 				break;
 			}
