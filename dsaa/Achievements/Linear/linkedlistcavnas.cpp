@@ -1,6 +1,7 @@
 #include "linkedlistcavnas.h"
 #include "slidepage.h"
 #include "singleSelectGroup.h"
+#include "spinbox.h"
 #include "horizontalValueAdjuster.h"
 #include "textInputItem.h"
 #include "textButton.h"
@@ -46,17 +47,15 @@ void LinkedListCanvas::CreateSettings(int radius)
 {
 	/* create settings page */
 	settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
-	singleSelectGroup* structureSetting = new singleSelectGroup("Sort Algorithms", settings);
-	selectionItem* setBubble = new selectionItem("Bubble", "Adjacent list structure", settings);
-	selectionItem* setSelection = new selectionItem("Selection", "Adjacent multiple list", settings);
-	selectionItem* setInsertion = new selectionItem("Insertion", "Adjacent multiple list", settings);
-	selectionItem* setQuick = new selectionItem("Quick", "Adjacent multiple list", settings);
-	selectionItem* setShell = new selectionItem("Shell", "Adjacent multiple list", settings);
-	structureSetting->AddItem(setBubble);
-	structureSetting->AddItem(setSelection);
-	structureSetting->AddItem(setInsertion);
-	structureSetting->AddItem(setQuick);
-	structureSetting->AddItem(setShell);
+	singleSelectGroup* structureSetting = new singleSelectGroup("Linked list", settings);
+	selectionItem* setSingleList = new selectionItem("Single", "Adjacent list structure", settings);
+	selectionItem* setDouble = new selectionItem("Double", "Adjacent multiple list", settings);
+	selectionItem* setCircular_single = new selectionItem("Circular single", "Adjacent multiple list", settings);
+	selectionItem* setCircular_double = new selectionItem("Circular double", "Adjacent multiple list", settings);
+	structureSetting->AddItem(setSingleList);
+	structureSetting->AddItem(setDouble);
+	structureSetting->AddItem(setCircular_single);
+	structureSetting->AddItem(setCircular_double);
 	connect(structureSetting, &singleSelectGroup::selectedItemChange, this, [=](int index) {
 		
 		});
@@ -64,19 +63,19 @@ void LinkedListCanvas::CreateSettings(int radius)
 	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
 
-	// Sort speed rate.
-	horizontalValueAdjuster* sortInterval = new horizontalValueAdjuster("Sort interval", 1, 99, 1, settings);
-	sortInterval->setValue(20);
-	connect(sortInterval, &horizontalValueAdjuster::valueChanged, view, [=](qreal value) {
-		
-		});
+	// Adjust attributes panel for the node.
+	SpinBox* spin = new SpinBox("input: ", settings);
 
-	// Sort data volume.
-	horizontalValueAdjuster* sortDataVolume = new horizontalValueAdjuster("Sort data volume", 5, 30, 1, settings);
-	sortDataVolume->setValue(10);
-	connect(sortDataVolume, &horizontalValueAdjuster::valueChanged, view, [=](qreal value) {
-		
-		});
+
+	// Adjust node width.
+
+	// Adjust node height.
+
+	// Adjust arrow size.
+
+	// Adjust text space.
+
+	// Adjust row spacing.
 
 	textInputItem* rename = new textInputItem("Name", settings);
 	rename->setValue(canvasName);
@@ -107,9 +106,8 @@ void LinkedListCanvas::CreateSettings(int radius)
 	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(structureSetting);
-	settings->AddContent(sortDataVolume);
-	settings->AddContent(sortInterval);
 	settings->AddContent(whiteSpace);
+	settings->AddContent(spin);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);
 	settings->show();

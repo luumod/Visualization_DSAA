@@ -30,7 +30,9 @@ add_library(dsaa_components STATIC
     "customScrollContainer.cpp" 
     "customScrollContainer.h"
     "slidepage.h"
-    "slidepage.cpp")
+    "slidepage.cpp"
+    "spinbox.h"
+    "spinbox.cpp")
 
 target_link_libraries(dsaa_components PRIVATE
     Qt6::Core

@@ -116,6 +116,7 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 
 	_sortPage->autoResizeSettingsPage();
 	_graphPage->autoResizeSettingsPage();
+	_listPage->autoResizeSettingsPage();
 
 #if DEBUG
 	Logger::debug(QString("MainWindow::resizeEvent: (%1,%2)").arg(event->size().width()).arg(event->size().height()));

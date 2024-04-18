@@ -2,13 +2,16 @@
 #include <QWidget>
 #include <QPainter>
 #include <QPushButton>
-
+#include "spinbox.h"
 
 class TestWidget : public QWidget {
 public:
 	TestWidget(const QList<int>& values) : m_values(values) {
 		this->setMinimumSize(300, 300);
-		init();
+		//init();
+		auto spin = new SpinBox("input: ",this);
+		spin->move(20, 20);
+		spin->resize(200, 50);
 	}
 	void init() {
 		addNode();
@@ -33,10 +36,7 @@ public:
 		});
 	}
 protected:
-	void paintEvent(QPaintEvent* event) override {
-		QPainter painter(this);
-		drawLinkedList(&painter, m_values, width(), height());
-	}
+	
 private:
 	QList<int> m_values;
 	QPushButton* btn_add{ nullptr };
