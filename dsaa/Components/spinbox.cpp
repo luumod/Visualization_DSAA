@@ -53,6 +53,11 @@ SpinBox::SpinBox(const QString& name, QWidget* parent) :
 	downButton->setIcon(QIcon(ICON_FILE "down-arrow.png"));
 	connect(downButton, &QPushButton::clicked, this, &SpinBox::onDownButtonClicked);
 
+	// For the default conditions, the up and down button should be hidden.
+	// When the mouse hover one of these, then show.
+	upButton->hide();
+	downButton->hide();
+
 	this->setFixedHeight(itemName->height() + 10);
 
 	updateEditor();
@@ -65,15 +70,6 @@ void SpinBox::resizeEvent(QResizeEvent* event)
 #endif
 	itemName->move(margin, this->height() / 2 - itemName->height() / 2);
 	itemName->setFixedWidth(this->width() * 0.3 - margin - spacing);
-
-	/*editor->resize(this->width() * 0.4 - margin, editor->height());
-	editor->move(this->width() * 0.3, this->height() / 2 - editor->height() / 2);
-
-	upButton->move(this->width() * 0.7, this->height() / 2 - upButton->height());
-	downButton->move(this->width() * 0.7, this->height() / 2);
-
-	indicator->move(this->width() * 0.3, this->height() - 7);
-	indicator->resize(this->width() * 0.4 - margin, 4);*/
 
 	editor->resize(this->width() * 0.6 - margin, editor->height());
 	editor->move(this->width() * 0.5, this->height() / 2 - editor->height() / 2);
@@ -113,11 +109,15 @@ void SpinBox::leaveEditEffect()
 
 void SpinBox::enterEvent(QEnterEvent* event)
 {
+	upButton->show();
+	downButton->show();
 	bgWidget->setStyleSheet("border-radius:5px;background-color:#0a000000");
 }
 
 void SpinBox::leaveEvent(QEvent* event)
 {
+	upButton->hide();
+	downButton->hide();
 	bgWidget->setStyleSheet("border-radius:5px;background-color:#00000000");
 }
 
