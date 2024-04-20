@@ -64,18 +64,20 @@ void LinkedListCanvas::CreateSettings(int radius)
 	whiteSpace->setFixedHeight(30);
 
 	// Adjust attributes panel for the node.
-	SpinBox* spin = new SpinBox("input: ", settings);
+	SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
+	SpinBox* spin_node_width = new SpinBox("Node Width", settings);
+	SpinBox* spin_node_height = new SpinBox("Node Height", settings);
+	SpinBox* spin_arrow_length = new SpinBox("Arrow Length", settings);
+	SpinBox* spin_text_size = new SpinBox("Text Size", settings);
+	SpinBox* spin_max_number = new SpinBox("Max number", settings);
+	SpinBox* spin_row_spacing = new SpinBox("Row spacing", settings);
+	adjust_spin_group->AddItem(spin_node_width);
+	adjust_spin_group->AddItem(spin_node_height);
+	adjust_spin_group->AddItem(spin_arrow_length);
+	adjust_spin_group->AddItem(spin_text_size);
+	adjust_spin_group->AddItem(spin_max_number);
+	adjust_spin_group->AddItem(spin_row_spacing);
 
-
-	// Adjust node width.
-
-	// Adjust node height.
-
-	// Adjust arrow size.
-
-	// Adjust text space.
-
-	// Adjust row spacing.
 
 	textInputItem* rename = new textInputItem("Name", settings);
 	rename->setValue(canvasName);
@@ -101,13 +103,16 @@ void LinkedListCanvas::CreateSettings(int radius)
 	connect(btnStop, &textButton::clicked, this, [=] {
 		
 		});
+	QWidget* whiteSpace_on = new QWidget(settings);
+	whiteSpace_on->setFixedHeight(10);
 
 	settings->AddContent(btnStop);
 	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(structureSetting);
 	settings->AddContent(whiteSpace);
-	settings->AddContent(spin);
+	settings->AddContent(adjust_spin_group);
+	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);
 	settings->show();

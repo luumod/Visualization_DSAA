@@ -7,6 +7,8 @@
 #include <QGraphicsOpacityEffect>
 #include <QPushButton>
 
+class QVBoxLayout;
+class QHBoxLayout;
 class SpinBox : public QWidget
 {
     Q_OBJECT
@@ -43,6 +45,9 @@ private:
     QPushButton* upButton;
     QPushButton* downButton;
 
+    QHBoxLayout* main_layout{ nullptr };
+    QWidget* main_widget{ nullptr };
+
     int margin = 10;
     int spacing = 5;
     int curValue;
@@ -54,6 +59,33 @@ private:
     void updateEditor();
     void enterEditEffect();
     void leaveEditEffect();
+};
+
+
+class SpinBoxGroup : public QWidget {
+    Q_OBJECT
+
+private:
+    const int middleSpacing = 5;
+    const int bottomSpacing = 30;
+    QLabel* groupName;
+    QVBoxLayout* mainLayout;
+    int selectedID = -1;
+    QVector<SpinBox*> selections;
+
+public:
+    SpinBoxGroup(QString name = "", QWidget* parent = nullptr);
+    void AddItem(SpinBox* item);
+    void RemoveItem(SpinBox* item);
+    void SetSelection(SpinBox* item);
+    qreal value() { return selectedID; }
+
+signals:
+    void selectedItemChange(int selectID);
+    void itemChange();
+
+private slots:
+    void changeSelection(SpinBox* item);
 };
 
 #endif // SPINBOX_H
