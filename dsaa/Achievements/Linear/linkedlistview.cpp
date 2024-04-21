@@ -1,5 +1,7 @@
 #include "linkedlistview.h"
 #include "doubly_linked_list.h"
+#include "logger.h"
+#include "common.h"
 #include <QPaintEvent>
 #include <QPainter>
 
@@ -11,6 +13,15 @@ LinkedListView::LinkedListView(QWidget* parent)
 
 LinkedListView::~LinkedListView()
 {
+}
+
+void LinkedListView::updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing){
+	base_list_obj->updateSettings(nodeWidth, nodeHeight, arrowSize, textSpace, maxNodesPerRow, row_spacing);
+	// Redraw.
+	update();
+#if DEBUG
+	Logger::debug("-------- UpdateSettings and redrawing...-----------");
+#endif
 }
 
 void LinkedListView::paintEvent(QPaintEvent* event) {

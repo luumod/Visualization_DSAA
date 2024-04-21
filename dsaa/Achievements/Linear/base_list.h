@@ -2,52 +2,67 @@
 #define CORE_BASE_LIST_H_
 
 #include <QObject>
+#include <QColor>
 
 class QPainter;
 class BaseList : public QObject {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit BaseList(QObject* parent = nullptr);
+	explicit BaseList(QObject* parent = nullptr);
 
-    ~BaseList();
+	~BaseList();
 
-    bool empty() const;
+	bool empty() const;
 
-    std::size_t size() const;
+	std::size_t size() const;
+
+	void updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing);
+public:
+	virtual void draw(QPainter* painter, int width, int height) = 0;
 
 public:
-    virtual void draw(QPainter* painter, int width, int height) = 0;
+	struct Node {
+		int data{};
+		Node* prev{};
+		Node* next{};
+	};
+	using Node_ptr = Node*;
 
-public:
-    struct Node {
-        int data{};
-        Node* prev{};
-        Node* next{};
-    };
-    using Node_ptr = Node*;
+	Node_ptr m_head{ nullptr };
+	Node_ptr m_tail{ nullptr };
+	std::size_t m_size{};
 
-    Node_ptr m_head{ nullptr };
-    Node_ptr m_tail{ nullptr };
-    std::size_t m_size{};
+	void init_first_element(const int& elem);
 
-    void init_first_element(const int& elem);
+	void clean_up();
 
-    void clean_up();
+	void copy_data(const BaseList& rhs);
 
-    void copy_data(const BaseList& rhs);
+	void push_back(const int& elem);
 
-    void push_back(const int& elem);
+	void push_front(const int& elem);
 
-    void push_front(const int& elem);
+	int& back() const;
 
-    int& back() const;
+	int& front() const;
 
-    int& front() const;
+	void pop_front();
 
-    void pop_front();
+	void pop_back();
 
-    void pop_back();
+protected:
+	int nodeWidth = 60;
+	int nodeHeight = 30;
+	int arrowSize = 10;
+	int textSpace = 5;
+	int maxNodesPerRow = 5;
+	int row_spacing = 20;
+
+	// Adjust color.
+	QColor color_node = QColor(255, 0, 0);
+	QColor color_text = QColor(0, 0, 0);
+	QColor color_arrow = QColor(0, 255, 0);
 };
 
 #endif  // CORE_BASE_LIST_H_

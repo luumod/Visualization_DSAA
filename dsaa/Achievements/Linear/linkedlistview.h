@@ -13,6 +13,7 @@ public:
 	~LinkedListView();
 	DoublyLinkedList* listObj() { return base_list_obj; }
 
+	void updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing);
 protected:
 	void paintEvent(QPaintEvent* event)override;
 	

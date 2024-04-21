@@ -22,6 +22,12 @@ public:
 
 	SlidePage* settingPage() { return settings; }
 
+
+signals:
+    void runFlagChanged(bool running);
+    void nameChanged(QString name);
+    void descChanged(QString desc);
+
 private: 
 
     QString canvasName;

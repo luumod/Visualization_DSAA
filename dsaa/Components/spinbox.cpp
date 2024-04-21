@@ -37,6 +37,7 @@ SpinBox::SpinBox(const QString& name, QWidget* parent) :
 			editor->setText(QString::number(minValue));
 		}
 		curValue = editor->text().toInt();
+		emit valueChanged(curValue);
 	});
 
 	bgWidget = new QWidget(this);
@@ -273,47 +274,11 @@ SpinBoxGroup::SpinBoxGroup(QString name, QWidget* parent) :
 }
 
 void SpinBoxGroup::AddItem(SpinBox* item) {
-	selections.push_back(item);
+	spinboxs.push_back(item);
 	this->setFixedHeight(this->height() + middleSpacing + item->height());
 	mainLayout->addWidget(item);
 	if (selectedID == -1) {
-		//item->Select();
 		selectedID = 0;
 	}
-	connect(item, SIGNAL(selected(SpinBox*)), this, SLOT(changeSelection(SpinBox*)));
-	emit itemChange();
-}
-
-void SpinBoxGroup::RemoveItem(SpinBox* item) {
-	int id = selections.indexOf(item);
-	if (id < 0)  return;
-	selections.erase(selections.begin() + id);
-	mainLayout->removeWidget(item);
-	item->setParent(nullptr);
-	item->deleteLater();
-	this->setFixedHeight(this->height() - middleSpacing - item->height());
-	if (selections.size() == 0)
-		selectedID = -1;
-	else {
-		selectedID = id < selections.size() ? id : id - 1;
-		//selections[selectedID]->Select();
-	}
-	emit selectedItemChange(selectedID);
-	emit itemChange();
-}
-
-void SpinBoxGroup::SetSelection(SpinBox* item) {
-	int id = selections.indexOf(item);
-	//selections[id]->Select();
-}
-
-void SpinBoxGroup::changeSelection(SpinBox* item) {
-	int id = selections.indexOf(item);
-	for (int i = 0; i < selections.size(); i++) {
-		if (i == id) continue;
-		//selections[i]->Deselect();
-	}
-	selectedID = id;
-	qInfo() << "selectedID = " << selectedID;
-	emit selectedItemChange(id);
+	connect(item, &SpinBox::valueChanged, this, &SpinBoxGroup::spinBoxItemChange);
 }

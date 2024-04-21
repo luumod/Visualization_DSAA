@@ -53,7 +53,7 @@ private:
     QHBoxLayout* main_layout{ nullptr };
     QWidget* main_widget{ nullptr };
 
-    int margin = 15;
+    int margin = 10;
     int spacing = 5;
     int curValue;
     int minValue;
@@ -76,21 +76,15 @@ private:
     QLabel* groupName;
     QVBoxLayout* mainLayout;
     int selectedID = -1;
-    QVector<SpinBox*> selections;
+    QVector<SpinBox*> spinboxs;
 
 public:
     SpinBoxGroup(QString name = "", QWidget* parent = nullptr);
     void AddItem(SpinBox* item);
-    void RemoveItem(SpinBox* item);
-    void SetSelection(SpinBox* item);
     qreal value() { return selectedID; }
 
 signals:
-    void selectedItemChange(int selectID);
-    void itemChange();
-
-private slots:
-    void changeSelection(SpinBox* item);
+    void spinBoxItemChange(int changeID);
 };
 
 #endif // SPINBOX_H

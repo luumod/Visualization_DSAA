@@ -8,6 +8,8 @@
 #include "customScrollContainer.h"
 #include "doubly_linked_list.h"
 #include "linkedlistview.h"
+#include "logger.h"
+#include "common.h"
 #include <QPainter>
 #include <QList>
 #include <QHBoxLayout>
@@ -66,29 +68,53 @@ void LinkedListCanvas::CreateSettings(int radius)
 	// Adjust attributes panel for the node.
 	SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
 	SpinBox* spin_node_width = new SpinBox("Node Width", settings);
+	spin_node_width->setValue(60);
 	SpinBox* spin_node_height = new SpinBox("Node Height", settings);
+	spin_node_height->setValue(30);
 	SpinBox* spin_arrow_length = new SpinBox("Arrow Length", settings);
+	spin_arrow_length->setValue(10);
 	SpinBox* spin_text_size = new SpinBox("Text Size", settings);
+	spin_text_size->setValue(5);
 	SpinBox* spin_max_number = new SpinBox("Max number", settings);
+	spin_max_number->setValue(5);
 	SpinBox* spin_row_spacing = new SpinBox("Row spacing", settings);
+	spin_row_spacing->setValue(20);
 	adjust_spin_group->AddItem(spin_node_width);
 	adjust_spin_group->AddItem(spin_node_height);
 	adjust_spin_group->AddItem(spin_arrow_length);
 	adjust_spin_group->AddItem(spin_text_size);
 	adjust_spin_group->AddItem(spin_max_number);
 	adjust_spin_group->AddItem(spin_row_spacing);
+	connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
+		// Update all inborn attributes actually, not care if your whether modified it.
+		view->updateSettings(
+			spin_node_width->value(),
+			spin_node_height->value(),
+			spin_arrow_length->value(),
+			spin_text_size->value(),
+			spin_max_number->value(),
+			spin_row_spacing->value());
+	});
 
 
 	textInputItem* rename = new textInputItem("Name", settings);
 	rename->setValue(canvasName);
 	connect(rename, &textInputItem::textEdited, this, [=](QString text) {
-		
+		canvasName = text;
+		emit nameChanged(text);
+#if DEBUG
+		Logger::debug(QString(" page rename: %1").arg(text));
+#endif
 		});
 
 	textInputItem* redesc = new textInputItem("Detail", settings);
 	redesc->setValue(canvasDescription);
 	connect(redesc, &textInputItem::textEdited, this, [=](QString text) {
-		
+		canvasDescription = text;
+		emit descChanged(text);
+#if DEBUG
+		Logger::debug(QString(" page rename: %1").arg(text));
+#endif
 		});
 
 	QWidget* whiteSpace2 = new QWidget(settings);
@@ -171,14 +197,13 @@ void LinkedListCanvas::Init()
 	defTextLayout->setContentsMargins(0, 5, 0, 5);
 
 	// Canvas name.
-	textInputItem* textName = new textInputItem("Name", defInfoPage);
-	textName->setValue(canvasName);
-	//connect(this, &SortCanvas::nameChanged, this, [=]() {textName->setValue(canvasName); });
+	textInputItem* textName = new textInputItem(canvasName, defInfoPage);
+	connect(this, &LinkedListCanvas::nameChanged, this, [=]() {textName->setValue(canvasName); });
 	textName->setEnabled(false);
 	// Canvas description.
 	textInputItem* textDesc = new textInputItem("Detail", defInfoPage);
 	textDesc->setValue(canvasDescription);
-	//connect(this, &SortCanvas::descChanged, this, [=]() {textDesc->setValue(canvasDescription); });
+	connect(this, &LinkedListCanvas::descChanged, this, [=]() {textDesc->setValue(canvasDescription); });
 	textDesc->setEnabled(false);
 
 

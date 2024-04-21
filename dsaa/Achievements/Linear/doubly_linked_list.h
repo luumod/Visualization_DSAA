@@ -37,19 +37,6 @@ protected:
     Node_ptr internal_search(const int& elem);
     Node_ptr internal_find(std::size_t index);
 
-
-private:
-    const int nodeWidth = 60; 
-    const int nodeHeight = 30; 
-    const int arrowSize = 10;
-    const int textSpace = 5;
-    const int maxNodesPerRow = 5;
-    const int row_spacing = 20;
-
-    // Adjust color.
-    QColor color_node = QColor(255, 0, 0);
-    QColor color_text = QColor(0, 0, 0);
-    QColor color_arrow = QColor(0, 255, 0);
 };
 
 

@@ -15,6 +15,15 @@ std::size_t BaseList::size() const {
     return m_size;
 }
 
+void BaseList::updateSettings(int nodeWidth,int nodeHeight,int arrowSize,int textSpace, int maxNodesPerRow,int row_spacing){
+    this->nodeWidth = nodeWidth;
+    this->nodeHeight = nodeHeight;
+    this->arrowSize = arrowSize;
+    this->textSpace = textSpace;
+    this->maxNodesPerRow = maxNodesPerRow;
+    this->row_spacing = row_spacing;
+}
+
 void BaseList::init_first_element(const int& elem) {
     m_head = new Node{ elem, nullptr, nullptr };
     m_tail = m_head;
