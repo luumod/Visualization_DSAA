@@ -24,6 +24,11 @@ void LinkedListView::updateSettings(int nodeWidth, int nodeHeight, int arrowSize
 #endif
 }
 
+void LinkedListView::resetSettings(){
+	base_list_obj->resetSettings();
+	update();
+}
+
 void LinkedListView::paintEvent(QPaintEvent* event) {
 
 	event->accept();

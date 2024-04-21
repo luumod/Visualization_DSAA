@@ -26,6 +26,10 @@ public:
     textButton(QString text, QWidget* parent = nullptr, qreal ratio = 0.5);
     textButton(QString text, QString defC, QString hoverC, QString pressedC, QWidget* parent = nullptr, qreal ratio = 0.5);
 
+    void setDefaultColor(const QString& color_text) {
+        defaultColor = color_text;
+        bgWidget->setStyleSheet(defaultColor);
+    }
 signals:
     void clicked();
 };

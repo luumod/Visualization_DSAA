@@ -14,14 +14,14 @@ class SpinBox : public QWidget
     Q_OBJECT
 
 public:
-    explicit SpinBox(const QString& name, QWidget* parent = nullptr);
+    explicit SpinBox(const QString& name, int minValue, int maxValue, int curValue, QWidget* parent = nullptr);
 
     void setValue(int value);
     int value() const;
 
     void setRange(int min, int max);
     void setEnabled(bool enable);
-
+    void recoverDefaultValue();
 signals:
     void valueChanged(int value);
 
@@ -55,6 +55,7 @@ private:
 
     int margin = 10;
     int spacing = 5;
+    int defaultValue;
     int curValue;
     int minValue;
     int maxValue;
@@ -85,6 +86,7 @@ public:
 
 signals:
     void spinBoxItemChange(int changeID);
+    void spinBoxReset();
 };
 
 #endif // SPINBOX_H

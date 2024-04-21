@@ -18,6 +18,7 @@ public:
 	std::size_t size() const;
 
 	void updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing);
+	void resetSettings();
 public:
 	virtual void draw(QPainter* painter, int width, int height) = 0;
 

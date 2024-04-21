@@ -24,6 +24,15 @@ void BaseList::updateSettings(int nodeWidth,int nodeHeight,int arrowSize,int tex
     this->row_spacing = row_spacing;
 }
 
+void BaseList::resetSettings(){
+    nodeWidth = 60;
+    nodeHeight = 30;
+    arrowSize = 10;
+    textSpace = 5;
+    maxNodesPerRow = 5;
+    row_spacing = 20;
+}
+
 void BaseList::init_first_element(const int& elem) {
     m_head = new Node{ elem, nullptr, nullptr };
     m_tail = m_head;

@@ -1,6 +1,7 @@
 #include "spinbox.h"
 #include "logger.h"
 #include "common.h"
+#include "textButton.h"
 #include <QFont>
 #include <QFontMetrics>
 #include <QTimer>
@@ -9,8 +10,8 @@
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 
-SpinBox::SpinBox(const QString& name, QWidget* parent) :
-	QWidget(parent), minValue(0), maxValue(100), curValue(0)
+SpinBox::SpinBox(const QString& name, int minValue, int maxValue, int curValue, QWidget* parent) :
+	QWidget(parent), minValue(minValue), maxValue(maxValue), curValue(curValue), defaultValue(curValue)
 {
 	QFont nameFont = QFont("Corbel", 12);
 	QFontMetrics fm(nameFont);
@@ -29,15 +30,24 @@ SpinBox::SpinBox(const QString& name, QWidget* parent) :
 	editor->setFont(textFont);
 	editor->setReadOnly(false);
 	editor->setValidator(new QIntValidator(minValue, maxValue, this));
-	connect(editor, &QLineEdit::textChanged, this, [=](const QString& text) {
+	connect(editor, &QLineEdit::textChanged, this, [=]() {
+		auto text = editor->text();
 		if (text.toInt() > maxValue){
-			editor->setText(QString::number(maxValue));
+			indicator_edit->setStyleSheet("background-color:#ff0000;");
+			enterEditEffect();
+			this->curValue = maxValue;
 		}
-		if (text.toInt() < minValue) {
-			editor->setText(QString::number(minValue));
+		else if (text.toInt() < minValue) {
+			indicator_edit->setStyleSheet("background-color:#ff0000;");
+			enterEditEffect();
+			this->curValue = minValue;
 		}
-		curValue = editor->text().toInt();
-		emit valueChanged(curValue);
+		else {
+			indicator_edit->setStyleSheet("background-color:#0078d4;");
+			leaveEditEffect();
+			this->curValue = editor->text().toInt();
+		}
+		emit valueChanged(this->curValue);
 	});
 
 	bgWidget = new QWidget(this);
@@ -240,6 +250,11 @@ void SpinBox::setEnabled(bool enable)
 	downButton->setEnabled(enable);
 }
 
+void SpinBox::recoverDefaultValue(){
+	curValue = defaultValue;
+	updateEditor();
+}
+
 void SpinBox::updateEditor()
 {
 	editor->setText(QString::number(curValue));
@@ -255,10 +270,28 @@ SpinBoxGroup::SpinBoxGroup(QString name, QWidget* parent) :
 	QFont titleFont = QFont("Corbel", 16);
 	QFontMetrics fm(titleFont);
 	qreal height = fm.lineSpacing();
+	 
+	QWidget* row_widget = new QWidget(this);
+	QHBoxLayout* row_layout = new QHBoxLayout(row_widget);
+	row_layout->setContentsMargins(0, 0, 0, 0);
 	groupName = new QLabel(this);
 	groupName->setMinimumHeight(height);
 	groupName->setFont(titleFont);
 	groupName->setText(name);
+	
+	textButton* btn_reset = new textButton("reset", this);
+	connect(btn_reset, &textButton::clicked, this, [=]() {
+		for (auto& x : spinboxs) {
+			x->recoverDefaultValue();
+		}
+		emit spinBoxReset();
+	});
+	btn_reset->setFixedHeight(groupName->height());
+	row_layout->addWidget(groupName);
+	row_layout->addWidget(btn_reset);
+	row_layout->setStretch(0, 7);
+	row_layout->setStretch(1, 3);
+	row_widget->setLayout(row_layout);
 
 	QWidget* spacingLine = new QWidget(this);
 	spacingLine->setFixedHeight(1);
@@ -269,7 +302,7 @@ SpinBoxGroup::SpinBoxGroup(QString name, QWidget* parent) :
 	mainLayout = new QVBoxLayout(this);
 	mainLayout->setContentsMargins(10, 0, 10, bottomSpacing);
 	mainLayout->setSpacing(middleSpacing);
-	mainLayout->addWidget(groupName);
+	mainLayout->addWidget(row_widget);
 	mainLayout->addWidget(spacingLine);
 }
 

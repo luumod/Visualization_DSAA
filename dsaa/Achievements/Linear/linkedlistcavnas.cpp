@@ -18,6 +18,7 @@
 #include <QPaintEvent>
 #include <QLineEdit>
 #include <QRegularExpressionValidator>
+#include <QRandomGenerator>
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -67,18 +68,12 @@ void LinkedListCanvas::CreateSettings(int radius)
 
 	// Adjust attributes panel for the node.
 	SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
-	SpinBox* spin_node_width = new SpinBox("Node Width", settings);
-	spin_node_width->setValue(60);
-	SpinBox* spin_node_height = new SpinBox("Node Height", settings);
-	spin_node_height->setValue(30);
-	SpinBox* spin_arrow_length = new SpinBox("Arrow Length", settings);
-	spin_arrow_length->setValue(10);
-	SpinBox* spin_text_size = new SpinBox("Text Size", settings);
-	spin_text_size->setValue(5);
-	SpinBox* spin_max_number = new SpinBox("Max number", settings);
-	spin_max_number->setValue(5);
-	SpinBox* spin_row_spacing = new SpinBox("Row spacing", settings);
-	spin_row_spacing->setValue(20);
+	SpinBox* spin_node_width = new SpinBox("Node Width",40,100,60, settings);
+	SpinBox* spin_node_height = new SpinBox("Node Height",30,100,30, settings);
+	SpinBox* spin_arrow_length = new SpinBox("Arrow Length",1,100,10, settings);
+	SpinBox* spin_text_size = new SpinBox("Text Size",1,20,5, settings);
+	SpinBox* spin_max_number = new SpinBox("Max number",1,10,5, settings);
+	SpinBox* spin_row_spacing = new SpinBox("Row spacing",10,100,20, settings);
 	adjust_spin_group->AddItem(spin_node_width);
 	adjust_spin_group->AddItem(spin_node_height);
 	adjust_spin_group->AddItem(spin_arrow_length);
@@ -94,6 +89,9 @@ void LinkedListCanvas::CreateSettings(int radius)
 			spin_text_size->value(),
 			spin_max_number->value(),
 			spin_row_spacing->value());
+	});
+	connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
+		view->resetSettings();
 	});
 
 
@@ -262,6 +260,32 @@ void LinkedListCanvas::Init()
 		view->update();
 		});
 
+	// Random generate one node or whole linked list.
+	QWidget* random_gen = new QWidget(defInfoPage);
+	random_gen->setObjectName("DefTextItems");
+	random_gen->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_random_gen = new QHBoxLayout(random_gen);
+	textButton* random_one_node = new textButton("Random gen", defInfoPage);
+	textButton* random_whole_ls = new textButton("Random list", defInfoPage);
+	layout_random_gen->addWidget(random_one_node);
+	layout_random_gen->addWidget(random_whole_ls);
+	layout_random_gen->setStretch(0, 5);
+	layout_random_gen->setStretch(1, 5);
+	connect(random_one_node, &textButton::clicked, this, [=]() {
+		int random = QRandomGenerator::global()->bounded(0, 10000);
+		view->listObj()->push_back(random);
+		view->update();
+		});
+	connect(random_whole_ls, &textButton::clicked, this, [=]() {
+		view->listObj()->clear();
+		int size = QRandomGenerator::global()->bounded(1, 30);
+		for (int i = 0; i < size; i++) {
+			int random = QRandomGenerator::global()->bounded(0, 10000);
+			view->listObj()->push_back(random);
+		}
+		view->update();
+		});
+
 	// Insert node
 	textInputItem* input_insert = new textInputItem("pos", defInfoPage);
 	input_insert->lineEditor()->setPlaceholderText("e.g. 0 10");
@@ -308,6 +332,7 @@ void LinkedListCanvas::Init()
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
 	defTextLayout->addWidget(pop_btn);
+	defTextLayout->addWidget(random_gen);
 	defTextLayout->addWidget(widget_insert);
 	defTextLayout->addWidget(widget_delete);
 

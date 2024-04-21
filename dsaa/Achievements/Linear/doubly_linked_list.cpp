@@ -12,10 +12,9 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 
 	int dir{ 1 };
 
-	// 绘制节点和箭头
 	int x = nodeSpacing;
-	int y = 10; //height / 2 - nodeHeight / 2;
-	int nodesInRow = 0; // 当前行已绘制的节点数量
+	int y = 10; 
+	int nodesInRow = 0;
 	int now_count = 0;
 	int cur_row = 0;
 	Node* cur = m_head;
@@ -38,7 +37,7 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 			if (now_count == m_size) {
 				break;
 			}
-			if (now_count != 0 && now_count % 5 == 0) {
+			if (now_count != 0 && now_count % maxNodesPerRow == 0) {
 				//绘制一个向下的箭头
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight, x + nodeWidth / 2, y + nodeHeight + row_spacing);
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight + row_spacing, x + nodeWidth / 2 + 10, y + nodeHeight + row_spacing - 10);
@@ -65,7 +64,7 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 			if (now_count == m_size) {
 				break;
 			}
-			if (now_count != 0 && now_count % 5 == 0) {
+			if (now_count != 0 && now_count % maxNodesPerRow == 0) {
 				//绘制一个向下的箭头
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight, x + nodeWidth / 2, y + nodeHeight + row_spacing);
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight + row_spacing, x + nodeWidth / 2 + 10, y + nodeHeight + row_spacing - 10);
