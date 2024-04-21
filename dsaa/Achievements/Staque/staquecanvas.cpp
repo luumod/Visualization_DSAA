@@ -4,6 +4,7 @@
 #include "spinbox.h"
 #include "textInputItem.h"
 #include "textButton.h"
+#include "staqueviewlog.h"
 #include "singleSelectGroup.h"
 #include "customScrollContainer.h"
 #include "logger.h"
@@ -228,6 +229,24 @@ void StaqueCanvas::Init()
 	upperLayout->addWidget(pageName);
 	upperLayout->addWidget(upperSeparate);
 
+	QWidget* lower = new QWidget(infoWidget);
+	QVBoxLayout* lowerLayout = new QVBoxLayout(lower);
+	lower->setLayout(lowerLayout);
+	lowerLayout->setContentsMargins(0, 0, 0, 0);
+	QLabel* logLabel = new QLabel(lower);
+	logLabel->setText("LOG");
+	logLabel->setFont(titleFont);
+	logLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	logLabel->setStyleSheet("color:#2c2c2c");
+	QWidget* lowerSplitter = new QWidget(lower);
+	lowerSplitter->setFixedSize(30, 6);
+	lowerSplitter->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
+	ScrollAreaCustom* logDisplay = new ScrollAreaCustom(lower);
+	logDisplay->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	lowerLayout->addWidget(logLabel);
+	lowerLayout->addWidget(lowerSplitter);
+	lowerLayout->addWidget(logDisplay);
+
 	QWidget* defInfoPage = new QWidget(infoWidget);
 	QVBoxLayout* defInfoLayout = new QVBoxLayout(defInfoPage);
 	defInfoPage->setLayout(defInfoLayout);
@@ -252,6 +271,7 @@ void StaqueCanvas::Init()
 	connect(this, &StaqueCanvas::descChanged, this, [=]() {textDesc->setValue(canvasDescription); });
 	textDesc->setEnabled(false);
 	
+	// push 
 	textInputItem* input_push = new textInputItem("input", defInfoPage);
 	textButton* btn_push_stack = new textButton("Push stack", defInfoPage);
 	textButton* btn_push_queue = new textButton("Push queue", defInfoPage);
@@ -267,51 +287,81 @@ void StaqueCanvas::Init()
 	layout_push->addWidget(btn_push_all,1,2);
 	connect(btn_push_stack, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
-			view->stack.push(input_push->value().toInt());
+			auto val = input_push->value().toInt();
+			view->stack.push(val);
+			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val),logDisplay));
+			update();
 		}
-		update();
 	});
 	connect(btn_push_queue, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
-			view->queue.enqueue(input_push->value().toInt());
+			auto val = input_push->value().toInt();
+			view->queue.enqueue(val);
+			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] push: %1").arg(val), logDisplay));
 		}
 		update();
 	});
 	connect(btn_push_all, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
-			view->stack.push(input_push->value().toInt());
-			view->queue.enqueue(input_push->value().toInt());
+			auto val = input_push->value().toInt();
+			view->stack.push(val);
+			view->queue.enqueue(val);
+			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val), logDisplay));
+			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] push: %1").arg(val), logDisplay));
 		}
 		update();
 	});
 
+	// pop and dequeue
+	textButton* btn_pop_stack = new textButton("Pop", defInfoPage);
+	textButton* btn_dequeue_queue = new textButton("Dequeue", defInfoPage);
+	textButton* btn_pop_dequeue = new textButton("Pop and Dequeue", defInfoPage);
+	QWidget* widget_pop = new QWidget(defInfoPage);
+	widget_pop->setObjectName("DefTextItems");
+	widget_pop->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_pop = new QHBoxLayout(widget_pop);
+	widget_pop->setLayout(layout_pop);
+	layout_pop->addWidget(btn_pop_stack,3);
+	layout_pop->addWidget(btn_dequeue_queue,3);
+	layout_pop->addWidget(btn_pop_dequeue,3);
+	connect(btn_pop_stack, &textButton::clicked, this, [=]() {
+		if (!view->stack.isEmpty()) {
+			auto val = view->stack.top();
+			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val), logDisplay));
+			view->stack.pop();
+			update();
+		}
+		});
+	connect(btn_dequeue_queue, &textButton::clicked, this, [=]() {
+		if (!view->queue.isEmpty()) {
+			auto val = view->queue.front();
+			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val), logDisplay));
+			view->queue.dequeue();
+			update();
+		}
+		});
+	connect(btn_pop_dequeue, &textButton::clicked, this, [=]() {
+		if (!view->queue.isEmpty() && !view->stack.isEmpty()) {
+			auto val1 = view->stack.top();
+			auto val2 = view->queue.front();
+			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val1), logDisplay));
+			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val2), logDisplay));
+			view->stack.pop();
+			view->queue.dequeue();
+			update();
+		}
+		});
+
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
+	defTextLayout->addWidget(widget_pop);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
 	defInfoPage->show();
 
 	//--------------------------------
-
-	QWidget* lower = new QWidget(infoWidget);
-	QVBoxLayout* lowerLayout = new QVBoxLayout(lower);
-	lower->setLayout(lowerLayout);
-	lowerLayout->setContentsMargins(0, 0, 0, 0);
-	QLabel* logLabel = new QLabel(lower);
-	logLabel->setText("LOG");
-	logLabel->setFont(titleFont);
-	logLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	logLabel->setStyleSheet("color:#2c2c2c");
-	QWidget* lowerSplitter = new QWidget(lower);
-	lowerSplitter->setFixedSize(30, 6);
-	lowerSplitter->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
-	ScrollAreaCustom* logDisplay = new ScrollAreaCustom(lower);
-	logDisplay->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	lowerLayout->addWidget(logLabel);
-	lowerLayout->addWidget(lowerSplitter);
-	lowerLayout->addWidget(logDisplay);
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);

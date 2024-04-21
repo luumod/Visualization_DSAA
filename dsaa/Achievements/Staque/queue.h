@@ -4,6 +4,7 @@
 #include <vector>
 #include <QObject>
 #include <QPainter>
+#include <QLabel>
 
 class Queue :public QObject {
     Q_OBJECT

@@ -13,7 +13,7 @@ add_library(dsaa_staque STATIC
     staqueview.h 
     staqueview.cpp 
     staquecanvas.h 
-    staquecanvas.cpp)
+    staquecanvas.cpp "staqueviewlog.h" "staqueviewlog.cpp")
 
 target_link_libraries(dsaa_staque PRIVATE
     Qt6::Core
