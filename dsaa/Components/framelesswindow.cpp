@@ -173,26 +173,26 @@ void FramelessWindow::controlWindowScale() {
 		// Maximized the window from current size.
 		_lastWindowGeometry = frameGeometry(); // store the rect data.
 
-#if DEBUG
-		Logger::debug("**************** Maximizing window ****************");
-		Logger::debug(QString::fromStdString("[+] current window size: " + std::to_string(width()) + ", " + std::to_string(height())));
-		Logger::debug(QString::fromStdString("[+] current geometry: " + std::to_string(_lastWindowGeometry.x()) + ", " + std::to_string(_lastWindowGeometry.y()) + ", " + std::to_string(_lastWindowGeometry.width()) + ", " + std::to_string(_lastWindowGeometry.height())));
-		Logger::debug(QString::fromStdString("[+] current window widget size: " + std::to_string(_FwindowWidget->width()) + ", " + std::to_string(_FwindowWidget->height())));
-#endif // USE_LOGGER
-		_FwindowShadow->setEnabled(false);
-		_FwindowBorder->hide();
-		QString windowWidgetStyleSheet = "QWidget#windowWidget{background-color:" + _backgroundColor.name(QColor::HexArgb) + ";}";
-		_FwindowWidget->setStyleSheet(windowWidgetStyleSheet);
-
-		_FstretchLayout->setContentsMargins(0, 0, 0, 0);
+//#if DEBUG
+//		Logger::debug("**************** Maximizing window ****************");
+//		Logger::debug(QString::fromStdString("[+] current window size: " + std::to_string(width()) + ", " + std::to_string(height())));
+//		Logger::debug(QString::fromStdString("[+] current geometry: " + std::to_string(_lastWindowGeometry.x()) + ", " + std::to_string(_lastWindowGeometry.y()) + ", " + std::to_string(_lastWindowGeometry.width()) + ", " + std::to_string(_lastWindowGeometry.height())));
+//		Logger::debug(QString::fromStdString("[+] current window widget size: " + std::to_string(_FwindowWidget->width()) + ", " + std::to_string(_FwindowWidget->height())));
+//#endif // USE_LOGGER
+//		_FwindowShadow->setEnabled(false);
+//		_FwindowBorder->hide();
+//		QString windowWidgetStyleSheet = "QWidget#windowWidget{background-color:" + _backgroundColor.name(QColor::HexArgb) + ";}";
+//		_FwindowWidget->setStyleSheet(windowWidgetStyleSheet);
+//
+//		_FstretchLayout->setContentsMargins(0, 0, 0, 0);
 
 		// Maximized the window.
 		showMaximized();
 
-		QPainterPath path;
+		/*QPainterPath path;
 		path.addRect(_FwindowWidget->rect());
 		QRegion mask(path.toFillPolygon().toPolygon());
-		_FwindowWidget->setMask(mask);
+		_FwindowWidget->setMask(mask);*/
 
 		_maximized = true;
 	}

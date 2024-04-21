@@ -1,4 +1,5 @@
 #include "slidepage.h"
+#include "logger.h"
 #include "common.h"
 #include "customIcon.h"
 #include "customScrollContainer.h"
@@ -91,6 +92,7 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
 }
 
 void SlidePage::resizeEvent(QResizeEvent *event){
+	autoResize();
 	bgWidget->resize(this->size());
 	sheildLayer->resize(this->parentWidget()->size());
 	if(!onShown && !curAni)
@@ -224,6 +226,11 @@ void SlidePage::autoResize(){
 	}
 	parentWidgetWidth = this->parentWidget()->width();
 	parentWidgetHeight = this->parentWidget()->height();
+#if DEBUG
+	Logger::debug("-------------- SlidePage::autoResize --------------");
+	Logger::debug(QString("parentWidgetWidth: %1").arg(parentWidgetWidth));
+	Logger::debug(QString("parentWidgetHeight: %1").arg(parentWidgetHeight));
+#endif
 	resize(parentWidgetWidth * 0.4 <= preferWidth ? preferWidth : parentWidgetWidth * 0.4, parentWidgetHeight);
 	//pageContentContainer->resize(this->size());
 }
