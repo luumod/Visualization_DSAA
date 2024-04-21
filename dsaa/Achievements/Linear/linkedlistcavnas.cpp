@@ -328,7 +328,7 @@ void LinkedListCanvas::Init()
 		});
 	connect(random_whole_ls, &textButton::clicked, this, [=]() {
 		view->listObj()->clear();
-		int size = QRandomGenerator::global()->bounded(1, 30);
+		int size = QRandomGenerator::global()->bounded(1, 100);
 		for (int i = 0; i < size; i++) {
 			int random = QRandomGenerator::global()->bounded(0, 10000);
 			view->listObj()->push_back(random);
