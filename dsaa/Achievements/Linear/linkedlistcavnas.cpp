@@ -22,6 +22,7 @@
 #include <QRandomGenerator>
 #include <QColorDialog>
 #include <QButtonGroup>
+#include <QScrollArea>
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -34,12 +35,17 @@ LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidg
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
+	QScrollArea* scrollArea = new QScrollArea(this);
+	scrollArea->setWidgetResizable(true);
+
 	view = new LinkedListView(this);
 	view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
 	view->setAutoFillBackground(true);
 	palette.setColor(QPalette::Window, Qt::white);
 	view->setPalette(palette);
-	mainLayout->addWidget(view);
+
+	scrollArea->setWidget(view);
+	mainLayout->addWidget(scrollArea);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
 

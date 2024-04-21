@@ -30,7 +30,7 @@ public:
     void clear();
 
 public:
-
+    int getHeight() const;
     void draw(QPainter* painter, int width, int height)override;
 
 protected:

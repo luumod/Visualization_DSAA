@@ -1,6 +1,11 @@
 #include "doubly_linked_list.h"
 #include <QPainter>
 
+int DoublyLinkedList::getHeight() const {
+	int rows = (m_size + maxNodesPerRow - 1) / maxNodesPerRow;
+	return rows * (nodeHeight + row_spacing) + 10;
+}
+
 void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 	int nodeSpacing{};
 	if (m_size <= 5) {
@@ -25,12 +30,11 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 		// 绘制箭头（除了最后一个节点）
 		if (dir == 1) {
 			// 绘制节点
-			//painter->setPen(color_node);
-			//painter->drawRect(x, y, nodeWidth, nodeHeight);
 			painter->fillRect(x, y, nodeWidth, nodeHeight, QBrush(color_node));
 
-			// 绘制节点值
 			QString text = QString::number(cur->data);
+			QFont textFont = QFont("Corbel", 12);
+			painter->setFont(textFont);
 			painter->setPen(color_text);
 			painter->drawText(x + textSpace, y + nodeHeight / 2 + painter->fontMetrics().height() / 2, text);
 
@@ -39,7 +43,6 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 			}
 			painter->setPen(color_arrow);
 			if (now_count != 0 && now_count % maxNodesPerRow == 0) {
-				//绘制一个向下的箭头
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight, x + nodeWidth / 2, y + nodeHeight + row_spacing);
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight + row_spacing, x + nodeWidth / 2 + 10, y + nodeHeight + row_spacing - 10);
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight + row_spacing, x + nodeWidth / 2 - 10, y + nodeHeight + row_spacing - 10);
@@ -54,11 +57,11 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 		}
 		else {
 			//从右往左
-			//painter->setPen(color_node);
-			//painter->drawRect(x, y, nodeWidth, nodeHeight);
 			painter->fillRect(x, y, nodeWidth, nodeHeight, QBrush(color_node));
 
 			QString text = QString::number(cur->data);
+			QFont textFont = QFont("Corbel", 12);
+			painter->setFont(textFont);
 			painter->setPen(color_text);
 			painter->drawText(x + textSpace, y + nodeHeight / 2 + painter->fontMetrics().height() / 2, text);
 
@@ -67,7 +70,6 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 			}
 			painter->setPen(color_arrow);
 			if (now_count != 0 && now_count % maxNodesPerRow == 0) {
-				//绘制一个向下的箭头
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight, x + nodeWidth / 2, y + nodeHeight + row_spacing);
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight + row_spacing, x + nodeWidth / 2 + 10, y + nodeHeight + row_spacing - 10);
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight + row_spacing, x + nodeWidth / 2 - 10, y + nodeHeight + row_spacing - 10);
@@ -81,7 +83,6 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 			x -= nodeWidth + nodeSpacing;
 		}
 
-		// 如果当前行的节点数量已经达到最大值，重置x坐标并在下一行开始绘制
 		if (nodesInRow == maxNodesPerRow) {
 			cur_row++;
 			nodesInRow = 0;
