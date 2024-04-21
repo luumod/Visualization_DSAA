@@ -24,6 +24,7 @@ target_link_libraries(Visual_DSAA
     dsaa_sort
     dsaa_graph
     dsaa_linear
+    dsaa_staque
     Qt6::Core
     Qt6::Widgets
 )

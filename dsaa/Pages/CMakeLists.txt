@@ -5,6 +5,7 @@ include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../Components)
 include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../Achievements/Sort)
 include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../Achievements/Graph)
 include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../Achievements/Linear)
+include_directories(SYSTEM ${CMAKE_CURRENT_LIST_DIR}/../Achievements/Staque)
 
 find_package(Qt6 COMPONENTS Core Widgets Svg REQUIRED)
 
@@ -14,7 +15,12 @@ add_library(dsaa_pages STATIC
     "sortpage.h" 
     "sortpage.cpp" 
     "graphpage.h" 
-    "graphpage.cpp"  "linkedlistpage.h" "linkedlistpage.cpp")
+    "graphpage.cpp"  
+    "linkedlistpage.h" 
+    "linkedlistpage.cpp" 
+    "staquepage.h" 
+    "staquepage.cpp")
+
 
 target_link_libraries(dsaa_pages PRIVATE
     Qt6::Core
