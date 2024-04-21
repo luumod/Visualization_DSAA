@@ -86,7 +86,7 @@ FramelessWindow::FramelessWindow(int cornerRadius, unsigned int attributes, QWid
 
 	// Connect window control buttons
 	connect(_minimizeBtn, &QPushButton::clicked, this, &QWidget::showMinimized);
-	connect(_maximizeBtn, &QPushButton::clicked, this, &FramelessWindow::controlWindowScale);
+	//connect(_maximizeBtn, &QPushButton::clicked, this, &FramelessWindow::controlWindowScale);
 	connect(_closeBtn, &QPushButton::clicked, this, &QWidget::close);
 
 
