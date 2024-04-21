@@ -273,6 +273,7 @@ void StaqueCanvas::Init()
 	
 	// push 
 	textInputItem* input_push = new textInputItem("input", defInfoPage);
+	textButton* btn_random_data = new textButton("Random", defInfoPage);
 	textButton* btn_push_stack = new textButton("Push stack", defInfoPage);
 	textButton* btn_push_queue = new textButton("Push queue", defInfoPage);
 	textButton* btn_push_all = new textButton("Push all", defInfoPage);
@@ -281,10 +282,15 @@ void StaqueCanvas::Init()
 	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
 	QGridLayout* layout_push = new QGridLayout(widget_push);
 	widget_push->setLayout(layout_push);
-	layout_push->addWidget(input_push,0,0,1,3);
+	layout_push->addWidget(input_push,0,0,1,2);
+	layout_push->addWidget(btn_random_data, 0, 2,1,1);
 	layout_push->addWidget(btn_push_stack,1,0);
 	layout_push->addWidget(btn_push_queue,1,1);
 	layout_push->addWidget(btn_push_all,1,2);
+	connect(btn_random_data, &textButton::clicked, this, [=]() {
+		int random_value = QRandomGenerator::global()->bounded(0, 1000);
+		input_push->setValue(QString::number(random_value));
+		});
 	connect(btn_push_stack, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			auto val = input_push->value().toInt();
@@ -311,6 +317,48 @@ void StaqueCanvas::Init()
 		}
 		update();
 	});
+
+	// Random generate
+	textButton* btn_random_stack = new textButton("Random stack", defInfoPage);
+	textButton* btn_random_queue = new textButton("Random queue", defInfoPage);
+	textButton* btn_random_two = new textButton("Random all", defInfoPage);
+	QWidget* widget_random = new QWidget(defInfoPage);
+	widget_random->setObjectName("DefTextItems");
+	widget_random->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_random = new QHBoxLayout(widget_random);
+	widget_random->setLayout(layout_random);
+	layout_random->addWidget(btn_random_stack, 3);
+	layout_random->addWidget(btn_random_queue, 3);
+	layout_random->addWidget(btn_random_two, 3);
+	connect(btn_random_stack, &textButton::clicked, this, [=]() {
+		view->stack.clear();
+		int size = QRandomGenerator::global()->bounded(1, 10);
+		for (int i = 0; i < size; i++) {
+			auto val = QRandomGenerator::global()->bounded(0,1000);
+			view->stack.push(val);
+		}
+		update();
+		});
+	connect(btn_random_queue, &textButton::clicked, this, [=]() {
+		view->queue.clear();
+		int size = QRandomGenerator::global()->bounded(1, 10);
+		for (int i = 0; i < size; i++) {
+			auto val = QRandomGenerator::global()->bounded(0, 1000);
+			view->queue.enqueue(val);
+		}
+		update();
+		});
+	connect(btn_random_two, &textButton::clicked, this, [=]() {
+		view->stack.clear();
+		view->queue.clear();
+		int size = QRandomGenerator::global()->bounded(1, 10);
+		for (int i = 0; i < size; i++) {
+			auto val = QRandomGenerator::global()->bounded(0, 1000);
+			view->stack.push(val);
+			view->queue.enqueue(val);
+		}
+		update();
+		});
 
 	// pop and dequeue
 	textButton* btn_pop_stack = new textButton("Pop", defInfoPage);
@@ -354,7 +402,8 @@ void StaqueCanvas::Init()
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
-	defTextLayout->addWidget(widget_push);
+	defTextLayout->addWidget(widget_push); 
+	defTextLayout->addWidget(widget_random);
 	defTextLayout->addWidget(widget_pop);
 
 	defInfoLayout->addWidget(defTextItems);

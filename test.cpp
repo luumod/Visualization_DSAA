@@ -1,211 +1,73 @@
 #include <QApplication>
-#include <QWidget>
-#include <QLineEdit>
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QColorDialog>
-#include <QDebug>
-#include <QMainWindow>
-#include <vector>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QScrollBar>
 #include <QPainter>
 
-template <typename T>
-class Stack {
+// 自定义节点类
+class NodeItem : public QGraphicsItem {
 public:
-	void push(const T& item);
-	void pop();
-	T& top();
-	bool isEmpty() const;
-	size_t size() const;
+    NodeItem(int value, QGraphicsItem* parent = nullptr) : QGraphicsItem(parent), m_value(value) {}
+
+    QRectF boundingRect() const override {
+        return QRectF(-20, -20, 40, 40); // 设置节点的边界
+    }
+
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override {
+        Q_UNUSED(option);
+        Q_UNUSED(widget);
+
+        painter->setBrush(Qt::blue); // 设置节点颜色
+        painter->drawEllipse(-20, -20, 40, 40); // 绘制节点
+        painter->drawText(-5, 5, QString::number(m_value)); // 绘制节点值
+    }
 
 private:
-	std::vector<T> data;
+    int m_value;
 };
 
-template <typename T>
-void Stack<T>::push(const T& item) {
-	data.push_back(item);
-}
-
-template <typename T>
-void Stack<T>::pop() {
-	if (!isEmpty()) {
-		data.pop_back();
-	}
-}
-
-template <typename T>
-T& Stack<T>::top() {
-	return data.back();
-}
-
-template <typename T>
-bool Stack<T>::isEmpty() const {
-	return data.empty();
-}
-
-template <typename T>
-size_t Stack<T>::size() const {
-	return data.size();
-}
-
-template <typename T>
-class Queue {
+// 自定义链表可视化视图类
+class LinkedListView : public QGraphicsView {
 public:
-	void enqueue(const T& item);
-	void dequeue();
-	T& front();
-	bool isEmpty() const;
-	size_t size() const;
+    LinkedListView(QWidget* parent = nullptr) : QGraphicsView(parent) {
+        // 创建场景
+        scene = new QGraphicsScene(this);
+        setScene(scene);
+
+        // 添加节点到链表中
+        addNode(10);
+        addNode(20);
+        addNode(30);
+        addNode(40);
+
+        // 设置场景大小无限大
+        setSceneRect(0, 0, 1000, 500);
+    }
+
+    void addNode(int value) {
+        NodeItem* node = new NodeItem(value);
+        scene->addItem(node);
+
+        // 设置节点位置
+        node->setPos(nodeCount * 100, 50);
+
+        nodeCount++;
+    }
 
 private:
-	std::vector<T> data;
+    QGraphicsScene* scene;
+    int nodeCount = 0;
 };
-
-template <typename T>
-void Queue<T>::enqueue(const T& item) {
-	data.push_back(item);
-}
-
-template <typename T>
-void Queue<T>::dequeue() {
-	if (!isEmpty()) {
-		data.erase(data.begin());
-	}
-}
-
-template <typename T>
-T& Queue<T>::front() {
-	return data.front();
-}
-
-template <typename T>
-bool Queue<T>::isEmpty() const {
-	return data.empty();
-}
-
-template <typename T>
-size_t Queue<T>::size() const {
-	return data.size();
-}
-
-class MainWindow : public QMainWindow {
-	Q_OBJECT
-
-public:
-	MainWindow(QWidget* parent = nullptr);
-	~MainWindow();
-
-protected:
-	void paintEvent(QPaintEvent* event) override;
-
-private slots:
-	void on_pushButton_clicked();
-	void on_popButton_clicked();
-	void on_enqueueButton_clicked();
-	void on_dequeueButton_clicked();
-
-private:
-	Stack<int> stack;
-	Queue<int> queue;
-	QLineEdit* stackLineEdit;
-	QLineEdit* queueLineEdit;
-	QPushButton* pushButton;
-	QPushButton* popButton;
-	QPushButton* enqueueButton;
-	QPushButton* dequeueButton;
-};
-
-void MainWindow::paintEvent(QPaintEvent* event) {
-	QPainter painter(this);
-	painter.setRenderHint(QPainter::Antialiasing);
-
-	int x = 50;
-	int y = 50;
-	int width = 50;
-	int height = 30;
-	int spacing = 10;
-
-	// 绘制栈
-	painter.drawText(x, y - 20, "Stack");
-	for (int i = 0; i < stack.size(); ++i) {
-		painter.drawRect(x, y, width, height);
-		painter.drawText(x + 10, y + 20, QString::number(stack.top()));
-		y += height + spacing;
-	}
-
-	// 绘制队列
-	x = 200;
-	y = 50;
-	painter.drawText(x, y - 20, "Queue");
-	for (int i = 0; i < queue.size(); ++i) {
-		painter.drawRect(x, y, width, height);
-		painter.drawText(x + 10, y + 20, QString::number(queue.front()));
-		queue.dequeue();
-		queue.enqueue(queue.front());
-		x += width + spacing;
-	}
-}
-
-MainWindow::MainWindow(QWidget* parent)
-	: QMainWindow(parent) {
-	resize(640, 480);
-	stackLineEdit = new QLineEdit(this);
-	stackLineEdit->move(10, 10);
-
-	queueLineEdit = new QLineEdit(this);
-	queueLineEdit->move(10, 100);
-
-	QPushButton* pushButton = new QPushButton("入栈",this);
-	pushButton->move(100, 10);
-	QPushButton* popButton = new QPushButton("出栈", this);
-	pushButton->move(100, 50);
-	QPushButton* enqueueButton = new QPushButton("入队", this);
-	pushButton->move(200, 10);;
-	QPushButton* dequeueButton = new QPushButton("出队", this);
-	pushButton->move(200, 50);
-
-	connect(pushButton, &QPushButton::clicked, this, on_pushButton_clicked);
-	connect(popButton, &QPushButton::clicked, this, on_popButton_clicked);
-	connect(enqueueButton, &QPushButton::clicked, this, on_enqueueButton_clicked);
-	connect(dequeueButton, &QPushButton::clicked, this, on_dequeueButton_clicked);
-}
-
-MainWindow::~MainWindow() {
-}
-
-void MainWindow::on_pushButton_clicked() {
-	int value = stackLineEdit->text().toInt();
-	stack.push(value);
-	stackLineEdit->clear();
-	update();
-}
-
-void MainWindow::on_popButton_clicked() {
-	if (!stack.isEmpty()) {
-		stack.pop();
-		update();
-	}
-}
-
-void MainWindow::on_enqueueButton_clicked() {
-	int value = queueLineEdit->text().toInt();
-	queue.enqueue(value);
-	queueLineEdit->clear();
-	update();
-}
-
-void MainWindow::on_dequeueButton_clicked() {
-	if (!queue.isEmpty()) {
-		queue.dequeue();
-		update();
-	}
-}
 
 int main(int argc, char* argv[]) {
-	QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-	MainWindow w;
-	w.show();
-	return app.exec();
+    LinkedListView view;
+    view.setWindowTitle("Linked List Visualization");
+    view.resize(500, 200);
+    view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn); // 始终显示水平滚动条
+    view.show();
+
+    return app.exec();
 }

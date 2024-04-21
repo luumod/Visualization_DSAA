@@ -41,8 +41,8 @@ void StaqueView::paintEvent(QPaintEvent* event) {
     painter->begin(this);
 
     Logger::debug("stack.draw(painter,20,20);");
-    stack.draw(painter,20,20);
-    queue.draw(painter, width() / 2 + 20,20);
+    stack.draw(painter, (width() / 2 - stack.node_width) / 2, 20);
+    queue.draw(painter, (width() / 2 + (width() / 2 - stack.node_width) / 2), 20);
 
     painter->end();
     //setMinimumHeight(std::min(stack.getHeight()));  // 根据节点数量动态设置LinkedListView的高度

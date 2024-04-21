@@ -24,19 +24,19 @@ size_t Stack::size() const {
 	return data.size();
 }
 
+void Stack::clear(){
+	data.clear();
+}
+
 void Stack::draw(QPainter* painter, int x, int y) {
 	painter->setRenderHint(QPainter::Antialiasing);
 	painter->setPen(Qt::red);
 
-	int width = 50;
-	int height = 30;
-	int spacing = 10;
-
 	// »æÖÆÕ»
 	painter->drawText(x, y - 20, "Stack");
 	for (int i = 0; i < data.size(); ++i) {
-		painter->drawRect(x, y, width, height);
+		painter->drawRect(x, y, node_width, node_height);
 		painter->drawText(x + 10, y + 20, QString::number(data[i]));
-		y += height + spacing;
+		y += node_height + node_spacing;
 	}
 }
