@@ -40,15 +40,20 @@ private:
     QLabel* itemName;
     QLineEdit* editor;
     QWidget* bgWidget;
-    QWidget* indicator;
+
+    QWidget* indicator_left;
+    QGraphicsOpacityEffect* opac_left;
+
+    QWidget* indicator_edit;
     QGraphicsOpacityEffect* opac_edit;
+
     QPushButton* upButton;
     QPushButton* downButton;
 
     QHBoxLayout* main_layout{ nullptr };
     QWidget* main_widget{ nullptr };
 
-    int margin = 10;
+    int margin = 15;
     int spacing = 5;
     int curValue;
     int minValue;

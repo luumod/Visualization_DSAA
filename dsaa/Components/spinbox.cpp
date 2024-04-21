@@ -4,6 +4,7 @@
 #include <QFont>
 #include <QFontMetrics>
 #include <QTimer>
+#include <QValidator>
 #include <QVBoxLayout>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
@@ -26,21 +27,39 @@ SpinBox::SpinBox(const QString& name, QWidget* parent) :
 	editor->setFixedHeight(fm.lineSpacing());
 	editor->setStyleSheet("color:#5c5c5c;background-color:#00000000;border-style:none;");
 	editor->setFont(textFont);
-	editor->setReadOnly(true);
+	editor->setReadOnly(false);
+	editor->setValidator(new QIntValidator(minValue, maxValue, this));
+	connect(editor, &QLineEdit::textChanged, this, [=](const QString& text) {
+		if (text.toInt() > maxValue){
+			editor->setText(QString::number(maxValue));
+		}
+		if (text.toInt() < minValue) {
+			editor->setText(QString::number(minValue));
+		}
+		curValue = editor->text().toInt();
+	});
 
 	bgWidget = new QWidget(this);
 	bgWidget->setStyleSheet("background-color:#00000000;border-radius:5px;");
 	bgWidget->lower();
 	bgWidget->show();
 
-	indicator = new QWidget(this);
-	indicator->setFixedHeight(4);
-	indicator->setStyleSheet("background-color:#0078d4;border-radius:2px");
+	// The left indicator for the whole item.
+	indicator_left = new QWidget(this);
+	indicator_left->setStyleSheet("border-radius:3px;background-color:#0078D4");
+	opac_left = new QGraphicsOpacityEffect(indicator_left);
+	opac_left->setOpacity(0);
+	indicator_left->setGraphicsEffect(opac_left);
 
-	opac = new QGraphicsOpacityEffect(this);
-	opac->setOpacity(0);
-	indicator->setGraphicsEffect(opac);
+	// The edit indicator for the edit action.
+	indicator_edit = new QWidget(this);
+	indicator_edit->setFixedHeight(4);
+	indicator_edit->setStyleSheet("background-color:#0078d4;border-radius:2px");
+	opac_edit = new QGraphicsOpacityEffect(this);
+	opac_edit->setOpacity(0);
+	indicator_edit->setGraphicsEffect(opac_edit);
 
+	// Up and down button to adjust the value.
 	upButton = new QPushButton(this);
 	upButton->setFixedSize(16, 16);
 	upButton->setStyleSheet("QPushButton{background-color:#00000000;border-style:none;} QPushButton:pressed{background-color:#1a000000;}");
@@ -68,6 +87,9 @@ void SpinBox::resizeEvent(QResizeEvent* event)
 #if DEBUG
 	Logger::debug("-------- SpinBox::resizeEvent ---------\n");
 #endif
+	indicator_left->resize(6, 0.4 * this->height());
+	indicator_left->move(4, 0.3 * this->height());
+
 	itemName->move(margin, this->height() / 2 - itemName->height() / 2);
 	itemName->setFixedWidth(this->width() * 0.3 - margin - spacing);
 
@@ -77,10 +99,8 @@ void SpinBox::resizeEvent(QResizeEvent* event)
 	upButton->move(this->width() * 0.9, this->height() / 2 - upButton->height());
 	downButton->move(this->width() * 0.9, this->height() / 2);
 
-	indicator->move(this->width() * 0.5, this->height() - 7);
-	indicator->resize(this->width() * 0.45 - margin, 4);
-
-
+	indicator_edit->move(this->width() * 0.5, this->height() - 7);
+	indicator_edit->resize(this->width() * 0.45 - margin, 4);
 
 	bgWidget->setFixedSize(this->size());
 }
@@ -88,8 +108,8 @@ void SpinBox::resizeEvent(QResizeEvent* event)
 void SpinBox::enterEditEffect()
 {
 	QParallelAnimationGroup* group = new QParallelAnimationGroup(this);
-	QPropertyAnimation* fade = new QPropertyAnimation(opac, "opacity", this);
-	fade->setStartValue(opac->opacity());
+	QPropertyAnimation* fade = new QPropertyAnimation(opac_edit, "opacity", this);
+	fade->setStartValue(opac_edit->opacity());
 	fade->setEndValue(0.99);
 	fade->setDuration(150);
 	group->addAnimation(fade);
@@ -99,8 +119,8 @@ void SpinBox::enterEditEffect()
 void SpinBox::leaveEditEffect()
 {
 	QParallelAnimationGroup* group = new QParallelAnimationGroup(this);
-	QPropertyAnimation* fade = new QPropertyAnimation(opac, "opacity", this);
-	fade->setStartValue(opac->opacity());
+	QPropertyAnimation* fade = new QPropertyAnimation(opac_edit, "opacity", this);
+	fade->setStartValue(opac_edit->opacity());
 	fade->setEndValue(0);
 	fade->setDuration(350);
 	group->addAnimation(fade);
@@ -112,6 +132,21 @@ void SpinBox::enterEvent(QEnterEvent* event)
 	upButton->show();
 	downButton->show();
 	bgWidget->setStyleSheet("border-radius:5px;background-color:#0a000000");
+	QParallelAnimationGroup* enter = new QParallelAnimationGroup(this);
+	//Control the indication bar animation effect.
+	QPropertyAnimation* longer = new QPropertyAnimation(indicator_left, "geometry", this);
+	longer->setStartValue(indicator_left->geometry());
+	longer->setEndValue(QRectF(4, 0.25 * this->height(), 6, this->height() * 0.5));
+	longer->setDuration(150);
+	longer->setEasingCurve(QEasingCurve::OutBack);
+	//Control the opacity of the other area.
+	QPropertyAnimation* fadeIn = new QPropertyAnimation(opac_left, "opacity", this);
+	fadeIn->setStartValue(opac_left->opacity());
+	fadeIn->setEndValue(0.99);
+	fadeIn->setDuration(100);
+	enter->addAnimation(longer);
+	enter->addAnimation(fadeIn);
+	enter->start();
 }
 
 void SpinBox::leaveEvent(QEvent* event)
@@ -119,6 +154,22 @@ void SpinBox::leaveEvent(QEvent* event)
 	upButton->hide();
 	downButton->hide();
 	bgWidget->setStyleSheet("border-radius:5px;background-color:#00000000");
+	QParallelAnimationGroup* leave = new QParallelAnimationGroup(this);
+	QPropertyAnimation* shorter = new QPropertyAnimation(indicator_left, "geometry", this);
+	shorter->setStartValue(indicator_left->geometry());
+	shorter->setEndValue(QRectF(4, 0.3 * this->height(), 6, this->height() * 0.4));
+	shorter->setDuration(150);
+	shorter->setEasingCurve(QEasingCurve::OutBack);
+	QPropertyAnimation* fadeOut = new QPropertyAnimation(opac_left, "opacity", this);
+	fadeOut->setStartValue(opac_left->opacity());
+	fadeOut->setEndValue(0);
+	fadeOut->setDuration(100);
+	leave->addAnimation(shorter);
+	leave->addAnimation(fadeOut);
+	leave->start();
+
+	if (mousePressed)
+		mousePressed = false;
 }
 
 void SpinBox::mousePressEvent(QMouseEvent* event)
