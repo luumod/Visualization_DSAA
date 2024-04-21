@@ -15,13 +15,15 @@ LinkedListView::~LinkedListView()
 {
 }
 
+void LinkedListView::updateColors(const QString& node, const QString& arrow, const QString& text){
+	base_list_obj->updateColors(node, arrow, text);
+	update();
+}
+
 void LinkedListView::updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing){
 	base_list_obj->updateSettings(nodeWidth, nodeHeight, arrowSize, textSpace, maxNodesPerRow, row_spacing);
 	// Redraw.
 	update();
-#if DEBUG
-	Logger::debug("-------- UpdateSettings and redrawing...-----------");
-#endif
 }
 
 void LinkedListView::resetSettings(){

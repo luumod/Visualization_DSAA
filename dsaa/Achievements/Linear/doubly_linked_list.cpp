@@ -25,18 +25,19 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 		// 绘制箭头（除了最后一个节点）
 		if (dir == 1) {
 			// 绘制节点
-			painter->setPen(color_node);
-			painter->drawRect(x, y, nodeWidth, nodeHeight);
+			//painter->setPen(color_node);
+			//painter->drawRect(x, y, nodeWidth, nodeHeight);
+			painter->fillRect(x, y, nodeWidth, nodeHeight, QBrush(color_node));
 
 			// 绘制节点值
 			QString text = QString::number(cur->data);
 			painter->setPen(color_text);
 			painter->drawText(x + textSpace, y + nodeHeight / 2 + painter->fontMetrics().height() / 2, text);
 
-			painter->setPen(color_arrow);
 			if (now_count == m_size) {
 				break;
 			}
+			painter->setPen(color_arrow);
 			if (now_count != 0 && now_count % maxNodesPerRow == 0) {
 				//绘制一个向下的箭头
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight, x + nodeWidth / 2, y + nodeHeight + row_spacing);
@@ -53,17 +54,18 @@ void DoublyLinkedList::draw(QPainter* painter, int width, int height){
 		}
 		else {
 			//从右往左
-			painter->setPen(color_node);
-			painter->drawRect(x, y, nodeWidth, nodeHeight);
+			//painter->setPen(color_node);
+			//painter->drawRect(x, y, nodeWidth, nodeHeight);
+			painter->fillRect(x, y, nodeWidth, nodeHeight, QBrush(color_node));
 
 			QString text = QString::number(cur->data);
 			painter->setPen(color_text);
 			painter->drawText(x + textSpace, y + nodeHeight / 2 + painter->fontMetrics().height() / 2, text);
 
-			painter->setPen(color_arrow);
 			if (now_count == m_size) {
 				break;
 			}
+			painter->setPen(color_arrow);
 			if (now_count != 0 && now_count % maxNodesPerRow == 0) {
 				//绘制一个向下的箭头
 				painter->drawLine(x + nodeWidth / 2, y + nodeHeight, x + nodeWidth / 2, y + nodeHeight + row_spacing);

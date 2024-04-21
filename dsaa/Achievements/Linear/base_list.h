@@ -17,6 +17,7 @@ public:
 
 	std::size_t size() const;
 
+	void updateColors(const QString& node, const QString& arrow, const QString& text);
 	void updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing);
 	void resetSettings();
 public:
@@ -61,9 +62,9 @@ protected:
 	int row_spacing = 20;
 
 	// Adjust color.
-	QColor color_node = QColor(255, 0, 0);
+	QColor color_node = QColor(216, 240, 224);
 	QColor color_text = QColor(0, 0, 0);
-	QColor color_arrow = QColor(0, 255, 0);
+	QColor color_arrow = QColor(0, 0, 0);
 };
 
 #endif  // CORE_BASE_LIST_H_

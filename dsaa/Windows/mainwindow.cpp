@@ -106,7 +106,7 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 	}
 	FramelessWindow::resizeEvent(event);
 
-	QSize newSize = QSize(event->size().width() - _sideBar->size().width() - 62,event->size().height() - 62);
+	QSize newSize = QSize(event->size().width() - _sideBar->size().width() ,event->size().height() - 62);
 
 	_placeHolderWidget->resize(newSize);
 	_sortPage->resize(newSize);

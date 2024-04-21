@@ -15,6 +15,12 @@ std::size_t BaseList::size() const {
     return m_size;
 }
 
+void BaseList::updateColors(const QString& node, const QString& arrow, const QString& text){
+    this->color_node = node;
+    this->color_arrow = arrow;
+    this->color_text = text;
+}
+
 void BaseList::updateSettings(int nodeWidth,int nodeHeight,int arrowSize,int textSpace, int maxNodesPerRow,int row_spacing){
     this->nodeWidth = nodeWidth;
     this->nodeHeight = nodeHeight;

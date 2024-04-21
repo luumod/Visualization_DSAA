@@ -11,6 +11,7 @@
 #include "logger.h"
 #include "common.h"
 #include <QPainter>
+#include <QColor>
 #include <QList>
 #include <QHBoxLayout>
 #include <QTimer>
@@ -20,6 +21,7 @@
 #include <QRegularExpressionValidator>
 #include <QRandomGenerator>
 #include <QColorDialog>
+#include <QButtonGroup>
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -63,6 +65,10 @@ void LinkedListCanvas::CreateSettings(int radius)
 	connect(structureSetting, &singleSelectGroup::selectedItemChange, this, [=](int index) {
 		
 		});
+
+	QWidget* spacingLine = new QWidget(this);
+	spacingLine->setFixedHeight(1);
+	spacingLine->setStyleSheet("background-color:#0a000000");
 
 	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
@@ -131,13 +137,47 @@ void LinkedListCanvas::CreateSettings(int radius)
 	QWidget* whiteSpace_on = new QWidget(settings);
 	whiteSpace_on->setFixedHeight(10);
 
-	QColorDialog* color = new QColorDialog(settings);
+	QWidget* color_group_widget = new QWidget(settings);
+	QHBoxLayout* layout_color_group = new QHBoxLayout(color_group_widget);
+	layout_color_group->setContentsMargins(0, 0, 0, 0);
+	textButton* btn_node_brush = new textButton("Set brush color", QColor(216, 240, 224).name(),settings);
+	textButton* btn_arrow_color = new textButton("Set arrow color", QColor(0, 0, 0).name(), settings);
+	textButton* btn_text_color = new textButton("Set text color", QColor(0, 0, 0).name(), settings);
+	layout_color_group->addWidget(btn_node_brush);
+	layout_color_group->addWidget(btn_arrow_color);
+	layout_color_group->addWidget(btn_text_color);
+	layout_color_group->setStretch(0, 3);
+	layout_color_group->setStretch(1, 3);
+	layout_color_group->setStretch(2, 3);
+	color_group_widget->setLayout(layout_color_group);
+	connect(btn_node_brush, &textButton::clicked, this, [=]() {
+		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the node to brush.");
+		if (color.isValid()) {
+			btn_node_brush->setDefaultColor(color);
+			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+		}
+	});
+	connect(btn_arrow_color, &textButton::clicked, this, [=]() {
+		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the arrow.");
+		if (color.isValid()) {
+			btn_arrow_color->setDefaultColor(color);
+			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+		}
+		});
+	connect(btn_text_color, &textButton::clicked, this, [=]() {
+		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for text that in the middle of node.");
+		if (color.isValid()) {
+			btn_text_color->setDefaultColor(color);
+			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+		}
+		});
 
 	settings->AddContent(btnStop);
 	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
-	settings->AddContent(color);
 	settings->AddContent(structureSetting);
+	settings->AddContent(spacingLine);
+	settings->AddContent(color_group_widget);
 	settings->AddContent(adjust_spin_group);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);

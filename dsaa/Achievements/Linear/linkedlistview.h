@@ -13,6 +13,7 @@ public:
 	~LinkedListView();
 	DoublyLinkedList* listObj() { return base_list_obj; }
 
+	void updateColors(const QString& node, const QString& arrow, const QString& text);
 	void updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing);
 	void resetSettings();
 protected:

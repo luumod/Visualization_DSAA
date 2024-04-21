@@ -22,6 +22,12 @@ textButton::textButton(QString text, QWidget* parent, qreal ratio) :
     this->setFixedHeight(btnText->height() / ratio);
 }
 
+textButton::textButton(QString text, QString defaultColor, QWidget* parent, qreal ratio) :
+    textButton(text, defaultColor, "#1a0078d4", "#2a0078d4", parent, ratio)
+{
+
+}
+
 textButton::textButton(QString text, QString defC, QString hoverC, QString pressedC, QWidget* parent, qreal ratio) :
     QWidget(parent),
     defaultColor(defC),

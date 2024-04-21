@@ -226,11 +226,5 @@ void SlidePage::autoResize(){
 	}
 	parentWidgetWidth = this->parentWidget()->width();
 	parentWidgetHeight = this->parentWidget()->height();
-#if DEBUG
-	Logger::debug("-------------- SlidePage::autoResize --------------");
-	Logger::debug(QString("parentWidgetWidth: %1").arg(parentWidgetWidth));
-	Logger::debug(QString("parentWidgetHeight: %1").arg(parentWidgetHeight));
-#endif
 	resize(parentWidgetWidth * 0.4 <= preferWidth ? preferWidth : parentWidgetWidth * 0.4, parentWidgetHeight);
-	//pageContentContainer->resize(this->size());
 }
