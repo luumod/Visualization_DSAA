@@ -17,6 +17,7 @@
 #include <QComboBox>
 #include <QListView>
 #include <QSpinBox>
+#include <QColorDialog>
 
 SortCanvas::SortCanvas(int radius, QString name, QString desc, QWidget *parent)
 	:QWidget(parent),

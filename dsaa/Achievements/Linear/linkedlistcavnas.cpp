@@ -19,6 +19,7 @@
 #include <QLineEdit>
 #include <QRegularExpressionValidator>
 #include <QRandomGenerator>
+#include <QColorDialog>
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -95,7 +96,7 @@ void LinkedListCanvas::CreateSettings(int radius)
 	});
 
 
-	textInputItem* rename = new textInputItem("Name", settings);
+	textInputItem* rename = new textInputItem("Set name", settings);
 	rename->setValue(canvasName);
 	connect(rename, &textInputItem::textEdited, this, [=](QString text) {
 		canvasName = text;
@@ -105,7 +106,7 @@ void LinkedListCanvas::CreateSettings(int radius)
 #endif
 		});
 
-	textInputItem* redesc = new textInputItem("Detail", settings);
+	textInputItem* redesc = new textInputItem("Set detail", settings);
 	redesc->setValue(canvasDescription);
 	connect(redesc, &textInputItem::textEdited, this, [=](QString text) {
 		canvasDescription = text;
@@ -130,11 +131,13 @@ void LinkedListCanvas::CreateSettings(int radius)
 	QWidget* whiteSpace_on = new QWidget(settings);
 	whiteSpace_on->setFixedHeight(10);
 
+	QColorDialog* color = new QColorDialog(settings);
+
 	settings->AddContent(btnStop);
 	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
+	settings->AddContent(color);
 	settings->AddContent(structureSetting);
-	settings->AddContent(whiteSpace);
 	settings->AddContent(adjust_spin_group);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
@@ -195,7 +198,8 @@ void LinkedListCanvas::Init()
 	defTextLayout->setContentsMargins(0, 5, 0, 5);
 
 	// Canvas name.
-	textInputItem* textName = new textInputItem(canvasName, defInfoPage);
+	textInputItem* textName = new textInputItem("Title", defInfoPage);
+	textName->setValue(canvasName);
 	connect(this, &LinkedListCanvas::nameChanged, this, [=]() {textName->setValue(canvasName); });
 	textName->setEnabled(false);
 	// Canvas description.

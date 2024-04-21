@@ -14,7 +14,7 @@ add_library(dsaa_pages STATIC
     "sortpage.h" 
     "sortpage.cpp" 
     "graphpage.h" 
-    "graphpage.cpp" "linklistpage.cpp" "linkedlistpage.h" "linkedlistpage.cpp")
+    "graphpage.cpp"  "linkedlistpage.h" "linkedlistpage.cpp")
 
 target_link_libraries(dsaa_pages PRIVATE
     Qt6::Core

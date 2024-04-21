@@ -20,12 +20,13 @@ SlidePage::SlidePage(int radius, QString name, QWidget *parent) :
 	parentWidgetWidth(parent->width()),
 	parentWidgetHeight(parent->height())
 {
-	autoResize();
 	this->move(QPoint(-this->width() - 30, 0));
 
 	pageContentContainer = new ScrollAreaCustom(this);
 	//> note: Important!!!
 	pageContentContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+	autoResize();
 
 	nameLabel = new QLabel(pageName, this);
 	textFont.setStyleStrategy(QFont::PreferAntialias);
@@ -224,4 +225,5 @@ void SlidePage::autoResize(){
 	parentWidgetWidth = this->parentWidget()->width();
 	parentWidgetHeight = this->parentWidget()->height();
 	resize(parentWidgetWidth * 0.4 <= preferWidth ? preferWidth : parentWidgetWidth * 0.4, parentWidgetHeight);
+	//pageContentContainer->resize(this->size());
 }
