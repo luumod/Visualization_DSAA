@@ -41,7 +41,7 @@ private:
     QLineEdit* editor;
     QWidget* bgWidget;
     QWidget* indicator;
-    QGraphicsOpacityEffect* opac;
+    QGraphicsOpacityEffect* opac_edit;
     QPushButton* upButton;
     QPushButton* downButton;
 
