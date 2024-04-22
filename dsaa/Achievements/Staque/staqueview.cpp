@@ -1,21 +1,42 @@
 #include "staqueview.h"
+#include "staquenodeitem.h"
 #include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QMouseEvent>
+#include <QScrollBar>
+#include <QHBoxLayout>
+#include <QToolButton>
 
 StaqueView::StaqueView(QWidget* parent) :
-	QGraphicsView(parent)
- {
+	QGraphicsView(parent){
 	this->setMouseTracking(true);
-	this->setBackgroundBrush(Qt::transparent);
-	myGraphicsScene = new QGraphicsScene();
-	this->setScene(myGraphicsScene);
-	myGraphicsScene->setBackgroundBrush(QColor(255, 0, 0));
 	this->setRenderHint(QPainter::Antialiasing);
 	this->setCursor(Qt::CrossCursor);
 	this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
+
+	scene = new QGraphicsScene;
+	scene->setBackgroundBrush(QColor(255, 255, 255));
+	this->setScene(scene);
+
+	auto node1 = new QToolButton;
+	auto node2 = new QToolButton;
+	auto node3 = new QToolButton;
+	auto node4 = new StaqueNodeItem(100,100);
+	node4->setPos(100, 100);
+	auto node5 = new StaqueNodeItem(100, 100);
+	node5->setPos(0, 100);
+	auto node6 = new StaqueNodeItem(100, 100);
+	node6->setPos(-100,0);
+
+	scene->addWidget(node1);
+	scene->addWidget(node2);
+	scene->addWidget(node3);
+	scene->addItem(node4);
+	scene->addItem(node5);
+	scene->addItem(node6);
 }
 
 void StaqueView::mousePressEvent(QMouseEvent* event) {
@@ -78,11 +99,4 @@ void StaqueView::wheelEvent(QWheelEvent* event) {
 
 void StaqueView::changeCursor() {
 
-}
-
-void StaqueView::setHover(bool in) {
-	if (in)
-		mouseState |= ON_HOVER;
-	else
-		mouseState &= ~ON_HOVER;
 }

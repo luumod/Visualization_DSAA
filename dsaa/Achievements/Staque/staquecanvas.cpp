@@ -34,8 +34,9 @@ StaqueCanvas::StaqueCanvas(int radius, QString name, QString desc, QWidget* pare
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
-	view = new StaqueView(this);
-
+	view = new StaqueView;
+	view->setSceneRect(view->rect());
+	view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
 	mainLayout->addWidget(view);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
