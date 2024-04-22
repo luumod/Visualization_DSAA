@@ -118,9 +118,9 @@ Visual_DSAA_autogen/timestamp: \
 	F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
 	F:/Tools/Qt/6.2.4/msvc2019_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
 	F:/code/Visual_DSAA/CMakeLists.txt \
+	F:/code/Visual_DSAA/main.cpp \
 	F:/code/Visual_DSAA/out/build/CMakeFiles/3.28.0-msvc1/CMakeCCompiler.cmake \
 	F:/code/Visual_DSAA/out/build/CMakeFiles/3.28.0-msvc1/CMakeCXXCompiler.cmake \
 	F:/code/Visual_DSAA/out/build/CMakeFiles/3.28.0-msvc1/CMakeRCCompiler.cmake \
 	F:/code/Visual_DSAA/out/build/CMakeFiles/3.28.0-msvc1/CMakeSystem.cmake \
-	F:/code/Visual_DSAA/test.cpp \
 	D:/software/VS2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe

@@ -1,49 +1,88 @@
 #include "staqueview.h"
-#include "logger.h"
-#include "common.h"
-#include <QPaintEvent>
-#include <QScrollArea>
-#include <QPainter>
-#include <QVBoxLayout>
+#include <QGraphicsItem>
 
-StaqueView::StaqueView(QWidget* parent)
-    :QWidget(parent)
-{
-    setMinimumSize(500, 500);  // 设置LinkedListView的最小尺寸
+StaqueView::StaqueView(QWidget* parent) :
+	QGraphicsView(parent)
+ {
+	this->setMouseTracking(true);
+	this->setBackgroundBrush(Qt::transparent);
+	myGraphicsScene = new QGraphicsScene();
+	this->setScene(myGraphicsScene);
+	myGraphicsScene->setBackgroundBrush(QColor(255, 0, 0));
+	this->setRenderHint(QPainter::Antialiasing);
+	this->setCursor(Qt::CrossCursor);
+	this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 }
 
-StaqueView::~StaqueView()
-{
+void StaqueView::mousePressEvent(QMouseEvent* event) {
+	if (event->button() == Qt::MiddleButton) {
+		onMiddlePress = true;
+		lastPos = mapToScene(event->pos());
+		return;
+	}
 }
 
-void StaqueView::updateColors(const QString& node, const QString& arrow, const QString& text) {
-    // TODO... 
-    update();
+void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
+	if (onMiddlePress) {
+		onMiddlePress = false;
+		return;
+	}
+	emit mouseReleased();
+	changeCursor();
 }
 
-void StaqueView::updateSettings(int nodeWidth, int nodeHeight, int arrowSize, int textSpace, int maxNodesPerRow, int row_spacing) {
-    // TODO...
-    
-    update();
+void StaqueView::mouseMoveEvent(QMouseEvent* event) {
+	if (onMiddlePress) {
+		QPointF dp = mapToScene(event->pos()) - lastPos;
+		setSceneRect(sceneRect().x() - dp.x(), sceneRect().y() - dp.y(), sceneRect().width(), sceneRect().height());
+		lastPos = mapToScene(event->pos());
+	}
+	changeCursor();
+	emit mouseMoved(mapToScene(event->pos()));
 }
 
-void StaqueView::resetSettings() {
-    // TODO...
+void StaqueView::wheelEvent(QWheelEvent* event) {
+#if (QT_VERSION >= QT_VERSION_CHECK(6,0,0))
+	QPointF cursorPoint = event->position();
+#else
+	QPointF cursorPoint = event->posF();
+#endif
+	QPointF scenePos = this->mapToScene(QPoint(cursorPoint.x(), cursorPoint.y()));
 
-    update();
+	qreal viewWidth = this->viewport()->width();
+	qreal viewHeight = this->viewport()->height();
+
+	qreal hScale = cursorPoint.x() / viewWidth;
+	qreal vScale = cursorPoint.y() / viewHeight;
+
+	qreal scaleFactor = this->transform().m11();
+	int wheelDeltaValue = event->angleDelta().y();
+	if (wheelDeltaValue > 0)
+	{
+		if (scaleFactor > 2) return;
+		this->scale(1.1, 1.1);
+	}
+	else
+	{
+		if (scaleFactor < 0.5) return;
+		this->scale(1.0 / 1.1, 1.0 / 1.1);
+	}
+	QPointF viewPoint = this->transform().map(scenePos);
+	horizontalScrollBar()->setValue(int(viewPoint.x() - viewWidth * hScale));
+	verticalScrollBar()->setValue(int(viewPoint.y() - viewHeight * vScale));
 }
 
-void StaqueView::paintEvent(QPaintEvent* event) {
-    event->accept();
-    if (!painter) {
-        painter = new QPainter(this);
-    }
-    painter->begin(this);
+void StaqueView::changeCursor() {
 
-    Logger::debug("stack.draw(painter,20,20);");
-    stack.draw(painter, (width() / 2 - stack.node_width) / 2, 20);
-    queue.draw(painter, (width() / 2 + (width() / 2 - stack.node_width) / 2), 20);
+}
 
-    painter->end();
-    //setMinimumHeight(std::min(stack.getHeight()));  // 根据节点数量动态设置LinkedListView的高度
+void StaqueView::setHover(bool in) {
+	if (in)
+		mouseState |= ON_HOVER;
+	else
+		mouseState &= ~ON_HOVER;
 }

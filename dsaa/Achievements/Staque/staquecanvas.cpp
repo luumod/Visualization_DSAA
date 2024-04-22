@@ -34,16 +34,8 @@ StaqueCanvas::StaqueCanvas(int radius, QString name, QString desc, QWidget* pare
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
-	//QScrollArea* scrollArea = new QScrollArea(this);
-	//scrollArea->setWidgetResizable(true);
-
 	view = new StaqueView(this);
-	view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
-	view->setAutoFillBackground(true);
-	palette.setColor(QPalette::Window, Qt::white);
-	view->setPalette(palette);
 
-	//scrollArea->setWidget(view);
 	mainLayout->addWidget(view);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
@@ -93,17 +85,17 @@ void StaqueCanvas::CreateSettings(int radius)
 	adjust_spin_group->AddItem(spin_max_number);
 	adjust_spin_group->AddItem(spin_row_spacing);
 	connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
-		// Update all inborn attributes actually, not care if your whether modified it.
-		view->updateSettings(
-			spin_node_width->value(),
-			spin_node_height->value(),
-			spin_arrow_length->value(),
-			spin_text_size->value(),
-			spin_max_number->value(),
-			spin_row_spacing->value());
+		//// Update all inborn attributes actually, not care if your whether modified it.
+		//view->updateSettings(
+		//	spin_node_width->value(),
+		//	spin_node_height->value(),
+		//	spin_arrow_length->value(),
+		//	spin_text_size->value(),
+		//	spin_max_number->value(),
+		//	spin_row_spacing->value());
 	});
 	connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
-		view->resetSettings();
+		//view->resetSettings();
 	});
 
 
@@ -159,21 +151,21 @@ void StaqueCanvas::CreateSettings(int radius)
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the node to brush.");
 		if (color.isValid()) {
 			btn_node_brush->setDefaultColor(color);
-			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
 		}
 	});
 	connect(btn_arrow_color, &textButton::clicked, this, [=]() {
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the arrow.");
 		if (color.isValid()) {
 			btn_arrow_color->setDefaultColor(color);
-			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
 		}
 		});
 	connect(btn_text_color, &textButton::clicked, this, [=]() {
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for text that in the middle of node.");
 		if (color.isValid()) {
 			btn_text_color->setDefaultColor(color);
-			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
 		}
 		});
 
@@ -294,7 +286,7 @@ void StaqueCanvas::Init()
 	connect(btn_push_stack, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			auto val = input_push->value().toInt();
-			view->stack.push(val);
+			//view->stack.push(val);
 			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val),logDisplay));
 			update();
 		}
@@ -302,7 +294,7 @@ void StaqueCanvas::Init()
 	connect(btn_push_queue, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			auto val = input_push->value().toInt();
-			view->queue.enqueue(val);
+			//view->queue.enqueue(val);
 			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] push: %1").arg(val), logDisplay));
 		}
 		update();
@@ -310,8 +302,8 @@ void StaqueCanvas::Init()
 	connect(btn_push_all, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			auto val = input_push->value().toInt();
-			view->stack.push(val);
-			view->queue.enqueue(val);
+			//view->stack.push(val);
+			//view->queue.enqueue(val);
 			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val), logDisplay));
 			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] push: %1").arg(val), logDisplay));
 		}
@@ -331,31 +323,31 @@ void StaqueCanvas::Init()
 	layout_random->addWidget(btn_random_queue, 3);
 	layout_random->addWidget(btn_random_two, 3);
 	connect(btn_random_stack, &textButton::clicked, this, [=]() {
-		view->stack.clear();
+		//view->stack.clear();
 		int size = QRandomGenerator::global()->bounded(1, 10);
 		for (int i = 0; i < size; i++) {
 			auto val = QRandomGenerator::global()->bounded(0,1000);
-			view->stack.push(val);
+			//view->stack.push(val);
 		}
 		update();
 		});
 	connect(btn_random_queue, &textButton::clicked, this, [=]() {
-		view->queue.clear();
+		//view->queue.clear();
 		int size = QRandomGenerator::global()->bounded(1, 10);
 		for (int i = 0; i < size; i++) {
 			auto val = QRandomGenerator::global()->bounded(0, 1000);
-			view->queue.enqueue(val);
+			//view->queue.enqueue(val);
 		}
 		update();
 		});
 	connect(btn_random_two, &textButton::clicked, this, [=]() {
-		view->stack.clear();
-		view->queue.clear();
+		//view->stack.clear();
+		//view->queue.clear();
 		int size = QRandomGenerator::global()->bounded(1, 10);
 		for (int i = 0; i < size; i++) {
 			auto val = QRandomGenerator::global()->bounded(0, 1000);
-			view->stack.push(val);
-			view->queue.enqueue(val);
+			//view->stack.push(val);
+			//view->queue.enqueue(val);
 		}
 		update();
 		});
@@ -373,23 +365,23 @@ void StaqueCanvas::Init()
 	layout_pop->addWidget(btn_dequeue_queue,3);
 	layout_pop->addWidget(btn_pop_dequeue,3);
 	connect(btn_pop_stack, &textButton::clicked, this, [=]() {
-		if (!view->stack.isEmpty()) {
+		/*if (!view->stack.isEmpty()) {
 			auto val = view->stack.top();
 			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val), logDisplay));
 			view->stack.pop();
 			update();
-		}
+		}*/
 		});
 	connect(btn_dequeue_queue, &textButton::clicked, this, [=]() {
-		if (!view->queue.isEmpty()) {
+		/*if (!view->queue.isEmpty()) {
 			auto val = view->queue.front();
 			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val), logDisplay));
 			view->queue.dequeue();
 			update();
-		}
+		}*/
 		});
 	connect(btn_pop_dequeue, &textButton::clicked, this, [=]() {
-		if (!view->queue.isEmpty() && !view->stack.isEmpty()) {
+		/*if (!view->queue.isEmpty() && !view->stack.isEmpty()) {
 			auto val1 = view->stack.top();
 			auto val2 = view->queue.front();
 			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val1), logDisplay));
@@ -397,7 +389,7 @@ void StaqueCanvas::Init()
 			view->stack.pop();
 			view->queue.dequeue();
 			update();
-		}
+		}*/
 		});
 
 	defTextLayout->addWidget(textName);

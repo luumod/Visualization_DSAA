@@ -30,6 +30,7 @@
 
 class viewLog : public QLabel{
     Q_OBJECT
+
 private:
     QFont logFont = QFont("Corbel", 12);
     QString logText;
@@ -106,6 +107,9 @@ private:
 
     void changeCursor();
 
+    /**
+     * @brief Add vertex when left mouse pressed and released.
+     */
     MyGraphicsVexItem* addVex(QPointF center, qreal radius = 10);
     void clearSketch();
     void sketchLine(QPointF start, QPointF end);
