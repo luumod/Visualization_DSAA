@@ -268,8 +268,7 @@ void StaqueCanvas::Init()
 	textInputItem* input_push = new textInputItem("input", defInfoPage);
 	textButton* btn_random_data = new textButton("Random", defInfoPage);
 	textButton* btn_push_stack = new textButton("Push stack", defInfoPage);
-	textButton* btn_push_queue = new textButton("Push queue", defInfoPage);
-	textButton* btn_push_all = new textButton("Push all", defInfoPage);
+	textButton* btn_pop_stack = new textButton("Pop stack", defInfoPage);
 	QWidget* widget_push = new QWidget(defInfoPage);
 	widget_push->setObjectName("DefTextItems");
 	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
@@ -278,8 +277,7 @@ void StaqueCanvas::Init()
 	layout_push->addWidget(input_push,0,0,1,2);
 	layout_push->addWidget(btn_random_data, 0, 2,1,1);
 	layout_push->addWidget(btn_push_stack,1,0);
-	layout_push->addWidget(btn_push_queue,1,1);
-	layout_push->addWidget(btn_push_all,1,2);
+	layout_push->addWidget(btn_pop_stack, 1, 1);
 	connect(btn_random_data, &textButton::clicked, this, [=]() {
 		int random_value = QRandomGenerator::global()->bounded(0, 1000);
 		input_push->setValue(QString::number(random_value));
@@ -287,28 +285,13 @@ void StaqueCanvas::Init()
 	connect(btn_push_stack, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			auto val = input_push->value().toInt();
-			view->push_back(val);
+			view->on_stack_push(val);
 			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val),logDisplay));
 		}
 	});
-	connect(btn_push_queue, &textButton::clicked, this, [=]() {
-		if (!input_push->value().isEmpty()) {
-			auto val = input_push->value().toInt();
-			//view->queue.enqueue(val);
-			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] push: %1").arg(val), logDisplay));
-		}
-		update();
-	});
-	connect(btn_push_all, &textButton::clicked, this, [=]() {
-		if (!input_push->value().isEmpty()) {
-			auto val = input_push->value().toInt();
-			//view->stack.push(val);
-			//view->queue.enqueue(val);
-			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val), logDisplay));
-			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] push: %1").arg(val), logDisplay));
-		}
-		update();
-	});
+	connect(btn_pop_stack, &textButton::clicked, this, [=]() {
+		view->on_stack_pop();
+		});
 
 	//// Random generate
 	//textButton* btn_random_stack = new textButton("Random stack", defInfoPage);

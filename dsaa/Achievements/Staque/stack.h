@@ -21,6 +21,7 @@ public:
 	int node_height = 40;
 	int node_width = 80;
 	int node_spacing = 20;
+
 private:
 	std::vector<int> data;
 };

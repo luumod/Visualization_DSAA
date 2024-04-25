@@ -44,6 +44,8 @@ private:
 	void wheelEvent(QWheelEvent* event);
 	void resizeEvent(QResizeEvent* event) { this->setSceneRect(this->rect()); }
 public:
+	QPointF push_stackNodeScenePos = QPointF(0,0);
+	int node_spacing_rate = 1;
 	qreal zValue = -1;
 	int vexNum = 0;
 	int arcNum = 0;
@@ -51,8 +53,8 @@ public:
 	Stack stack;
 	Queue queue;
 	bool hasVisitedItem = false;
-
-	void push_back(int value);
+	void push(int val);
+	void pop();
 	StaqueView(QWidget* parent = nullptr);
 
 signals:
@@ -64,5 +66,8 @@ signals:
 	void mouseReleased();
 public slots:
 	void addLog(StaqueViewLog* log) { emit logAdded(log); }
+	void on_stack_push(int val);
+	void on_stack_push_from_release(int val, QPointF scenePos);
+	void on_stack_pop();
 };
 #endif // GRAPH_VIEW_H

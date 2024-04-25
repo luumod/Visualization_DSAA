@@ -43,8 +43,8 @@ void StaqueView::addLine(StaqueNodeItem* start, StaqueNodeItem* end) {
 	//newLine->estConnection(this);
 	newLine->refrshLine();
 	newLine->setZValue(--zValue);
-	start->addStartLine(newLine);
-	end->addEndLine(newLine);
+	//start->addStartLine(newLine);
+	//end->addEndLine(newLine);
 	arcNum++;
 	lines.push_back(newLine);
 	//emit arcAdded(newLine);
@@ -64,10 +64,9 @@ void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
 		onRightPress = false;
 		return;
 	}
-	addNode(mapToScene(event->pos()));
-	if (vexes.size() >= 2) {
-		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end()-1));
-	}
+
+	// Set the push node's default position.
+	on_stack_push_from_release(111, mapToScene(event->pos()));
 
 	emit mouseReleased();
 }
@@ -112,21 +111,57 @@ void StaqueView::wheelEvent(QWheelEvent* event) {
 	verticalScrollBar()->setValue(int(viewPoint.y() - viewHeight * vScale));
 }
 
-void StaqueView::push_back(int value)
-{
-	if (vexes.empty()) {
-		// Head node.
-		addNode(QPointF(0, 0), value);
-	}
-	else {
-		static int i = 1;
-		addNode(QPointF(200 * i, 0), value);
-		i++;
-		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
-	}
+void StaqueView::push(int val){
+	stack.push(val);
+}
+
+void StaqueView::pop() {
+	stack.pop();;
 }
 
 void StaqueView::startLine(StaqueNodeItem* startVex)
 {
 	strtVex = startVex;
+}
+
+
+void StaqueView::on_stack_push(int value){
+	stack.push(value);
+	if (stack.size() == 1) {
+		// Head node.
+		addNode(push_stackNodeScenePos, value);
+	}
+	else {
+		addNode(push_stackNodeScenePos + (QPointF(200,0) * node_spacing_rate), value);
+		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
+	}
+	node_spacing_rate++;
+}
+
+void StaqueView::on_stack_push_from_release(int value,QPointF scenePos) {
+	stack.push(value);
+	if (stack.size() == 1) {
+		// Head node.
+		addNode(scenePos, value);
+	}
+	else {
+		addNode(scenePos, value);
+		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
+	}
+	push_stackNodeScenePos = scenePos;
+	node_spacing_rate = 1;
+}
+
+void StaqueView::on_stack_pop(){
+	stack.pop();
+	// delete the last node
+	if (!vexes.isEmpty()) {
+		vexes.back()->remove();
+		vexes.pop_back();
+	}
+	if (!lines.isEmpty()) {
+		lines.back()->remove();
+		lines.pop_back();
+	}
+	node_spacing_rate == 1 ? node_spacing_rate = 1 : node_spacing_rate--;
 }

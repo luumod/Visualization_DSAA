@@ -30,9 +30,11 @@ public:
 	void stopAnimation();
 	void estConnection(StaqueView* view);
 
-	void addStartLine(StaqueNodeLine* line) { linesStartWith.push_back(line); }
-	void addEndLine(StaqueNodeLine* line) { linesEndWith.push_back(line); }
-
+	void remove();
+	//void addStartLine(StaqueNodeLine* line) { linesStartWith.push_back(line); }
+	//void addEndLine(StaqueNodeLine* line) { linesEndWith.push_back(line); }
+	//void removeStartLine(StaqueNodeLine* line) { linesStartWith.remove(linesStartWith.indexOf(line)); }
+	//void removeEndLine(StaqueNodeLine* line) { linesEndWith.remove(linesEndWith.indexOf(line)); }
 signals:
 	void logAdded(StaqueViewLog* log);
 
@@ -62,10 +64,6 @@ private:
 
 	QGraphicsSimpleTextItem* tag = nullptr;
 	QGraphicsSimpleTextItem* nameTag = nullptr;
-
-	QVector<StaqueNodeLine*> linesStartWith;
-	QVector<StaqueNodeLine*> linesEndWith;
-
 };
 
 class StaqueNodeLine : public QObject, public QGraphicsLineItem
@@ -78,19 +76,20 @@ public:
 	void moveStart(StaqueNodeItem* start);
 	void moveEnd(StaqueNodeItem* end);
 
+	void remove();
 	void drawText();
 	void drawLine();
 	void delArrow();
 	void drawArrow();
 	void refrshLine();
 	void setLengthRate(qreal r = 1);
-	StaqueNodeItem* stVex() { return startNode; }
-	StaqueNodeItem* edVex() { return endNode; }
+	StaqueNodeItem* stVex() { return startVex; }
+	StaqueNodeItem* edVex() { return endVex; }
 signals:
 	void logAdded(StaqueViewLog* log);
 private:
-	StaqueNodeItem* startNode;
-	StaqueNodeItem* endNode;
+	StaqueNodeItem* startVex;
+	StaqueNodeItem* endVex;
 	QGraphicsLineItem* line1 = nullptr;
 	QGraphicsLineItem* line2 = nullptr;
 	QGraphicsPathItem* arrow = nullptr;

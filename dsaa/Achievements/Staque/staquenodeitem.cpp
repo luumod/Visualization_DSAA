@@ -34,10 +34,10 @@ void StaqueNodeItem::move(QPointF position){
 	center = center + displacement;
 	if (tag)
 		tag->moveBy(displacement.x(), displacement.y());
-	for (int i = 0; i < linesStartWith.size(); i++)
+	/*for (int i = 0; i < linesStartWith.size(); i++)
 		linesStartWith[i]->moveStart(this);
 	for (int i = 0; i < linesEndWith.size(); i++)
-		linesEndWith[i]->moveEnd(this);
+		linesEndWith[i]->moveEnd(this);*/
 	nameTag->moveBy(displacement.x(), displacement.y());
 }
 
@@ -92,6 +92,16 @@ void StaqueNodeItem::estConnection(StaqueView* view)
 	connect(this, SIGNAL(addAnimation(QTimeLine*)), view, SLOT(addAnimation(QTimeLine*)));*/
 }
 
+void StaqueNodeItem::remove()
+{
+	if (tag)
+		scene()->removeItem(tag);
+	scene()->removeItem(nameTag);
+	scene()->removeItem(this);
+	//emit removed(this);
+	this->deleteLater();
+}
+
 void StaqueNodeItem::onMouseMove(QPointF position) {
 
 }
@@ -111,8 +121,8 @@ void StaqueNodeItem::onMouseRelease()
 
 StaqueNodeLine::StaqueNodeLine(StaqueNodeItem* start, StaqueNodeItem* end, QGraphicsItem* parent):
 	QGraphicsLineItem(parent),
-	startNode(start),
-	endNode(end) 
+	startVex(start),
+	endVex(end) 
 {
 	//Set display effect
 	defaultPen.setWidth(lineWidth);
@@ -127,15 +137,32 @@ StaqueNodeLine::StaqueNodeLine(StaqueNodeItem* start, StaqueNodeItem* end, QGrap
 void StaqueNodeLine::moveStart(StaqueNodeItem* start)
 {
 	delArrow();
-	startNode = start;
+	startVex = start;
 	refrshLine();
 }
 
 void StaqueNodeLine::moveEnd(StaqueNodeItem* end)
 {
 	delArrow();
-	endNode = end;
+	endVex = end;
 	refrshLine();
+}
+
+void StaqueNodeLine::remove()
+{
+	//startVex->removeStartLine(this);
+	//endVex->removeEndLine(this);
+	if (line1)
+		scene()->removeItem(line1);
+	if (line2)
+		scene()->removeItem(line2);
+	if (arrow)
+		scene()->removeItem(arrow);
+	if (textItem)
+		scene()->removeItem(textItem);
+	scene()->removeItem(this);
+	//emit removed(this);
+	this->deleteLater();
 }
 
 void StaqueNodeLine::drawText()
@@ -172,7 +199,7 @@ void StaqueNodeLine::drawLine()
 		line2 = nullptr;
 	}
 
-	center = (startNode->scenePos() + startNode->rect().center() + endNode->scenePos() + endNode->rect().center()) / 2;
+	center = (startVex->scenePos() + startVex->rect().center() + endVex->scenePos() + endVex->rect().center()) / 2;
 
 	drawText();
 
@@ -254,12 +281,12 @@ void StaqueNodeLine::refrshLine()
 
 void StaqueNodeLine::setLengthRate(qreal r)
 {
-	sP = startNode->scenePos() + startNode->rect().center();
-	eP = endNode->scenePos() + endNode->rect().center();
+	sP = startVex->scenePos() + startVex->rect().center();
+	eP = endVex->scenePos() + endVex->rect().center();
 	dP = eP - sP;
 	angle = atan2(dP.y(), dP.x());
-	eP -= QPointF(endNode->getRadius() * cos(angle), endNode->getRadius() * sin(angle));
-	sP += QPointF(endNode->getRadius() * cos(angle), endNode->getRadius() * sin(angle));
+	eP -= QPointF(endVex->getRadius() * cos(angle), endVex->getRadius() * sin(angle));
+	sP += QPointF(endVex->getRadius() * cos(angle), endVex->getRadius() * sin(angle));
 	dP = (eP - sP) * r;
 	eP = sP + dP;
 }
