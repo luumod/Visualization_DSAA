@@ -1,5 +1,8 @@
 #include "staqueview.h"
 #include "staquenodeitem.h"
+#include "staqueviewlog.h"
+#include "logger.h"
+#include "common.h"
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QMouseEvent>
@@ -17,52 +20,64 @@ StaqueView::StaqueView(QWidget* parent) :
 	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 	setResizeAnchor(QGraphicsView::AnchorUnderMouse);
 
-	scene = new QGraphicsScene;
-	scene->setBackgroundBrush(QColor(255, 255, 255));
-	this->setScene(scene);
+	_scene = new QGraphicsScene;
+	_scene->setBackgroundBrush(QColor(255, 255, 255));
+	this->setScene(_scene);
+}
 
-	auto node1 = new QToolButton;
-	auto node2 = new QToolButton;
-	auto node3 = new QToolButton;
-	auto node4 = new StaqueNodeItem(100,100);
-	node4->setPos(100, 100);
-	auto node5 = new StaqueNodeItem(100, 100);
-	node5->setPos(0, 100);
-	auto node6 = new StaqueNodeItem(100, 100);
-	node6->setPos(-100,0);
+StaqueNodeItem* StaqueView::addNode(QPointF center,int value, qreal radius) {
+	StaqueNodeItem* newNode = new StaqueNodeItem(center, radius, value);
+	_scene->addItem(newNode);
+	newNode->estConnection(this); 
+	newNode->showAnimation();
+	vexNum++;
+	vexes.push_back(newNode);
+	//emit vexAdded(newNode);
+	emit logAdded(new StaqueViewLog(QString("[Vex] | Added \"" + newNode->Text() + "\"")));
+	return newNode;
+}
 
-	scene->addWidget(node1);
-	scene->addWidget(node2);
-	scene->addWidget(node3);
-	scene->addItem(node4);
-	scene->addItem(node5);
-	scene->addItem(node6);
+void StaqueView::addLine(StaqueNodeItem* start, StaqueNodeItem* end) {
+	StaqueNodeLine* newLine = new StaqueNodeLine(start, end);
+	_scene->addItem(newLine);
+	//newLine->estConnection(this);
+	newLine->refrshLine();
+	newLine->setZValue(--zValue);
+	start->addStartLine(newLine);
+	end->addEndLine(newLine);
+	arcNum++;
+	lines.push_back(newLine);
+	//emit arcAdded(newLine);
+	emit logAdded(new StaqueViewLog(QString("[Arc] | Added \"" + newLine->stVex()->Text() + "\" -> \"" + newLine->edVex()->Text() + "\"")));
 }
 
 void StaqueView::mousePressEvent(QMouseEvent* event) {
-	if (event->button() == Qt::MiddleButton) {
-		onMiddlePress = true;
+	if (event->button() == Qt::RightButton) {
+		onRightPress = true;
 		lastPos = mapToScene(event->pos());
 		return;
 	}
 }
 
 void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
-	if (onMiddlePress) {
-		onMiddlePress = false;
+	if (onRightPress) {
+		onRightPress = false;
 		return;
 	}
+	addNode(mapToScene(event->pos()));
+	if (vexes.size() >= 2) {
+		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end()-1));
+	}
+
 	emit mouseReleased();
-	changeCursor();
 }
 
 void StaqueView::mouseMoveEvent(QMouseEvent* event) {
-	if (onMiddlePress) {
+	if (onRightPress) {
 		QPointF dp = mapToScene(event->pos()) - lastPos;
 		setSceneRect(sceneRect().x() - dp.x(), sceneRect().y() - dp.y(), sceneRect().width(), sceneRect().height());
 		lastPos = mapToScene(event->pos());
 	}
-	changeCursor();
 	emit mouseMoved(mapToScene(event->pos()));
 }
 
@@ -97,6 +112,21 @@ void StaqueView::wheelEvent(QWheelEvent* event) {
 	verticalScrollBar()->setValue(int(viewPoint.y() - viewHeight * vScale));
 }
 
-void StaqueView::changeCursor() {
+void StaqueView::push_back(int value)
+{
+	if (vexes.empty()) {
+		// Head node.
+		addNode(QPointF(0, 0), value);
+	}
+	else {
+		static int i = 1;
+		addNode(QPointF(200 * i, 0), value);
+		i++;
+		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
+	}
+}
 
+void StaqueView::startLine(StaqueNodeItem* startVex)
+{
+	strtVex = startVex;
 }

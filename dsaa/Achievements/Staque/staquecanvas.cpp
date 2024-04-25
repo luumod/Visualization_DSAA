@@ -287,9 +287,8 @@ void StaqueCanvas::Init()
 	connect(btn_push_stack, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			auto val = input_push->value().toInt();
-			//view->stack.push(val);
+			view->push_back(val);
 			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] push: %1").arg(val),logDisplay));
-			update();
 		}
 	});
 	connect(btn_push_queue, &textButton::clicked, this, [=]() {
@@ -311,93 +310,92 @@ void StaqueCanvas::Init()
 		update();
 	});
 
-	// Random generate
-	textButton* btn_random_stack = new textButton("Random stack", defInfoPage);
-	textButton* btn_random_queue = new textButton("Random queue", defInfoPage);
-	textButton* btn_random_two = new textButton("Random all", defInfoPage);
-	QWidget* widget_random = new QWidget(defInfoPage);
-	widget_random->setObjectName("DefTextItems");
-	widget_random->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_random = new QHBoxLayout(widget_random);
-	widget_random->setLayout(layout_random);
-	layout_random->addWidget(btn_random_stack, 3);
-	layout_random->addWidget(btn_random_queue, 3);
-	layout_random->addWidget(btn_random_two, 3);
-	connect(btn_random_stack, &textButton::clicked, this, [=]() {
-		//view->stack.clear();
-		int size = QRandomGenerator::global()->bounded(1, 10);
-		for (int i = 0; i < size; i++) {
-			auto val = QRandomGenerator::global()->bounded(0,1000);
-			//view->stack.push(val);
-		}
-		update();
-		});
-	connect(btn_random_queue, &textButton::clicked, this, [=]() {
-		//view->queue.clear();
-		int size = QRandomGenerator::global()->bounded(1, 10);
-		for (int i = 0; i < size; i++) {
-			auto val = QRandomGenerator::global()->bounded(0, 1000);
-			//view->queue.enqueue(val);
-		}
-		update();
-		});
-	connect(btn_random_two, &textButton::clicked, this, [=]() {
-		//view->stack.clear();
-		//view->queue.clear();
-		int size = QRandomGenerator::global()->bounded(1, 10);
-		for (int i = 0; i < size; i++) {
-			auto val = QRandomGenerator::global()->bounded(0, 1000);
-			//view->stack.push(val);
-			//view->queue.enqueue(val);
-		}
-		update();
-		});
-
-	// pop and dequeue
-	textButton* btn_pop_stack = new textButton("Pop", defInfoPage);
-	textButton* btn_dequeue_queue = new textButton("Dequeue", defInfoPage);
-	textButton* btn_pop_dequeue = new textButton("Pop and Dequeue", defInfoPage);
-	QWidget* widget_pop = new QWidget(defInfoPage);
-	widget_pop->setObjectName("DefTextItems");
-	widget_pop->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_pop = new QHBoxLayout(widget_pop);
-	widget_pop->setLayout(layout_pop);
-	layout_pop->addWidget(btn_pop_stack,3);
-	layout_pop->addWidget(btn_dequeue_queue,3);
-	layout_pop->addWidget(btn_pop_dequeue,3);
-	connect(btn_pop_stack, &textButton::clicked, this, [=]() {
-		/*if (!view->stack.isEmpty()) {
-			auto val = view->stack.top();
-			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val), logDisplay));
-			view->stack.pop();
-			update();
-		}*/
-		});
-	connect(btn_dequeue_queue, &textButton::clicked, this, [=]() {
-		/*if (!view->queue.isEmpty()) {
-			auto val = view->queue.front();
-			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val), logDisplay));
-			view->queue.dequeue();
-			update();
-		}*/
-		});
-	connect(btn_pop_dequeue, &textButton::clicked, this, [=]() {
-		/*if (!view->queue.isEmpty() && !view->stack.isEmpty()) {
-			auto val1 = view->stack.top();
-			auto val2 = view->queue.front();
-			logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val1), logDisplay));
-			logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val2), logDisplay));
-			view->stack.pop();
-			view->queue.dequeue();
-			update();
-		}*/
-		});
+	//// Random generate
+	//textButton* btn_random_stack = new textButton("Random stack", defInfoPage);
+	//textButton* btn_random_queue = new textButton("Random queue", defInfoPage);
+	//textButton* btn_random_two = new textButton("Random all", defInfoPage);
+	//QWidget* widget_random = new QWidget(defInfoPage);
+	//widget_random->setObjectName("DefTextItems");
+	//widget_random->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	//QHBoxLayout* layout_random = new QHBoxLayout(widget_random);
+	//widget_random->setLayout(layout_random);
+	//layout_random->addWidget(btn_random_stack, 3);
+	//layout_random->addWidget(btn_random_queue, 3);
+	//layout_random->addWidget(btn_random_two, 3);
+	//connect(btn_random_stack, &textButton::clicked, this, [=]() {
+	//	//view->stack.clear();
+	//	int size = QRandomGenerator::global()->bounded(1, 10);
+	//	for (int i = 0; i < size; i++) {
+	//		auto val = QRandomGenerator::global()->bounded(0,1000);
+	//		//view->stack.push(val);
+	//	}
+	//	update();
+	//	});
+	//connect(btn_random_queue, &textButton::clicked, this, [=]() {
+	//	//view->queue.clear();
+	//	int size = QRandomGenerator::global()->bounded(1, 10);
+	//	for (int i = 0; i < size; i++) {
+	//		auto val = QRandomGenerator::global()->bounded(0, 1000);
+	//		//view->queue.enqueue(val);
+	//	}
+	//	update();
+	//	});
+	//connect(btn_random_two, &textButton::clicked, this, [=]() {
+	//	//view->stack.clear();
+	//	//view->queue.clear();
+	//	int size = QRandomGenerator::global()->bounded(1, 10);
+	//	for (int i = 0; i < size; i++) {
+	//		auto val = QRandomGenerator::global()->bounded(0, 1000);
+	//		//view->stack.push(val);
+	//		//view->queue.enqueue(val);
+	//	}
+	//	update();
+	//	});
+	//// pop and dequeue
+	//textButton* btn_pop_stack = new textButton("Pop", defInfoPage);
+	//textButton* btn_dequeue_queue = new textButton("Dequeue", defInfoPage);
+	//textButton* btn_pop_dequeue = new textButton("Pop and Dequeue", defInfoPage);
+	//QWidget* widget_pop = new QWidget(defInfoPage);
+	//widget_pop->setObjectName("DefTextItems");
+	//widget_pop->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	//QHBoxLayout* layout_pop = new QHBoxLayout(widget_pop);
+	//widget_pop->setLayout(layout_pop);
+	//layout_pop->addWidget(btn_pop_stack,3);
+	//layout_pop->addWidget(btn_dequeue_queue,3);
+	//layout_pop->addWidget(btn_pop_dequeue,3);
+	//connect(btn_pop_stack, &textButton::clicked, this, [=]() {
+	//	/*if (!view->stack.isEmpty()) {
+	//		auto val = view->stack.top();
+	//		logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val), logDisplay));
+	//		view->stack.pop();
+	//		update();
+	//	}*/
+	//	});
+	//connect(btn_dequeue_queue, &textButton::clicked, this, [=]() {
+	//	/*if (!view->queue.isEmpty()) {
+	//		auto val = view->queue.front();
+	//		logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val), logDisplay));
+	//		view->queue.dequeue();
+	//		update();
+	//	}*/
+	//	});
+	//connect(btn_pop_dequeue, &textButton::clicked, this, [=]() {
+	//	/*if (!view->queue.isEmpty() && !view->stack.isEmpty()) {
+	//		auto val1 = view->stack.top();
+	//		auto val2 = view->queue.front();
+	//		logDisplay->addWidget(new StaqueViewLog(QString("[Stack] pop the top: %1").arg(val1), logDisplay));
+	//		logDisplay->addWidget(new StaqueViewLog(QString("[Queue] dequeue the front: %1").arg(val2), logDisplay));
+	//		view->stack.pop();
+	//		view->queue.dequeue();
+	//		update();
+	//	}*/
+	//	});
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push); 
-	defTextLayout->addWidget(widget_random);
-	defTextLayout->addWidget(widget_pop);
+	//defTextLayout->addWidget(widget_random);
+	//defTextLayout->addWidget(widget_pop);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
@@ -407,5 +405,8 @@ void StaqueCanvas::Init()
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);
+
+
+	connect(view, &StaqueView::logAdded, this, [=](StaqueViewLog* log) {logDisplay->addWidget(log); });
 }
 
