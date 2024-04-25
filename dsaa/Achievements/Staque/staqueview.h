@@ -65,6 +65,7 @@ signals:
 	void mouseRightClicked(QPointF position);
 	void mouseReleased();
 public slots:
+	void setSel(QGraphicsItem* sel);
 	void addLog(StaqueViewLog* log) { emit logAdded(log); }
 	void on_stack_push(int val);
 	void on_stack_push_from_release(int val, QPointF scenePos);

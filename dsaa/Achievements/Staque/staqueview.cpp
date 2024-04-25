@@ -9,6 +9,7 @@
 #include <QScrollBar>
 #include <QHBoxLayout>
 #include <QToolButton>
+#include <QSignalMapper>
 
 StaqueView::StaqueView(QWidget* parent) :
 	QGraphicsView(parent){
@@ -57,6 +58,8 @@ void StaqueView::mousePressEvent(QMouseEvent* event) {
 		lastPos = mapToScene(event->pos());
 		return;
 	}
+
+	emit mouseLeftClicked(mapToScene(event->pos()));
 }
 
 void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
@@ -65,8 +68,20 @@ void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
 		return;
 	}
 
-	// Set the push node's default position.
-	on_stack_push_from_release(111, mapToScene(event->pos()));
+	bool containsItem = false;
+	QPointF releasePos = mapToScene(event->pos());
+	QList<QGraphicsItem*> itemsAtReleasePos = scene()->items(releasePos);
+	for (QGraphicsItem* item : itemsAtReleasePos) {
+		if (item->contains(item->mapFromScene(releasePos))) {
+			// The position contains other node.
+			containsItem = true;
+			break;
+		}
+	}
+
+	if (!containsItem) {
+		on_stack_push_from_release(111, releasePos);
+	}
 
 	emit mouseReleased();
 }
@@ -122,6 +137,10 @@ void StaqueView::pop() {
 void StaqueView::startLine(StaqueNodeItem* startVex)
 {
 	strtVex = startVex;
+}
+
+void StaqueView::setSel(QGraphicsItem* sel) {
+
 }
 
 

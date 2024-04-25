@@ -1,10 +1,14 @@
 #include "staquenodeitem.h"
 #include "staqueview.h"
+#include "staqueviewlog.h"
+#include "logger.h"
+#include "common.h"
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>
 #include <QGraphicsSimpleTextItem>
 #include <QTimeLine>
+#include <QTimer>
 
 /// <summary>
 /// 
@@ -80,12 +84,12 @@ void StaqueNodeItem::estConnection(StaqueView* view)
 {
 	view->scene()->addItem(nameTag);
 	connect(this, SIGNAL(logAdded(StaqueViewLog*)), view, SLOT(addLog(StaqueViewLog*)));
-	/*connect(view, SIGNAL(mouseMoved(QPointF)), this, SLOT(onMouseMove(QPointF)));
+	connect(view, SIGNAL(mouseMoved(QPointF)), this, SLOT(onMouseMove(QPointF)));
 	connect(view, SIGNAL(mouseLeftClicked(QPointF)), this, SLOT(onLeftClick(QPointF)));
 	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
 	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
-	connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
 	connect(this, SIGNAL(selected(QGraphicsItem*)), view, SLOT(setSel(QGraphicsItem*)));
+	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
 	connect(this, SIGNAL(lineFrom(MyGraphicsVexItem*)), view, SLOT(startLine(MyGraphicsVexItem*)));
 	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
 	connect(this, SIGNAL(removed(MyGraphicsVexItem*)), view, SLOT(vexRemoved(MyGraphicsVexItem*)));
@@ -94,12 +98,20 @@ void StaqueNodeItem::estConnection(StaqueView* view)
 
 void StaqueNodeItem::remove()
 {
-	if (tag)
-		scene()->removeItem(tag);
-	scene()->removeItem(nameTag);
-	scene()->removeItem(this);
-	//emit removed(this);
-	this->deleteLater();
+	this->setBrush(QColor(Qt::red));
+	onPopEffect();
+
+	if (curAnimation) {
+		connect(curAnimation, &QTimeLine::finished, this, [=]() {
+			if (tag)
+				scene()->removeItem(tag);
+			scene()->removeItem(nameTag);
+			scene()->removeItem(this);
+			//emit removed(this);
+			this->deleteLater();
+		});
+	}
+	
 }
 
 void StaqueNodeItem::onMouseMove(QPointF position) {
@@ -108,6 +120,11 @@ void StaqueNodeItem::onMouseMove(QPointF position) {
 
 void StaqueNodeItem::onLeftClick(QPointF position)
 {
+	if (this->contains(position)) {
+		emit selected(this);
+		//state |= ON_LEFT_CLICK;
+		onClickEffect();
+	}
 }
 
 void StaqueNodeItem::onRightClick(QPointF position)
@@ -116,7 +133,48 @@ void StaqueNodeItem::onRightClick(QPointF position)
 
 void StaqueNodeItem::onMouseRelease()
 {
+	onReleaseEffect();
+}
 
+void StaqueNodeItem::onClickEffect() {
+	stopAnimation();
+	qreal curRadius = 0.75 * radius;
+	this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+}
+
+void StaqueNodeItem::onReleaseEffect() {
+	stopAnimation();
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = radius * 1.25 - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal curRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+		});
+	curAnimation = timeLine;
+	startAnimation();
+}
+
+void StaqueNodeItem::onPopEffect()
+{
+	stopAnimation();
+	qreal curRadius = 0.75 * radius;
+	this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = radius * 1.25 - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal curRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+		});
+	curAnimation = timeLine;
+	startAnimation();
 }
 
 StaqueNodeLine::StaqueNodeLine(StaqueNodeItem* start, StaqueNodeItem* end, QGraphicsItem* parent):
@@ -150,19 +208,19 @@ void StaqueNodeLine::moveEnd(StaqueNodeItem* end)
 
 void StaqueNodeLine::remove()
 {
-	//startVex->removeStartLine(this);
-	//endVex->removeEndLine(this);
-	if (line1)
-		scene()->removeItem(line1);
-	if (line2)
-		scene()->removeItem(line2);
-	if (arrow)
-		scene()->removeItem(arrow);
-	if (textItem)
-		scene()->removeItem(textItem);
-	scene()->removeItem(this);
-	//emit removed(this);
-	this->deleteLater();
+	QTimer::singleShot(300, [=]() {
+		if (line1)
+			scene()->removeItem(line1);
+		if (line2)
+			scene()->removeItem(line2);
+		if (arrow)
+			scene()->removeItem(arrow);
+		if (textItem)
+			scene()->removeItem(textItem);
+		scene()->removeItem(this);
+		//emit removed(this);
+		this->deleteLater();
+	});
 }
 
 void StaqueNodeLine::drawText()

@@ -28,6 +28,12 @@ public:
 	void showAnimation();
 	void startAnimation();
 	void stopAnimation();
+
+	void onClickEffect();
+	void onReleaseEffect();
+
+	void onPopEffect();
+
 	void estConnection(StaqueView* view);
 
 	void remove();
@@ -36,6 +42,7 @@ public:
 	//void removeStartLine(StaqueNodeLine* line) { linesStartWith.remove(linesStartWith.indexOf(line)); }
 	//void removeEndLine(StaqueNodeLine* line) { linesEndWith.remove(linesEndWith.indexOf(line)); }
 signals:
+	void selected(QGraphicsItem* sel);
 	void logAdded(StaqueViewLog* log);
 
 public slots:
@@ -43,6 +50,7 @@ public slots:
 	void onLeftClick(QPointF position);
 	void onRightClick(QPointF position);
 	void onMouseRelease();
+
 private:
 	int id;
 

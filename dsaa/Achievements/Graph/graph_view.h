@@ -164,7 +164,6 @@ public slots:
     void addLog(viewLog *log){emit logAdded(log);}
     void vexRemoved(MyGraphicsVexItem* vex){vexes.erase(vexes.begin() + vexes.indexOf(vex));vexNum--;}
     void arcRemoved(MyGraphicsLineItem* line){lines.erase(lines.begin() + lines.indexOf(line));arcNum--;}
-
     void addAnimation(QTimeLine *ani);
 
 };
