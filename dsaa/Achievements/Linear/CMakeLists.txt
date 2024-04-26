@@ -15,7 +15,11 @@ add_library(dsaa_linear STATIC
     lineardatafactory.h
     lineardatafactory.cpp
     linkedlistview.h
-    linkedlistview.cpp)
+    linkedlistview.cpp      
+    linkedlistviewlog.cpp
+    linkedlistviewlog.h
+    linkedlistnodeitem.h
+    linkedlistnodeitem.cpp)
 
 target_link_libraries(dsaa_linear PRIVATE
     Qt6::Core

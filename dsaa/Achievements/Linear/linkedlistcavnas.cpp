@@ -35,17 +35,10 @@ LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidg
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
-	QScrollArea* scrollArea = new QScrollArea(this);
-	scrollArea->setWidgetResizable(true);
-
-	view = new LinkedListView(this);
-	view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
-	view->setAutoFillBackground(true);
-	palette.setColor(QPalette::Window, Qt::white);
-	view->setPalette(palette);
-
-	scrollArea->setWidget(view);
-	mainLayout->addWidget(scrollArea);
+	view = new LinkedListView;
+	view->setSceneRect(view->rect());
+	view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
+	mainLayout->addWidget(view);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
 
@@ -95,16 +88,16 @@ void LinkedListCanvas::CreateSettings(int radius)
 	adjust_spin_group->AddItem(spin_row_spacing);
 	connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
 		// Update all inborn attributes actually, not care if your whether modified it.
-		view->updateSettings(
+		/*view->updateSettings(
 			spin_node_width->value(),
 			spin_node_height->value(),
 			spin_arrow_length->value(),
 			spin_text_size->value(),
 			spin_max_number->value(),
-			spin_row_spacing->value());
+			spin_row_spacing->value());*/
 	});
 	connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
-		view->resetSettings();
+		//view->resetSettings();
 	});
 
 
@@ -160,21 +153,21 @@ void LinkedListCanvas::CreateSettings(int radius)
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the node to brush.");
 		if (color.isValid()) {
 			btn_node_brush->setDefaultColor(color);
-			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
 		}
 	});
 	connect(btn_arrow_color, &textButton::clicked, this, [=]() {
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the arrow.");
 		if (color.isValid()) {
 			btn_arrow_color->setDefaultColor(color);
-			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
 		}
 		});
 	connect(btn_text_color, &textButton::clicked, this, [=]() {
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for text that in the middle of node.");
 		if (color.isValid()) {
 			btn_text_color->setDefaultColor(color);
-			view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
 		}
 		});
 
@@ -272,14 +265,12 @@ void LinkedListCanvas::Init()
 	layout_push->setStretch(2, 2);
 	connect(btn_push_back, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
-			view->listObj()->push_back(input_push->value().toInt());
-			view->update();
+			view->push_back(input_push->value().toInt());
 		}
 		});
 	connect(btn_push_front, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
-			view->listObj()->push_front(input_push->value().toInt());
-			view->update();
+			view->push_front(input_push->value().toInt());
 		}
 		});
 	
@@ -298,15 +289,15 @@ void LinkedListCanvas::Init()
 	layout_del->setStretch(1, 3);
 	layout_del->setStretch(2, 3);
 	connect(btn_pop_front, &textButton::clicked, this, [=]() {
-		view->listObj()->pop_front();
+		//view->listObj()->pop_front();
 		view->update();
 		});
 	connect(btn_pop_back, &textButton::clicked, this, [=]() {
-		view->listObj()->pop_back();
+		//view->listObj()->pop_back();
 		view->update();
 		});
 	connect(btn_clear, &textButton::clicked, this, [=]() {
-		view->listObj()->clear();
+		//view->listObj()->clear();
 		view->update();
 		});
 
@@ -323,15 +314,15 @@ void LinkedListCanvas::Init()
 	layout_random_gen->setStretch(1, 5);
 	connect(random_one_node, &textButton::clicked, this, [=]() {
 		int random = QRandomGenerator::global()->bounded(0, 10000);
-		view->listObj()->push_back(random);
+		//view->listObj()->push_back(random);
 		view->update();
 		});
 	connect(random_whole_ls, &textButton::clicked, this, [=]() {
-		view->listObj()->clear();
+		//view->listObj()->clear();
 		int size = QRandomGenerator::global()->bounded(1, 100);
 		for (int i = 0; i < size; i++) {
 			int random = QRandomGenerator::global()->bounded(0, 10000);
-			view->listObj()->push_back(random);
+			//view->listObj()->push_back(random);
 		}
 		view->update();
 		});
@@ -354,7 +345,7 @@ void LinkedListCanvas::Init()
 		QString s_input =input_insert->value();
 		auto s_list = s_input.split(" ");
 		if (s_list.size() == 2) {
-			view->listObj()->insert(s_list[0].toInt(),s_list[1].toInt());
+			//view->listObj()->insert(s_list[0].toInt(),s_list[1].toInt());
 			view->update();
 		}
 	});
@@ -373,7 +364,7 @@ void LinkedListCanvas::Init()
 	layout_delete->setStretch(1, 3);
 	connect(btn_delete, &textButton::clicked, this, [=]() {
 		if (!input_delete->value().isEmpty()) {
-			view->listObj()->remove(input_delete->value().toInt());
+			//view->listObj()->remove(input_delete->value().toInt());
 			view->update();
 		}
 		});
