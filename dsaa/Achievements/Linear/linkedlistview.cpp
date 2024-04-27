@@ -154,8 +154,9 @@ void LinkedListView::mouseReleaseEvent(QMouseEvent* event) {
 		}
 	}
 
+	qInfo() << "linked list releasePos = " << releasePos;
 	if (!containsItem) {
-		//on_stack_push_from_release(111, releasePos);
+		on_list_push_from_release(111, releasePos);
 	}
 
 	emit mouseReleased();
@@ -214,10 +215,10 @@ void LinkedListView::on_list_push_back(int value) {
 	list->push_back(value);
 	if (list->size() == 1) {
 		// Head node.
-		addNode(push_stackNodeScenePos, value);
+		addNode(push_defaultPos, value);
 	}
 	else {
-		addNode(vexes.last()->scenePos() + QPointF(100,0), value);
+		addNode(vexes.last()->rect().center() + QPointF(200,0), value);
 		addLine((LinkedListNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
 	}
 }
@@ -227,10 +228,10 @@ void LinkedListView::on_list_push_front(int value)
 	list->push_front(value);
 	if (list->size() == 1) {
 		// Head node.
-		addNode(push_stackNodeScenePos, value,Dir::FRONT);
+		addNode(push_defaultPos, value,Dir::FRONT);
 	}
 	else {
-		auto node = addNode(vexes.first()->scenePos() + QPointF(-100, 0), value,Dir::FRONT);
+		auto node = addNode(vexes.last()->rect().center() + QPointF(- 200, 0), value, Dir::FRONT);
 		addLine(*(vexes.begin()),*(vexes.begin() + 1), Dir::FRONT);
 	}
 }
@@ -286,7 +287,7 @@ void LinkedListView::on_list_insert(int pos, int value)
 		list->insert(pos,value);
 		// pos-1  pos   pos+1
 		// []-----[]------[]
-		addNode(vexes[pos]->scenePos() + QPointF(0,200), value, Dir::INSERT, pos);
+		addNode(vexes[pos]->rect().center() + QPointF(0, 200), value, Dir::INSERT, pos);
 		/*
 		auto new_node = new Node;
 			1. new_node->pre = ptr->prev,
@@ -329,15 +330,14 @@ void LinkedListView::on_list_delete(int pos)
 }
 
 void LinkedListView::on_list_push_from_release(int value, QPointF scenePos) {
-	//list->push_back(value);
-	//if (list->size() == 1) {
-	//	// head node.
-	//	addNode(scenepos, value);
-	//}
-	//else {
-	//	addNode(scenepos, value);
-	//	addLine((linkedlistnodeitem*)*(vexes.end() - 2), *(vexes.end() - 1));
-	//}
-	//push_stacknodescenepos = scenepos;
-	//node_spacing_rate = 1;
+	// Default push_back
+	list->push_back(value);
+	if (list->size() == 1) {
+		// Head node.
+		addNode(scenePos, value);
+	}
+	else {
+		addNode(scenePos, value);
+		addLine(*(vexes.end() - 2), *(vexes.end() - 1));
+	}
 }

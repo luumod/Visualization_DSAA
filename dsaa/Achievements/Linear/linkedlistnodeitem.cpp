@@ -23,6 +23,16 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 {
 	id = internalID++;
 	nameText = QString::asprintf("%d", value);
+	nameTag = new QGraphicsSimpleTextItem;
+	nameTag->setPos(center + QPointF(radius, -radius - QFontMetrics(nameFont).height()));
+	nameTag->setFont(nameFont);
+	nameTag->setText(nameText);
+	nameTag->setZValue(this->zValue());
+	this->setPen(Qt::NoPen);
+	this->setBrush(regBrush);
+
+	/*id = internalID++;
+	nameText = QString::asprintf("%d", value);
 	a = value;
 	nameTag = new QGraphicsSimpleTextItem;
 	nameTag->setFont(nameFont);
@@ -32,7 +42,7 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 	this->setBrush(regBrush);
 
 	this->setPos(center);
-	nameTag->setPos(mapToScene(center));
+	nameTag->setPos(mapToScene(center));*/
 }
 
 void LinkedListNodeItem::movePos(QPointF position){

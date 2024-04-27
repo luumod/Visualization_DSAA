@@ -50,9 +50,10 @@ private:
 	void wheelEvent(QWheelEvent* event);
 	void resizeEvent(QResizeEvent* event) { this->setSceneRect(this->rect()); }
 public:
-	QPointF push_stackNodeScenePos = QPointF(0, 0);
+	QPointF push_defaultPos = QPointF(100, 100);
 	int node_spacing_rate_back = 0;
 	int node_spacing_rate_front = 0;
+	int node_spacing_rate = 1;
 	qreal zValue = -1;
 	int vexNum = 0;
 	int arcNum = 0;

@@ -38,10 +38,6 @@ void StaqueNodeItem::move(QPointF position){
 	center = center + displacement;
 	if (tag)
 		tag->moveBy(displacement.x(), displacement.y());
-	/*for (int i = 0; i < linesStartWith.size(); i++)
-		linesStartWith[i]->moveStart(this);
-	for (int i = 0; i < linesEndWith.size(); i++)
-		linesEndWith[i]->moveEnd(this);*/
 	nameTag->moveBy(displacement.x(), displacement.y());
 }
 
