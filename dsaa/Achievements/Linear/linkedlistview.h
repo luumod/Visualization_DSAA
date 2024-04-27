@@ -20,7 +20,8 @@ private:
 	};
 	enum Dir {
 		BACK,
-		FRONT
+		FRONT,
+		INSERT
 	};
 	QGraphicsScene* _scene;
 
@@ -40,8 +41,8 @@ private:
 	LinkedListNodeItem* strtVex = nullptr;
 
 
-	LinkedListNodeItem* addNode(QPointF center, int value = -1, Dir d = Dir::BACK,qreal radius = 50.0);
-	void addLine(LinkedListNodeItem* start, LinkedListNodeItem* end);
+	LinkedListNodeItem* addNode(QPointF center, int value = -1, Dir d = Dir::BACK, int pos = -1,qreal radius = 50.0);
+	void addLine(LinkedListNodeItem* start, LinkedListNodeItem* end, Dir d = Dir::BACK,int pos = -1);
 	void startLine(LinkedListNodeItem* startVex);
 	void mousePressEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);
@@ -61,11 +62,14 @@ public:
 	void push_front(int val);
 	void pop_back();
 	void pop_front();
+	void clear();
+	void random_gen(int size);
+	void remove(int pos);
+	void insert(int pos,int value);
 	LinkedListView(QWidget* parent = nullptr);
 
 signals:
 	void logAdded(LinkedListViewLog* log);
-
 	void mouseMoved(QPointF position);
 	void mouseLeftClicked(QPointF position);
 	void mouseRightClicked(QPointF position);
@@ -75,7 +79,10 @@ public slots:
 	void addLog(LinkedListViewLog* log) { emit logAdded(log); }
 	void on_list_push_back(int value);
 	void on_list_push_front(int value);
+	void on_list_pop_back();
+	void on_list_pop_front();
+	void on_list_insert(int pos,int value);
+	void on_list_delete(int pos);
 	void on_list_push_from_release(int val, QPointF scenePos);
-	void on_list_pop();
 };
 #endif // GRAPH_VIEW_H

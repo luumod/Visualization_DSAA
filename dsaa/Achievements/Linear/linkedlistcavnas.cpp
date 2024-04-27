@@ -289,15 +289,13 @@ void LinkedListCanvas::Init()
 	layout_del->setStretch(1, 3);
 	layout_del->setStretch(2, 3);
 	connect(btn_pop_front, &textButton::clicked, this, [=]() {
-		//view->listObj()->pop_front();
-		view->update();
+		view->pop_front();
 		});
 	connect(btn_pop_back, &textButton::clicked, this, [=]() {
-		//view->listObj()->pop_back();
-		view->update();
+		view->pop_back();
 		});
 	connect(btn_clear, &textButton::clicked, this, [=]() {
-		//view->listObj()->clear();
+		view->clear();
 		view->update();
 		});
 
@@ -314,17 +312,12 @@ void LinkedListCanvas::Init()
 	layout_random_gen->setStretch(1, 5);
 	connect(random_one_node, &textButton::clicked, this, [=]() {
 		int random = QRandomGenerator::global()->bounded(0, 10000);
-		//view->listObj()->push_back(random);
-		view->update();
+		view->push_back(random);
 		});
 	connect(random_whole_ls, &textButton::clicked, this, [=]() {
-		//view->listObj()->clear();
-		int size = QRandomGenerator::global()->bounded(1, 100);
-		for (int i = 0; i < size; i++) {
-			int random = QRandomGenerator::global()->bounded(0, 10000);
-			//view->listObj()->push_back(random);
-		}
-		view->update();
+		view->clear();
+		int size = QRandomGenerator::global()->bounded(5, 10);
+		view->random_gen(size);
 		});
 
 	// Insert node
@@ -345,8 +338,7 @@ void LinkedListCanvas::Init()
 		QString s_input =input_insert->value();
 		auto s_list = s_input.split(" ");
 		if (s_list.size() == 2) {
-			//view->listObj()->insert(s_list[0].toInt(),s_list[1].toInt());
-			view->update();
+			view->insert(s_list[0].toInt(),s_list[1].toInt());
 		}
 	});
 
@@ -364,8 +356,7 @@ void LinkedListCanvas::Init()
 	layout_delete->setStretch(1, 3);
 	connect(btn_delete, &textButton::clicked, this, [=]() {
 		if (!input_delete->value().isEmpty()) {
-			//view->listObj()->remove(input_delete->value().toInt());
-			view->update();
+			view->remove(input_delete->value().toInt());
 		}
 		});
 

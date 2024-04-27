@@ -20,7 +20,7 @@ public:
 	using QGraphicsRectItem::QGraphicsRectItem;
 	LinkedListNodeItem(QPointF _center, qreal _r, int nameID = 0, QGraphicsItem* parent = nullptr);
 
-	void move(QPointF position);
+	void movePos(QPointF position);
 
 	qreal getRadius() { return radius; }
 	QString Text() { return nameText; }
@@ -37,6 +37,7 @@ public:
 	void estConnection(LinkedListView* view);
 
 	void remove();
+	int a = 0;
 	//void addStartLine(LinkedListNodeLine* line) { linesStartWith.push_back(line); }
 	//void addEndLine(LinkedListNodeLine* line) { linesEndWith.push_back(line); }
 	//void removeStartLine(LinkedListNodeLine* line) { linesStartWith.remove(linesStartWith.indexOf(line)); }

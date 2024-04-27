@@ -23,6 +23,7 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 {
 	id = internalID++;
 	nameText = QString::asprintf("%d", value);
+	a = value;
 	nameTag = new QGraphicsSimpleTextItem;
 	nameTag->setFont(nameFont);
 	nameTag->setText(nameText);
@@ -31,20 +32,14 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 	this->setBrush(regBrush);
 
 	this->setPos(center);
-	nameTag->setPos(this->scenePos());
+	nameTag->setPos(mapToScene(center));
 }
 
-void LinkedListNodeItem::move(QPointF position){
-	QPointF displacement = position - (this->scenePos() + this->rect().center());
-	this->setRect(QRectF(this->rect().x() + displacement.x(), this->rect().y() + displacement.y(), this->rect().width(), this->rect().height()));
-	center = center + displacement;
+void LinkedListNodeItem::movePos(QPointF position){
+	this->setPos(this->scenePos() + position);
 	if (tag)
-		tag->moveBy(displacement.x(), displacement.y());
-	/*for (int i = 0; i < linesStartWith.size(); i++)
-		linesStartWith[i]->moveStart(this);
-	for (int i = 0; i < linesEndWith.size(); i++)
-		linesEndWith[i]->moveEnd(this);*/
-	nameTag->moveBy(displacement.x(), displacement.y());
+		tag->setPos(mapToScene(this->rect().x() + radius, this->rect().y() + radius));
+	nameTag->setPos(mapToScene(this->rect().x() + radius, this->rect().y() + radius));
 }
 
 void LinkedListNodeItem::showAnimation()

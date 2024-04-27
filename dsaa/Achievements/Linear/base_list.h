@@ -33,7 +33,7 @@ public:
 
 	Node_ptr m_head{ nullptr };
 	Node_ptr m_tail{ nullptr };
-	std::size_t m_size{};
+	std::size_t m_size{ 0 };
 
 	void init_first_element(const int& elem);
 
