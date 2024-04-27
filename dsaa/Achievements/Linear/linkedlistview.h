@@ -42,7 +42,7 @@ private:
 
 
 	LinkedListNodeItem* addNode(QPointF center, int value = -1, Dir d = Dir::BACK, int pos = -1,qreal radius = 50.0);
-	void addLine(LinkedListNodeItem* start, LinkedListNodeItem* end, Dir d = Dir::BACK,int pos = -1);
+	LinkedListNodeLine* addLine(LinkedListNodeItem* start, LinkedListNodeItem* end, Dir d = Dir::BACK,int pos = -1);
 	void startLine(LinkedListNodeItem* startVex);
 	void mousePressEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);

@@ -104,14 +104,14 @@ LinkedListNodeItem* LinkedListView::addNode(QPointF center, int value, Dir d, in
 	return newNode;
 }
 
-void LinkedListView::addLine(LinkedListNodeItem* start, LinkedListNodeItem* end, Dir d, int pos) {
+LinkedListNodeLine* LinkedListView::addLine(LinkedListNodeItem* start, LinkedListNodeItem* end, Dir d, int pos) {
 	LinkedListNodeLine* newLine = new LinkedListNodeLine(start, end);
 	_scene->addItem(newLine);
 	//newLine->estConnection(this);
 	newLine->refrshLine();
 	newLine->setZValue(--zValue);
-	//start->addStartLine(newLine);
-	//end->addEndLine(newLine);
+	start->addStartLine(newLine);
+	end->addEndLine(newLine);
 	arcNum++;
 	if (d == Dir::BACK) {
 		lines.push_back(newLine);
@@ -124,6 +124,7 @@ void LinkedListView::addLine(LinkedListNodeItem* start, LinkedListNodeItem* end,
 	}
 	//emit arcAdded(newLine);
 	emit logAdded(new LinkedListViewLog(QString("[Arc] | Added \"" + newLine->stVex()->Text() + "\" -> \"" + newLine->edVex()->Text() + "\"")));
+	return newLine;
 }
 
 void LinkedListView::mousePressEvent(QMouseEvent* event) {
@@ -239,13 +240,14 @@ void LinkedListView::on_list_pop_back()
 	list->pop_back();
 	// delete the last node
 	if (!vexes.isEmpty()) {
-		vexes.back()->remove();
+		vexes.back()->remove_back();
 		vexes.pop_back();
+		qInfo() << "on_list_pop_back";
 	}
-	if (!lines.isEmpty()) {
+	//lines.pop_back();
+	/*if (!lines.isEmpty()) {
 		lines.back()->remove();
-		lines.pop_back();
-	}
+	}*/
 }
 
 void LinkedListView::on_list_pop_front()
@@ -268,23 +270,50 @@ void LinkedListView::on_list_insert(int pos, int value)
 	example:
 		0 1 2 3 4
 		pos = 0 -1 -2 -3 :  push_front
-		pos = 4 5 6 7...	push_back
-		pos = 1 2 4...		other
+		pos = 5 6 7...		push_back
+		pos = 1 2 3 4...	other
 	*/
 	if (pos <= 0) {
 		on_list_push_front(value);
 	}
-	else if (pos + 1 >= list->size()) {
+	else if (pos >= list->size()) {
 		on_list_push_back(value);
 	}
 	else {
 		list->insert(pos,value);
-		addNode(vexes[pos]->scenePos(), value, Dir::INSERT, pos);
+		// pos-1  pos   pos+1
+		// []-----[]------[]
+		addNode(vexes[pos]->scenePos() + QPointF(0,200), value, Dir::INSERT, pos);
+		/*
+		auto new_node = new Node;
+			1. new_node->pre = ptr->prev,
+			2. new_node->end = ptr 
+			3. ptr->prev->next = new_node;
+			4. ptr->prev = new_node;
+		*/
+		auto new_node = vexes[pos];
+		auto pre_node = vexes[pos - 1];
+		auto next_node = vexes[pos + 1];
+		pre_node->removeStartLine();
+		next_node->addEndLine(nullptr);
+		addLine(pre_node, new_node);
+		addLine(new_node, next_node);
 		for (int i = pos + 1 ; i < list->size(); i++) {
 			vexes[i]->movePos(QPointF(200, 0));
 		}
-		addLine((LinkedListNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
+
+		/*vexes[pos]->removeEndLine();
+		vexes[pos - 1]->addStartLine(nullptr);
+		addNode(vexes[pos]->scenePos() + QPointF(0,100), value, Dir::INSERT, pos);
+		addLine(vexes[pos],vexes[pos + 1]);
+		addLine(vexes[pos - 1], vexes[pos]);*/
 	}
+	/*
+	bug:
+		1. insert 4 nodes to the pos 1.
+		2. delete the pos 1 twice.
+		3. insert the pos 1 one node.
+	*/
 }
 
 void LinkedListView::on_list_delete(int pos)
@@ -292,7 +321,7 @@ void LinkedListView::on_list_delete(int pos)
 	if (pos <= 0) {
 		on_list_pop_front();
 	}
-	else if (pos >= list->size() - 1) {
+	else if (pos + 1 >= list->size()) {
 		on_list_pop_back();
 	}
 	else {

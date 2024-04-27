@@ -37,11 +37,13 @@ public:
 	void estConnection(LinkedListView* view);
 
 	void remove();
+	void remove_front();
+	void remove_back();
 	int a = 0;
-	//void addStartLine(LinkedListNodeLine* line) { linesStartWith.push_back(line); }
-	//void addEndLine(LinkedListNodeLine* line) { linesEndWith.push_back(line); }
-	//void removeStartLine(LinkedListNodeLine* line) { linesStartWith.remove(linesStartWith.indexOf(line)); }
-	//void removeEndLine(LinkedListNodeLine* line) { linesEndWith.remove(linesEndWith.indexOf(line)); }
+	void addStartLine(LinkedListNodeLine* line); 
+	void addEndLine(LinkedListNodeLine* line); 
+	void removeStartLine();
+	void removeEndLine();
 signals:
 	void selected(QGraphicsItem* sel);
 	void logAdded(LinkedListViewLog* log);
@@ -54,6 +56,9 @@ public slots:
 
 private:
 	int id;
+
+	LinkedListNodeLine* linesStartWith{ nullptr };
+	LinkedListNodeLine* linesEndWith{ nullptr };
 
 	static unsigned int internalID;
 	QBrush regBrush = QBrush(QColor(58, 143, 192));

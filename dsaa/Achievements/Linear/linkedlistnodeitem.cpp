@@ -39,6 +39,10 @@ void LinkedListNodeItem::movePos(QPointF position){
 	this->setPos(this->scenePos() + position);
 	if (tag)
 		tag->setPos(mapToScene(this->rect().x() + radius, this->rect().y() + radius));
+	if (linesStartWith)
+		linesStartWith->moveStart(this);
+	if (linesEndWith)
+		linesEndWith->moveEnd(this);
 	nameTag->setPos(mapToScene(this->rect().x() + radius, this->rect().y() + radius));
 }
 
@@ -100,6 +104,8 @@ void LinkedListNodeItem::remove()
 
 	if (curAnimation) {
 		connect(curAnimation, &QTimeLine::finished, this, [=]() {
+			removeEndLine();
+			removeStartLine();
 			if (tag)
 				scene()->removeItem(tag);
 			scene()->removeItem(nameTag);
@@ -108,7 +114,78 @@ void LinkedListNodeItem::remove()
 			this->deleteLater();
 		});
 	}
-	
+}
+
+void LinkedListNodeItem::remove_front()
+{
+	this->setBrush(QColor(Qt::red));
+	onPopEffect();
+
+	if (curAnimation) {
+		connect(curAnimation, &QTimeLine::finished, this, [=]() {
+			linesStartWith->remove();
+			linesStartWith = nullptr;
+			linesEndWith->remove();
+			linesEndWith = nullptr;
+			if (tag)
+				scene()->removeItem(tag);
+			scene()->removeItem(nameTag);
+			scene()->removeItem(this);
+			//emit removed(this);
+			this->deleteLater();
+			});
+	}
+}
+
+void LinkedListNodeItem::remove_back()
+{
+	this->setBrush(QColor(Qt::red));
+	onPopEffect();
+
+	if (curAnimation) {
+		connect(curAnimation, &QTimeLine::finished, this, [=]() {
+			if (linesEndWith) {
+				linesEndWith->remove();
+				linesEndWith = nullptr;
+			}
+			if (tag)
+				scene()->removeItem(tag);
+			scene()->removeItem(nameTag);
+			scene()->removeItem(this);
+			//emit removed(this);
+			this->deleteLater();
+			});
+	}
+}
+
+void LinkedListNodeItem::addStartLine(LinkedListNodeLine* line)
+{
+	linesStartWith = line;
+}
+
+void LinkedListNodeItem::addEndLine(LinkedListNodeLine* line)
+{
+	linesEndWith = line;
+}
+
+void LinkedListNodeItem::removeStartLine()
+{
+	if (linesStartWith) {
+		linesStartWith->remove();
+		linesStartWith = nullptr;
+		addStartLine(nullptr);
+		qInfo() << "removeStartLine";
+	}
+}
+
+void LinkedListNodeItem::removeEndLine()
+{
+	if (linesEndWith) {
+		linesEndWith->remove();
+		linesEndWith = nullptr;
+		addEndLine(nullptr);
+		qInfo() << "removeEndLine";
+	}
 }
 
 void LinkedListNodeItem::onMouseMove(QPointF position) {
@@ -205,7 +282,7 @@ void LinkedListNodeLine::moveEnd(LinkedListNodeItem* end)
 
 void LinkedListNodeLine::remove()
 {
-	QTimer::singleShot(300, [=]() {
+	QTimer::singleShot(300,this, [=]() {
 		if (line1)
 			scene()->removeItem(line1);
 		if (line2)
@@ -214,9 +291,13 @@ void LinkedListNodeLine::remove()
 			scene()->removeItem(arrow);
 		if (textItem)
 			scene()->removeItem(textItem);
-		scene()->removeItem(this);
+		if (scene() && scene()->items().contains(this))
+		{
+			qInfo() << "remove lines";
+			scene()->removeItem(this);
+			this->deleteLater();
+		}
 		//emit removed(this);
-		this->deleteLater();
 	});
 }
 
