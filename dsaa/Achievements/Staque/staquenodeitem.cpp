@@ -107,7 +107,6 @@ void StaqueNodeItem::remove()
 			this->deleteLater();
 		});
 	}
-	
 }
 
 void StaqueNodeItem::onMouseMove(QPointF position) {

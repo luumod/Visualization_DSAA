@@ -46,14 +46,16 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 }
 
 void LinkedListNodeItem::movePos(QPointF position){
-	this->setPos(this->scenePos() + position);
+	QPointF displacement = position - (this->scenePos() + this->rect().center());
+	this->setRect(QRectF(this->rect().x() + displacement.x(), this->rect().y() + displacement.y(), this->rect().width(), this->rect().height()));
+	center = center + displacement;
 	if (tag)
-		tag->setPos(mapToScene(this->rect().x() + radius, this->rect().y() + radius));
+		tag->moveBy(displacement.x(), displacement.y());
 	if (linesStartWith)
 		linesStartWith->moveStart(this);
 	if (linesEndWith)
 		linesEndWith->moveEnd(this);
-	nameTag->setPos(mapToScene(this->rect().x() + radius, this->rect().y() + radius));
+	nameTag->moveBy(displacement.x(), displacement.y());
 }
 
 void LinkedListNodeItem::showAnimation()
@@ -216,14 +218,40 @@ void LinkedListNodeItem::removeEndLine()
 }
 
 void LinkedListNodeItem::onMouseMove(QPointF position) {
-
+	if (state & PREPARING)
+		return;
+	if ((state & ON_LEFT_CLICK) == 0) {
+		if (this->contains(position)) {
+			if ((state & ON_HOVER) == 0) {
+				//emit setHover(true);
+				hoverInEffect();
+				state |= ON_HOVER;
+			}
+		}
+		else {
+			if (state & ON_HOVER) {
+				//emit setHover(false);
+				hoverOutEffect();
+				state &= ~ON_HOVER;
+			}
+		}
+	}
+	else {
+		// The key to move.
+		movePos(position);
+		state &= ~ON_SELECTED;
+	}
 }
 
 void LinkedListNodeItem::onLeftClick(QPointF position)
 {
+	if (state & PREPARING)
+		return;
+	if (state & (ON_LEFT_CLICK | ON_RIGHT_CLICK))
+		return;
 	if (this->contains(position)) {
-		emit selected(this);
-		//state |= ON_LEFT_CLICK;
+		//emit selected(this);
+		state |= ON_LEFT_CLICK;
 		onClickEffect();
 	}
 }
@@ -234,7 +262,12 @@ void LinkedListNodeItem::onRightClick(QPointF position)
 
 void LinkedListNodeItem::onMouseRelease()
 {
-	onReleaseEffect();
+	if (state & PREPARING)
+		return;
+	if (state & (ON_LEFT_CLICK | ON_RIGHT_CLICK)) {
+		state &= ~(ON_LEFT_CLICK | ON_RIGHT_CLICK);
+		onReleaseEffect();
+	}
 }
 
 void LinkedListNodeItem::onClickEffect() {
@@ -250,6 +283,41 @@ void LinkedListNodeItem::onReleaseEffect() {
 	QEasingCurve curve = QEasingCurve::OutBounce;
 	qreal baseRadius = this->rect().width() / 2;
 	qreal difRadius = radius * 1.25 - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal curRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+		});
+	curAnimation = timeLine;
+	startAnimation();
+}
+
+void LinkedListNodeItem::hoverInEffect()
+{
+	stopAnimation();
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = 1.25 * radius - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal curRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+
+		});
+	curAnimation = timeLine;
+	startAnimation();
+}
+
+void LinkedListNodeItem::hoverOutEffect()
+{
+	stopAnimation();
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = radius - baseRadius;
 	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
 		qreal curProgress = curve.valueForProgress(frame / 100.0);
 		qreal curRadius = baseRadius + difRadius * curProgress;
@@ -304,6 +372,31 @@ void LinkedListNodeLine::moveEnd(LinkedListNodeItem* end)
 {
 	delArrow();
 	endVex = end;
+	refrshLine();
+}
+
+void LinkedListNodeLine::estConnection(LinkedListView* view)
+{
+	connect(this, SIGNAL(logAdded(LinkedListViewLog*)), view, SLOT(addLog(LinkedListViewLog*)));
+	connect(view, SIGNAL(mouseMoved(QPointF)), this, SLOT(onMouseMove(QPointF)));
+	connect(view, SIGNAL(mouseLeftClicked(QPointF)), this, SLOT(onLeftClick(QPointF)));
+	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
+	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
+	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
+	connect(this, SIGNAL(selected(QGraphicsItem*)), view, SLOT(setSel(QGraphicsItem*)));
+	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
+	connect(this, SIGNAL(addAnimation(QTimeLine*)), view, SLOT(addAnimation(QTimeLine*)));
+	connect(this, SIGNAL(removed(MyGraphicsLineItem*)), view, SLOT(arcRemoved(MyGraphicsLineItem*)));*/
+}
+
+void LinkedListNodeLine::hoverInEffect()
+{
+	curPen.setWidth(lineWidth + 1);
+	refrshLine();
+}
+
+void LinkedListNodeLine::hoverOutEffect() {
+	curPen.setWidth(lineWidth);
 	refrshLine();
 }
 
@@ -405,7 +498,15 @@ void LinkedListNodeLine::drawLine()
 		this->scene()->addItem(newLine);
 		line1 = newLine;
 	}
-	drawArrow();
+
+	if (hasDirection) {
+		delArrow();
+		drawArrow();
+	}
+	else {
+		if (arrow)
+			delArrow();
+	}
 }
 
 void LinkedListNodeLine::delArrow()
@@ -452,4 +553,32 @@ void LinkedListNodeLine::setLengthRate(qreal r)
 	sP += QPointF(endVex->getRadius() * cos(angle), endVex->getRadius() * sin(angle));
 	dP = (eP - sP) * r;
 	eP = sP + dP;
+}
+
+
+void LinkedListNodeLine::onMouseMove(QPointF position) {
+	if (this->contains(position)) {
+		//emit setHover(true);
+		hoverInEffect();
+		state |= ON_HOVER;
+	}
+	else {
+		if (state & ON_HOVER) {
+			//emit setHover(false);
+			hoverOutEffect();
+			state &= ~ON_HOVER;
+		}
+	}
+}
+
+void LinkedListNodeLine::onLeftClick(QPointF position) {
+	// TODO...
+}
+
+void LinkedListNodeLine::onRightClick(QPointF position) {
+	// TODO...
+}
+
+void LinkedListNodeLine::onMouseRelease(){
+	// TODO...
 }

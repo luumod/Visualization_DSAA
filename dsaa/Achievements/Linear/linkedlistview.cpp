@@ -107,7 +107,7 @@ LinkedListNodeItem* LinkedListView::addNode(QPointF center, int value, Dir d, in
 LinkedListNodeLine* LinkedListView::addLine(LinkedListNodeItem* start, LinkedListNodeItem* end, Dir d, int pos) {
 	LinkedListNodeLine* newLine = new LinkedListNodeLine(start, end);
 	_scene->addItem(newLine);
-	//newLine->estConnection(this);
+	newLine->estConnection(this);
 	newLine->refrshLine();
 	newLine->setZValue(--zValue);
 	start->addStartLine(newLine);
@@ -154,7 +154,6 @@ void LinkedListView::mouseReleaseEvent(QMouseEvent* event) {
 		}
 	}
 
-	qInfo() << "linked list releasePos = " << releasePos;
 	if (!containsItem) {
 		on_list_push_from_release(111, releasePos);
 	}
@@ -168,6 +167,7 @@ void LinkedListView::mouseMoveEvent(QMouseEvent* event) {
 		setSceneRect(sceneRect().x() - dp.x(), sceneRect().y() - dp.y(), sceneRect().width(), sceneRect().height());
 		lastPos = mapToScene(event->pos());
 	}
+
 	emit mouseMoved(mapToScene(event->pos()));
 }
 
@@ -302,9 +302,6 @@ void LinkedListView::on_list_insert(int pos, int value)
 		next_node->addEndLine(nullptr);
 		addLine(pre_node, new_node);
 		addLine(new_node, next_node);
-		/*for (int i = pos + 1 ; i < list->size(); i++) {
-			vexes[i]->movePos(QPointF(200, 0));
-		}*/
 	}
 }
 

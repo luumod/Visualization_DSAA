@@ -17,6 +17,20 @@ class LinkedListNodeItem : public QObject, public QGraphicsRectItem {
 	Q_OBJECT
 
 public:
+
+	enum {
+		PREPARING = 0b10000000,
+		UNDEFINED = 0b00000000,
+		ON_HOVER = 0b00000001,
+		ON_LEFT_CLICK = 0b00000010,
+		ON_RIGHT_CLICK = 0b00000100,
+		ON_SELECTED = 0b00001000,
+		ON_LINING = 0b00010000,
+		ON_MENU = 0b00100000,
+		ON_VISIT = 0b01000000,
+		ON_ACCESS = 0b10000000
+	};
+
 	using QGraphicsRectItem::QGraphicsRectItem;
 	LinkedListNodeItem(QPointF _center, qreal _r, int nameID = 0, QGraphicsItem* parent = nullptr);
 
@@ -31,6 +45,8 @@ public:
 
 	void onClickEffect();
 	void onReleaseEffect();
+	void hoverInEffect();
+	void hoverOutEffect();
 
 	void onPopEffect();
 
@@ -57,6 +73,7 @@ public slots:
 
 private:
 	int id;
+	int state = UNDEFINED;
 
 	LinkedListNodeLine* linesStartWith{ nullptr };
 	LinkedListNodeLine* linesEndWith{ nullptr };
@@ -86,10 +103,25 @@ class LinkedListNodeLine : public QObject, public QGraphicsLineItem
 	Q_OBJECT
 
 public:
+	enum {
+		UNDEFINED = 0b00000000,
+		ON_HOVER = 0b00000001,
+		ON_LEFT_CLICK = 0b00000010,
+		ON_RIGHT_CLICK = 0b00000100,
+		ON_SELECTED = 0b00001000,
+		ON_MENU = 0b00100000,
+		ON_VISIT = 0b01000000
+	};
+
 	LinkedListNodeLine(LinkedListNodeItem* start, LinkedListNodeItem* end, QGraphicsItem* parent = nullptr);
 
 	void moveStart(LinkedListNodeItem* start);
 	void moveEnd(LinkedListNodeItem* end);
+
+	void estConnection(LinkedListView* view);
+
+	void hoverInEffect(); 
+	void hoverOutEffect();
 
 	void remove();
 	void drawText();
@@ -102,7 +134,13 @@ public:
 	LinkedListNodeItem* edVex() { return endVex; }
 signals:
 	void logAdded(LinkedListViewLog* log);
+public slots:
+	void onMouseMove(QPointF position);
+	void onLeftClick(QPointF position);
+	void onRightClick(QPointF position);
+	void onMouseRelease();
 private:
+	 int state = UNDEFINED;
 	LinkedListNodeItem* startVex;
 	LinkedListNodeItem* endVex;
 	QGraphicsLineItem* line1 = nullptr;
