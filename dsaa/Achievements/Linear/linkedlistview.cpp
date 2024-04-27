@@ -239,28 +239,31 @@ void LinkedListView::on_list_pop_back()
 {
 	list->pop_back();
 	// delete the last node
-	if (!vexes.isEmpty()) {
+	if (vexes.size() > 1) {
 		vexes.back()->remove_back();
 		vexes.pop_back();
 		qInfo() << "on_list_pop_back";
 	}
-	//lines.pop_back();
-	/*if (!lines.isEmpty()) {
-		lines.back()->remove();
-	}*/
+	else if (vexes.size() == 1) {
+		// Only one
+		vexes.back()->remove_head();
+		vexes.pop_back();
+	}
 }
 
 void LinkedListView::on_list_pop_front()
 {
 	list->pop_front();
 	// delete the last node
-	if (!vexes.isEmpty()) {
-		vexes.front()->remove();
+	if (vexes.size() > 1) {
+		vexes.front()->remove_front();
 		vexes.pop_front();
+		qInfo() << "on_list_pop_back";
 	}
-	if (!lines.isEmpty()) {
-		lines.front()->remove();
-		lines.pop_front();
+	else if (vexes.size() == 1) {
+		// Only one
+		vexes.front()->remove_head();
+		vexes.pop_front();
 	}
 }
 

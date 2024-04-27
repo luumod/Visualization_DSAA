@@ -123,10 +123,27 @@ void LinkedListNodeItem::remove_front()
 
 	if (curAnimation) {
 		connect(curAnimation, &QTimeLine::finished, this, [=]() {
-			linesStartWith->remove();
-			linesStartWith = nullptr;
-			linesEndWith->remove();
-			linesEndWith = nullptr;
+			if (linesStartWith) {
+				linesStartWith->remove();
+				linesStartWith = nullptr;
+			}
+			if (tag)
+				scene()->removeItem(tag);
+			scene()->removeItem(nameTag);
+			scene()->removeItem(this);
+			//emit removed(this);
+			this->deleteLater();
+			});
+	}
+}
+
+void LinkedListNodeItem::remove_head()
+{
+	this->setBrush(QColor(Qt::red));
+	onPopEffect();
+
+	if (curAnimation) {
+		connect(curAnimation, &QTimeLine::finished, this, [=]() {
 			if (tag)
 				scene()->removeItem(tag);
 			scene()->removeItem(nameTag);
@@ -282,7 +299,7 @@ void LinkedListNodeLine::moveEnd(LinkedListNodeItem* end)
 
 void LinkedListNodeLine::remove()
 {
-	QTimer::singleShot(300,this, [=]() {
+	//QTimer::singleShot(300,this, [=]() {
 		if (line1)
 			scene()->removeItem(line1);
 		if (line2)
@@ -298,7 +315,7 @@ void LinkedListNodeLine::remove()
 			this->deleteLater();
 		}
 		//emit removed(this);
-	});
+	//});
 }
 
 void LinkedListNodeLine::drawText()

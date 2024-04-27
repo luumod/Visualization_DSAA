@@ -39,6 +39,7 @@ public:
 	void remove();
 	void remove_front();
 	void remove_back();
+	void remove_head();
 	int a = 0;
 	void addStartLine(LinkedListNodeLine* line); 
 	void addEndLine(LinkedListNodeLine* line); 
