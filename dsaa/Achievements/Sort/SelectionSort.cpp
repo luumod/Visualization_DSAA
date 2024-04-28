@@ -4,6 +4,7 @@
 #include <QtMath>
 #include <QTime>
 #include <QTimer>
+#include <QPainterPath>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPaintEvent>
@@ -158,10 +159,10 @@ void SelectionSort::draw(QPainter *painter, int width, int height)
 		//画文字
 		painter->drawText(item_left, item_bottom + text_height + text_space,
 						  QString::number(arr.at(i)));
-		//画色块柱子
-		painter->fillRect(item_left, item_bottom - item_height,
-						  item_width, item_height,
-						  color);
+		QPainterPath roundPath;
+		roundPath.addRoundedRect(QRectF(item_left, item_bottom - item_height,
+			item_width, item_height), 10, 10);
+		painter->fillPath(roundPath, color);
 	}
 }
 

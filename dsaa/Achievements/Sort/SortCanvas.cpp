@@ -222,7 +222,9 @@ void SortCanvas::Init(){
 	// Sort type.
 	textInputItem* sortType = new textInputItem("Type", defInfoPage);
 	sortType->setValue(canvasSortType);
-	connect(this, &SortCanvas::typeChanged, this, [=](QString value) {sortType->setValue(value); });
+	connect(this, &SortCanvas::typeChanged, this, [=](QString value) {
+		sortType->setValue(value);
+	});
 	textName->setEnabled(false);
 	// Sort interval.
 	textInputItem* interval = new textInputItem("Interval", defInfoPage);

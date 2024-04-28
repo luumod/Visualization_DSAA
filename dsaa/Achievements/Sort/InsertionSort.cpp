@@ -4,6 +4,7 @@
 #include <QtMath>
 #include <QTime>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPaintEvent>
 #include <QScopeGuard>
 #include <QFontMetrics>
@@ -102,9 +103,9 @@ void InsertionSort::draw(QPainter *painter, int width, int height)
     const int top_space = 20;
     const int bottom_space = 50;
 
-    const int item_space = 10; //柱子横项间隔
+    const int item_space = 10; 
     const int text_height = painter->fontMetrics().height();
-    const int text_space = 15; //文字和柱子间隔
+    const int text_space = 15;
     const double item_width = (width + item_space - left_space - right_space) / (double)len - item_space;
     const double item_bottom = height - bottom_space;
     const double height_factor = (height - top_space - bottom_space) / (double)len;
@@ -113,15 +114,11 @@ void InsertionSort::draw(QPainter *painter, int width, int height)
     QColor color;
     for (int i = 0; i < len; i++)
     {
-        //色块位置x
         item_left = left_space + i * (item_width + item_space);
         item_height = height_factor * arr.at(i);
-        //色块颜色
         color = QColor(200, 200, 200);
-        //在执行排序操作的时候标记比较的两个元素
         if (getRunFlag()) {
             if (i <=  arrI) {
-                //已排序好的
                 color = QColor(0, 170, 0);
             }
             if (i == arrJ - 1) {
@@ -136,13 +133,13 @@ void InsertionSort::draw(QPainter *painter, int width, int height)
                 }
             }
         }
-        //画文字
         painter->drawText(item_left, item_bottom + text_height + text_space,
                           QString::number(arr.at(i)));
-        //画色块柱子
-        painter->fillRect(item_left, item_bottom - item_height,
-                          item_width, item_height,
-                          color);
+        // Draw pillar.
+        QPainterPath roundPath;
+        roundPath.addRoundedRect(QRectF(item_left, item_bottom - item_height,
+            item_width, item_height), 10, 10);
+        painter->fillPath(roundPath, color);
     }
 }
 

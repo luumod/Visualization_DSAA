@@ -34,8 +34,8 @@ SortPage::SortPage(QWidget* parent) :
 	// Construct the visual window.
 	sortCanvas = new SortCanvas(
 		20, 
-		"Bubble Sort",
-		"bubble sort is the most simple sort.",
+		"Untitled",
+		"Input the description for this canvas.",
 		parent);
 	// Construct operate widget.
 	_mainOperateWidget = new QWidget(_contentWidget);
