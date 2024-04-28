@@ -8,6 +8,9 @@
 #include <QPen>
 #include <QColor>
 
+#define ShowEffect
+#define Interface
+
 class LinkedListNodeLine;
 class QGraphicsSimpleTextItem;
 class QTimeLine;
@@ -17,7 +20,6 @@ class LinkedListNodeItem : public QObject, public QGraphicsRectItem {
 	Q_OBJECT
 
 public:
-
 	enum {
 		PREPARING = 0b10000000,
 		UNDEFINED = 0b00000000,
@@ -31,36 +33,89 @@ public:
 		ON_ACCESS = 0b10000000
 	};
 
-	using QGraphicsRectItem::QGraphicsRectItem;
 	LinkedListNodeItem(QPointF _center, qreal _r, int nameID = 0, QGraphicsItem* parent = nullptr);
 
-	void movePos(QPointF position);
+public ShowEffect:
 
-	qreal getRadius() { return radius; }
-	QString Text() { return nameText; }
-
+	/**
+	 * @brief Create an animation effect for the new node to be created.
+	 */
 	void showAnimation();
+
+	/**
+	 * @brief Start animation effect.
+	 */
 	void startAnimation();
+
+	/**
+	 * @brief Stop animation effect.
+	 */
 	void stopAnimation();
 
+	/**
+	 * @brief When clicked the node, show the clicked effect.
+	 */
 	void onClickEffect();
+
+	/**
+	 * @brief When release the node, show the release effect.
+	 */
 	void onReleaseEffect();
+
+	/**
+	 * @brief When hover but not clicked, show the hover in effect.
+	 */
 	void hoverInEffect();
+
+	/**
+	 * @brief When not hover, show the normal effect.
+	 */
 	void hoverOutEffect();
 
+	/**
+	 * @brief When remove one node, show the remove effect.
+	 */
 	void onPopEffect();
 
+
+public Interface:
+
+	/**
+	 * @brief The Connections to connect the view, node-item and line.
+	 */
 	void estConnection(LinkedListView* view);
 
 	void remove();
 	void remove_front();
 	void remove_back();
 	void remove_head();
-	int a = 0;
+
+	/**
+	 * @brief Move the scene coordinate of the one node to the position.
+	 */
+	void movePos(QPointF position);
+	
+	/**
+	 * @brief Records the connection line start from the node.
+	 */
 	void addStartLine(LinkedListNodeLine* line); 
+
+	/**
+	 * @brief Records the connection line that end at the node.
+	 */
 	void addEndLine(LinkedListNodeLine* line); 
+
+	/**
+	 * @brief When remove one node, we ought to also remove its Subordinate connection line.
+	 */
 	void removeStartLine();
+
+	/**
+	 * @brief When remove one node, we ought to also remove its Subordinate connection line.
+	 */
 	void removeEndLine();
+	QString Text() { return nameText; }
+	qreal getRadius() { return radius; }
 signals:
 	void selected(QGraphicsItem* sel);
 	void logAdded(LinkedListViewLog* log);
@@ -80,9 +135,6 @@ private:
 
 	static unsigned int internalID;
 	QBrush regBrush = QBrush(QColor(58, 143, 192));
-	QBrush selBrush = QBrush(QColor(208, 90, 110));
-	QBrush visitedBrush = QBrush(QColor(0, 137, 108));
-	QBrush accessBrush = QBrush(QColor(152, 109, 178));
 
 	QString nameText = "";
 	QFont nameFont = QFont("Corbel", 13, QFont::Normal, true);

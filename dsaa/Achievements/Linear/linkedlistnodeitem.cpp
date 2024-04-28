@@ -30,19 +30,6 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 	nameTag->setZValue(this->zValue());
 	this->setPen(Qt::NoPen);
 	this->setBrush(regBrush);
-
-	/*id = internalID++;
-	nameText = QString::asprintf("%d", value);
-	a = value;
-	nameTag = new QGraphicsSimpleTextItem;
-	nameTag->setFont(nameFont);
-	nameTag->setText(nameText);
-	nameTag->setZValue(this->zValue());
-	this->setPen(Qt::NoPen);
-	this->setBrush(regBrush);
-
-	this->setPos(center);
-	nameTag->setPos(mapToScene(center));*/
 }
 
 void LinkedListNodeItem::movePos(QPointF position){
@@ -60,7 +47,7 @@ void LinkedListNodeItem::movePos(QPointF position){
 
 void LinkedListNodeItem::showAnimation()
 {
-	//stopAnimation();
+	stopAnimation();
 	QTimeLine* timeLine = new QTimeLine(500, this);
 	timeLine->setFrameRange(0, 200);
 	QEasingCurve curve = QEasingCurve::OutBounce;
@@ -73,8 +60,6 @@ void LinkedListNodeItem::showAnimation()
 		});
 	curAnimation = timeLine;
 	startAnimation();
-	//connect(timeLine, &QTimeLine::finished, [this]() {this->state &= ~PREPARING; });
-	//timeLine->start();
 }
 
 void LinkedListNodeItem::startAnimation()

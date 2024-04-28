@@ -3,6 +3,7 @@
 #include "common.h"
 #include "SortObject.h"
 #include "SortFactory.h"
+#include "sortviewlog.h"
 #include "Components/horizontalValueAdjuster.h"
 #include "Components/textButton.h"
 #include "Components/singleSelectGroup.h"
@@ -18,6 +19,7 @@
 #include <QListView>
 #include <QSpinBox>
 #include <QColorDialog>
+#include "BubbleSort.h"
 
 SortCanvas::SortCanvas(int radius, QString name, QString desc, QWidget *parent)
 	:QWidget(parent),
@@ -258,11 +260,13 @@ void SortCanvas::Init(){
 	QWidget* lowerSplitter = new QWidget(lower);
 	lowerSplitter->setFixedSize(30, 6);
 	lowerSplitter->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
-	ScrollAreaCustom* logDisplay = new ScrollAreaCustom(lower);
+	logDisplay = new ScrollAreaCustom(lower);
 	logDisplay->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	lowerLayout->addWidget(logLabel);
 	lowerLayout->addWidget(lowerSplitter);
 	lowerLayout->addWidget(logDisplay);
+
+	
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);
@@ -292,6 +296,14 @@ void SortCanvas::setSortObject(int type, SortObject *obj)
 			update();
 		});
 		connect(sortObj, &SortObject::runFlagChanged, this, &SortCanvas::runFlagChanged);
+		connect(sortObj, &SortObject::finishedEachIteration, this, [=](QVector<int> arr) {
+			QStringList stringList;
+			for (int i = 0; i < arr.size(); ++i) {
+				stringList << QString::number(arr[i]);
+			}
+			QString result = stringList.join(" ");
+			logDisplay->addWidget(new SortViewLog(QString("[Iteration]: %1").arg(result), logDisplay));
+			});
 	}
 	update();
 }

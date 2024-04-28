@@ -10,6 +10,7 @@
 #include <QFontMetrics>
 #include <QDebug>
 #include <random>
+#include <QTimer>
 
 ShellSort::ShellSort(QObject *parent)
     : SortObject(parent)
@@ -52,7 +53,6 @@ void ShellSort::sort(int count, int interval)
     setRunFlag(true);
 
     int len = arr.length();
-    //先将待排序的数组元素分成多个序列，然后对每个子序列分别进行直接插入排序
     for (arrGap = len / 2; arrGap > 0; arrGap /= 2)
     {
         for (arrI = arrGap; arrI < len; arrI++)
@@ -92,6 +92,10 @@ void ShellSort::sort(int count, int interval)
                 return;
             }
         }
+        emit finishedEachIteration(arr);
+        QEventLoop loop;
+        QTimer::singleShot(200, &loop, &QEventLoop::quit);
+        loop.exec();
         if (!getRunFlag()) {
             return;
         }

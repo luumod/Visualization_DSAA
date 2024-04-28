@@ -9,11 +9,11 @@
 #include <QFontMetrics>
 #include <QDebug>
 #include <random>
+#include <QTimer>
 
 InsertionSort::InsertionSort(QObject *parent)
     : SortObject(parent)
 {
-    //属性动画控制交换动画效果
     //animation.setDuration(2000);
     animation.setStartValue(0.0);
     animation.setEndValue(1.0);
@@ -74,6 +74,10 @@ void InsertionSort::sort(int count, int interval)
                 return;
             }
         }
+        emit finishedEachIteration(arr);
+        QEventLoop loop;
+        QTimer::singleShot(200, &loop, &QEventLoop::quit);
+        loop.exec();
         if (!getRunFlag()) {
             return;
         }

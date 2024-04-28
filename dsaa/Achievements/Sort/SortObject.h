@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QPainter>
+#include <QVector>
 
 /**
  * @brief The parent class of all sort object.
@@ -49,6 +50,7 @@ public:
 signals:
     void runFlagChanged(bool running);
     void updateToDraw();
+    void finishedEachIteration(QVector<int> arr);
 
 private:
     bool runFlag{false};

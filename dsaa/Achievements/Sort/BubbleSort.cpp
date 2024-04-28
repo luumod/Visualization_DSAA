@@ -10,6 +10,7 @@
 #include <QFontMetrics>
 #include <QDebug>
 #include <random>
+#include <QTimer>
 
 BubbleSort::BubbleSort(QObject *parent)
 	: SortObject(parent)
@@ -72,6 +73,10 @@ void BubbleSort::sort(int count, int interval)
 				return;
 			}
 		}
+		emit finishedEachIteration(arr);
+		QEventLoop loop;
+		QTimer::singleShot(200, &loop, &QEventLoop::quit);
+		loop.exec();
 		if (!getRunFlag()) {
 			return;
 		}

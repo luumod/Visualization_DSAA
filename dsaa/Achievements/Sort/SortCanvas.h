@@ -10,6 +10,7 @@ class QPalette;
 class SlidePage;
 class QHBoxLayout;
 class QLabel;
+class ScrollAreaCustom;
 /**
  * @brief The main canvas for every sort operation.
  */
@@ -90,10 +91,12 @@ signals:
     void typeChanged(QString type);
     void intervalChanged(QString interval);
     void volumeChanged(QString volume);
+    void finishedEachIteration();
 private:
     int sortType{ -1 };
     SortObject* sortObj{ nullptr };
     QPalette palette{ nullptr };
+    ScrollAreaCustom* logDisplay{ nullptr };
     int interval{ 0 };
     int volume{ 0 };
 };

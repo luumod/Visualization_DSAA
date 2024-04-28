@@ -22,7 +22,7 @@ add_library(dsaa_sort STATIC
     "SortFactory.h"
     "SortObject.h" 
     "SortObject.cpp"
-     )
+      "sortviewlog.cpp" "sortviewlog.h")
 
 target_link_libraries(dsaa_sort PRIVATE
     Qt6::Core
