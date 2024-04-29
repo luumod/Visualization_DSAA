@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSimpleTextItem>
 #include <QTimeLine>
+#include <QBrush>
 #include <QTimer>
 
 /// <summary>
@@ -15,6 +16,9 @@
 /// </summary>
 
 unsigned int LinkedListNodeItem::internalID = 0;
+QBrush LinkedListNodeItem::regBrush = QBrush(QColor(58, 143, 192));
+QBrush LinkedListNodeItem::textBrush = QBrush(QColor(0, 0, 0));
+QBrush LinkedListNodeLine::lineBrush = QBrush(QColor(125, 185, 222));
 
 LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGraphicsItem* parent) :
 	QGraphicsRectItem(_center.x() - 0.5, _center.y() - 0.5, 1, 1, parent),
@@ -28,6 +32,7 @@ LinkedListNodeItem::LinkedListNodeItem(QPointF _center, qreal _r, int value, QGr
 	nameTag->setFont(nameFont);
 	nameTag->setText(nameText);
 	nameTag->setZValue(this->zValue());
+	nameTag->setBrush(textBrush);
 	this->setPen(Qt::NoPen);
 	this->setBrush(regBrush);
 }
@@ -87,6 +92,8 @@ void LinkedListNodeItem::estConnection(LinkedListView* view)
 	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
 	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
 	connect(this, SIGNAL(selected(QGraphicsItem*)), view, SLOT(setSel(QGraphicsItem*)));
+	connect(view, &LinkedListView::brushColorChanged, this, &LinkedListNodeItem::freshBrushColor);
+	
 	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
 	connect(this, SIGNAL(lineFrom(MyGraphicsVexItem*)), view, SLOT(startLine(MyGraphicsVexItem*)));
 	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
@@ -199,6 +206,13 @@ void LinkedListNodeItem::removeEndLine()
 		linesEndWith = nullptr;
 		addEndLine(nullptr);
 		qInfo() << "removeEndLine";
+	}
+}
+
+void LinkedListNodeItem::freshBrushColor() {
+	this->setBrush(regBrush);
+	if (nameTag) {
+		nameTag->setBrush(textBrush);
 	}
 }
 
@@ -340,7 +354,7 @@ LinkedListNodeLine::LinkedListNodeLine(LinkedListNodeItem* start, LinkedListNode
 	defaultPen.setWidth(lineWidth);
 	defaultPen.setStyle(lineStyle);
 	defaultPen.setCapStyle(capStyle);
-	defaultPen.setColor(defaultColor);
+	defaultPen.setBrush(lineBrush);
 	curPen = defaultPen;
 
 	setFlag(QGraphicsItem::ItemIsSelectable);
@@ -367,6 +381,7 @@ void LinkedListNodeLine::estConnection(LinkedListView* view)
 	connect(view, SIGNAL(mouseLeftClicked(QPointF)), this, SLOT(onLeftClick(QPointF)));
 	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
 	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
+	connect(view, &LinkedListView::brushColorChanged, this, &LinkedListNodeLine::freshBrushColor);
 	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
 	connect(this, SIGNAL(selected(QGraphicsItem*)), view, SLOT(setSel(QGraphicsItem*)));
 	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
@@ -427,7 +442,7 @@ void LinkedListNodeLine::drawLine()
 	this->setLine(sP.x(), sP.y(), eP.x(), eP.y());
 	//this->setPen(curPen);
 	QPen bgPen;
-	bgPen.setColor(QColor(255, 255, 255, 0));
+	bgPen.setColor(lineBrush.color());
 	bgPen.setWidth(lineWidth + 5);
 	this->setPen(bgPen);
 
@@ -514,7 +529,7 @@ void LinkedListNodeLine::drawArrow()
 	arrowPath.lineTo(eP);
 	arrowPath.lineTo(rightEnd);
 
-	QGraphicsPathItem* arrowItem = new QGraphicsPathItem(arrowPath);
+	arrowItem = new QGraphicsPathItem(arrowPath);
 	arrowItem->setPen(curPen);
 	this->scene()->addItem(arrowItem);
 	arrow = arrowItem;
@@ -538,6 +553,21 @@ void LinkedListNodeLine::setLengthRate(qreal r)
 	sP += QPointF(endVex->getRadius() * cos(angle), endVex->getRadius() * sin(angle));
 	dP = (eP - sP) * r;
 	eP = sP + dP;
+}
+
+void LinkedListNodeLine::freshBrushColor() {
+	curPen = defaultPen = QPen(QBrush(lineBrush),curPen.widthF());
+	this->setPen(curPen);
+	if (line1)
+		line1->setPen(curPen);
+	if (line2)
+		line2->setPen(curPen);
+	if (textItem)
+		textItem->setBrush(lineBrush);
+	if (arrow)
+		arrow->setBrush(lineBrush);
+	if (arrowItem)
+		arrowItem->setBrush(lineBrush);
 }
 
 

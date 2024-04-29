@@ -66,6 +66,24 @@ void LinkedListView::insert(int pos, int value)
 	on_list_insert(pos,value);
 }
 
+void LinkedListView::freshNodeBrushColor(QColor color)
+{
+	LinkedListNodeItem::regBrush = QBrush(color);
+	emit brushColorChanged();
+}
+
+void LinkedListView::freshNodeLineColor(QColor color)
+{
+	LinkedListNodeLine::lineBrush = QBrush(color);
+	emit brushColorChanged();
+}
+
+void LinkedListView::freshNodeTextColor(QColor color)
+{
+	LinkedListNodeItem::textBrush = QBrush(color);
+	emit brushColorChanged();
+}
+
 LinkedListView::LinkedListView(QWidget* parent) :
 	QGraphicsView(parent) {
 	this->setMouseTracking(true);
@@ -206,6 +224,7 @@ void LinkedListView::startLine(LinkedListNodeItem* startVex)
 {
 	strtVex = startVex;
 }
+
 
 void LinkedListView::setSel(QGraphicsItem* sel) {
 

@@ -16,5 +16,6 @@
 #define DSAA_QT_VERSION "Qt 6.2.4"
 #define DSAA_THANKS_TO "Linloir's ui components & Gong Jianbo's sort visualization inspiration"
 #define DSAA_GITHUB_REPO "https://github.com/luumod/Visualization_DSAA"
+
 #endif // !COMMON_H
 

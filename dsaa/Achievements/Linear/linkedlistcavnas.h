@@ -27,7 +27,9 @@ signals:
     void runFlagChanged(bool running);
     void nameChanged(QString name);
     void descChanged(QString desc);
-
+    void brushColorChanged(QColor color);
+    void lineColorChanged(QColor color);
+    void textColorChanged(QColor color);
 private: 
 
     QString canvasName;

@@ -66,7 +66,8 @@ public:
 	void clear();
 	void random_gen(int size);
 	void remove(int pos);
-	void insert(int pos,int value);
+	void insert(int pos, int value);
+
 	LinkedListView(QWidget* parent = nullptr);
 
 signals:
@@ -75,7 +76,13 @@ signals:
 	void mouseLeftClicked(QPointF position);
 	void mouseRightClicked(QPointF position);
 	void mouseReleased();
+	void brushColorChanged();
 public slots:
+	void freshNodeBrushColor(QColor color);
+	void freshNodeLineColor(QColor color);
+	void freshNodeTextColor(QColor color);
+	//void freshNodeEraseColor(QColor color);
+
 	void setSel(QGraphicsItem* sel);
 	void addLog(LinkedListViewLog* log) { emit logAdded(log); }
 	void on_list_push_back(int value);

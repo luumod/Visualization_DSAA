@@ -237,6 +237,29 @@ void SortCanvas::Init(){
 	connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
 	volume->setEnabled(false);
 
+	// TODO ... add stop and start 
+	//textButton* btn_start = new textButton("Start", defInfoPage);
+	//textButton* btn_stop = new textButton("Stop", defInfoPage);
+	//textButton* btn_reset = new textButton("Reset", defInfoPage);
+	//QWidget* widget_btn = new QWidget(defInfoPage);
+	//widget_btn->setObjectName("DefTextItems");
+	//widget_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	//QHBoxLayout* layout_btn = new QHBoxLayout(widget_btn);
+	//widget_btn->setLayout(layout_btn);
+	//layout_btn->addWidget(btn_start, 3);
+	//layout_btn->addWidget(btn_stop, 3);
+	//layout_btn->addWidget(btn_reset, 3);
+	//connect(btn_start, &textButton::clicked, this, [=]() {
+	//	sort(); // storage data and continuing.
+	//	});
+	//connect(btn_stop, &textButton::clicked, this, [=]() {
+	//	stop(); // suspend 
+	//	});
+	//connect(btn_reset, &textButton::clicked, this, [=]() {
+	//	sort(); // reset all data and renew start sort.
+	//	});
+
+
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);

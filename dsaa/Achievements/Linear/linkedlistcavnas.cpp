@@ -73,32 +73,32 @@ void LinkedListCanvas::CreateSettings(int radius)
 	whiteSpace->setFixedHeight(30);
 
 	// Adjust attributes panel for the node.
-	SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
-	SpinBox* spin_node_width = new SpinBox("Node Width",40,100,60, settings);
-	SpinBox* spin_node_height = new SpinBox("Node Height",30,100,30, settings);
-	SpinBox* spin_arrow_length = new SpinBox("Arrow Length",1,100,10, settings);
-	SpinBox* spin_text_size = new SpinBox("Text Size",1,20,5, settings);
-	SpinBox* spin_max_number = new SpinBox("Max number",1,10,5, settings);
-	SpinBox* spin_row_spacing = new SpinBox("Row spacing",10,100,20, settings);
-	adjust_spin_group->AddItem(spin_node_width);
-	adjust_spin_group->AddItem(spin_node_height);
-	adjust_spin_group->AddItem(spin_arrow_length);
-	adjust_spin_group->AddItem(spin_text_size);
-	adjust_spin_group->AddItem(spin_max_number);
-	adjust_spin_group->AddItem(spin_row_spacing);
-	connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
-		// Update all inborn attributes actually, not care if your whether modified it.
-		/*view->updateSettings(
-			spin_node_width->value(),
-			spin_node_height->value(),
-			spin_arrow_length->value(),
-			spin_text_size->value(),
-			spin_max_number->value(),
-			spin_row_spacing->value());*/
-	});
-	connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
-		//view->resetSettings();
-	});
+	//SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
+	//SpinBox* spin_node_width = new SpinBox("Node Width",40,100,60, settings);
+	//SpinBox* spin_node_height = new SpinBox("Node Height",30,100,30, settings);
+	//SpinBox* spin_arrow_length = new SpinBox("Arrow Length",1,100,10, settings);
+	//SpinBox* spin_text_size = new SpinBox("Text Size",1,20,5, settings);
+	//SpinBox* spin_max_number = new SpinBox("Max number",1,10,5, settings);
+	//SpinBox* spin_row_spacing = new SpinBox("Row spacing",10,100,20, settings);
+	//adjust_spin_group->AddItem(spin_node_width);
+	//adjust_spin_group->AddItem(spin_node_height);
+	//adjust_spin_group->AddItem(spin_arrow_length);
+	//adjust_spin_group->AddItem(spin_text_size);
+	//adjust_spin_group->AddItem(spin_max_number);
+	//adjust_spin_group->AddItem(spin_row_spacing);
+	//connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
+	//	// Update all inborn attributes actually, not care if your whether modified it.
+	//	/*view->updateSettings(
+	//		spin_node_width->value(),
+	//		spin_node_height->value(),
+	//		spin_arrow_length->value(),
+	//		spin_text_size->value(),
+	//		spin_max_number->value(),
+	//		spin_row_spacing->value());*/
+	//});
+	//connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
+	//	//view->resetSettings();
+	//});
 
 
 	textInputItem* rename = new textInputItem("Set name", settings);
@@ -124,15 +124,7 @@ void LinkedListCanvas::CreateSettings(int radius)
 	QWidget* whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
 
-	textButton* btnStart = new textButton("Start", settings);
-	textButton* btnStop = new textButton("Stop", settings);
-	connect(btnStart, &textButton::clicked, settings, [=] {
-		
-		});
-	// Clicked to stop sort.
-	connect(btnStop, &textButton::clicked, this, [=] {
-		
-		});
+	
 	QWidget* whiteSpace_on = new QWidget(settings);
 	whiteSpace_on->setFixedHeight(10);
 
@@ -149,35 +141,36 @@ void LinkedListCanvas::CreateSettings(int radius)
 	layout_color_group->setStretch(1, 3);
 	layout_color_group->setStretch(2, 3);
 	color_group_widget->setLayout(layout_color_group);
+	connect(this, &LinkedListCanvas::brushColorChanged, view, &LinkedListView::freshNodeBrushColor);
 	connect(btn_node_brush, &textButton::clicked, this, [=]() {
 		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the node to brush.");
 		if (color.isValid()) {
 			btn_node_brush->setDefaultColor(color);
-			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			emit brushColorChanged(color);
 		}
 	});
+	connect(this, &LinkedListCanvas::lineColorChanged, view, &LinkedListView::freshNodeLineColor);
 	connect(btn_arrow_color, &textButton::clicked, this, [=]() {
-		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the arrow.");
+		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the connection line.");
 		if (color.isValid()) {
 			btn_arrow_color->setDefaultColor(color);
-			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			emit lineColorChanged(color);
 		}
 		});
+	connect(this, &LinkedListCanvas::textColorChanged, view, &LinkedListView::freshNodeTextColor);
 	connect(btn_text_color, &textButton::clicked, this, [=]() {
-		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for text that in the middle of node.");
+		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for text that located in the middle of node.");
 		if (color.isValid()) {
 			btn_text_color->setDefaultColor(color);
-			//view->updateColors(btn_node_brush->defaultColor, btn_arrow_color->defaultColor, btn_text_color->defaultColor);
+			emit textColorChanged(color);
 		}
 		});
 
-	settings->AddContent(btnStop);
-	settings->AddContent(btnStart);
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(structureSetting);
 	settings->AddContent(spacingLine);
 	settings->AddContent(color_group_widget);
-	settings->AddContent(adjust_spin_group);
+	//settings->AddContent(adjust_spin_group);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);

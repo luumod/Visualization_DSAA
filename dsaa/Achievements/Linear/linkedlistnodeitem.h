@@ -121,11 +121,16 @@ signals:
 	void logAdded(LinkedListViewLog* log);
 
 public slots:
+	void freshBrushColor();
 	void onMouseMove(QPointF position);
 	void onLeftClick(QPointF position);
 	void onRightClick(QPointF position);
 	void onMouseRelease();
 
+public:
+	static QBrush regBrush;
+	static QBrush textBrush;
+	static unsigned int internalID;
 private:
 	int id;
 	int state = UNDEFINED;
@@ -133,8 +138,6 @@ private:
 	LinkedListNodeLine* linesStartWith{ nullptr };
 	LinkedListNodeLine* linesEndWith{ nullptr };
 
-	static unsigned int internalID;
-	QBrush regBrush = QBrush(QColor(58, 143, 192));
 
 	QString nameText = "";
 	QFont nameFont = QFont("Corbel", 13, QFont::Normal, true);
@@ -187,10 +190,13 @@ public:
 signals:
 	void logAdded(LinkedListViewLog* log);
 public slots:
+	void freshBrushColor();
 	void onMouseMove(QPointF position);
 	void onLeftClick(QPointF position);
 	void onRightClick(QPointF position);
 	void onMouseRelease();
+public:
+	static QBrush lineBrush;
 private:
 	 int state = UNDEFINED;
 	LinkedListNodeItem* startVex;
@@ -199,6 +205,7 @@ private:
 	QGraphicsLineItem* line2 = nullptr;
 	QGraphicsPathItem* arrow = nullptr;
 	QGraphicsSimpleTextItem* textItem = nullptr;
+	QGraphicsPathItem* arrowItem = nullptr;
 	QString text = "";
 
 	bool hasDirection;
@@ -211,15 +218,9 @@ private:
 	qreal arrowLength = 20;
 	Qt::PenStyle lineStyle = Qt::SolidLine;
 	Qt::PenCapStyle capStyle = Qt::RoundCap;
-	QColor defaultColor = QColor(125, 185, 222);
-	QColor hoverColor = QColor(0, 98, 132);
-	QColor selColor = QColor(208, 90, 110);
-	QColor visitColor = QColor(0, 137, 108);
-	QColor accessColor = QColor(178, 143, 206);
 	QPen defaultPen;
 	QPen curPen;
 	QFont textFont = QFont("Corbel", 12);
-	QColor textColor = QColor(0, 0, 0);
 };
 
 #endif // !LinkedListNodeItem_H_
