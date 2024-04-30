@@ -25,7 +25,7 @@ public slots:
     void startChange();
     void nextStep();
 private:
-    QTimer* timer;
+    QTimer* timer{ nullptr };
     QVector<int> coinValues;
     QVector<int> currentCoins;
     int targetAmount;

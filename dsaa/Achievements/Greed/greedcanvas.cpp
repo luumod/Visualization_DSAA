@@ -34,8 +34,14 @@ GreedCanvas::GreedCanvas(int radius, QString name, QString desc, QWidget* parent
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
+	//QScrollArea* scrollArea = new QScrollArea(this);
+	//scrollArea->setWidgetResizable(true);
+
 	view = new GreedyChangeView(this);
 	view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
+	
+
+	//scrollArea->setWidget(view);
 	mainLayout->addWidget(view);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
@@ -252,11 +258,66 @@ void GreedCanvas::Init()
 		emit startGreed();
 		});
 
+	// input
+	textInputItem* input_data = new textInputItem("Values", defInfoPage);
+	input_data->lineEditor()->setPlaceholderText("50 25 10 5 2");
+	textButton* btn_update_values = new textButton("update", defInfoPage);
+	QWidget* widget_values = new QWidget(defInfoPage);
+	widget_values->setObjectName("DefTextItems");
+	widget_values->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_values = new QHBoxLayout(widget_values);
+	widget_values->setLayout(layout_values);
+	layout_values->addWidget(input_data);
+	layout_values->addWidget(btn_update_values);
+	layout_values->setStretch(0, 7);
+	layout_values->setStretch(1, 3);
+	connect(btn_update_values, &textButton::clicked, this, [=]() {
+		if (!input_data->value().isEmpty()) {
+			QStringList vec = input_data->value().split(' ');
+			QVector<int> intVector;
+			if (vec.isEmpty()) {
+				intVector << 50 << 25 << 10 << 5 << 2;
+			}
+			else {
+				for (const QString& str : vec) {
+					intVector.append(str.toInt());
+				}
+				intVector.removeAll(0);
+				std::sort(intVector.begin(), intVector.end(), std::greater<int>());
+			}
+			qInfo() << intVector;
+			view->setValues(intVector);
+		}
+		});
+
+
+	// Amount
+	textInputItem* input_amount = new textInputItem("Amount", defInfoPage);
+	input_amount->lineEditor()->setPlaceholderText("99");
+	textButton* btn_update_amount = new textButton("update", defInfoPage);
+	QWidget* widget_amount = new QWidget(defInfoPage);
+	widget_amount->setObjectName("DefTextItems");
+	widget_amount->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_amount = new QHBoxLayout(widget_amount);
+	widget_amount->setLayout(layout_amount);
+	layout_amount->addWidget(input_amount);
+	layout_amount->addWidget(btn_update_amount);
+	layout_amount->setStretch(0, 7);
+	layout_amount->setStretch(1, 3);
+	connect(btn_update_amount, &textButton::clicked, this, [=]() {
+		if (!input_amount->value().isEmpty()) {
+			int targetAmount = input_amount->value().split(' ')[0].toInt();
+			view->setTargetAmout(targetAmount);
+		}
+		});
+
 
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
+	defTextLayout->addWidget(widget_values);
+	defTextLayout->addWidget(widget_amount);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);

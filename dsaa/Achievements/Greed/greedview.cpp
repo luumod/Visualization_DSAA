@@ -21,21 +21,29 @@ void GreedyChangeView::showDefault()
 void GreedyChangeView::setValues(QVector<int> values)
 {
 	coinValues = std::move(values);
+	currentAmount = 0;
+	currentCoins.clear();
+	update();
 }
 
 void GreedyChangeView::setCurrentCoins(QVector<int> coins)
 {
 	currentCoins = std::move(coins);
+	update();
 }
 
-void GreedyChangeView::setTargetAmout(int amout)
+void GreedyChangeView::setTargetAmout(int amount)
 {
-	targetAmount = amout;
+	targetAmount = amount;
+	currentAmount = 0;
+	currentCoins.clear();
+	update();
 }
 
 void GreedyChangeView::setCurrentAmout(int cur_amout)
 {
 	currentAmount = cur_amout;
+	update();
 }
 
 void GreedyChangeView::paintEvent(QPaintEvent* event)
@@ -45,45 +53,66 @@ void GreedyChangeView::paintEvent(QPaintEvent* event)
 
 	painter.fillRect(0, 0, width(), height(), Qt::white);
 
+	int x = 10;
+	int y = 10;
+	int rectWidth = 40;
+	int rectHeight = 40;
+	int spacing = 10;
+
 	// 绘制零钱
 	painter.setPen(Qt::black);
 	for (int i = 0; i < coinValues.size(); ++i)
 	{
-		painter.drawRect(100 + i * 50, height() - 50, 40, 40);
-		painter.drawText(120 + i * 50, height() - 25, QString::number(coinValues[i]));
+		if (x + rectWidth > width())
+		{
+			x = 10;
+			y += rectHeight + spacing;
+		}
+
+		painter.drawRect(x, y, rectWidth, rectHeight);
+		painter.drawText(x + 20, y + rectHeight / 2, QString::number(coinValues[i]));
+
+		x += rectWidth + spacing;
 	}
 
-	// 绘制目标金额
 	painter.setPen(Qt::red);
 	painter.drawText(width() / 2 - 40, height() - 100, "Target Amount: " + QString::number(targetAmount));
 
-	// 绘制当前找零的金额
 	painter.setPen(Qt::blue);
 	painter.drawText(width() / 2 - 40, height() - 75, "Current Amount: " + QString::number(currentAmount));
 
-	// 绘制已经找到的硬币
 	painter.setPen(Qt::darkGreen);
-	int x = 50;
-	int y = height() - 150;
+	x = 10;
+	y += 100;
 	for (int i = 0; i < currentCoins.size(); ++i)
 	{
-		painter.drawRect(x, y, 40, 40);
-		painter.drawText(x + 20, y + 25, QString::number(currentCoins[i]));
-		x += 50;
+		if (x + rectWidth > width())
+		{
+			x = 10;
+			y += rectHeight + spacing;
+		}
+
+		painter.drawRect(x, y, rectWidth, rectHeight);
+		painter.drawText(x + 20, y + rectHeight / 2, QString::number(currentCoins[i]));
+		x += rectWidth + spacing;
 	}
 }
 
 void GreedyChangeView::startChange() {
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &GreedyChangeView::nextStep);
-	timer->start(1000);
+	if (!timer) {
+		timer = new QTimer(this);
+		connect(timer, &QTimer::timeout, this, &GreedyChangeView::nextStep);
+	}
+	timer->start(300);
+	currentCoins.clear();
+	currentAmount = 0;
+	std::sort(coinValues.begin(), coinValues.begin(), std::greater<>());
 }
 
 void GreedyChangeView::nextStep()
 {
 	if (currentAmount == targetAmount)
 	{
-		// 找零完成，停止动画
 		timer->stop();
 		return;
 	}

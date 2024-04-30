@@ -11,8 +11,8 @@ class textInputItem : public QWidget {
     Q_OBJECT
 
 private:
-    const int margin = 10;
-    const int spacing = 10;
+    const int margin = 5;
+    const int spacing = 2;
     QLabel* itemName;
     QLineEdit* editor;
     QWidget* bgWidget;
