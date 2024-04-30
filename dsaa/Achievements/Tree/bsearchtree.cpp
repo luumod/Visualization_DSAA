@@ -1,9 +1,9 @@
 #include "bsearchtree.h"
 #include <iostream>
 
-BinarySearchTree::BinarySearchTree() : root(nullptr) {}
+BSearchTree::BSearchTree() : root(nullptr) {}
 
-void BinarySearchTree::insert(int value) {
+void BSearchTree::insert(int value) {
     if (!root) {
         root = new TreeNode(value);
         return;
@@ -30,11 +30,11 @@ void BinarySearchTree::insert(int value) {
         }
     }
 }
-TreeNode* BinarySearchTree::getRoot() const {
+TreeNode* BSearchTree::getRoot() const {
     return root;
 }
 
-void BinarySearchTree::updateDepth(TreeNode* node) {
+void BSearchTree::updateDepth(TreeNode* node) {
     while (node) {
         int leftDepth = node->left ? node->left->depth : 0;
         int rightDepth = node->right ? node->right->depth : 0;

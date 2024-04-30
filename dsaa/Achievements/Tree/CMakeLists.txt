@@ -11,7 +11,9 @@ add_library(dsaa_tree STATIC
     "bsearchtreeview.h"
     "bsearchtreeview.cpp" 
     "bsearchtree.h"
-    "bsearchtree.cpp")
+    "bsearchtree.cpp" 
+    "bsearchtreenodeitem.cpp" 
+    "bsearchtreenodeitem.h")
 
 target_link_libraries(dsaa_tree PRIVATE
     Qt6::Core

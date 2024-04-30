@@ -15,9 +15,9 @@ public:
     int depth;
 };
 
-class BinarySearchTree {
+class BSearchTree {
 public:
-    BinarySearchTree();
+    BSearchTree();
 
     void insert(int value);
 

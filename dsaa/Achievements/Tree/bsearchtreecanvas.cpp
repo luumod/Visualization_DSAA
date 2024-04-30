@@ -246,43 +246,21 @@ void BSearchTreeCanvas::Init()
 
 
 	// show default
-	textButton* btn_start = new textButton("Start change", defInfoPage);
+	textButton* btn_random = new textButton("Random generate", defInfoPage);
 	QWidget* widget_push = new QWidget(defInfoPage);
 	widget_push->setObjectName("DefTextItems");
 	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
 	QHBoxLayout* layout_push = new QHBoxLayout(widget_push);
 	widget_push->setLayout(layout_push);
-	layout_push->addWidget(btn_start);
-	connect(btn_start, &textButton::clicked, this, [=]() {
-		emit startBSearchTree();
+	layout_push->addWidget(btn_random);
+	connect(btn_random, &textButton::clicked, this, [=]() {
+		view->generateTree();
 		});
-
-	// Amount
-	textInputItem* input_amount = new textInputItem("Amount", defInfoPage);
-	input_amount->lineEditor()->setPlaceholderText("99");
-	textButton* btn_update_amount = new textButton("update", defInfoPage);
-	QWidget* widget_amount = new QWidget(defInfoPage);
-	widget_amount->setObjectName("DefTextItems");
-	widget_amount->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_amount = new QHBoxLayout(widget_amount);
-	widget_amount->setLayout(layout_amount);
-	layout_amount->addWidget(input_amount);
-	layout_amount->addWidget(btn_update_amount);
-	layout_amount->setStretch(0, 7);
-	layout_amount->setStretch(1, 3);
-	connect(btn_update_amount, &textButton::clicked, this, [=]() {
-		if (!input_amount->value().isEmpty()) {
-			int targetAmount = input_amount->value().split(' ')[0].toInt();
-			//view->setTargetAmout(targetAmount);
-		}
-		});
-
-
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
-	defTextLayout->addWidget(widget_amount);
+	defTextLayout->addWidget(btn_random);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
