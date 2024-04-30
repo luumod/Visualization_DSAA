@@ -8,6 +8,7 @@ class SlidePage;
 class QLabel;
 class QHBoxLayout;
 class BSearchTreeView;
+class ScrollAreaCustom;
 class BSearchTreeCanvas: public QWidget {
 	Q_OBJECT
 
@@ -45,6 +46,7 @@ private:
     BSearchTreeView* view{ nullptr };
     QWidget* infoWidget;
     QLabel* pageName{ nullptr };
+    ScrollAreaCustom* logDisplay{ nullptr };
 
     QPalette palette{ nullptr };
 

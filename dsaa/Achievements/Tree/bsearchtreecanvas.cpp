@@ -1,5 +1,6 @@
 #include "bsearchtreecanvas.h"
 #include "bsearchtreeview.h"
+#include "bsearchtreeviewlog.h"
 #include "slidepage.h"
 #include "singleSelectGroup.h"
 #include "spinbox.h"
@@ -247,20 +248,53 @@ void BSearchTreeCanvas::Init()
 
 	// show default
 	textButton* btn_random = new textButton("Random generate", defInfoPage);
+	textButton* btn_clear = new textButton("Clear all", defInfoPage);
 	QWidget* widget_push = new QWidget(defInfoPage);
 	widget_push->setObjectName("DefTextItems");
 	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
 	QHBoxLayout* layout_push = new QHBoxLayout(widget_push);
 	widget_push->setLayout(layout_push);
-	layout_push->addWidget(btn_random);
+	layout_push->addWidget(btn_random,5);
+	layout_push->addWidget(btn_clear,5);
 	connect(btn_random, &textButton::clicked, this, [=]() {
+		btn_clear->setEnabled(false);
 		view->generateTree();
+		btn_clear->setEnabled(true);
+		});
+	connect(btn_clear, &textButton::clicked, this, [=]() {
+		view->clear();
+		});
+
+	textButton* btn_preorder = new textButton("preorder", defInfoPage);
+	textButton* btn_inorder = new textButton("inorder", defInfoPage);
+	textButton* btn_postorder = new textButton("postorder", defInfoPage);
+	QWidget* widget_travsersal = new QWidget(defInfoPage);
+	widget_travsersal->setObjectName("DefTextItems");
+	widget_travsersal->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QHBoxLayout* layout_traversal = new QHBoxLayout(widget_travsersal);
+	widget_travsersal->setLayout(layout_traversal);
+	layout_traversal->addWidget(btn_preorder, 3);
+	layout_traversal->addWidget(btn_inorder, 3);
+	layout_traversal->addWidget(btn_postorder, 3);
+	connect(btn_preorder, &textButton::clicked, this, [=]() {
+		auto res = view->traversal(BSearchTreeView::Traversal::PRE);
+		logDisplay->addWidget(new BSearchTreeViewLog(QString("[preorder]: %1").arg(res)));
+		
+		});
+	connect(btn_inorder, &textButton::clicked, this, [=]() {
+		auto res = view->traversal(BSearchTreeView::Traversal::IN);
+		logDisplay->addWidget(new BSearchTreeViewLog(QString("[inorder]: %1").arg(res)));
+		});
+	connect(btn_postorder, &textButton::clicked, this, [=]() {
+		auto res = view->traversal(BSearchTreeView::Traversal::POST);
+		logDisplay->addWidget(new BSearchTreeViewLog(QString("[postorder]: %1").arg(res)));
 		});
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
 	defTextLayout->addWidget(btn_random);
+	defTextLayout->addWidget(widget_travsersal);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
@@ -280,7 +314,7 @@ void BSearchTreeCanvas::Init()
 	QWidget* lowerSplitter = new QWidget(lower);
 	lowerSplitter->setFixedSize(30, 6);
 	lowerSplitter->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
-	ScrollAreaCustom* logDisplay = new ScrollAreaCustom(lower);
+	logDisplay = new ScrollAreaCustom(lower);
 	logDisplay->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	lowerLayout->addWidget(logLabel);
 	lowerLayout->addWidget(lowerSplitter);

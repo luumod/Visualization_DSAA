@@ -136,7 +136,7 @@ build Visual_DSAA_autogen\timestamp Visual_DSAA_autogen\mocs_compilation.cpp | $
 #############################################
 # Phony custom command for CMakeFiles\Visual_DSAA_autogen_timestamp_deps
 
-build CMakeFiles\Visual_DSAA_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\Visual_DSAA_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Greed\dsaa_greed.lib dsaa\Achievements\Linear\dsaa_linear.lib dsaa\Achievements\Staque\dsaa_staque.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Tree\dsaa_tree.lib dsaa\Components\dsaa_components.lib dsaa\Utils\dsaa_utils.lib dsaa\Pages\dsaa_pages.lib dsaa\Windows\dsaa_window.lib || dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Graph\dsaa_graph_autogen dsaa\Achievements\Graph\dsaa_graph_autogen_timestamp_deps dsaa\Achievements\Greed\dsaa_greed.lib dsaa\Achievements\Greed\dsaa_greed_autogen dsaa\Achievements\Greed\dsaa_greed_autogen_timestamp_deps dsaa\Achievements\Linear\dsaa_linear.lib dsaa\Achievements\Linear\dsaa_linear_autogen dsaa\Achievements\Linear\dsaa_linear_autogen_timestamp_deps dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Sort\dsaa_sort_autogen dsaa\Achievements\Sort\dsaa_sort_autogen_timestamp_deps dsaa\Achievements\Staque\dsaa_staque.lib dsaa\Achievements\Staque\dsaa_staque_autogen dsaa\Achievements\Staque\dsaa_staque_autogen_timestamp_deps dsaa\Achievements\Tree\dsaa_tree.lib dsaa\Achievements\Tree\dsaa_tree_autogen dsaa\Achievements\Tree\dsaa_tree_autogen_timestamp_deps dsaa\Components\dsaa_components.lib dsaa\Components\dsaa_components_autogen dsaa\Components\dsaa_components_autogen_timestamp_deps dsaa\Pages\dsaa_pages.lib dsaa\Pages\dsaa_pages_autogen dsaa\Pages\dsaa_pages_autogen_timestamp_deps dsaa\Utils\dsaa_utils.lib dsaa\Utils\dsaa_utils_autogen dsaa\Utils\dsaa_utils_autogen_timestamp_deps dsaa\Windows\dsaa_window.lib dsaa\Windows\dsaa_window_autogen dsaa\Windows\dsaa_window_autogen_timestamp_deps
+build CMakeFiles\Visual_DSAA_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles\Visual_DSAA_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib dsaa\Achievements\Greed\dsaa_greed.lib dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Tree\dsaa_tree.lib dsaa\Utils\dsaa_utils.lib dsaa\Components\dsaa_components.lib dsaa\Achievements\Linear\dsaa_linear.lib dsaa\Achievements\Staque\dsaa_staque.lib dsaa\Pages\dsaa_pages.lib dsaa\Windows\dsaa_window.lib || dsaa\Achievements\Graph\dsaa_graph.lib dsaa\Achievements\Graph\dsaa_graph_autogen dsaa\Achievements\Graph\dsaa_graph_autogen_timestamp_deps dsaa\Achievements\Greed\dsaa_greed.lib dsaa\Achievements\Greed\dsaa_greed_autogen dsaa\Achievements\Greed\dsaa_greed_autogen_timestamp_deps dsaa\Achievements\Linear\dsaa_linear.lib dsaa\Achievements\Linear\dsaa_linear_autogen dsaa\Achievements\Linear\dsaa_linear_autogen_timestamp_deps dsaa\Achievements\Sort\dsaa_sort.lib dsaa\Achievements\Sort\dsaa_sort_autogen dsaa\Achievements\Sort\dsaa_sort_autogen_timestamp_deps dsaa\Achievements\Staque\dsaa_staque.lib dsaa\Achievements\Staque\dsaa_staque_autogen dsaa\Achievements\Staque\dsaa_staque_autogen_timestamp_deps dsaa\Achievements\Tree\dsaa_tree.lib dsaa\Achievements\Tree\dsaa_tree_autogen dsaa\Achievements\Tree\dsaa_tree_autogen_timestamp_deps dsaa\Components\dsaa_components.lib dsaa\Components\dsaa_components_autogen dsaa\Components\dsaa_components_autogen_timestamp_deps dsaa\Pages\dsaa_pages.lib dsaa\Pages\dsaa_pages_autogen dsaa\Pages\dsaa_pages_autogen_timestamp_deps dsaa\Utils\dsaa_utils.lib dsaa\Utils\dsaa_utils_autogen dsaa\Utils\dsaa_utils_autogen_timestamp_deps dsaa\Windows\dsaa_window.lib dsaa\Windows\dsaa_window_autogen dsaa\Windows\dsaa_window_autogen_timestamp_deps
 
 
 #############################################
@@ -317,7 +317,7 @@ build dsaa\Achievements\Graph\dsaa_graph_autogen\timestamp dsaa\Achievements\Gra
 #############################################
 # Phony custom command for dsaa\Achievements\Graph\CMakeFiles\dsaa_graph_autogen_timestamp_deps
 
-build dsaa\Achievements\Graph\CMakeFiles\dsaa_graph_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Graph\CMakeFiles\dsaa_graph_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
+build dsaa\Achievements\Graph\CMakeFiles\dsaa_graph_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Graph\CMakeFiles\dsaa_graph_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
 
 
 #############################################
@@ -496,7 +496,7 @@ build dsaa\Achievements\Sort\dsaa_sort_autogen\timestamp dsaa\Achievements\Sort\
 #############################################
 # Phony custom command for dsaa\Achievements\Sort\CMakeFiles\dsaa_sort_autogen_timestamp_deps
 
-build dsaa\Achievements\Sort\CMakeFiles\dsaa_sort_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Sort\CMakeFiles\dsaa_sort_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Achievements\Sort\CMakeFiles\dsaa_sort_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Sort\CMakeFiles\dsaa_sort_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
 
 
 #############################################
@@ -809,7 +809,7 @@ build dsaa\Achievements\Staque\dsaa_staque_autogen\timestamp dsaa\Achievements\S
 #############################################
 # Phony custom command for dsaa\Achievements\Staque\CMakeFiles\dsaa_staque_autogen_timestamp_deps
 
-build dsaa\Achievements\Staque\CMakeFiles\dsaa_staque_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Staque\CMakeFiles\dsaa_staque_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Achievements\Staque\CMakeFiles\dsaa_staque_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Staque\CMakeFiles\dsaa_staque_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
 
 
 #############################################
@@ -925,7 +925,7 @@ build dsaa\Achievements\Greed\dsaa_greed_autogen\timestamp dsaa\Achievements\Gre
 #############################################
 # Phony custom command for dsaa\Achievements\Greed\CMakeFiles\dsaa_greed_autogen_timestamp_deps
 
-build dsaa\Achievements\Greed\CMakeFiles\dsaa_greed_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Greed\CMakeFiles\dsaa_greed_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Achievements\Greed\CMakeFiles\dsaa_greed_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Greed\CMakeFiles\dsaa_greed_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################
@@ -992,6 +992,15 @@ build dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreenodeitem.cpp.ob
   TARGET_COMPILE_PDB = dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\dsaa_tree.pdb
   TARGET_PDB = dsaa\Achievements\Tree\dsaa_tree.pdb
 
+build dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreeviewlog.cpp.obj: CXX_COMPILER__dsaa_tree_unscanned_Release F$:\code\Visual_DSAA\dsaa\Achievements\Tree\bsearchtreeviewlog.cpp || cmake_object_order_depends_target_dsaa_tree
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG -std:c++20 -Zc:__cplusplus -permissive- -utf-8
+  INCLUDES = -IF:\code\Visual_DSAA\out\build\dsaa\Achievements\Tree\dsaa_tree_autogen\include -external:IF:\code\Visual_DSAA\dsaa -external:IF:\code\Visual_DSAA\dsaa\Achievements\Tree\..\..\Utils -external:IF:\code\Visual_DSAA\dsaa\Achievements\Tree\..\..\Components -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtCore -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include -external:IF:\Tools\Qt\6.2.4\msvc2019_64\mkspecs\win32-msvc -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtWidgets -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtGui -external:IF:\Tools\Qt\6.2.4\msvc2019_64\include\QtSvg -external:W0
+  OBJECT_DIR = dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir
+  OBJECT_FILE_DIR = dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir
+  TARGET_COMPILE_PDB = dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\dsaa_tree.pdb
+  TARGET_PDB = dsaa\Achievements\Tree\dsaa_tree.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target dsaa_tree
@@ -1000,7 +1009,7 @@ build dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreenodeitem.cpp.ob
 #############################################
 # Link the static library dsaa\Achievements\Tree\dsaa_tree.lib
 
-build dsaa\Achievements\Tree\dsaa_tree.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_tree_Release dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\dsaa_tree_autogen\mocs_compilation.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreecanvas.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreeview.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtree.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreenodeitem.cpp.obj || dsaa\Achievements\Tree\dsaa_tree_autogen dsaa\Achievements\Tree\dsaa_tree_autogen_timestamp_deps
+build dsaa\Achievements\Tree\dsaa_tree.lib: CXX_STATIC_LIBRARY_LINKER__dsaa_tree_Release dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\dsaa_tree_autogen\mocs_compilation.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreecanvas.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreeview.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtree.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreenodeitem.cpp.obj dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir\bsearchtreeviewlog.cpp.obj || dsaa\Achievements\Tree\dsaa_tree_autogen dsaa\Achievements\Tree\dsaa_tree_autogen_timestamp_deps
   LANGUAGE_COMPILE_FLAGS = -DQT_QML_DEBUG /MD /O2 /Ob2 /DNDEBUG
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = dsaa\Achievements\Tree\CMakeFiles\dsaa_tree.dir
@@ -1059,7 +1068,7 @@ build dsaa\Achievements\Tree\dsaa_tree_autogen\timestamp dsaa\Achievements\Tree\
 #############################################
 # Phony custom command for dsaa\Achievements\Tree\CMakeFiles\dsaa_tree_autogen_timestamp_deps
 
-build dsaa\Achievements\Tree\CMakeFiles\dsaa_tree_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Tree\CMakeFiles\dsaa_tree_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Achievements\Tree\CMakeFiles\dsaa_tree_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Achievements\Tree\CMakeFiles\dsaa_tree_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################
@@ -1283,7 +1292,7 @@ build dsaa\Components\dsaa_components_autogen\timestamp dsaa\Components\dsaa_com
 #############################################
 # Phony custom command for dsaa\Components\CMakeFiles\dsaa_components_autogen_timestamp_deps
 
-build dsaa\Components\CMakeFiles\dsaa_components_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Components\CMakeFiles\dsaa_components_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Components\CMakeFiles\dsaa_components_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Components\CMakeFiles\dsaa_components_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################
@@ -1560,7 +1569,7 @@ build dsaa\Pages\dsaa_pages_autogen\timestamp dsaa\Pages\dsaa_pages_autogen\mocs
 #############################################
 # Phony custom command for dsaa\Pages\CMakeFiles\dsaa_pages_autogen_timestamp_deps
 
-build dsaa\Pages\CMakeFiles\dsaa_pages_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Pages\CMakeFiles\dsaa_pages_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Pages\CMakeFiles\dsaa_pages_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Pages\CMakeFiles\dsaa_pages_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################
@@ -1667,7 +1676,7 @@ build dsaa\Windows\dsaa_window_autogen\timestamp dsaa\Windows\dsaa_window_autoge
 #############################################
 # Phony custom command for dsaa\Windows\CMakeFiles\dsaa_window_autogen_timestamp_deps
 
-build dsaa\Windows\CMakeFiles\dsaa_window_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Windows\CMakeFiles\dsaa_window_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib
+build dsaa\Windows\CMakeFiles\dsaa_window_autogen_timestamp_deps | ${cmake_ninja_workdir}dsaa\Windows\CMakeFiles\dsaa_window_autogen_timestamp_deps: phony F$:\Tools\Qt\6.2.4\msvc2019_64\.\bin\moc.exe F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Widgets.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Core.lib F$:\Tools\Qt\6.2.4\msvc2019_64\lib\Qt6Svg.lib
 
 
 #############################################

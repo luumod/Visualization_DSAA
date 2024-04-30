@@ -75,6 +75,7 @@ public ShowEffect:
 	 */
 	void onPopEffect();
 
+	void onTraversalEffect();
 
 public Interface:
 

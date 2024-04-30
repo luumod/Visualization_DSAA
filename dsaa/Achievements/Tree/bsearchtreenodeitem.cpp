@@ -9,6 +9,7 @@
 #include <QTimeLine>
 #include <QBrush>
 #include <QTimer>
+#include <QPropertyAnimation>
 
 /// <summary>
 /// 
@@ -52,7 +53,9 @@ void BSearchTreeNodeItem::movePos(QPointF position){
 			x->moveStart(this);
 		}
 	}
-	linesEndWith->moveEnd(this);
+	if (linesEndWith) {
+		linesEndWith->moveEnd(this);
+	}
 	nameTag->moveBy(displacement.x(), displacement.y());
 }
 
@@ -130,10 +133,10 @@ void BSearchTreeNodeItem::remove()
 
 	if (curAnimation) {
 		connect(curAnimation, &QTimeLine::finished, this, [=]() {
-			/*if (linesEndWith) {
+			if (linesEndWith) {
 				linesEndWith->remove();
 				linesEndWith = nullptr;
-			}*/
+			}
 			if (tag)
 				scene()->removeItem(tag);
 			scene()->removeItem(nameTag);
@@ -311,6 +314,28 @@ void BSearchTreeNodeItem::onPopEffect()
 		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
 		});
 	curAnimation = timeLine;
+	startAnimation();
+}
+
+void BSearchTreeNodeItem::onTraversalEffect()
+{
+	stopAnimation();
+	QBrush bru = this->brush();
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = 1.25 * radius - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal curRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+		this->setBrush(Qt::red);
+		});
+	curAnimation = timeLine;
+	connect(curAnimation, &QTimeLine::finished, this, [=]() {
+		this->setBrush(bru);
+	});
 	startAnimation();
 }
 

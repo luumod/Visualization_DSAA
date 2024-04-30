@@ -1,5 +1,6 @@
 #include "bsearchtreeview.h"
 #include "bsearchtreenodeitem.h"
+#include "bsearchtreeviewlog.h"
 #include "logger.h"
 #include "common.h"
 #include <QGraphicsItem>
@@ -85,7 +86,7 @@ void BSearchTreeView::mouseReleaseEvent(QMouseEvent* event) {
 	}
 
 	if (!containsItem) {
-		on_stack_push_from_release(111, releasePos);
+		on_tree_push_from_release(111, releasePos);
 	}
 
 	emit mouseReleased();
@@ -133,6 +134,66 @@ void BSearchTreeView::wheelEvent(QWheelEvent* event) {
 
 void BSearchTreeView::push(int val) {
 	//stack.push(val);
+}
+
+QString BSearchTreeView::traversal(Traversal tra)
+{
+	QVector<int> vec;
+	if (tra == Traversal::PRE) preorderTraversal(root, vec);
+	else if (tra == Traversal::IN) inorderTraversal(root,vec);
+	else if (tra == Traversal::POST) postorderTraversal(root,vec);
+
+	QStringList stringList;
+	for (int i = 0; i < vec.size(); ++i) {
+		stringList << QString::number(vec[i]);
+	}
+	QString result = stringList.join(" ");
+	return result;
+}
+
+void BSearchTreeView::preorderTraversal(BSearchTreeNodeItem* root,QVector<int>& vec)
+{
+	if (root == nullptr)
+		return;
+	QEventLoop loop;
+	QTimer::singleShot(300, &loop, &QEventLoop::quit);
+	loop.exec();
+	root->onTraversalEffect();
+	vec.push_back(root->value);
+	preorderTraversal(root->left,vec);
+	preorderTraversal(root->right,vec);
+}
+
+void BSearchTreeView::inorderTraversal(BSearchTreeNodeItem* root, QVector<int>& vec)
+{
+	if (root == nullptr)
+		return;
+	preorderTraversal(root->left,vec);
+	QEventLoop loop;
+	QTimer::singleShot(300, &loop, &QEventLoop::quit);
+	loop.exec();
+	root->onTraversalEffect();
+	vec.push_back(root->value);
+	preorderTraversal(root->right, vec);
+}
+
+void BSearchTreeView::postorderTraversal(BSearchTreeNodeItem* root, QVector<int>& vec)
+{
+	if (root == nullptr)
+		return;
+	preorderTraversal(root->left, vec);
+	preorderTraversal(root->right, vec);
+	QEventLoop loop;
+	QTimer::singleShot(300, &loop, &QEventLoop::quit);
+	loop.exec();
+	root->onTraversalEffect();
+	vec.push_back(root->value);
+}
+
+void BSearchTreeView::clear()
+{
+	on_tree_pop(root);
+	root = nullptr;
 }
 
 void BSearchTreeView::generateTree()
@@ -206,7 +267,7 @@ void BSearchTreeView::setSel(QGraphicsItem* sel) {
 }
 
 
-void BSearchTreeView::on_stack_push(int value) {
+void BSearchTreeView::on_tree_push(int value) {
 	//stack.push(value);
 	//if (stack.size() == 1) {
 	//	// Head node.
@@ -219,7 +280,7 @@ void BSearchTreeView::on_stack_push(int value) {
 	node_spacing_rate++;
 }
 
-void BSearchTreeView::on_stack_push_from_release(int value, QPointF scenePos) {
+void BSearchTreeView::on_tree_push_from_release(int value, QPointF scenePos) {
 	//stack.push(value);
 	//if (stack.size() == 1) {
 	//	// Head node.
@@ -233,16 +294,12 @@ void BSearchTreeView::on_stack_push_from_release(int value, QPointF scenePos) {
 	node_spacing_rate = 1;
 }
 
-void BSearchTreeView::on_stack_pop() {
-	//stack.pop();
-	// delete the last node
-	if (!vexes.isEmpty()) {
-		vexes.back()->remove();
-		vexes.pop_back();
-	}
-	if (!lines.isEmpty()) {
-		lines.back()->remove();
-		lines.pop_back();
-	}
-	node_spacing_rate == 1 ? node_spacing_rate = 1 : node_spacing_rate--;
+void BSearchTreeView::on_tree_pop(BSearchTreeNodeItem* root) {
+	if (root == nullptr)
+		return;
+	on_tree_pop(root->left);
+	on_tree_pop(root->right);
+	
+	root->remove();
+	root = nullptr;
 }

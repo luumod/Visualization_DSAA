@@ -7,11 +7,11 @@
 class QGraphicsScene;
 class BSearchTreeNodeItem;
 class BSearchTreeNodeLine;
-class StaqueViewLog;
+class BSearchTreeViewLog;
 class BSearchTreeView : public QGraphicsView {
 	Q_OBJECT
 
-private:
+public:
 	enum mouseStates {
 		NORMAL = 0b00000000,
 		ON_HOVER = 0b00010000,
@@ -22,6 +22,14 @@ private:
 		LEFT,
 		RIGHT
 	};
+	enum Traversal {
+		PRE,
+		IN,
+		POST
+	};
+private:
+	
+	
 	QGraphicsScene* _scene;
 
 	int vexID = 0;
@@ -54,6 +62,11 @@ public:
 	int arcNum = 0;
 	BSearchTreeNodeItem* root{ nullptr };
 	bool hasVisitedItem = false;
+	QString traversal(Traversal tra);
+	void preorderTraversal(BSearchTreeNodeItem* root, QVector<int>& vec);
+	void inorderTraversal(BSearchTreeNodeItem* root, QVector<int>& vec);
+	void postorderTraversal(BSearchTreeNodeItem* root, QVector<int>& vec);
+	void clear();
 	void generateTree();
 	void insert(int value);
 	void updateDepth(BSearchTreeNodeItem* node);
@@ -62,7 +75,7 @@ public:
 	BSearchTreeView(QWidget* parent = nullptr);
 
 signals:
-	void logAdded(StaqueViewLog* log);
+	void logAdded(BSearchTreeViewLog* log);
 
 	void mouseMoved(QPointF position);
 	void mouseLeftClicked(QPointF position);
@@ -70,9 +83,9 @@ signals:
 	void mouseReleased();
 public slots:
 	void setSel(QGraphicsItem* sel);
-	void addLog(StaqueViewLog* log) { emit logAdded(log); }
-	void on_stack_push(int val);
-	void on_stack_push_from_release(int val, QPointF scenePos);
-	void on_stack_pop();
+	void addLog(BSearchTreeViewLog* log) { emit logAdded(log); }
+	void on_tree_push(int val);
+	void on_tree_push_from_release(int val, QPointF scenePos);
+	void on_tree_pop(BSearchTreeNodeItem* root);
 };
 #endif // GRAPH_VIEW_H
