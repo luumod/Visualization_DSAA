@@ -14,6 +14,7 @@
 #include "sortpage.h"
 #include "graphpage.h"
 #include "staquepage.h"
+#include "greedpage.h"
 #include "aboutpage.h"
 #include "linkedlistpage.h"
 #include "slidepage.h"
@@ -92,6 +93,10 @@ MainWindow::MainWindow(QWidget* parent)
 	_staquePage->setMouseTracking(true);
 	_sideBar->addPage(_staquePage);
 
+	_greedPage = new GreedPage(_placeHolderWidget);
+	_greedPage->setMouseTracking(true);
+	_sideBar->addPage(_greedPage);
+
 	// Create about page and connect to side bar
 	_aboutPage = new AboutPage(_placeHolderWidget);
 	_aboutPage->setMouseTracking(true);
@@ -118,12 +123,14 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 	_graphPage->resize(newSize);
 	_listPage->resize(newSize);
 	_staquePage->resize(newSize);
+	_greedPage->resize(newSize);
 	_aboutPage->resize(newSize);
 
 	_sortPage->autoResizeSettingsPage();
 	_graphPage->autoResizeSettingsPage();
 	_listPage->autoResizeSettingsPage();
 	_staquePage->autoResizeSettingsPage();
+	_greedPage->autoResizeSettingsPage();
 
 #if DEBUG
 	Logger::debug(QString("MainWindow::resizeEvent: (%1,%2)").arg(event->size().width()).arg(event->size().height()));
@@ -147,6 +154,7 @@ void MainWindow::resizePages(QResizeEvent* event) {
 	_graphPage->resize(size);
 	_listPage->resize(size);
 	_staquePage->resize(size);
+	_greedPage->resize(size);
 	_aboutPage->resize(size);
 }
 
@@ -159,6 +167,7 @@ void MainWindow::showEvent(QShowEvent* event) {
 	_graphPage->resize(_placeHolderWidget->size());
 	_listPage->resize(_placeHolderWidget->size());
 	_staquePage->resize(_placeHolderWidget->size());
+	_greedPage->resize(_placeHolderWidget->size());
 	_aboutPage->resize(_placeHolderWidget->size());
 }
 

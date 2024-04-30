@@ -1,82 +1,108 @@
 #include <QApplication>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QScrollBar>
+#include <QMainWindow>
+#include <QTimer>
 #include <QPainter>
-#include <QMouseEvent>
+#include <QVector>
+#include <QPair>
+#include <QDebug>
 
-// 自定义节点类
-class NodeItem : public QGraphicsItem {
+class GreedyChangeDemo : public QMainWindow
+{
+    Q_OBJECT
+
 public:
-	NodeItem(int value, QGraphicsItem* parent = nullptr) : QGraphicsItem(parent), m_value(value) {}
+    GreedyChangeDemo(QWidget* parent = nullptr) : QMainWindow(parent)
+    {
+        setWindowTitle("Greedy Change Demo");
+        resize(800, 600);
 
-	QRectF boundingRect() const override {
-		return QRectF(-20, -20, 40, 40); // 设置节点的边界
-	}
+        // 设置零钱面额
+        coinValues << 25 << 10 << 5 << 1;
 
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override {
-		Q_UNUSED(option);
-		Q_UNUSED(widget);
+        // 设置需要找零的金额
+        targetAmount = 99;
 
-		painter->setBrush(Qt::blue); // 设置节点颜色
-		painter->drawEllipse(-20, -20, 40, 40); // 绘制节点
-		painter->drawText(-5, 5, QString::number(m_value)); // 绘制节点值
-	}
+        // 初始化动画定时器
+        timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &GreedyChangeDemo::nextStep);
 
-private:
-	int m_value;
-};
+        // 开始动画
+        timer->start(1000);
+    }
 
-// 自定义链表可视化视图类
-class LinkedListView : public QGraphicsView {
-public:
-	LinkedListView(QWidget* parent = nullptr) : QGraphicsView(parent) {
-		// 创建场景
-		scene = new QGraphicsScene(this);
-		setScene(scene);
-		scene->setBackgroundBrush(QColor(0, 255, 255));
-
-		// 添加节点到链表中
-		addNode(10);
-		addNode(20);
-		addNode(30);
-		addNode(40);
-
-		// 设置场景大小无限大
-		setSceneRect(0, 0, 1000, 500);
-	}
-
-	void addNode(int value) {
-		NodeItem* node = new NodeItem(value);
-		scene->addItem(node);
-
-		// 设置节点位置
-		node->setPos(nodeCount * 100, 50);
-
-		nodeCount++;
-	}
 protected:
-	void mousePressEvent(QMouseEvent* ev)override {
-		QPoint pos = ev->pos();
-		QPointF scene_pos = this->mapToScene(pos);
-		QPointF global_pos = this->mapToGlobal(pos);
-		qInfo() << "view pos: " << pos << "scene pos: " << scene_pos << "global pos: " << global_pos;
-	}
+    void paintEvent(QPaintEvent* event) override
+    {
+        Q_UNUSED(event);
+        QPainter painter(this);
+
+        painter.fillRect(0, 0, width(), height(), Qt::white);
+
+        // 绘制零钱
+        painter.setPen(Qt::black);
+        for (int i = 0; i < coinValues.size(); ++i)
+        {
+            painter.drawRect(100 + i * 50, height() - 50, 40, 40);
+            painter.drawText(120 + i * 50, height() - 25, QString::number(coinValues[i]));
+        }
+
+        // 绘制目标金额
+        painter.setPen(Qt::red);
+        painter.drawText(width() / 2 - 40, height() - 100, "Target Amount: " + QString::number(targetAmount));
+
+        // 绘制当前找零的金额
+        painter.setPen(Qt::blue);
+        painter.drawText(width() / 2 - 40, height() - 75, "Current Amount: " + QString::number(currentAmount));
+
+        // 绘制已经找到的硬币
+        painter.setPen(Qt::darkGreen);
+        int x = 50;
+        int y = height() - 150;
+        for (int i = 0; i < currentCoins.size(); ++i)
+        {
+            painter.drawRect(x, y, 40, 40);
+            painter.drawText(x + 20, y + 25, QString::number(currentCoins[i]));
+            x += 50;
+        }
+    }
+
+private slots:
+    void nextStep()
+    {
+        if (currentAmount == targetAmount)
+        {
+            // 找零完成，停止动画
+            timer->stop();
+            return;
+        }
+
+        for (int i = 0; i < coinValues.size(); ++i)
+        {
+            if (currentAmount + coinValues[i] <= targetAmount)
+            {
+                currentCoins.push_back(coinValues[i]);
+                currentAmount += coinValues[i];
+                break;
+            }
+        }
+
+        update();
+    }
 
 private:
-	QGraphicsScene* scene;
-	int nodeCount = 0;
+    QTimer* timer;
+    QVector<int> coinValues;
+    QVector<int> currentCoins;
+    int targetAmount;
+    int currentAmount = 0;
 };
 
-int main(int argc, char* argv[]) {
-	QApplication app(argc, argv);
-
-	LinkedListView view;
-	view.setWindowTitle("Linked List Visualization");
-	view.resize(500, 200);
-	view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn); // 始终显示水平滚动条
-	view.show();
-
-	return app.exec();
+int main(int argc, char* argv[])
+{
+    QApplication a(argc, argv);
+    GreedyChangeDemo w;
+    w.show();
+    return a.exec();
 }
+
+#include "main.moc"

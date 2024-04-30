@@ -10,6 +10,7 @@ class SortPage;
 class GraphPage;
 class LinkedListPage;
 class StaquePage;
+class GreedPage;
 class AboutPage;
 class bigIconButton;
 class SideBar;
@@ -40,6 +41,7 @@ private:
     AboutPage* _aboutPage = nullptr;
     GraphPage* _graphPage = nullptr;
     StaquePage* _staquePage = nullptr;
+    GreedPage* _greedPage = nullptr;
     LinkedListPage* _listPage = nullptr;
 
     
