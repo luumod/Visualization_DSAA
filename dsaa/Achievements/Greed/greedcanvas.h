@@ -9,6 +9,9 @@ class QLabel;
 class QHBoxLayout;
 class BaseList;
 class GreedyChangeView;
+class QTextEdit;
+class QVBoxLayout;
+class ScrollAreaCustom;
 class GreedCanvas: public QWidget {
 	Q_OBJECT
 
@@ -18,40 +21,52 @@ public:
 	~GreedCanvas();
 
 	void CreateSettings(int r);
-    void Init();
+	void Init();
 
 	SlidePage* settingPage() { return settings; }
 
 
 signals:
-    void startGreed();
-    void runFlagChanged(bool running);
-    void nameChanged(QString name);
-    void descChanged(QString desc);
-    void brushColorChanged(QColor color);
-    void lineColorChanged(QColor color);
-    void textColorChanged(QColor color);
+	void typeChanged(int row);
+	void startGreed();
+	void runFlagChanged(bool running);
+	void nameChanged(QString name);
+	void descChanged(QString desc);
+	void brushColorChanged(QColor color);
+	void lineColorChanged(QColor color);
+	void textColorChanged(QColor color);
+public slots:
+	void on_changed_algorithm(int row);
 private: 
+	QWidget* widget_1_values{ nullptr };
+	QWidget* widget_1_amount{ nullptr };
 
-    QString canvasName;
-    QString canvasDescription;
-    QString canvasSortType = "Linked List";
-    QString canvasSortInterval = QString::number(20);
-    QString canvasSortVolume = QString::number(10);
+	QWidget* widget_2_add{ nullptr };
+	QWidget* widget_2_control{ nullptr };
 
-    SlidePage* settings;
+	QVBoxLayout* defTextLayout{ nullptr };
 
-    //For display
-    QHBoxLayout* mainLayout;
-    GreedyChangeView* view{ nullptr };
-    QWidget* infoWidget;
-    QLabel* pageName{ nullptr };
+	QString canvasName;
+	QString canvasDescription;
+	QString canvasSortType = "Linked List";
+	QString canvasSortInterval = QString::number(20);
+	QString canvasSortVolume = QString::number(10);
 
-    QPalette palette{ nullptr };
+	SlidePage* settings;
 
-    int structure_type;
-    int type;
-    bool generateForest = false;
+	//For display
+	QHBoxLayout* mainLayout;
+	ScrollAreaCustom* logDisplay{ nullptr };
+	QTextEdit* textEdit{ nullptr };
+	GreedyChangeView* view{ nullptr };
+	QWidget* infoWidget;
+	QLabel* pageName{ nullptr };
+
+	QPalette palette{ nullptr };
+
+	int structure_type;
+	int type;
+	bool generateForest = false;
 };
 
 #endif // !LINKED_LIST_CANVAS_H_

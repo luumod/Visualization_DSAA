@@ -9,7 +9,7 @@ add_library(dsaa_greed STATIC
     "greedcanvas.h"
     "greedcanvas.cpp"
     "greedview.h"
-    "greedview.cpp")
+    "greedview.cpp" "greedyviewlog.cpp" "greedyviewlog.h")
 
 target_link_libraries(dsaa_greed PRIVATE
     Qt6::Core

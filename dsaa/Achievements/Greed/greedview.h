@@ -5,31 +5,55 @@
 #include <QVector>
 
 class QTimer;
+class GreedyViewLog;
 class GreedyChangeView : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    GreedyChangeView(QWidget* parent = nullptr);
+	struct Task {
+		int start;
+		int end;
+	};
+	int type = 0;
 
-    void showDefault();
+	GreedyChangeView(QWidget* parent = nullptr);
 
-    void setValues(QVector<int> values);
-    void setCurrentCoins(QVector<int> coins);
-    void setTargetAmout(int amout);
-    void setCurrentAmout(int cur_amout);
+	void showDefault();
+	void setClear();
+	void pop_back();
+
+	void addTask(Task task);
+	void setValues(QVector<int> values);
+	void setCurrentCoins(QVector<int> coins);
+	void setTargetAmout(int amout);
+	void setCurrentAmout(int cur_amout);
 protected:
-    void paintEvent(QPaintEvent* event) override;
-
+	void paintEvent(QPaintEvent* event) override;
+signals:
+	void logAdded(GreedyViewLog* log);
 public slots:
-    void startChange();
-    void nextStep();
+	void startChange();
+	void nextStep();
 private:
-    QTimer* timer{ nullptr };
-    QVector<int> coinValues;
-    QVector<int> currentCoins;
-    int targetAmount;
-    int currentAmount = 0;
+
+
+	QFont font = QFont("Corbel", 13, QFont::Normal, true);
+
+	//-----------------------
+	// 1
+	QTimer* timer{ nullptr };
+	QVector<int> coinValues;
+	QVector<int> currentCoins;
+	int targetAmount;
+	int currentAmount = 0;
+
+
+	//-----------------------
+	// 2
+	QVector<Task> tasks_copy;
+	QVector<Task> tasks;
+	QVector<Task> currentSchedule;
 };
 
 

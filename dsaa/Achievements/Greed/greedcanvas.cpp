@@ -1,6 +1,7 @@
 #include "greedcanvas.h"
 #include "greedview.h"
 #include "slidepage.h"
+#include "greedyviewlog.h"
 #include "singleSelectGroup.h"
 #include "spinbox.h"
 #include "horizontalValueAdjuster.h"
@@ -22,6 +23,7 @@
 #include <QColorDialog>
 #include <QButtonGroup>
 #include <QScrollArea>
+#include <QTextEdit>
 
 GreedCanvas::GreedCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -34,18 +36,51 @@ GreedCanvas::GreedCanvas(int radius, QString name, QString desc, QWidget* parent
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	this->setLayout(mainLayout);
 
-	//QScrollArea* scrollArea = new QScrollArea(this);
-	//scrollArea->setWidgetResizable(true);
-
 	view = new GreedyChangeView(this);
 	view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
-	
-
-	//scrollArea->setWidget(view);
 	mainLayout->addWidget(view);
-	
-	this->setFocusPolicy(Qt::ClickFocus);
 
+	QWidget* text_view = new QWidget(this);
+	QHBoxLayout* layout_text_view = new QHBoxLayout(text_view);
+	text_view->setLayout(layout_text_view);
+	text_view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
+	text_view->setAutoFillBackground(true);
+	QPalette palette;
+	palette.setColor(QPalette::Window, Qt::white);
+	text_view->setPalette(palette);
+	mainLayout->addWidget(text_view);
+
+	textEdit = new QTextEdit(text_view);
+	textEdit->setReadOnly(true);
+	textEdit->setStyleSheet("border:0px");
+
+	QString nextStepGreedyChangeCode =
+		"void GreedyChangeView::nextStep()\n"
+		"{\n"
+		"    if (currentAmount == targetAmount)\n"
+		"    {\n"
+		"        timer->stop();\n"
+		"        return;\n"
+		"    }\n"
+		"    std::sort(coinValues.begin(), coinValues.end(), std::greater<>());\n"
+		"    for (int i = 0; i < coinValues.size(); ++i)\n"
+		"    {\n"
+		"        if (currentAmount + coinValues[i] <= targetAmount)\n"
+		"        {\n"
+		"            currentCoins.push_back(coinValues[i]);\n"
+		"            currentAmount += coinValues[i];\n"
+		"            break;\n"
+		"        }\n"
+		"    }\n"
+		"    update();\n"
+		"}\n";
+
+	textEdit->setText(nextStepGreedyChangeCode);
+
+	layout_text_view->addWidget(textEdit);
+
+	this->setFocusPolicy(Qt::ClickFocus);
+	connect(this, &GreedCanvas::typeChanged, this, &GreedCanvas::on_changed_algorithm);
 	CreateSettings(radius);
 }
 
@@ -57,17 +92,22 @@ void GreedCanvas::CreateSettings(int radius)
 	/* create settings page */
 	settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
 	singleSelectGroup* structureSetting = new singleSelectGroup("Linked list", settings);
-	selectionItem* setSingleList = new selectionItem("Single", "Adjacent list structure", settings);
-	selectionItem* setDouble = new selectionItem("Double", "Adjacent multiple list", settings);
-	selectionItem* setCircular_single = new selectionItem("Circular single", "Adjacent multiple list", settings);
-	selectionItem* setCircular_double = new selectionItem("Circular double", "Adjacent multiple list", settings);
-	structureSetting->AddItem(setSingleList);
-	structureSetting->AddItem(setDouble);
-	structureSetting->AddItem(setCircular_single);
-	structureSetting->AddItem(setCircular_double);
+	selectionItem* greedy_1 = new selectionItem("Coin change", "Adjacent list structure", settings);
+	selectionItem* greedy_2 = new selectionItem("Task scheduling", "Adjacent multiple list", settings);
+	structureSetting->AddItem(greedy_1);
+	structureSetting->AddItem(greedy_2);
 	connect(structureSetting, &singleSelectGroup::selectedItemChange, this, [=](int index) {
-		
-		});
+		switch (index)
+		{
+		case 0:
+			emit typeChanged(index);
+			break;
+		case 1:
+			emit typeChanged(index);
+			break;
+		}
+		settings->slideOut();
+	});
 
 	QWidget* spacingLine = new QWidget(this);
 	spacingLine->setFixedHeight(1);
@@ -75,35 +115,6 @@ void GreedCanvas::CreateSettings(int radius)
 
 	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
-
-	// Adjust attributes panel for the node.
-	//SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
-	//SpinBox* spin_node_width = new SpinBox("Node Width",40,100,60, settings);
-	//SpinBox* spin_node_height = new SpinBox("Node Height",30,100,30, settings);
-	//SpinBox* spin_arrow_length = new SpinBox("Arrow Length",1,100,10, settings);
-	//SpinBox* spin_text_size = new SpinBox("Text Size",1,20,5, settings);
-	//SpinBox* spin_max_number = new SpinBox("Max number",1,10,5, settings);
-	//SpinBox* spin_row_spacing = new SpinBox("Row spacing",10,100,20, settings);
-	//adjust_spin_group->AddItem(spin_node_width);
-	//adjust_spin_group->AddItem(spin_node_height);
-	//adjust_spin_group->AddItem(spin_arrow_length);
-	//adjust_spin_group->AddItem(spin_text_size);
-	//adjust_spin_group->AddItem(spin_max_number);
-	//adjust_spin_group->AddItem(spin_row_spacing);
-	//connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
-	//	// Update all inborn attributes actually, not care if your whether modified it.
-	//	/*view->updateSettings(
-	//		spin_node_width->value(),
-	//		spin_node_height->value(),
-	//		spin_arrow_length->value(),
-	//		spin_text_size->value(),
-	//		spin_max_number->value(),
-	//		spin_row_spacing->value());*/
-	//});
-	//connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
-	//	//view->resetSettings();
-	//});
-
 
 	textInputItem* rename = new textInputItem("Set name", settings);
 	rename->setValue(canvasName);
@@ -128,53 +139,9 @@ void GreedCanvas::CreateSettings(int radius)
 	QWidget* whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
 
-	
-	QWidget* whiteSpace_on = new QWidget(settings);
-	whiteSpace_on->setFixedHeight(10);
-
-	QWidget* color_group_widget = new QWidget(settings);
-	QHBoxLayout* layout_color_group = new QHBoxLayout(color_group_widget);
-	layout_color_group->setContentsMargins(0, 0, 0, 0);
-	textButton* btn_node_brush = new textButton("Set brush color", QColor(216, 240, 224).name(),settings);
-	textButton* btn_arrow_color = new textButton("Set arrow color", QColor(0, 0, 0).name(), settings);
-	textButton* btn_text_color = new textButton("Set text color", QColor(0, 0, 0).name(), settings);
-	layout_color_group->addWidget(btn_node_brush);
-	layout_color_group->addWidget(btn_arrow_color);
-	layout_color_group->addWidget(btn_text_color);
-	layout_color_group->setStretch(0, 3);
-	layout_color_group->setStretch(1, 3);
-	layout_color_group->setStretch(2, 3);
-	color_group_widget->setLayout(layout_color_group);
-	//connect(this, &GreedCanvas::brushColorChanged, view, &GreedyChangeView::freshNodeBrushColor);
-	connect(btn_node_brush, &textButton::clicked, this, [=]() {
-		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the node to brush.");
-		if (color.isValid()) {
-			btn_node_brush->setDefaultColor(color);
-			emit brushColorChanged(color);
-		}
-	});
-	//connect(this, &GreedCanvas::lineColorChanged, view, &LinkedListView::freshNodeLineColor);
-	connect(btn_arrow_color, &textButton::clicked, this, [=]() {
-		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for the connection line.");
-		if (color.isValid()) {
-			btn_arrow_color->setDefaultColor(color);
-			emit lineColorChanged(color);
-		}
-		});
-	//connect(this, &GreedCanvas::textColorChanged, view, &LinkedListView::freshNodeTextColor);
-	connect(btn_text_color, &textButton::clicked, this, [=]() {
-		QColor color = QColorDialog::getColor(Qt::white, this, "Choose a color for text that located in the middle of node.");
-		if (color.isValid()) {
-			btn_text_color->setDefaultColor(color);
-			emit textColorChanged(color);
-		}
-		});
-
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(structureSetting);
 	settings->AddContent(spacingLine);
-	settings->AddContent(color_group_widget);
-	//settings->AddContent(adjust_spin_group);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);
@@ -184,6 +151,68 @@ void GreedCanvas::CreateSettings(int radius)
 	connect(delay, &QTimer::timeout, this, [=]() {Init(); });
 	delay->setSingleShot(true);
 	delay->start(10);
+}
+
+void GreedCanvas::on_changed_algorithm(int row) {
+	view->type = row;
+	if (row == 0) {
+		// coin
+		widget_1_values->show();
+		widget_1_amount->show();
+
+		widget_2_add->hide();
+		widget_2_control->hide();
+
+		QString nextStepGreedyChangeCode =
+			"void GreedyChangeView::nextStep()\n"
+			"{\n"
+			"    if (currentAmount == targetAmount)\n"
+			"    {\n"
+			"        timer->stop();\n"
+			"        return;\n"
+			"    }\n"
+			"    std::sort(coinValues.begin(), coinValues.end(), std::greater<>());\n"
+			"    for (int i = 0; i < coinValues.size(); ++i)\n"
+			"    {\n"
+			"        if (currentAmount + coinValues[i] <= targetAmount)\n"
+			"        {\n"
+			"            currentCoins.push_back(coinValues[i]);\n"
+			"            currentAmount += coinValues[i];\n"
+			"            break;\n"
+			"        }\n"
+			"    }\n"
+			"    update();\n"
+			"}\n";
+
+		textEdit->setText(nextStepGreedyChangeCode);
+
+	}
+	else if (row == 1) {
+		// schedule
+		widget_2_add->show();
+		widget_2_control->show();
+
+		widget_1_values->hide();
+		widget_1_amount->hide();
+		QString schedulingGreedyCode =
+			"void schedule(){\n"
+			" int n;\n"
+			" cin >> n; \n"
+			" vector<Contest> cons(n); \n"
+			" for (int i = 0; i < n; ++i)\n"
+			"     cin >> cons[i].start >> cons[i].end;\n"
+			" sort(cons.begin(), cons.end()); \n"
+			" int ans = 0, end = 0, next = 0; \n"
+			" while (next < n) {\n"
+			"     ++ans;\n"
+			"     end = cons[next].end;\n"
+			"     while (next < n && cons[next].start < end) ++next;\n"
+			" }\n"
+			" cout << ans << endl;\n"
+			"}\n";
+		textEdit->setText(schedulingGreedyCode);
+	}	
+	view->showDefault();
 }
 
 void GreedCanvas::Init()
@@ -229,7 +258,7 @@ void GreedCanvas::Init()
 	QWidget* defTextItems = new QWidget(defInfoPage);
 	defTextItems->setObjectName("DefTextItems");
 	defTextItems->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QVBoxLayout* defTextLayout = new QVBoxLayout(defTextItems);
+	defTextLayout = new QVBoxLayout(defTextItems);
 	defTextItems->setLayout(defTextLayout);
 	defTextLayout->setContentsMargins(0, 5, 0, 5);
 
@@ -247,7 +276,7 @@ void GreedCanvas::Init()
 	connect(this, &GreedCanvas::startGreed, view, &GreedyChangeView::startChange);
 
 	// show default
-	textButton* btn_start = new textButton("Start change", defInfoPage);
+	textButton* btn_start = new textButton("Start greedy", defInfoPage);
 	QWidget* widget_push = new QWidget(defInfoPage);
 	widget_push->setObjectName("DefTextItems");
 	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
@@ -258,66 +287,122 @@ void GreedCanvas::Init()
 		emit startGreed();
 		});
 
-	// input
-	textInputItem* input_data = new textInputItem("Values", defInfoPage);
-	input_data->lineEditor()->setPlaceholderText("50 25 10 5 2");
-	textButton* btn_update_values = new textButton("update", defInfoPage);
-	QWidget* widget_values = new QWidget(defInfoPage);
-	widget_values->setObjectName("DefTextItems");
-	widget_values->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_values = new QHBoxLayout(widget_values);
-	widget_values->setLayout(layout_values);
-	layout_values->addWidget(input_data);
-	layout_values->addWidget(btn_update_values);
-	layout_values->setStretch(0, 7);
-	layout_values->setStretch(1, 3);
-	connect(btn_update_values, &textButton::clicked, this, [=]() {
-		if (!input_data->value().isEmpty()) {
-			QStringList vec = input_data->value().split(' ');
-			QVector<int> intVector;
-			if (vec.isEmpty()) {
-				intVector << 50 << 25 << 10 << 5 << 2;
-			}
-			else {
-				for (const QString& str : vec) {
-					intVector.append(str.toInt());
+
+	// 1
+	{
+		// input
+		textInputItem* input_data = new textInputItem("Values", defInfoPage);
+		input_data->lineEditor()->setPlaceholderText("50 25 10 5 2");
+		textButton* btn_update_values = new textButton("update", defInfoPage);
+		widget_1_values = new QWidget(defInfoPage);
+		widget_1_values->setObjectName("DefTextItems");
+		widget_1_values->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+		QHBoxLayout* layout_values = new QHBoxLayout(widget_1_values);
+		widget_1_values->setLayout(layout_values);
+		layout_values->addWidget(input_data);
+		layout_values->addWidget(btn_update_values);
+		layout_values->setStretch(0, 7);
+		layout_values->setStretch(1, 3);
+		connect(btn_update_values, &textButton::clicked, this, [=]() {
+			if (!input_data->value().isEmpty()) {
+				QStringList vec = input_data->value().split(' ');
+				QVector<int> intVector;
+				if (vec.isEmpty()) {
+					intVector << 50 << 25 << 10 << 5 << 2;
 				}
-				intVector.removeAll(0);
-				std::sort(intVector.begin(), intVector.end(), std::greater<int>());
+				else {
+					for (const QString& str : vec) {
+						intVector.append(str.toInt());
+					}
+					intVector.removeAll(0);
+					std::sort(intVector.begin(), intVector.end(), std::greater<int>());
+				}
+				qInfo() << intVector;
+				view->setValues(intVector);
 			}
-			qInfo() << intVector;
-			view->setValues(intVector);
-		}
-		});
+			});
 
 
-	// Amount
-	textInputItem* input_amount = new textInputItem("Amount", defInfoPage);
-	input_amount->lineEditor()->setPlaceholderText("99");
-	textButton* btn_update_amount = new textButton("update", defInfoPage);
-	QWidget* widget_amount = new QWidget(defInfoPage);
-	widget_amount->setObjectName("DefTextItems");
-	widget_amount->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QHBoxLayout* layout_amount = new QHBoxLayout(widget_amount);
-	widget_amount->setLayout(layout_amount);
-	layout_amount->addWidget(input_amount);
-	layout_amount->addWidget(btn_update_amount);
-	layout_amount->setStretch(0, 7);
-	layout_amount->setStretch(1, 3);
-	connect(btn_update_amount, &textButton::clicked, this, [=]() {
-		if (!input_amount->value().isEmpty()) {
-			int targetAmount = input_amount->value().split(' ')[0].toInt();
-			view->setTargetAmout(targetAmount);
-		}
-		});
+		// Amount
+		textInputItem* input_amount = new textInputItem("Amount", defInfoPage);
+		input_amount->lineEditor()->setPlaceholderText("99");
+		textButton* btn_update_amount = new textButton("update", defInfoPage);
+		widget_1_amount = new QWidget(defInfoPage);
+		widget_1_amount->setObjectName("DefTextItems");
+		widget_1_amount->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+		QHBoxLayout* layout_amount = new QHBoxLayout(widget_1_amount);
+		widget_1_amount->setLayout(layout_amount);
+		layout_amount->addWidget(input_amount);
+		layout_amount->addWidget(btn_update_amount);
+		layout_amount->setStretch(0, 7);
+		layout_amount->setStretch(1, 3);
+		connect(btn_update_amount, &textButton::clicked, this, [=]() {
+			if (!input_amount->value().isEmpty()) {
+				int targetAmount = input_amount->value().split(' ')[0].toInt();
+				view->setTargetAmout(targetAmount);
+			}
+			});
+	}
+
+	// 2
+	{
+		// input
+		textInputItem* input_data = new textInputItem("s & e:", defInfoPage);
+		textButton* btn_add = new textButton("Add", defInfoPage);
+		widget_2_add = new QWidget(defInfoPage);
+		widget_2_add->setObjectName("DefTextItems");
+		widget_2_add->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+		QHBoxLayout* layout_add = new QHBoxLayout(widget_2_add);
+		widget_2_add->setLayout(layout_add);
+		widget_2_add->hide();
+		layout_add->addWidget(input_data);
+		layout_add->addWidget(btn_add);
+		layout_add->setStretch(0, 7);
+		layout_add->setStretch(1, 3);
+		connect(btn_add, &textButton::clicked, this, [=]() {
+			if (!input_data->value().isEmpty()) {
+				QStringList vec = input_data->value().split(' ');
+				GreedyChangeView::Task task;
+				if (vec.size() != 2) {
+					task = GreedyChangeView::Task{1,2};
+				}
+				else {
+					task = GreedyChangeView::Task{ vec[0].toInt(),vec[1].toInt() };
+				}
+				view->addTask(task);
+			}
+			});
+
+
+		// input
+		textButton* btn_pop_last = new textButton("remove last", defInfoPage);
+		textButton* btn_clear = new textButton("Clear", defInfoPage);
+		widget_2_control = new QWidget(defInfoPage);
+		widget_2_control->setObjectName("DefTextItems");
+		widget_2_control->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+		QHBoxLayout* layout_control = new QHBoxLayout(widget_2_control);
+		widget_2_control->setLayout(layout_control);
+		widget_2_control->hide();
+		layout_control->addWidget(btn_pop_last, 5);
+		layout_control->addWidget(btn_clear, 5);
+		connect(btn_pop_last, &textButton::clicked, this, [=]() {
+			view->pop_back();
+			});
+		connect(btn_clear, &textButton::clicked, this, [=]() {
+			view->setClear();
+			});
+	}
+
 
 
 
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
-	defTextLayout->addWidget(widget_values);
-	defTextLayout->addWidget(widget_amount);
+	defTextLayout->addWidget(widget_1_values);
+	defTextLayout->addWidget(widget_1_amount);
+	defTextLayout->addWidget(widget_2_add);
+	defTextLayout->addWidget(widget_2_control);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
@@ -337,7 +422,7 @@ void GreedCanvas::Init()
 	QWidget* lowerSplitter = new QWidget(lower);
 	lowerSplitter->setFixedSize(30, 6);
 	lowerSplitter->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
-	ScrollAreaCustom* logDisplay = new ScrollAreaCustom(lower);
+	logDisplay = new ScrollAreaCustom(lower);
 	logDisplay->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	lowerLayout->addWidget(logLabel);
 	lowerLayout->addWidget(lowerSplitter);
@@ -345,5 +430,6 @@ void GreedCanvas::Init()
 
 	infoLayout->addWidget(upper);
 	infoLayout->addWidget(lower);
-}
 
+	connect(view, &GreedyChangeView::logAdded, this, [=](GreedyViewLog* log) {logDisplay->addWidget(log); });
+}
