@@ -65,7 +65,7 @@ BSearchTreePage::BSearchTreePage(QWidget* parent) :
 	_titleOneWidget->setLayout(_titleOneLayout);
 
 	// Construct the first row of title area.
-	_titleLabel = new QLabel("Sort", _contentWidget);
+	_titleLabel = new QLabel("Binary Search Tree", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 	SlidePage* page = bstreeCanvas->settingPage();
 	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, _contentWidget);
@@ -88,7 +88,7 @@ BSearchTreePage::BSearchTreePage(QWidget* parent) :
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Visualization of sort algorithm");
+	_pageDesc->setText("Visualization of BS-Tree");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
@@ -135,7 +135,7 @@ PushButton* BSearchTreePage::getPageIconButton(QWidget* context) {
 	_iconButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_iconButtonLabel->setFont(font);
-	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort));
+	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_tree));
 	_iconButtonLabel->setAlignment(Qt::AlignLeft);
 	_iconButton->setChildWidget(_iconButtonLabel);
 
@@ -162,12 +162,12 @@ PushButton* BSearchTreePage::getPageTextButton(QWidget* context) {
 	_textButtonIcon = new QLabel(_textButtonWidget);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_textButtonIcon->setFont(font);
-	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort));
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_tree));
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);
 	_textButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_textButtonLabel->setText("Sort");
+	_textButtonLabel->setText("Binary search tree");
 	_textButtonLabel->setAlignment(Qt::AlignLeft);
 
 	// Add text button contents to layout

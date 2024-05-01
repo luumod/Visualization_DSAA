@@ -60,7 +60,7 @@ LinkedListPage::LinkedListPage(QWidget* parent) :
 	_titleOneLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	_titleOneWidget->setLayout(_titleOneLayout);
 
-	_titleLabel = new QLabel("List", _contentWidget);
+	_titleLabel = new QLabel("Linked list", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 
 	SlidePage* page = listCanvas->settingPage();
@@ -84,7 +84,7 @@ LinkedListPage::LinkedListPage(QWidget* parent) :
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Visualization of graph algorithm");
+	_pageDesc->setText("Visualization of linked list algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
@@ -133,7 +133,7 @@ PushButton* LinkedListPage::getPageIconButton(QWidget* context) {
 	_iconButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_iconButtonLabel->setFont(font);
-	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_map_marker));
+	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_arrow_in));
 	_iconButtonLabel->setAlignment(Qt::AlignLeft);
 	_iconButton->setChildWidget(_iconButtonLabel);
 
@@ -160,12 +160,12 @@ PushButton* LinkedListPage::getPageTextButton(QWidget* context) {
 	_textButtonIcon = new QLabel(_textButtonWidget);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_textButtonIcon->setFont(font);
-	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_map_marker));
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_arrow_in));
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);
 	_textButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	_textButtonLabel->setText("Graph");
+	_textButtonLabel->setText("Linked list");
 	_textButtonLabel->setAlignment(Qt::AlignLeft);
 
 	// Add text button contents to layout

@@ -65,7 +65,7 @@ SortPage::SortPage(QWidget* parent) :
 	_titleOneWidget->setLayout(_titleOneLayout);
 
 	// Construct the first row of title area.
-	_titleLabel = new QLabel("Sort", _contentWidget);
+	_titleLabel = new QLabel("Sort algorithm", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 	SlidePage* page = sortCanvas->settingPage();
 	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, _contentWidget);
@@ -137,7 +137,7 @@ PushButton* SortPage::getPageIconButton(QWidget* context) {
 	_iconButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_iconButtonLabel->setFont(font);
-	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort));
+	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort_asc));
 	_iconButtonLabel->setAlignment(Qt::AlignLeft);
 	_iconButton->setChildWidget(_iconButtonLabel);
 
@@ -164,7 +164,7 @@ PushButton* SortPage::getPageTextButton(QWidget* context) {
 	_textButtonIcon = new QLabel(_textButtonWidget);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_textButtonIcon->setFont(font);
-	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort));
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort_asc));
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);

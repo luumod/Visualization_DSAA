@@ -136,7 +136,7 @@ PushButton* GraphPage::getPageIconButton(QWidget* context) {
 	_iconButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_iconButtonLabel->setFont(font);
-	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_map_marker));
+	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sitemap));
 	_iconButtonLabel->setAlignment(Qt::AlignLeft);
 	_iconButton->setChildWidget(_iconButtonLabel);
 
@@ -163,7 +163,7 @@ PushButton* GraphPage::getPageTextButton(QWidget* context) {
 	_textButtonIcon = new QLabel(_textButtonWidget);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_textButtonIcon->setFont(font);
-	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_map_marker));
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sitemap));
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);

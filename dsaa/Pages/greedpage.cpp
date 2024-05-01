@@ -65,7 +65,7 @@ GreedPage::GreedPage(QWidget* parent) :
 	_titleOneWidget->setLayout(_titleOneLayout);
 
 	// Construct the first row of title area.
-	_titleLabel = new QLabel("Sort", _contentWidget);
+	_titleLabel = new QLabel("Greedy algorithm", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 	SlidePage* page = greedCanvas->settingPage();
 	customIcon* settingsIcon = new customIcon(ICON_FILE "settings.svg", "settings", 5, _contentWidget);
@@ -90,7 +90,7 @@ GreedPage::GreedPage(QWidget* parent) :
 	QFontMetrics descFm(descFont);
 	_pageDesc = new QLineEdit(_contentWidget);
 	_pageDesc->setFont(descFont);
-	_pageDesc->setText("Visualization of sort algorithm");
+	_pageDesc->setText("Visualization of greedy algorithm");
 	_pageDesc->setMaxLength(128);
 	_pageDesc->setReadOnly(true);
 	_pageDesc->setMinimumHeight(descFm.lineSpacing());
@@ -137,7 +137,7 @@ PushButton* GreedPage::getPageIconButton(QWidget* context) {
 	_iconButtonLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_iconButtonLabel->setFont(font);
-	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort));
+	_iconButtonLabel->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_heart));
 	_iconButtonLabel->setAlignment(Qt::AlignLeft);
 	_iconButton->setChildWidget(_iconButtonLabel);
 
@@ -164,7 +164,7 @@ PushButton* GreedPage::getPageTextButton(QWidget* context) {
 	_textButtonIcon = new QLabel(_textButtonWidget);
 	QFont font = FontAwesomeIcons::Instance()->getFont();
 	_textButtonIcon->setFont(font);
-	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_sort));
+	_textButtonIcon->setText(FontAwesomeIcons::Instance()->getIconChar(FontAwesomeIcons::IconIdentity::icon_heart));
 	_textButtonIcon->setAlignment(Qt::AlignLeft);
 
 	_textButtonLabel = new QLabel(_textButtonWidget);
