@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QRegularExpressionValidator>
 #include <QPropertyAnimation>
+#include <QTextEdit>
 
 GraphCanvas::GraphCanvas(int radius, QString name, QString desc, int structure, int _type, QWidget *parent) :
 	QWidget(parent),
@@ -27,6 +28,22 @@ GraphCanvas::GraphCanvas(int radius, QString name, QString desc, int structure, 
 	view->setSceneRect(view->rect());
 	view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
 	mainLayout->addWidget(view);
+
+	QWidget* text_view = new QWidget(this);
+	QHBoxLayout* layout_text_view = new QHBoxLayout(text_view);
+	text_view->setLayout(layout_text_view);
+	text_view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
+	text_view->setAutoFillBackground(true);
+	QPalette palette;
+	palette.setColor(QPalette::Window, Qt::white);
+	text_view->setPalette(palette);
+	mainLayout->addWidget(text_view);
+
+	textEdit = new QTextEdit(text_view);
+	textEdit->setReadOnly(true);
+	textEdit->setStyleSheet("border:0px");
+
+	layout_text_view->addWidget(textEdit);
 
 	g = structure == AL ? (AbstractGraph*)(new ALGraph(type)) : (AbstractGraph*)(new AMLGraph(type));
 	connect(view, SIGNAL(vexAdded(MyGraphicsVexItem*)), this, SLOT(addVex(MyGraphicsVexItem*)));
@@ -387,18 +404,114 @@ void GraphCanvas::Init(){
 		logDisplay->addWidget(newLog);
 		g->BFS(view->selectedVex(), generateForest);
 		view->hasVisitedItem = true;
+
+
+		QString BFSCode =
+			"QString BFS(const Graph& graph, int startNode){\n"
+			"    QString result = \"\";\n"
+			"    vector<bool> visited(graph.size(), false);\n"
+			"    queue<int> q;\n"
+			"    q.push(startNode);\n"
+			"    visited[startNode] = true;\n"
+			"\n"
+			"    while (!q.empty())\n"
+			"    {\n"
+			"        int currentNode = q.front();\n"
+			"        q.pop();\n"
+			"        result += QString(\"Node visited: %1\\n\").arg(currentNode);\n"
+			"\n"
+			"        for (int neighbor : graph[currentNode])\n"
+			"        {\n"
+			"            if (!visited[neighbor])\n"
+			"            {\n"
+			"                q.push(neighbor);\n"
+			"                visited[neighbor] = true;\n"
+			"            }\n"
+			"        }\n"
+			"    }\n"
+			"\n"
+			"    return result;\n"
+			"}\n";
+
+		textEdit->setText(BFSCode);
+
 	});
 	connect(startDfs, &textButton::clicked, this, [=](){
 		viewLog *newLog = new viewLog("[DFS] | --- DFS start ---");
 		newLog->setStyleSheet("color:#0078d4");
 		logDisplay->addWidget(newLog);
+
+		QString DFSCode =
+			"QString DFS(const Graph& graph, int startNode){\n"
+			"    QString result;\n"
+			"    vector<bool> visited(graph.size(), false);\n"
+			"    stack<int> s;\n"
+			"    s.push(startNode);\n"
+			"    visited[startNode] = true;\n"
+			"\n"
+			"    while (!s.empty())\n"
+			"    {\n"
+			"        int currentNode = s.top();\n"
+			"        s.pop();\n"
+			"        result += QString(\"Node visited: %1\\n\").arg(currentNode);\n"
+			"\n"
+			"        for (int neighbor : graph[currentNode])\n"
+			"        {\n"
+			"            if (!visited[neighbor])\n"
+			"            {\n"
+			"                s.push(neighbor);\n"
+			"                visited[neighbor] = true;\n"
+			"            }\n"
+			"        }\n"
+			"    }\n"
+			"\n"
+			"    return result;\n"
+			"}\n";
+
+
+		textEdit->setText(DFSCode);
+
 		g->DFS(view->selectedVex(), generateForest);
 		view->hasVisitedItem = true;
+
+
 	});
 	connect(startDij, &textButton::clicked, this, [=](){
 		viewLog *newLog = new viewLog("[Dij] | --- Dijkstra start ---");
 		newLog->setStyleSheet("color:#0078d4");
 		logDisplay->addWidget(newLog);
+
+		QString DijkstraCode =
+			"QString Dijkstra(const Graph& graph, int s){\n"
+			"    vector<int> distance(graph.size(), INT_MAX);\n"
+			"    priority_queue<...> pq;\n"
+			"    distance[s] = 0;\n"
+			"    pq.push({0, s});\n"
+			"\n"
+			"    while (!pq.empty())\n"
+			"    {\n"
+			"        int cn = pq.top().second;\n"
+			"        int currentDist = pq.top().first;\n"
+			"        pq.pop();\n"
+			"\n"
+			"        if (currentDist > distance[cn])\n"
+			"            continue;\n"
+			"\n"
+			"        for (auto& edge : graph[cn]){\n"
+			"            int nb = edge.first;\n"
+			"            int w = edge.second;\n"
+			"            int nD = currentDist + w;\n"
+			"\n"
+			"            if (nD < distance[nb]){\n"
+			"                distance[nb] = nD;\n"
+			"                pq.push({nD, nb});\n"
+			"            }\n"
+			"        }\n"
+			"    }\n"
+			"}\n";
+
+		textEdit->setText(DijkstraCode);
+
 		g->Dijkstra(view->selectedVex());
 		view->hasVisitedItem = true;
 		if(g->GetInfoOf(view->selectedVex())->strtVexInfo == nullptr){

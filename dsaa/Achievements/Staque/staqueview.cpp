@@ -24,6 +24,20 @@ StaqueView::StaqueView(QWidget* parent) :
 	_scene = new QGraphicsScene;
 	_scene->setBackgroundBrush(QColor(255, 255, 255));
 	this->setScene(_scene);
+
+
+	QFont font = QFont("Corbel", 13, QFont::Normal, true);
+	stack_info = new QGraphicsSimpleTextItem;
+	stack_info->setFont(font);
+	stack_info->setText(QString("size of the stack: %1").arg(stack.size()));
+	stack_info->setPos(100, 180);
+	_scene->addItem(stack_info);
+	queue_info = new QGraphicsSimpleTextItem;
+	queue_info->setFont(font);
+	queue_info->setText(QString("size of the queue: %1").arg(queue.size()));
+	queue_info->setPos(100, 210);
+	_scene->addItem(queue_info);
+
 }
 
 StaqueNodeItem* StaqueView::addNode(QPointF center,int value, qreal radius) {
@@ -31,25 +45,8 @@ StaqueNodeItem* StaqueView::addNode(QPointF center,int value, qreal radius) {
 	_scene->addItem(newNode);
 	newNode->estConnection(this); 
 	newNode->showAnimation();
-	vexNum++;
-	vexes.push_back(newNode);
-	//emit vexAdded(newNode);
 	emit logAdded(new StaqueViewLog(QString("[Vex] | Added \"" + newNode->Text() + "\"")));
 	return newNode;
-}
-
-void StaqueView::addLine(StaqueNodeItem* start, StaqueNodeItem* end) {
-	StaqueNodeLine* newLine = new StaqueNodeLine(start, end);
-	_scene->addItem(newLine);
-	//newLine->estConnection(this);
-	newLine->refrshLine();
-	newLine->setZValue(--zValue);
-	//start->addStartLine(newLine);
-	//end->addEndLine(newLine);
-	arcNum++;
-	lines.push_back(newLine);
-	//emit arcAdded(newLine);
-	emit logAdded(new StaqueViewLog(QString("[Arc] | Added \"" + newLine->stVex()->Text() + "\" -> \"" + newLine->edVex()->Text() + "\"")));
 }
 
 void StaqueView::mousePressEvent(QMouseEvent* event) {
@@ -66,21 +63,6 @@ void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
 	if (onRightPress) {
 		onRightPress = false;
 		return;
-	}
-
-	bool containsItem = false;
-	QPointF releasePos = mapToScene(event->pos());
-	QList<QGraphicsItem*> itemsAtReleasePos = scene()->items(releasePos);
-	for (QGraphicsItem* item : itemsAtReleasePos) {
-		if (item->contains(item->mapFromScene(releasePos))) {
-			// The position contains other node.
-			containsItem = true;
-			break;
-		}
-	}
-
-	if (!containsItem) {
-		on_stack_push_from_release(111, releasePos);
 	}
 
 	emit mouseReleased();
@@ -126,61 +108,57 @@ void StaqueView::wheelEvent(QWheelEvent* event) {
 	verticalScrollBar()->setValue(int(viewPoint.y() - viewHeight * vScale));
 }
 
-void StaqueView::push(int val){
-	stack.push(val);
-}
-
-void StaqueView::pop() {
-	stack.pop();;
-}
-
-void StaqueView::startLine(StaqueNodeItem* startVex)
-{
-	strtVex = startVex;
+void StaqueView::updateTextSize(int value) {
+	for (auto& x : stack) {
+		x->setTextSize(value);
+	}
+	for (auto& x : queue) {
+		x->setTextSize(value);
+	}
 }
 
 void StaqueView::setSel(QGraphicsItem* sel) {
 
 }
 
-
 void StaqueView::on_stack_push(int value){
-	stack.push(value);
-	if (stack.size() == 1) {
-		// Head node.
-		addNode(push_stackNodeScenePos, value);
+	if (stack.isEmpty()) {
+		stack.push_back(addNode(QPointF(radius + 20, radius + 20),value, radius));
 	}
 	else {
-		addNode(push_stackNodeScenePos + (QPointF(200,0) * node_spacing_rate), value);
-		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
+		stack.push_back(addNode(QPointF(stack.back()->rect().center() + QPointF(radius * 2, 0)), value, radius));
 	}
-	node_spacing_rate++;
+	stack_info->setText(QString("size of the stack: %1").arg(stack.size()));
 }
 
-void StaqueView::on_stack_push_from_release(int value,QPointF scenePos) {
-	stack.push(value);
-	if (stack.size() == 1) {
-		// Head node.
-		addNode(scenePos, value);
+int StaqueView::on_stack_pop(){
+	if (stack.isEmpty()) {
+		throw std::runtime_error("Stack is empty");
+	}
+	auto value = stack.back()->value();
+	stack.back()->remove();
+	stack.pop_back();
+	stack_info->setText(QString("size of the stack: %1").arg(stack.size()));
+	return value;
+}
+
+void StaqueView::on_queue_push(int value) {
+	if (queue.isEmpty()) {
+		queue.push_back(addNode(QPointF(radius + 20, 300), value, radius));
 	}
 	else {
-		addNode(scenePos, value);
-		addLine((StaqueNodeItem*)*(vexes.end() - 2), *(vexes.end() - 1));
+		queue.push_back(addNode(QPointF(queue.back()->rect().center() + QPointF(radius * 2, 0)), value, radius));
 	}
-	push_stackNodeScenePos = scenePos;
-	node_spacing_rate = 1;
+	queue_info->setText(QString("size of the queue: %1").arg(queue.size()));
 }
 
-void StaqueView::on_stack_pop(){
-	stack.pop();
-	// delete the last node
-	if (!vexes.isEmpty()) {
-		vexes.back()->remove();
-		vexes.pop_back();
+int StaqueView::on_queue_pop() {
+	if (queue.isEmpty()) {
+		throw std::runtime_error("Queue is empty");
 	}
-	if (!lines.isEmpty()) {
-		lines.back()->remove();
-		lines.pop_back();
-	}
-	node_spacing_rate == 1 ? node_spacing_rate = 1 : node_spacing_rate--;
+	auto value = queue.back()->value();
+	queue.front()->remove();
+	queue.pop_front();
+	queue_info->setText(QString("size of the queue: %1").arg(queue.size()));
+	return value;
 }

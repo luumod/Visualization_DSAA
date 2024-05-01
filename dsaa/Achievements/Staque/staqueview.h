@@ -28,47 +28,39 @@ private:
 	bool onRightPress = false;
 	QPointF lastPos;
 
-	QVector<StaqueNodeItem*> vexes;
-	QVector<StaqueNodeLine*> lines;
+	QVector<StaqueNodeItem*> stack;
+	QVector<StaqueNodeItem*> queue;
 
 	QGraphicsItem* selItem = nullptr;
 	StaqueNodeItem* strtVex = nullptr;
 
-
-	StaqueNodeItem* addNode(QPointF center, int value = -1, qreal radius = 50.0);
-	void addLine(StaqueNodeItem* start, StaqueNodeItem* end);
-	void startLine(StaqueNodeItem* startVex);
+	StaqueNodeItem* addNode(QPointF center, int value = -1, qreal radius = 30.0);
 	void mousePressEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);
 	void mouseMoveEvent(QMouseEvent* event);
 	void wheelEvent(QWheelEvent* event);
 	void resizeEvent(QResizeEvent* event) { this->setSceneRect(this->rect()); }
 public:
+	QGraphicsSimpleTextItem* stack_info{ nullptr };
+	QGraphicsSimpleTextItem* queue_info{ nullptr };
 	QPointF push_stackNodeScenePos = QPointF(0,0);
-	int node_spacing_rate = 1;
+	int radius = 30;
 	qreal zValue = -1;
-	int vexNum = 0;
-	int arcNum = 0;
-	QVector<StaqueNodeItem*> nodes;
-	Stack stack;
-	Queue queue;
-	bool hasVisitedItem = false;
-	void push(int val);
-	void pop();
 	StaqueView(QWidget* parent = nullptr);
 
 signals:
 	void logAdded(StaqueViewLog* log);
-
 	void mouseMoved(QPointF position);
 	void mouseLeftClicked(QPointF position);
 	void mouseRightClicked(QPointF position);
 	void mouseReleased();
 public slots:
+	void updateTextSize(int value);
 	void setSel(QGraphicsItem* sel);
 	void addLog(StaqueViewLog* log) { emit logAdded(log); }
 	void on_stack_push(int val);
-	void on_stack_push_from_release(int val, QPointF scenePos);
-	void on_stack_pop();
+	int on_stack_pop();
+	void on_queue_push(int val);
+	int on_queue_pop();
 };
 #endif // GRAPH_VIEW_H

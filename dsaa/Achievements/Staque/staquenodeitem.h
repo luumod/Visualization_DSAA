@@ -20,9 +20,9 @@ public:
 	using QGraphicsRectItem::QGraphicsRectItem;
 	StaqueNodeItem(QPointF _center, qreal _r, int nameID = 0, QGraphicsItem* parent = nullptr);
 
-	void move(QPointF position);
-
+	int value() { return _value; }
 	qreal getRadius() { return radius; }
+	void setTextSize(int value);
 	QString Text() { return nameText; }
 
 	void showAnimation();
@@ -37,10 +37,6 @@ public:
 	void estConnection(StaqueView* view);
 
 	void remove();
-	//void addStartLine(StaqueNodeLine* line) { linesStartWith.push_back(line); }
-	//void addEndLine(StaqueNodeLine* line) { linesEndWith.push_back(line); }
-	//void removeStartLine(StaqueNodeLine* line) { linesStartWith.remove(linesStartWith.indexOf(line)); }
-	//void removeEndLine(StaqueNodeLine* line) { linesEndWith.remove(linesEndWith.indexOf(line)); }
 signals:
 	void selected(QGraphicsItem* sel);
 	void logAdded(StaqueViewLog* log);
@@ -52,16 +48,15 @@ public slots:
 	void onMouseRelease();
 
 private:
-	int id;
+	int _value;
 
-	static unsigned int internalID;
 	QBrush regBrush = QBrush(QColor(58, 143, 192));
 	QBrush selBrush = QBrush(QColor(208, 90, 110));
 	QBrush visitedBrush = QBrush(QColor(0, 137, 108));
 	QBrush accessBrush = QBrush(QColor(152, 109, 178));
 
 	QString nameText = "";
-	QFont nameFont = QFont("Corbel", 13, QFont::Normal, true);
+	static QFont nameFont;
 	QString hintText = "";
 	QFont hintFont = QFont("Corbel", 12);
 
@@ -72,57 +67,6 @@ private:
 
 	QGraphicsSimpleTextItem* tag = nullptr;
 	QGraphicsSimpleTextItem* nameTag = nullptr;
-};
-
-class StaqueNodeLine : public QObject, public QGraphicsLineItem
-{
-	Q_OBJECT
-
-public:
-	StaqueNodeLine(StaqueNodeItem* start, StaqueNodeItem* end, QGraphicsItem* parent = nullptr);
-
-	void moveStart(StaqueNodeItem* start);
-	void moveEnd(StaqueNodeItem* end);
-
-	void remove();
-	void drawText();
-	void drawLine();
-	void delArrow();
-	void drawArrow();
-	void refrshLine();
-	void setLengthRate(qreal r = 1);
-	StaqueNodeItem* stVex() { return startVex; }
-	StaqueNodeItem* edVex() { return endVex; }
-signals:
-	void logAdded(StaqueViewLog* log);
-private:
-	StaqueNodeItem* startVex;
-	StaqueNodeItem* endVex;
-	QGraphicsLineItem* line1 = nullptr;
-	QGraphicsLineItem* line2 = nullptr;
-	QGraphicsPathItem* arrow = nullptr;
-	QGraphicsSimpleTextItem* textItem = nullptr;
-	QString text = "";
-
-	bool hasDirection;
-	qreal angle = 0;
-	QPointF center;
-	QPointF sP, eP, dP;
-
-	/* detail of the line */
-	qreal lineWidth = 3;
-	qreal arrowLength = 20;
-	Qt::PenStyle lineStyle = Qt::SolidLine;
-	Qt::PenCapStyle capStyle = Qt::RoundCap;
-	QColor defaultColor = QColor(125, 185, 222);
-	QColor hoverColor = QColor(0, 98, 132);
-	QColor selColor = QColor(208, 90, 110);
-	QColor visitColor = QColor(0, 137, 108);
-	QColor accessColor = QColor(178, 143, 206);
-	QPen defaultPen;
-	QPen curPen;
-	QFont textFont = QFont("Corbel", 12);
-	QColor textColor = QColor(0, 0, 0);
 };
 
 #endif // !STAQUENODEITEM_H_

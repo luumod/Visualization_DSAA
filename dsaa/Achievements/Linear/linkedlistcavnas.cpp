@@ -23,6 +23,7 @@
 #include <QColorDialog>
 #include <QButtonGroup>
 #include <QScrollArea>
+#include <QTextEdit>
 
 LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidget* parent)
 	:QWidget(parent),
@@ -39,6 +40,22 @@ LinkedListCanvas::LinkedListCanvas(int radius, QString name, QString desc, QWidg
 	view->setSceneRect(view->rect());
 	view->setStyleSheet("background-color: #FFFFFF;border:1px solid #cfcfcf;border-radius:10px;");
 	mainLayout->addWidget(view);
+
+	QWidget* text_view = new QWidget(this);
+	QHBoxLayout* layout_text_view = new QHBoxLayout(text_view);
+	text_view->setLayout(layout_text_view);
+	text_view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
+	text_view->setAutoFillBackground(true);
+	QPalette palette;
+	palette.setColor(QPalette::Window, Qt::white);
+	text_view->setPalette(palette);
+	mainLayout->addWidget(text_view);
+
+	textEdit = new QTextEdit(text_view);
+	textEdit->setReadOnly(true);
+	textEdit->setStyleSheet("border:0px");
+
+	layout_text_view->addWidget(textEdit);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
 
@@ -259,11 +276,38 @@ void LinkedListCanvas::Init()
 	connect(btn_push_back, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			view->push_back(input_push->value().toInt());
+
+			QString pushBackCode =
+				"void push_back(const int& elem) {\n"
+				"    if (empty()) {\n"
+				"        init_first_element(elem);\n"
+				"        return;\n"
+				"    }\n"
+				"\n"
+				"    m_tail->next = new Node{ elem, m_tail, nullptr };\n"
+				"    m_tail = m_tail->next;\n"
+				"    ++m_size;\n"
+				"}\n";
+			textEdit->setText(pushBackCode);
 		}
 		});
 	connect(btn_push_front, &textButton::clicked, this, [=]() {
 		if (!input_push->value().isEmpty()) {
 			view->push_front(input_push->value().toInt());
+
+			QString pushFrontCode =
+				"void push_front(const int& elem) {\n"
+				"    if (empty()) {\n"
+				"        init_first_element(elem);\n"
+				"        return;\n"
+				"    }\n"
+				"\n"
+				"    m_head->prev = new Node{ elem, nullptr, m_head };\n"
+				"    m_head = m_head->prev;\n"
+				"    ++m_size;\n"
+				"}\n";
+
+			textEdit->setText(pushFrontCode);
 		}
 		});
 	
@@ -283,13 +327,50 @@ void LinkedListCanvas::Init()
 	layout_del->setStretch(2, 3);
 	connect(btn_pop_front, &textButton::clicked, this, [=]() {
 		view->pop_front();
+
+		QString popFrontCode =
+			"void pop_front() {\n"
+			"    if (size() <= 1) {\n"
+			"        clean_up();\n"
+			"        return;\n"
+			"    }\n"
+			"\n"
+			"    m_head = m_head->next;\n"
+			"    delete m_head->prev;\n"
+			"    m_head->prev = nullptr;\n"
+			"    --m_size;\n"
+			"}\n";
+		textEdit->setText(popFrontCode);
+
 		});
 	connect(btn_pop_back, &textButton::clicked, this, [=]() {
 		view->pop_back();
+
+		QString popBackCode =
+			"void pop_back() {\n"
+			"    if (size() <= 1) {\n"
+			"        clean_up();\n"
+			"        return;\n"
+			"    }\n"
+			"\n"
+			"    m_tail = m_tail->prev;\n"
+			"    delete m_tail->next;\n"
+			"    m_tail->next = nullptr;\n"
+			"    --m_size;\n"
+			"}\n";
+
+		textEdit->setText(popBackCode);
+
 		});
 	connect(btn_clear, &textButton::clicked, this, [=]() {
 		view->clear();
-		view->update();
+	
+		QString popBackLoopCode =
+			"while (!list->empty()) {\n"
+			"    list->pop_back();\n"
+			"}\n";
+		textEdit->setText(popBackLoopCode);
+
 		});
 
 	// Random generate one node or whole linked list.
@@ -306,11 +387,38 @@ void LinkedListCanvas::Init()
 	connect(random_one_node, &textButton::clicked, this, [=]() {
 		int random = QRandomGenerator::global()->bounded(0, 10000);
 		view->push_back(random);
+
+		QString pushBackCode =
+			"void push_back(const int& elem) {\n"
+			"    if (empty()) {\n"
+			"        init_first_element(elem);\n"
+			"        return;\n"
+			"    }\n"
+			"\n"
+			"    m_tail->next = new Node{ elem, m_tail, nullptr };\n"
+			"    m_tail = m_tail->next;\n"
+			"    ++m_size;\n"
+			"}\n";
+		textEdit->setText(pushBackCode);
+
 		});
 	connect(random_whole_ls, &textButton::clicked, this, [=]() {
 		view->clear();
 		int size = QRandomGenerator::global()->bounded(5, 10);
 		view->random_gen(size);
+
+		QString pushBackCode =
+			"void push_back(const int& elem) {\n"
+			"    if (empty()) {\n"
+			"        init_first_element(elem);\n"
+			"        return;\n"
+			"    }\n"
+			"\n"
+			"    m_tail->next = new Node{ elem, m_tail, nullptr };\n"
+			"    m_tail = m_tail->next;\n"
+			"    ++m_size;\n"
+			"}\n";
+		textEdit->setText(pushBackCode);
 		});
 
 	// Insert node
@@ -331,6 +439,26 @@ void LinkedListCanvas::Init()
 		QString s_input =input_insert->value();
 		auto s_list = s_input.split(" ");
 		if (s_list.size() == 2) {
+
+			QString insertAtIndexCode =
+				"Node_ptr insert(int index, const int& elem) {\n"
+				"    if (index == 0) {\n"
+				"        push_front(elem);\n"
+				"        return m_head;\n"
+				"    }\n"
+				"    if (index >= m_size) {\n"
+				"        push_back(elem);\n"
+				"        return m_tail;\n"
+				"    }\n"
+				"    Node_ptr ptr = find(index);\n"
+				"    auto new_node = new Node{ elem, ptr->prev, ptr };\n"
+				"    ptr->prev->next = new_node;\n"
+				"    ptr->prev = new_node;\n"
+				"    ++m_size;\n"
+				"    return new_node;\n"
+				"}\n";
+			
+			textEdit->setText(insertAtIndexCode);
 			view->insert(s_list[0].toInt(),s_list[1].toInt());
 		}
 	});
@@ -349,6 +477,29 @@ void LinkedListCanvas::Init()
 	layout_delete->setStretch(1, 3);
 	connect(btn_delete, &textButton::clicked, this, [=]() {
 		if (!input_delete->value().isEmpty()) {
+			QString removeAtIndexCode =
+				"Node_ptr remove(int index) {\n"
+				"    if (index >= m_size) {\n"
+				"        return nullptr;\n"
+				"    }\n"
+				"    if (index == 0) {\n"
+				"        pop_front();\n"
+				"        return m_head;\n"
+				"    }\n"
+				"    if (index + 1 == m_size) {\n"
+				"        pop_back();\n"
+				"        return nullptr;\n"
+				"    }\n"
+				"    Node_ptr ptr = find(index);\n"
+				"    Node_ptr ret = ptr->next;\n"
+				"    ptr->next->prev = ptr->prev;\n"
+				"    ptr->prev->next = ptr->next;\n"
+				"    delete ptr;\n"
+				"    --m_size;\n"
+				"    return ret;\n"
+				"}\n";
+
+			textEdit->setText(removeAtIndexCode);
 			view->remove(input_delete->value().toInt());
 		}
 		});

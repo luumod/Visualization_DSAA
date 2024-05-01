@@ -60,7 +60,7 @@ StaquePage::StaquePage(QWidget* parent) :
 	_titleOneLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	_titleOneWidget->setLayout(_titleOneLayout);
 
-	_titleLabel = new QLabel("Staque and Queue", _contentWidget);
+	_titleLabel = new QLabel("Stack and Queue", _contentWidget);
 	_titleLabel->setFont(_titleFont);
 
 	SlidePage* page = staqueCanvas->settingPage();

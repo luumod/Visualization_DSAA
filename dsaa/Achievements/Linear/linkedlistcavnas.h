@@ -9,6 +9,7 @@ class QLabel;
 class QHBoxLayout;
 class BaseList;
 class LinkedListView;
+class QTextEdit;
 class LinkedListCanvas: public QWidget {
 	Q_OBJECT
 
@@ -42,6 +43,7 @@ private:
 
     //For display
     QHBoxLayout* mainLayout;
+    QTextEdit* textEdit{ nullptr };
     LinkedListView* view{ nullptr };
     QWidget* infoWidget;
     QLabel* pageName{ nullptr };

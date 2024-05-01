@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include "Components/slidepage.h"
 
+class QTextEdit;
 class GraphCanvas : public QWidget
 {
     Q_OBJECT
@@ -19,6 +20,7 @@ private:
 
     //For display
     MyGraphicsView *view;
+    QTextEdit* textEdit{ nullptr };
     QHBoxLayout *mainLayout;
     QWidget *infoWidget;
     QLabel *pageName;
