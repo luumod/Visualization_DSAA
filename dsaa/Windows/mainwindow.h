@@ -12,6 +12,7 @@ class LinkedListPage;
 class StaquePage;
 class GreedPage;
 class BSearchTreePage;
+class FindPage;
 class AboutPage;
 class bigIconButton;
 class SideBar;
@@ -44,6 +45,7 @@ private:
     StaquePage* _staquePage = nullptr;
     GreedPage* _greedPage = nullptr;
     BSearchTreePage* _bstreePage = nullptr;
+    FindPage* _findPage = nullptr;
     LinkedListPage* _listPage = nullptr;
 
     

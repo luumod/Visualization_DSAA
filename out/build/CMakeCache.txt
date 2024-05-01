@@ -21,7 +21,7 @@ CMAKE_AR:FILEPATH=D:/software/VS2022/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/l
 CMAKE_BUILD_TYPE:STRING=Release
 
 //CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=D:/software/VS2022/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
+CMAKE_CXX_COMPILER:STRING=D:/software/VS2022/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
 //No help, variable specified on the command line.
 CMAKE_CXX_FLAGS:STRING=-DQT_QML_DEBUG
@@ -42,7 +42,7 @@ CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=/MD /Zi /O2 /Ob1 /DNDEBUG
 CMAKE_CXX_STANDARD_LIBRARIES:STRING=kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
 
 //C compiler
-CMAKE_C_COMPILER:FILEPATH=D:/software/VS2022/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
+CMAKE_C_COMPILER:STRING=D:/software/VS2022/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe
 
 //Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=/DWIN32 /D_WINDOWS /W3
@@ -335,6 +335,8 @@ CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=
 CMAKE_HAVE_PTHREADS_CREATE:INTERNAL=
 //Have library pthread
 CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=
+//Have include pthread.h
+CMAKE_HAVE_PTHREAD_H:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=F:/code/Visual_DSAA
@@ -353,7 +355,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=13
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=14
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib
@@ -1103,6 +1105,8 @@ QT_FEATURE_xmlstreamwriter:INTERNAL=ON
 QT_FEATURE_xrender:INTERNAL=OFF
 //Qt feature: zstd (from target Qt6::Core)
 QT_FEATURE_zstd:INTERNAL=OFF
+//Link order matters
+QT_HAVE_LINK_ORDER_MATTERS:INTERNAL=FALSE
 //ADVANCED property for variable: Vulkan_GLSLANG_VALIDATOR_EXECUTABLE
 Vulkan_GLSLANG_VALIDATOR_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Vulkan_GLSLC_EXECUTABLE
@@ -1111,4 +1115,6 @@ Vulkan_GLSLC_EXECUTABLE-ADVANCED:INTERNAL=1
 Vulkan_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Vulkan_LIBRARY
 Vulkan_LIBRARY-ADVANCED:INTERNAL=1
+//Result of TRY_COMPILE
+link_order_matters:INTERNAL=TRUE
 

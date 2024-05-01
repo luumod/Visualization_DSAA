@@ -27,6 +27,7 @@ target_link_libraries(Visual_DSAA
     dsaa_staque
     dsaa_greed
     dsaa_tree
+    dsaa_find
     Qt6::Core
     Qt6::Widgets
 )
