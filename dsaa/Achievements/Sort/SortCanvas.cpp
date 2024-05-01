@@ -19,6 +19,7 @@
 #include <QListView>
 #include <QSpinBox>
 #include <QColorDialog>
+#include <QTextEdit>
 #include "BubbleSort.h"
 
 SortCanvas::SortCanvas(int radius, QString name, QString desc, QWidget *parent)
@@ -38,6 +39,22 @@ SortCanvas::SortCanvas(int radius, QString name, QString desc, QWidget *parent)
 	palette.setColor(QPalette::Window, Qt::white);
 	view->setPalette(palette);
 	mainLayout->addWidget(view);
+	
+
+	QWidget* text_view = new QWidget(this);
+	QHBoxLayout* layout_text_view = new QHBoxLayout(text_view);
+	text_view->setLayout(layout_text_view);
+	text_view->setStyleSheet("border:1px solid #cfcfcf; border-radius: 10px");
+	text_view->setAutoFillBackground(true);
+	palette.setColor(QPalette::Window, Qt::white);
+	text_view->setPalette(palette);
+	mainLayout->addWidget(text_view);
+
+	textEdit = new QTextEdit(text_view);
+	textEdit->setReadOnly(true);
+	textEdit->setStyleSheet("border:0px");
+
+	layout_text_view->addWidget(textEdit);
 	
 	this->setFocusPolicy(Qt::ClickFocus);
 
@@ -133,6 +150,8 @@ void SortCanvas::CreateSettings(int radius){
 		const int type = structureSetting->value();
 		if (type != getSortType()) {
 			SortObject* obj = SortFactory::getInstance()->createSortObject(type, this);
+			QString str = SortFactory::getInstance()->sortCode(type);
+			textEdit->setText(str);
 			setSortObject(type, obj);
 		}
 		setInterval(sortInterval->value());
@@ -237,30 +256,6 @@ void SortCanvas::Init(){
 	connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
 	volume->setEnabled(false);
 
-	// TODO ... add stop and start 
-	//textButton* btn_start = new textButton("Start", defInfoPage);
-	//textButton* btn_stop = new textButton("Stop", defInfoPage);
-	//textButton* btn_reset = new textButton("Reset", defInfoPage);
-	//QWidget* widget_btn = new QWidget(defInfoPage);
-	//widget_btn->setObjectName("DefTextItems");
-	//widget_btn->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	//QHBoxLayout* layout_btn = new QHBoxLayout(widget_btn);
-	//widget_btn->setLayout(layout_btn);
-	//layout_btn->addWidget(btn_start, 3);
-	//layout_btn->addWidget(btn_stop, 3);
-	//layout_btn->addWidget(btn_reset, 3);
-	//connect(btn_start, &textButton::clicked, this, [=]() {
-	//	sort(); // storage data and continuing.
-	//	});
-	//connect(btn_stop, &textButton::clicked, this, [=]() {
-	//	stop(); // suspend 
-	//	});
-	//connect(btn_reset, &textButton::clicked, this, [=]() {
-	//	sort(); // reset all data and renew start sort.
-	//	});
-
-
-
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(sortType);
@@ -272,6 +267,31 @@ void SortCanvas::Init(){
 	defInfoPage->show();
 
 	//--------------------------------
+	/*QWidget* middle = new QWidget(infoWidget);
+	QVBoxLayout* middleLayout = new QVBoxLayout(middle);
+	middle->setLayout(middleLayout);
+	middleLayout->setContentsMargins(0, 0, 0, 0);
+	middle->setContentsMargins(0, 0, 0, 0);
+	pageName = new QLabel(infoWidget);
+	pageName->setText("INFO");
+	pageName->setFont(titleFont);
+	pageName->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	pageName->setStyleSheet("color:#2c2c2c");
+	QWidget* upperSeparate = new QWidget(middle);
+	upperSeparate->setFixedSize(30, 6);
+	upperSeparate->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
+	middleLayout->addWidget(pageName);
+	middleLayout->addWidget(upperSeparate);
+
+	QWidget* defInfoPage = new QWidget(infoWidget);
+	QVBoxLayout* defInfoLayout = new QVBoxLayout(defInfoPage);
+	defInfoPage->setLayout(defInfoLayout);
+	defInfoLayout->setContentsMargins(0, 0, 0, 0);
+	defInfoLayout->setAlignment(Qt::AlignTop);*/
+
+
+	//-----------------------------------------
+
 
 	QWidget* lower = new QWidget(infoWidget);
 	QVBoxLayout* lowerLayout = new QVBoxLayout(lower);

@@ -11,6 +11,7 @@ class SlidePage;
 class QHBoxLayout;
 class QLabel;
 class ScrollAreaCustom;
+class QTextEdit;
 /**
  * @brief The main canvas for every sort operation.
  */
@@ -93,6 +94,7 @@ signals:
     void volumeChanged(QString volume);
     void finishedEachIteration();
 private:
+    QTextEdit* textEdit{ nullptr };
     int sortType{ -1 };
     SortObject* sortObj{ nullptr };
     QPalette palette{ nullptr };

@@ -33,6 +33,8 @@ public:
 	 * @brief Storage all of supported sort algorithms and return a QStringList to convenient programmer use.
 	 */
 	QStringList getSortList() const;
+
+	QString sortCode(int row);
 };
 
 #endif // !SORT_FACTORY
