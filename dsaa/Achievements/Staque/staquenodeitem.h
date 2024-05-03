@@ -45,7 +45,7 @@ public slots:
 	void onMouseMove(QPointF position);
 	void onLeftClick(QPointF position);
 	void onRightClick(QPointF position);
-	void onMouseRelease();
+	void onMouseRelease(QPointF position);
 
 private:
 	int _value;

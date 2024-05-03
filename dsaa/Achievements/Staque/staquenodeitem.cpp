@@ -83,13 +83,8 @@ void StaqueNodeItem::estConnection(StaqueView* view)
 	connect(view, SIGNAL(mouseMoved(QPointF)), this, SLOT(onMouseMove(QPointF)));
 	connect(view, SIGNAL(mouseLeftClicked(QPointF)), this, SLOT(onLeftClick(QPointF)));
 	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
-	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
+	connect(view, SIGNAL(mouseReleased(QPointF)), this, SLOT(onMouseRelease(QPointF)));
 	connect(this, SIGNAL(selected(QGraphicsItem*)), view, SLOT(setSel(QGraphicsItem*)));
-	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
-	connect(this, SIGNAL(lineFrom(MyGraphicsVexItem*)), view, SLOT(startLine(MyGraphicsVexItem*)));
-	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
-	connect(this, SIGNAL(removed(MyGraphicsVexItem*)), view, SLOT(vexRemoved(MyGraphicsVexItem*)));
-	connect(this, SIGNAL(addAnimation(QTimeLine*)), view, SLOT(addAnimation(QTimeLine*)));*/
 }
 
 void StaqueNodeItem::remove()
@@ -125,16 +120,30 @@ void StaqueNodeItem::onRightClick(QPointF position)
 {
 }
 
-void StaqueNodeItem::onMouseRelease()
+void StaqueNodeItem::onMouseRelease(QPointF position)
 {
-	onReleaseEffect();
 }
 
 void StaqueNodeItem::onClickEffect() {
 	stopAnimation();
 	qreal curRadius = 0.75 * radius;
-	this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = curRadius - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal newRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - newRadius, center.y() - newRadius, newRadius * 2, newRadius * 2));
+		});
+	connect(timeLine, &QTimeLine::finished, [=]() {
+		this->setRect(QRectF(center.x() - radius, center.y() - radius, radius * 2, radius * 2));
+		});
+	curAnimation = timeLine;
+	startAnimation();
 }
+
 
 void StaqueNodeItem::onReleaseEffect() {
 	stopAnimation();
@@ -148,6 +157,11 @@ void StaqueNodeItem::onReleaseEffect() {
 		qreal curRadius = baseRadius + difRadius * curProgress;
 		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
 		});
+
+	connect(timeLine, &QTimeLine::finished, [=]() {
+		this->setRect(QRectF(center.x() - baseRadius, center.y() - baseRadius, baseRadius * 2, baseRadius * 2));
+		});
+
 	curAnimation = timeLine;
 	startAnimation();
 }

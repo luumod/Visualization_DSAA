@@ -53,7 +53,7 @@ signals:
 	void mouseMoved(QPointF position);
 	void mouseLeftClicked(QPointF position);
 	void mouseRightClicked(QPointF position);
-	void mouseReleased();
+	void mouseReleased(QPointF position);
 public slots:
 	void updateTextSize(int value);
 	void setSel(QGraphicsItem* sel);

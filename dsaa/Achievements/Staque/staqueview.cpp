@@ -65,7 +65,7 @@ void StaqueView::mouseReleaseEvent(QMouseEvent* event) {
 		return;
 	}
 
-	emit mouseReleased();
+	emit mouseReleased(mapToScene(event->pos()));
 }
 
 void StaqueView::mouseMoveEvent(QMouseEvent* event) {
