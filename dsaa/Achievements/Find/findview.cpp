@@ -10,6 +10,8 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QSignalMapper>
+#include <QEventLoop>
+#include <QTimer>
 
 FindView::FindView(QWidget* parent) :
 	QGraphicsView(parent){
@@ -55,7 +57,7 @@ void FindView::mousePressEvent(QMouseEvent* event) {
 		lastPos = mapToScene(event->pos());
 		return;
 	}
-
+	qInfo() << "Press: " << mapToScene(event->pos());
 	emit mouseLeftClicked(mapToScene(event->pos()));
 }
 
@@ -65,7 +67,8 @@ void FindView::mouseReleaseEvent(QMouseEvent* event) {
 		return;
 	}
 
-	emit mouseReleased();
+	qInfo() << "release: " << mapToScene(event->pos());
+	emit mouseReleased(mapToScene(event->pos()));
 }
 
 void FindView::mouseMoveEvent(QMouseEvent* event) {
@@ -125,7 +128,7 @@ void FindView::on_push_back(int value)
 	else {
 		vec.push_back(addNode(QPointF(vec.back()->rect().center() + QPointF(radius * 2, 0)), value, radius));
 	}
-	//stack_info->setText(QString("size of the stack: %1").arg(vec.size()));
+	isSorted = false;
 }
 
 void FindView::on_push_front(int value)
@@ -136,6 +139,7 @@ void FindView::on_push_front(int value)
 	else {
 		vec.push_front(addNode(QPointF(vec.front()->rect().center() - QPointF(radius * 2, 0)), value, radius));
 	}
+	isSorted = false;
 }
 
 int FindView::on_pop_back()
@@ -146,7 +150,7 @@ int FindView::on_pop_back()
 	auto value = vec.back()->value();
 	vec.back()->remove();
 	vec.pop_back();
-	//stack_info->setText(QString("size of the stack: %1").arg(vec.size()));
+	isSorted = false;
 	return value;
 }
 
@@ -158,6 +162,7 @@ int FindView::on_pop_front()
 	auto value = vec.front()->value();
 	vec.front()->remove();
 	vec.pop_front();
+	isSorted = false;
 	return value;
 }
 
@@ -168,4 +173,71 @@ void FindView::clear()
 		vec.pop_back();
 	}
 	vec.clear();
+	isSorted = false;
+}
+
+void FindView::sort()
+{
+	QVector<QPointF> pos;
+	//preserve
+	for (auto& x : vec) {
+		pos.push_back(QPointF(x->rect().center()));
+	}
+	std::sort(vec.begin(), vec.end(), [=](FindNodeItem* item1, FindNodeItem* item2) {
+		return item1->value() < item2->value();
+	});
+	for (int i = 0; i < vec.size(); i++) {
+		vec[i]->moveTo(pos[i]);
+	}
+	isSorted = true;
+}
+
+bool FindView::sequentialSearch(int value)
+{
+	if (vec.isEmpty())
+		return false;
+	for (int i = 0; i < vec.size();i++) {
+		auto node = vec[i];
+		node->onSearchEffect();
+		QEventLoop loop;
+		QTimer::singleShot(300, &loop, &QEventLoop::quit);
+		loop.exec();
+		if (node->value() == value) {
+			emit logAdded(new FindViewLog(QString("[Sequence] find it: value = %1, pos = %2").arg(value).arg(i)));
+			return true; //Find it !!!
+		}
+	}
+	emit logAdded(new FindViewLog(QString("[Sequence] find error! %1 do not exist.").arg(value)));
+	return false;
+}
+
+int FindView::binarySearch(int value)
+{
+	if (!isSorted) {
+		sort();
+	}
+	// Must be ascending array and search the first element that equal and greater than value.
+	int left = 0, right = vec.size() - 1;
+	while (left <= right) {
+		int mid = left + (right - left) / 2;
+		vec[mid]->onSearchEffect();
+		QEventLoop loop;
+		QTimer::singleShot(300, &loop, &QEventLoop::quit);
+		loop.exec();
+		if (vec[mid]->value() >= value)
+		{
+			right = mid - 1;//[left,mid-1]
+		}
+		else
+		{
+			left = mid + 1; //[mid+1,right]
+		}
+	}
+	if (left >= vec.size() || vec[left]->value() != value) {
+		emit logAdded(new FindViewLog(QString("[Binary] find error! %1 do not exist.").arg(value)));
+	}
+	else {
+		emit logAdded(new FindViewLog(QString("[Binary] find it: value = %1, pos = %2").arg(value).arg(left)));
+	}
+	return left;
 }

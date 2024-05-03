@@ -89,35 +89,6 @@ void LinkedListCanvas::CreateSettings(int radius)
 	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
 
-	// Adjust attributes panel for the node.
-	//SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
-	//SpinBox* spin_node_width = new SpinBox("Node Width",40,100,60, settings);
-	//SpinBox* spin_node_height = new SpinBox("Node Height",30,100,30, settings);
-	//SpinBox* spin_arrow_length = new SpinBox("Arrow Length",1,100,10, settings);
-	//SpinBox* spin_text_size = new SpinBox("Text Size",1,20,5, settings);
-	//SpinBox* spin_max_number = new SpinBox("Max number",1,10,5, settings);
-	//SpinBox* spin_row_spacing = new SpinBox("Row spacing",10,100,20, settings);
-	//adjust_spin_group->AddItem(spin_node_width);
-	//adjust_spin_group->AddItem(spin_node_height);
-	//adjust_spin_group->AddItem(spin_arrow_length);
-	//adjust_spin_group->AddItem(spin_text_size);
-	//adjust_spin_group->AddItem(spin_max_number);
-	//adjust_spin_group->AddItem(spin_row_spacing);
-	//connect(adjust_spin_group, &SpinBoxGroup::spinBoxItemChange, this, [=](int unused) {
-	//	// Update all inborn attributes actually, not care if your whether modified it.
-	//	/*view->updateSettings(
-	//		spin_node_width->value(),
-	//		spin_node_height->value(),
-	//		spin_arrow_length->value(),
-	//		spin_text_size->value(),
-	//		spin_max_number->value(),
-	//		spin_row_spacing->value());*/
-	//});
-	//connect(adjust_spin_group, &SpinBoxGroup::spinBoxReset, this, [=]() {
-	//	//view->resetSettings();
-	//});
-
-
 	textInputItem* rename = new textInputItem("Set name", settings);
 	rename->setValue(canvasName);
 	connect(rename, &textInputItem::textEdited, this, [=](QString text) {

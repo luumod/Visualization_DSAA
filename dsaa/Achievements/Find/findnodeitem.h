@@ -8,6 +8,7 @@
 #include <QPen>
 #include <QColor>
 
+class QGraphicsPolygonItem;
 class QGraphicsSimpleTextItem;
 class QTimeLine;
 class FindView;
@@ -18,6 +19,8 @@ class FindNodeItem : public QObject, public QGraphicsRectItem {
 public:
 	using QGraphicsRectItem::QGraphicsRectItem;
 	FindNodeItem(QPointF _center, qreal _r, int nameID = 0, QGraphicsItem* parent = nullptr);
+
+	void moveTo(QPointF dst_center);
 
 	int value() { return _value; }
 	qreal getRadius() { return radius; }
@@ -30,7 +33,7 @@ public:
 
 	void onClickEffect();
 	void onReleaseEffect();
-
+	void onSearchEffect();
 	void onPopEffect();
 
 	void estConnection(FindView* view);
@@ -44,7 +47,7 @@ public slots:
 	void onMouseMove(QPointF position);
 	void onLeftClick(QPointF position);
 	void onRightClick(QPointF position);
-	void onMouseRelease();
+	void onMouseRelease(QPointF position);
 
 private:
 	int _value;

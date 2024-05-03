@@ -36,6 +36,15 @@ FindNodeItem::FindNodeItem(QPointF _center, qreal _r, int value, QGraphicsItem* 
 	this->setBrush(regBrush);
 }
 
+void FindNodeItem::moveTo(QPointF dst_center)
+{
+	center = dst_center;
+	this->setRect(QRectF(center.x() - radius, center.y() - radius, radius * 2, radius * 2));
+	if (nameTag) {
+		nameTag->setPos(center + QPointF(-10, -radius - QFontMetrics(nameFont).height()));
+	}
+}
+
 void FindNodeItem::setTextSize(int value)
 {
 	nameFont.setPointSize(value);
@@ -55,8 +64,13 @@ void FindNodeItem::showAnimation()
 		qreal curProgress = curve.valueForProgress(frame / 200.0);
 		qreal curRadius = baseRadius + difRadius * curProgress;
 		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+		qInfo() << curRadius;
 		});
 	curAnimation = timeLine;
+	connect(curAnimation, &QTimeLine::finished, this, [=]() {
+		this->setRect(QRectF(center.x() - radius, center.y() - radius, radius * 2, radius * 2));
+		qInfo() << "finished:" << radius;
+		});
 	startAnimation();
 }
 
@@ -83,12 +97,7 @@ void FindNodeItem::estConnection(FindView* view)
 	connect(view, SIGNAL(mouseMoved(QPointF)), this, SLOT(onMouseMove(QPointF)));
 	connect(view, SIGNAL(mouseLeftClicked(QPointF)), this, SLOT(onLeftClick(QPointF)));
 	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
-	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
-	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
-	connect(this, SIGNAL(lineFrom(MyGraphicsVexItem*)), view, SLOT(startLine(MyGraphicsVexItem*)));
-	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
-	connect(this, SIGNAL(removed(MyGraphicsVexItem*)), view, SLOT(vexRemoved(MyGraphicsVexItem*)));
-	connect(this, SIGNAL(addAnimation(QTimeLine*)), view, SLOT(addAnimation(QTimeLine*)));*/
+	connect(view, SIGNAL(mouseReleased(QPointF)), this, SLOT(onMouseRelease(QPointF)));
 }
 
 void FindNodeItem::remove()
@@ -114,8 +123,6 @@ void FindNodeItem::onMouseMove(QPointF position) {
 void FindNodeItem::onLeftClick(QPointF position)
 {
 	if (this->contains(position)) {
-		emit selected(this);
-		//state |= ON_LEFT_CLICK;
 		onClickEffect();
 	}
 }
@@ -124,16 +131,31 @@ void FindNodeItem::onRightClick(QPointF position)
 {
 }
 
-void FindNodeItem::onMouseRelease()
+void FindNodeItem::onMouseRelease(QPointF position)
 {
-	onReleaseEffect();
+	
 }
 
 void FindNodeItem::onClickEffect() {
 	stopAnimation();
 	qreal curRadius = 0.75 * radius;
-	this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = curRadius - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal newRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - newRadius, center.y() - newRadius, newRadius * 2, newRadius * 2));
+		});
+	connect(timeLine, &QTimeLine::finished, [=]() {
+		this->setRect(QRectF(center.x() - radius, center.y() - radius, radius * 2, radius * 2));
+		});
+	curAnimation = timeLine;
+	startAnimation();
 }
+
 
 void FindNodeItem::onReleaseEffect() {
 	stopAnimation();
@@ -147,6 +169,34 @@ void FindNodeItem::onReleaseEffect() {
 		qreal curRadius = baseRadius + difRadius * curProgress;
 		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
 		});
+
+	connect(timeLine, &QTimeLine::finished, [=]() {
+		this->setRect(QRectF(center.x() - baseRadius, center.y() - baseRadius, baseRadius * 2, baseRadius * 2));
+		});
+
+	curAnimation = timeLine;
+	startAnimation();
+}
+
+
+void FindNodeItem::onSearchEffect()
+{
+	stopAnimation();
+	QTimeLine* timeLine = new QTimeLine(300, this);
+	timeLine->setFrameRange(0, 100);
+	QEasingCurve curve = QEasingCurve::OutBounce;
+	qreal baseRadius = this->rect().width() / 2;
+	qreal difRadius = radius * 1.5 - baseRadius;
+	connect(timeLine, &QTimeLine::frameChanged, [=](int frame) {
+		qreal curProgress = curve.valueForProgress(frame / 100.0);
+		qreal curRadius = baseRadius + difRadius * curProgress;
+		this->setRect(QRectF(center.x() - curRadius, center.y() - curRadius, curRadius * 2, curRadius * 2));
+		});
+
+	connect(timeLine, &QTimeLine::finished, [=]() {
+		this->setRect(QRectF(center.x() - baseRadius, center.y() - baseRadius, baseRadius * 2, baseRadius * 2));
+		});
+
 	curAnimation = timeLine;
 	startAnimation();
 }

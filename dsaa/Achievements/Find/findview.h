@@ -39,6 +39,7 @@ public:
 	QGraphicsSimpleTextItem* queue_info{ nullptr };
 	QPointF push_stackNodeScenePos = QPointF(0,0);
 	int radius = 30;
+	bool isSorted{ false };
 	qreal zValue = -1;
 	FindView(QWidget* parent = nullptr);
 
@@ -47,7 +48,7 @@ signals:
 	void mouseMoved(QPointF position);
 	void mouseLeftClicked(QPointF position);
 	void mouseRightClicked(QPointF position);
-	void mouseReleased();
+	void mouseReleased(QPointF position);
 public slots:
 	void updateTextSize(int value);
 	void addLog(FindViewLog* log) { emit logAdded(log); }
@@ -56,5 +57,8 @@ public slots:
 	int on_pop_back();
 	int on_pop_front();
 	void clear();
+	void sort(); //ascending
+	bool sequentialSearch(int value);
+	int binarySearch(int value);
 };
 #endif // FIND_VIEW_H

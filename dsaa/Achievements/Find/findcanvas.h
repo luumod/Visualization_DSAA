@@ -26,7 +26,7 @@ signals:
     void runFlagChanged(bool running);
     void nameChanged(QString name);
     void descChanged(QString desc);
-
+    void choiceSearchApproach(int type);
 private: 
 
     QString canvasName;

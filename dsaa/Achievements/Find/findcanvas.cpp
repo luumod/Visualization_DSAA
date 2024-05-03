@@ -51,6 +51,14 @@ void FindCanvas::CreateSettings(int radius)
 {
 	/* create settings page */
 	settings = new SlidePage(radius, "SETTINGS", this->parentWidget());
+	singleSelectGroup* structureSetting = new singleSelectGroup("Structure", settings);
+	selectionItem* search_way1 = new selectionItem("Sequential search", "Adjacent list structure", settings);
+	selectionItem* search_way2 = new selectionItem("Binary search", "Adjacent multiple list", settings);
+	structureSetting->AddItem(search_way1);
+	structureSetting->AddItem(search_way2);
+	connect(structureSetting, &singleSelectGroup::selectedItemChange, this, [=](int id) {
+		
+	});
 
 	QWidget* spacingLine = new QWidget(this);
 	spacingLine->setFixedHeight(1);
@@ -58,14 +66,6 @@ void FindCanvas::CreateSettings(int radius)
 
 	QWidget* whiteSpace = new QWidget(settings);
 	whiteSpace->setFixedHeight(30);
-
-	// Adjust attributes panel for the node.
-	SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Adjust panel", settings);
-	SpinBox* spin_text_size = new SpinBox("Text size",1,30,13, settings);
-	adjust_spin_group->AddItem(spin_text_size);
-	connect(spin_text_size, &SpinBox::valueChanged, this, [=](int value) {
-		view->updateTextSize(value);
-	});
 
 	textInputItem* rename = new textInputItem("Set name", settings);
 	rename->setValue(canvasName);
@@ -87,15 +87,42 @@ void FindCanvas::CreateSettings(int radius)
 #endif
 		});
 
+	// Adjust attributes panel for the node.
+	SpinBoxGroup* adjust_spin_group = new SpinBoxGroup("Initialize search", settings);
+	SpinBox* spin_search_key = new SpinBox("Search key", -INT_MAX, INT_MAX, 1, settings);
+	adjust_spin_group->AddItem(spin_search_key);
+	/*connect(spin_search_key, &SpinBox::valueChanged, this, [=](int value) {
+		view->updateTextSize(value);
+		});*/
+
+	textButton* btnSearch = new textButton("Search it !", settings);
+	connect(btnSearch, &textButton::clicked, settings, [=] {
+		settings->slideOut();
+		const int search_type = structureSetting->value();
+		switch (search_type)
+		{
+		case 0:
+			view->sequentialSearch(spin_search_key->value());
+			break;
+		case 1:
+			view->binarySearch(spin_search_key->value());
+			break;
+		default:
+			break;
+		}
+		});
+
 	QWidget* whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
 
 	QWidget* whiteSpace_on = new QWidget(settings);
 	whiteSpace_on->setFixedHeight(10);
 
+	settings->AddContent(btnSearch);
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(spacingLine);
 	settings->AddContent(adjust_spin_group);
+	settings->AddContent(structureSetting);
 	settings->AddContent(whiteSpace);
 	settings->AddContent(redesc);
 	settings->AddContent(rename);
@@ -192,6 +219,7 @@ void FindCanvas::Init()
 	textButton* btn_pop_front = new textButton("pop front", defInfoPage);
 	textButton* btn_random_gen = new textButton("Random generate", defInfoPage);
 	textButton* btn_clear_all = new textButton("Clear array", defInfoPage);
+	textButton* btn_sort = new textButton("Sort array (ascending)", defInfoPage);
 	QWidget* widget_push = new QWidget(defInfoPage);
 	widget_push->setObjectName("DefTextItems");
 	widget_push->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
@@ -205,6 +233,7 @@ void FindCanvas::Init()
 	layout_push->addWidget(btn_pop_front, 2, 2, 1, 2); 
 	layout_push->addWidget(btn_random_gen, 3, 0, 1, 2);
 	layout_push->addWidget(btn_clear_all, 3, 2, 1, 2);
+	layout_push->addWidget(btn_sort, 4, 0, 1, 4);
 	connect(btn_random_data, &textButton::clicked, this, [=]() {
 		int random_value = QRandomGenerator::global()->bounded(0, 1000);
 		input_push->setValue(QString::number(random_value));
@@ -255,44 +284,10 @@ void FindCanvas::Init()
 	connect(btn_clear_all, &textButton::clicked, this, [=]() {
 		view->clear();
 		});
+	connect(btn_sort, &textButton::clicked, this, [=]() {
+		view->sort();
+		});
 	
-
-	// user input
-	// push 
-	/*textInputItem* input_custom = new textInputItem("custom", defInfoPage);
-	textButton* btn_custom_stack = new textButton("To stack", defInfoPage);
-	textButton* btn_custom_queue = new textButton("To queue", defInfoPage);
-	QWidget* widget_custom = new QWidget(defInfoPage);
-	widget_custom->setObjectName("DefTextItems");
-	widget_custom->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
-	QGridLayout* layout_custom = new QGridLayout(widget_custom);
-	widget_custom->setLayout(layout_custom);
-	layout_custom->addWidget(input_custom, 0, 0, 1, 4);
-	layout_custom->addWidget(btn_custom_stack, 1, 0, 1, 2);
-	layout_custom->addWidget(btn_custom_queue, 1, 2, 1, 2);
-	connect(btn_custom_stack, &textButton::clicked, this, [=]() {
-		if (!input_custom->value().isEmpty()) {
-			QStringList input = input_custom->value().split(" ");
-			QVector<int> arr;
-			for (auto& x : input) {
-				arr.append(x.toInt());
-				view->on_stack_push(x.toInt());
-			}
-			logDisplay->addWidget(new FindViewLog(QString("[stack] construct: %1").arg(input_custom->value()), logDisplay));
-		}
-	});
-	connect(btn_custom_queue, &textButton::clicked, this, [=]() {
-		if (!input_custom->value().isEmpty()) {
-			QStringList input = input_custom->value().split(" ");
-			QVector<int> arr;
-			for (auto& x : input) {
-				arr.append(x.toInt());
-				view->on_queue_push(x.toInt());
-			}
-			logDisplay->addWidget(new FindViewLog(QString("[queue] construct: %1").arg(input_custom->value()), logDisplay));
-		}
-		});*/
-
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(widget_push);
