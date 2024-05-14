@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPainter>
 #include <QVector>
+#include <QEventLoop>
 
 /**
  * @brief The parent class of all sort object.
@@ -47,13 +48,19 @@ public:
      */
     void setRunFlag(bool flag);
 
+    void on_single_step();
+    void on_finish_all();
+
 signals:
     void runFlagChanged(bool running);
     void updateToDraw();
     void finishedEachIteration(QVector<int> arr);
 
-private:
+public:
+    QVector<int> u_arr;
     bool runFlag{false};
+    bool finish{ false };
+    QEventLoop loop_single_step;
 };
 
 #endif

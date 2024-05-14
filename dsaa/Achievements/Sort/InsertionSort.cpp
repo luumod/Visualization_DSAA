@@ -75,6 +75,9 @@ void InsertionSort::sort(int count, int interval)
                 return;
             }
         }
+        if (!finish) {
+            loop_single_step.exec();
+        }
         emit finishedEachIteration(arr);
         QEventLoop loop;
         QTimer::singleShot(200, &loop, &QEventLoop::quit);
@@ -83,6 +86,7 @@ void InsertionSort::sort(int count, int interval)
             return;
         }
     }
+    finish = false;
 }
 
 void InsertionSort::stop()
@@ -145,20 +149,23 @@ void InsertionSort::draw(QPainter *painter, int width, int height)
 
 void InsertionSort::initArr(int count)
 {
-    if (count < 2) {
-        return;
+    if (!u_arr.isEmpty()) {
+        arr = u_arr;
     }
+    else {
+        if (count < 2) {
+            return;
+        }
 
-    //初始化并随机打乱数据
-    arr.resize(count);
-    for (int i = 0; i < count; i++)
-    {
-        arr[i] = i + 1;
+        arr.resize(count);
+        for (int i = 0; i < count; i++)
+        {
+            arr[i] = i + 1;
+        }
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(arr.begin(), arr.end(), g);
     }
-
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(arr.begin(), arr.end(), g);
 
     arrI = 0;
     arrJ = 0;

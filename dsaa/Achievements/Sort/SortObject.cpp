@@ -19,3 +19,14 @@ void SortObject::setRunFlag(bool flag)
 	runFlag = flag;
 	emit runFlagChanged(flag);
 }
+
+void SortObject::on_single_step()
+{
+	loop_single_step.quit();
+}
+
+void SortObject::on_finish_all()
+{
+	loop_single_step.quit();
+	finish = true;
+}

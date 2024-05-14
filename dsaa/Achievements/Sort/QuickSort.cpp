@@ -177,20 +177,25 @@ void QuickSort::draw(QPainter *painter, int width, int height)
 
 void QuickSort::initArr(int count)
 {
-	if (count < 2) {
+	if (!u_arr.isEmpty()) {
+		arr = u_arr;
 		return;
 	}
+	else {
+		if (count < 2) {
+			return;
+		}
 
-	//初始化并随机打乱数据
-	arr.resize(count);
-	for (int i = 0; i < count; i++)
-	{
-		arr[i] = i + 1;
+		arr.resize(count);
+		for (int i = 0; i < count; i++)
+		{
+			arr[i] = i + 1;
+		}
+
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(arr.begin(), arr.end(), g);
 	}
-
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(arr.begin(), arr.end(), g);
 
 	swapFlag = false;
 	rangeStack.clear();
@@ -251,6 +256,9 @@ void QuickSort::doSort(int low, int high)
 	}
 	arr[curBegin] = posValue; //填坑
 	wait(interval);
+	if (!finish) {
+		loop_single_step.exec();
+	}
 	emit finishedEachIteration(arr);
 	if (!getRunFlag()) {
 		return;

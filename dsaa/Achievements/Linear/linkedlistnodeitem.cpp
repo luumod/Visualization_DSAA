@@ -382,11 +382,6 @@ void LinkedListNodeLine::estConnection(LinkedListView* view)
 	connect(view, SIGNAL(mouseRightClicked(QPointF)), this, SLOT(onRightClick(QPointF)));
 	connect(view, SIGNAL(mouseReleased()), this, SLOT(onMouseRelease()));
 	connect(view, &LinkedListView::brushColorChanged, this, &LinkedListNodeLine::freshBrushColor);
-	/*connect(this, SIGNAL(setHover(bool)), view, SLOT(setHover(bool)));
-	connect(this, SIGNAL(selected(QGraphicsItem*)), view, SLOT(setSel(QGraphicsItem*)));
-	connect(this, SIGNAL(menuStateChanged(QGraphicsItem*, bool)), view, SLOT(setMenu(QGraphicsItem*, bool)));
-	connect(this, SIGNAL(addAnimation(QTimeLine*)), view, SLOT(addAnimation(QTimeLine*)));
-	connect(this, SIGNAL(removed(MyGraphicsLineItem*)), view, SLOT(arcRemoved(MyGraphicsLineItem*)));*/
 }
 
 void LinkedListNodeLine::hoverInEffect()
@@ -443,7 +438,7 @@ void LinkedListNodeLine::drawLine()
 	//this->setPen(curPen);
 	QPen bgPen;
 	bgPen.setColor(lineBrush.color());
-	bgPen.setWidth(lineWidth + 5);
+	bgPen.setWidth(lineWidth);
 	this->setPen(bgPen);
 
 	if (line1) {
@@ -498,15 +493,16 @@ void LinkedListNodeLine::drawLine()
 		this->scene()->addItem(newLine);
 		line1 = newLine;
 	}
-
-	if (hasDirection) {
+	delArrow();
+	drawArrow();
+	/*if (hasDirection) {
 		delArrow();
 		drawArrow();
 	}
 	else {
 		if (arrow)
 			delArrow();
-	}
+	}*/
 }
 
 void LinkedListNodeLine::delArrow()

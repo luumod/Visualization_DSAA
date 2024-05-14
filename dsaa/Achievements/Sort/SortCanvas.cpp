@@ -144,8 +144,10 @@ void SortCanvas::CreateSettings(int radius){
 	QWidget* whiteSpace2 = new QWidget(settings);
 	whiteSpace2->setFixedHeight(30);
 
+	textInputItem* input_data = new textInputItem("input", settings);
 	textButton* btnStart = new textButton("Start", settings);
 	textButton* btnStop = new textButton("Stop", settings);
+
 	connect(btnStart, &textButton::clicked, settings, [=] {
 		const int type = structureSetting->value();
 		if (type != getSortType()) {
@@ -157,6 +159,17 @@ void SortCanvas::CreateSettings(int radius){
 		setInterval(sortInterval->value());
 		setDataVolume(sortDataVolume->value());
 		settings->slideOut();
+		if (!input_data->value().isEmpty()) {
+			QVector<int> u_arr;
+			QStringList ss = input_data->value().split(" ");
+			for (auto& x : ss) {
+				u_arr.append(x.toInt());
+			}
+			u_arr.removeAll(0);
+			sortObj->u_arr.clear();
+			sortObj->u_arr = u_arr;	
+		}
+		sortObj->finish = false;
 		sort();
 		});
 	// Clicked to stop sort.
@@ -167,6 +180,8 @@ void SortCanvas::CreateSettings(int radius){
 
 	settings->AddContent(btnStop);
 	settings->AddContent(btnStart);
+	settings->AddContent(whiteSpace2);
+	settings->AddContent(input_data);
 	settings->AddContent(whiteSpace2);
 	settings->AddContent(structureSetting);
 	settings->AddContent(sortDataVolume);
@@ -256,40 +271,33 @@ void SortCanvas::Init(){
 	connect(this, &SortCanvas::volumeChanged, this, [=](QString value) {volume->setValue(value); });
 	volume->setEnabled(false);
 
+	// one step.
+	QWidget* widget_step = new QWidget(defInfoPage);
+	widget_step->setObjectName("DefTextItems");
+	widget_step->setStyleSheet("QWidget#DefTextItems{border:1px solid #cfcfcf;border-radius:5px;}");
+	QGridLayout* layout_widget_step = new QGridLayout(widget_step);
+	widget_step->setLayout(layout_widget_step);
+	textButton* step_1 = new textButton("Single step", defInfoPage);
+	textButton* step_2 = new textButton("Finish", defInfoPage);
+	layout_widget_step->addWidget(step_1, 0, 0, 1, 2);
+	layout_widget_step->addWidget(step_2, 0, 2, 1, 2);
+	connect(step_1, &textButton::clicked, this, [=]() {
+		emit single_step(); 
+	});
+	connect(step_2, &textButton::clicked, this, [=]() {
+		emit finish_all();
+	});
+
 	defTextLayout->addWidget(textName);
 	defTextLayout->addWidget(textDesc);
 	defTextLayout->addWidget(sortType);
 	defTextLayout->addWidget(interval);
 	defTextLayout->addWidget(volume);
+	defTextLayout->addWidget(widget_step);
 
 	defInfoLayout->addWidget(defTextItems);
 	upperLayout->addWidget(defInfoPage);
 	defInfoPage->show();
-
-	//--------------------------------
-	/*QWidget* middle = new QWidget(infoWidget);
-	QVBoxLayout* middleLayout = new QVBoxLayout(middle);
-	middle->setLayout(middleLayout);
-	middleLayout->setContentsMargins(0, 0, 0, 0);
-	middle->setContentsMargins(0, 0, 0, 0);
-	pageName = new QLabel(infoWidget);
-	pageName->setText("INFO");
-	pageName->setFont(titleFont);
-	pageName->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	pageName->setStyleSheet("color:#2c2c2c");
-	QWidget* upperSeparate = new QWidget(middle);
-	upperSeparate->setFixedSize(30, 6);
-	upperSeparate->setStyleSheet("background-color:#3c3c3c;border-radius:3px;");
-	middleLayout->addWidget(pageName);
-	middleLayout->addWidget(upperSeparate);
-
-	QWidget* defInfoPage = new QWidget(infoWidget);
-	QVBoxLayout* defInfoLayout = new QVBoxLayout(defInfoPage);
-	defInfoPage->setLayout(defInfoLayout);
-	defInfoLayout->setContentsMargins(0, 0, 0, 0);
-	defInfoLayout->setAlignment(Qt::AlignTop);*/
-
-
 	//-----------------------------------------
 
 
@@ -337,6 +345,7 @@ void SortCanvas::setSortObject(int type, SortObject *obj)
 	sortObj = obj;
 
 	if (sortObj) {
+		sortObj->finish = false;
 		connect(sortObj, &SortObject::updateToDraw, this, [this]{
 			update();
 		});
@@ -349,6 +358,8 @@ void SortCanvas::setSortObject(int type, SortObject *obj)
 			QString result = stringList.join(" ");
 			logDisplay->addWidget(new SortViewLog(QString("[Iteration]: %1").arg(result), logDisplay));
 			});
+		connect(this, &SortCanvas::single_step, sortObj, &SortObject::on_single_step);
+		connect(this, &SortCanvas::finish_all, sortObj, &SortObject::on_finish_all);
 	}
 	update();
 }

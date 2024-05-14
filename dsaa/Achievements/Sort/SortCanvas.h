@@ -57,6 +57,7 @@ public:
      */
     void setDataVolume(int dataVolume);
 
+
     QString canvasName;
     QString canvasDescription;
     QString canvasSortType = "Bubble Sort";
@@ -93,6 +94,9 @@ signals:
     void intervalChanged(QString interval);
     void volumeChanged(QString volume);
     void finishedEachIteration();
+    void single_step();
+    void finish_all();
+    void userInputData(QString str);
 private:
     QTextEdit* textEdit{ nullptr };
     int sortType{ -1 };

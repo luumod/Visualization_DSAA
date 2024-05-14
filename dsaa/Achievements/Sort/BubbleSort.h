@@ -45,7 +45,7 @@ private:
 	 */
 	void initArr(int count);
 
-private:
+public:
 	QEventLoop loop;
 	QVariantAnimation animation;
 	QVector<int> arr;
